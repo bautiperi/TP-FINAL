@@ -92,7 +92,7 @@ void encender_led(int num)
     {
         printf("Device successfully opened\n");
     }
-    if (fputc('1', handle) == -1) // Set pin low
+    if (fputc('1', handle) == -1) // Set pin high
     {
         printf("Clr_Pin: Cannot write to file. Try again later.\n");
         exit(1);
