@@ -16,8 +16,8 @@ int ** mapdef(const int diff){
 	int x, y;
 
 	//Loop que puebla de "espacio" la matriz
-	for(x = 0, x < FIL, x++){
-		for( y = 0, y < COL, y++){
+	for(x = 0; x < FIL; x++){
+		for( y = 0; y < COL; y++){
 
 			mapa[x][y] = 0;
 		}
@@ -48,7 +48,7 @@ void barrier_gen (int x, int wid, int mapa[][]){
 
 	int add;
 
-	for(add = 0, add <= wid, add++){
+	for(add = 0; add <= wid; add++){
 
 		mapa[x + add][13] = -1;
 		mapa[x + add][14] = -1;
