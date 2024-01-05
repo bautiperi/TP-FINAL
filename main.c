@@ -3,7 +3,10 @@
 
 int main(void){
 
-	int (*ptr_mapa)[COL] = mapdef(EASY);
+	int mapa[FIL][COL];
+
+	//Llama a la función mapdef para inicializar el mapa
+	mapdef(EASY, mapa);
 
 	int x, y;
 
@@ -11,7 +14,7 @@ int main(void){
 
 		for (y = 0; y < 16; y++){
 
-			printf("%d", ptr_mapa[x][y]);
+			printf("%d", mapa[x][y]);
 		}
 	}
 

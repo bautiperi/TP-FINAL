@@ -8,8 +8,7 @@ static void barrier_gen (int x, int wid, int mapa[][COL]);
 
 //La función se encarga de generar la matriz donde se encuentra el mapa, llama a funciones para que la misma sea poblada y devuelve un puntero a una matriz
 //dif es una variable que contiene el nivel de dificultad seleccionado
-int (*mapdef(const int diff))[COL] {
-	int mapa[FIL][COL];
+void mapdef(const int diff, int mapa [][COL]) {
 
 	int x, y;
 
@@ -26,7 +25,6 @@ int (*mapdef(const int diff))[COL] {
 
 	//Llama a la función encargada de crear los enemigos y spawnear al jugador
 
-	return mapa;
 }
 
 static void barrier_diff (const int diff, int mapa[][COL]){
