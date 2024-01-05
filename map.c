@@ -49,7 +49,7 @@ static void barrier_gen (int x, int wid, int mapa[][COL]){
 
 	for(add = 0; add <= wid; add++){
 
-		mapa[x + add][13] = -1;
-		mapa[x + add][14] = -1;
+		mapa[x + add][10] = -2;
+		mapa[x + add][11] = -2;
 	}
 }
