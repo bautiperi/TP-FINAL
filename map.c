@@ -32,16 +32,16 @@ int ** mapdef(const int diff){
 
 void barrier_diff (const int diff, int mapa[][]){
 
+	//Easy mode: Establece 4 barreras de 2x2 separadas por espacios de dos
 	if (diff  == EASY){
-		//Establece la primer barrera de tamaño 4x2
-		barrier_gen( 1, 4, mapa);
+		int i;
 
-		//Segunda barrera 3x2
-		barrier_gen( 7, 3, mapa);
-
-		//Tercer barrera 4x2
-		barrier_gen( 12, 4, mapa);
+		for(i = 1; i < FIL; i += 3){
+			barrier_gen(i, 2, mapa);
+		}
 	}
+
+	//Agregar casos para modo normal y modo difícil
 }
 
 void barrier_gen (int x, int wid, int mapa[][]){
