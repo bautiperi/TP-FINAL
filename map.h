@@ -1,9 +1,21 @@
-#ifndef MAP_H
-#define MAP_H
+/*
+ * map.h
+ *
+ *  Created on: Jan 4, 2024
+ *      Author: bauti
+ */
 
-//PROTOTIPOS
-int ** mapdef(const int diff);
-void barrier_diff (const int diff, int mapa[][]);
-void barrier_gen (int x, int wid, int mapa[][]);
+#ifndef MAP_H_
+#define MAP_H_
 
-#endif // GPIO_H_
+//TAMAÑO DE LA MATRIZ
+#define COL 16
+#define FIL 16
+
+//DIFICULTAD
+#define EASY 1
+
+
+int (*mapdef(const int diff))[COL];
+
+#endif /* MAP_H_ */

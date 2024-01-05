@@ -1,17 +1,15 @@
 #include <stdio.h>
+#include "map.h"
 
-//TAMAÑO DE LA MATRIZ
-#define COL 16
-#define FIL 16
-
-//DIFICULTAD
-#define EASY 1
+//DEF DE FUNCIONES PRIVADAS
+static void barrier_diff (const int diff, int mapa[][COL]);
+static void barrier_gen (int x, int wid, int mapa[][COL]);
 
 
 //La función se encarga de generar la matriz donde se encuentra el mapa, llama a funciones para que la misma sea poblada y devuelve un puntero a una matriz
 //dif es una variable que contiene el nivel de dificultad seleccionado
-int ** mapdef(const int diff){
-	int mapa[][];
+int (*mapdef(const int diff))[COL] {
+	int mapa[FIL][COL];
 
 	int x, y;
 
@@ -24,13 +22,14 @@ int ** mapdef(const int diff){
 	}
 
 	//Llama a la función encargada de crear los obstáculos
-	barrier_diff(diff, mapa[][]);
+	barrier_diff(diff, mapa);
 
 	//Llama a la función encargada de crear los enemigos y spawnear al jugador
 
+	return mapa;
 }
 
-void barrier_diff (const int diff, int mapa[][]){
+static void barrier_diff (const int diff, int mapa[][COL]){
 
 	//Easy mode: Establece 4 barreras de 2x2 separadas por espacios de dos
 	if (diff  == EASY){
@@ -44,7 +43,7 @@ void barrier_diff (const int diff, int mapa[][]){
 	//Agregar casos para modo normal y modo difícil
 }
 
-void barrier_gen (int x, int wid, int mapa[][]){
+static void barrier_gen (int x, int wid, int mapa[][COL]){
 
 	int add;
 
