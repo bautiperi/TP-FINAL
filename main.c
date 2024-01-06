@@ -10,13 +10,6 @@ int main(void){
 	//Llama a la función mapdef para inicializar el mapa
 	mapdef(EASY, mapa);
 
-
-	if(display_init() == -1){
-		return -1;
-	}
-
-	display_game(mapa, 5, 3);
-
 	//Para probar si el mapa se inicializa de forma correcta
 	/*
 	int x, y;
