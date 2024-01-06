@@ -16,7 +16,7 @@ void mapdef(const int diff, int mapa [][COL]) {
 	for(x = 0; x < FIL; x++){
 		for( y = 0; y < COL; y++){
 
-			mapa[x][y] = 0;
+			mapa[x][y] = SPACE;
 		}
 	}
 
@@ -45,9 +45,9 @@ static void barrier_gen (int x, int wid, int mapa[][COL]){
 
 	int add;
 
-	for(add = 0; add <= wid; add++){
+	for(add = 0; add < wid; add++){
 
-		mapa[x + add][10] = -2;
-		mapa[x + add][11] = -2;
+		mapa[10][x + add] = BARRIER;
+		mapa[11][x + add] = BARRIER;
 	}
 }

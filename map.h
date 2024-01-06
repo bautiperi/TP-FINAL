@@ -15,6 +15,11 @@
 //DIFICULTAD
 #define EASY 1
 
+//CONSTANTES
+#define SPACE 0
+#define BARRIER -2
+#define BRO_BARRIER -1
+
 /*FUNCION MAPDEF
 brief: Se encarga de crear la matriz donde las funciones actualizan el estado del juego
 diff: (const int) Indica el nivel de dificultad seleccionado por el jugador
