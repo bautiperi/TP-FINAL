@@ -13,5 +13,6 @@
  * return: (int) En caso de haber un error devuelve -1
  *  */
 int display_init (void);
+int display_start_menu(unsigned int boton);
 
 #endif /* DISP_START_MENU_A_C_ */

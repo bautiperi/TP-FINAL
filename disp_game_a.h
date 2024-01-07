@@ -18,5 +18,6 @@
  * return: (int) En caso de haber un error devuelve -1
  *  */
 int display_game (const int mapa[][COL], int score, int lives);
+void display_impact (int x, int y);
 
 #endif /* DISP_GAME_A_H_ */

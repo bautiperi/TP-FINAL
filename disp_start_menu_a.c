@@ -54,3 +54,45 @@ int display_init (void){
 }
 
 // Acá van todas las funciones del menú de inicio
+
+int display_start_menu(unsigned int boton)
+{
+	int size_title = 75;
+	int size_options = 40;
+
+	ALLEGRO_FONT *font_title = NULL;
+	font_title = al_load_ttf_font("resources/Zepto-Regular.ttf", size_title, 0);
+	al_draw_text(font_title, al_map_rgb(255, 255, 255), 100, 100, 0, "SPACE INVADERS");
+
+	ALLEGRO_FONT *font = NULL;
+	font = al_load_ttf_font("resources/Zepto-Regular.ttf", size_options, 0);
+
+	switch(boton){
+	case 0:
+		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 200, ALLEGRO_ALIGN_CENTER, "NEW GAME");
+		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 250, ALLEGRO_ALIGN_CENTER, "HIGHSCORE");
+		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 300, ALLEGRO_ALIGN_CENTER, "QUIT GAME");
+		break;
+	case 1:
+		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 200, ALLEGRO_ALIGN_CENTER, ">> NEW GAME <<");
+		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 250, ALLEGRO_ALIGN_CENTER, "HIGHSCORE");
+		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 300, ALLEGRO_ALIGN_CENTER, "QUIT GAME");
+		break;
+	case 2:
+		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 200, ALLEGRO_ALIGN_CENTER, "NEW GAME");
+		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 250, ALLEGRO_ALIGN_CENTER, ">> HIGHSCORE <<");
+		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 300, ALLEGRO_ALIGN_CENTER, "QUIT GAME");
+		break;
+	case 3:
+		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 200, ALLEGRO_ALIGN_CENTER, "NEW GAME");
+		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 250, ALLEGRO_ALIGN_CENTER, "HIGHSCORE");
+		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 300, ALLEGRO_ALIGN_CENTER, ">> QUIT GAME <<");
+		break;
+	}
+
+	al_flip_display();
+
+	al_rest(10.0);
+
+	return 0;
+}

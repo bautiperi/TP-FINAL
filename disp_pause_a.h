@@ -11,3 +11,5 @@
 
 
 #endif /* DISP_PAUSE_A_H_ */
+
+int display_pause_menu(unsigned int boton);

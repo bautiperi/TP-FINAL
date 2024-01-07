@@ -19,6 +19,7 @@ static int display_barr (const int mapa[][COL]);
 static int display_stats (int score, int lives);
 static int display_player (const int mapa[][COL]);
 static int display_aliens (const int mapa[][COL]);
+static int display_bullet (const int mapa[][COL]);
 
 #define SCALER 45
 
@@ -30,12 +31,15 @@ int display_game (const int mapa[][COL], int score, int lives){
 
 	i += display_barr(mapa);
 
+	display_impact(5,11);
 
 	i += display_stats (score, lives);
 
 	i += display_player(mapa);
 
 	i += display_aliens(mapa);
+
+	i += display_bullet(mapa);
 
 	if(i == 0){
 		al_flip_display();
@@ -179,4 +183,26 @@ static int display_aliens (const int mapa[][COL]){
 	}
 
 	return 0;
+}
+
+static int display_bullet(const int mapa[][COL]){
+	//Loop que encuentra los aliens y los muestra en pantalla
+	int x, y;
+	for (y = 0; y < FIL; y++){
+		for(x = 0; x < COL; x++){
+			if (mapa[y][x] == 5){
+				al_draw_filled_rounded_rectangle(x*SCALER-5, y*SCALER-5, x*SCALER+5, y*SCALER+5, 4, 4, al_map_rgb(173,216,230));
+			}
+			else if (mapa[y][x] == 6){
+				al_draw_filled_rounded_rectangle(x*SCALER-5, y*SCALER-5, x*SCALER+5, y*SCALER+5, 4, 4, al_map_rgb(252,75,8));
+			}
+		}
+	}
+	return 0;
+}
+
+void display_impact(int x, int y){
+	ALLEGRO_BITMAP * impact = NULL;
+	impact = al_load_bitmap("resources/impact.png");
+	al_draw_scaled_bitmap(impact, 0, 0, 360, 360, x* SCALER, y* SCALER , SCALER, SCALER, 0);
 }
