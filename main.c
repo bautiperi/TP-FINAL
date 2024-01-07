@@ -1,29 +1,33 @@
-#include <stdio.h>
+#include "obj_r.h"
+#include "libs/disdrv.h"
+#include "libs/joydrv.h"
 
-#include "disp_game_a.h"
-#include "map.h"
+int main(void)
+{
+	dcoord_t gamer = {1, 1};
+	disp_init();
+	joy_init();
+	gamer_vis(gamer);
+	gamer_shot(gamer);
 
-int main(void){
+	dcoord_t final_boss = {1, 15};
+	final_boss_vis(final_boss);
+	final_boss_shot(final_boss);
 
-	int mapa[FIL][COL];
+	dcoord_t alien = {1, 8}; 
+	aliens_vis(alien);
 
-	//Llama a la función mapdef para inicializar el mapa
-	mapdef(EASY, mapa);
+	dcoord_t shield = {1, 4};
+	shields_vis(shield);
+	
+	lives_vis(3);
+	usleep(3000000);
+	lives_vis(2);
+	usleep(3000000);
+	lives_vis(1);
+	usleep(3000000);
 
-	//Para probar si el mapa se inicializa de forma correcta
-	/*
-	int x, y;
-
-	for(x = 0; x < 16; x++){
-
-		for (y = 0; y < 16; y++){
-
-			printf("%d ", mapa[x][y]);
-		}
-		putchar('\n');
-	}
-	*/
-
+	game_over();
+	
 	return 0;
-
 }
