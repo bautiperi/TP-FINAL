@@ -33,7 +33,7 @@ static void barrier_diff (const int diff, int mapa[][COL]){
 	if (diff  == EASY){
 		int i;
 
-		for(i = 1; i < FIL; i += 3){
+		for(i = 1; i < FIL; i += 4){
 			barrier_gen(i, 2, mapa);
 		}
 	}

@@ -9,11 +9,6 @@
 #define DISP_GAME_A_H_
 
 #include "map.h"
-/* FUNCIÓN DISPLAY_INIT
- * BRIEF: Se encarga de inicializar el display y las librerías que se utilizan
- * return: (int) En caso de haber un error devuelve -1
- *  */
-int display_init (void);
 
 /* FUNCIÓN DISPLAY_GAME
  * BRIEF: Se encarga de actualizar la pantalla dentro del juego

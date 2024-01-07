@@ -15,10 +15,14 @@ int main(void){
 		return -1;
 	}
 
+	mapa[14][7] = 1;
+	mapa[14][8] = 1;
+	mapa[8][8] = 2;
+
 	display_game(mapa, 5, 3);
 
 	//Para probar si el mapa se inicializa de forma correcta
-	/*
+/*
 	int x, y;
 
 	for(x = 0; x < 16; x++){
@@ -29,7 +33,7 @@ int main(void){
 		}
 		putchar('\n');
 	}
-	*/
+*/
 
 	return 0;
 
