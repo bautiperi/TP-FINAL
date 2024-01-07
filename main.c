@@ -2,6 +2,7 @@
 
 #include "disp_game_a.h"
 #include "map.h"
+#include "disp_start_menu_a.h"
 
 int main(void){
 
