@@ -1,9 +1,7 @@
 
 // INCLUDES
 #include "obj_r.h"
-
-// PROTOTYPES
-static void led_flick(dcoord_t coor_shield);
+#include "aux_r.h"
 
 // guardan las coordenadas del led de abajo a la izquierda
 dcoord_t shield1 = {1, 4}, shield2 = {5, 4}, shield3 = {9, 4}, shield4 = {13, 4};
@@ -32,9 +30,14 @@ void gamer_vis(dcoord_t ubi)
     disp_update();
 }
 
-void gamer_shot(void);
+void gamer_shot(dcoord_t coord)
+{
+    dcoord_t arr[4] = {coord, {++coord.x, coord.y}, {coord.x, ++coord.y}, {++coord.x, --coord.y}};
+    multp_flick(arr, 4);
+}
 
 /***********************************  ALIENS   ***********************************/
+
 void aliens_vis(dcoord_t coor_inicial)
 {
     int i, j;
@@ -63,6 +66,12 @@ void aliens_vis(dcoord_t coor_inicial)
     disp_update();
 }
 
+void aliens_death(dcoord_t coord)
+{
+    disp_write(coord, D_OFF);
+    disp_update();
+}
+
 /*******************************  THE FINAL BOSS  *********************************/
 
 void final_boss_vis(dcoord_t ubi)
@@ -85,6 +94,12 @@ void final_boss_vis(dcoord_t ubi)
         }
     }
     disp_update();
+}
+
+void final_boss_shot(dcoord_t coord)
+{
+    dcoord_t arr[4] = {coord, {++coord.x, coord.y}, {coord.x, --coord.y}, {++coord.x, ++coord.y}};
+    multp_flick(arr, 4);
 }
 
 /***********************************  LIVES   ***********************************/
@@ -151,6 +166,7 @@ void game_over(void)
     int i, j;
     disp_clear();
     dcoord_t coor;
+
     // BOORO TODO
     for (i = 0; i < 16; i++)
     {
@@ -210,29 +226,4 @@ void game_over(void)
         }
     }
     disp_update();
-}
-
-/***********************************  AUX -> ARCHIVO NUEVO  ***********************************/
-
-// FUNCION LED_FLICK
-// Hace titilar al LED de la coordenada indicada (el grado indica que tan rapido titila)
-static void led_flick(dcoord_t coor_)
-{
-
-    int i;
-    int tiempo_espera = DELAY / 100;
-
-    for (i = 0; i < MAX_ITERATIONS; i++)
-    {
-        // se enciende el led
-        disp_write(coor_, D_ON);
-        disp_update();
-
-        // tiempo que esta apagado
-        usleep(tiempo_espera);
-
-        // apaga el LED en la posición especificada
-        disp_write(coor_, D_OFF);
-        disp_update();
-    }
 }

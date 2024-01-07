@@ -14,7 +14,28 @@ return: void
 */
 void gamer_vis(dcoord_t ubi);
 
+/*FUNCION GAMER_SHOT
+brief: toma las coordenadas del objeto para llamar la funcion que hace titilar los leds
+ubi: (dcoord_t) coordenadas del LED de abajo a la izq
+return: void
+*/
+void gamer_shot(dcoord_t coord);
+
 /***********************************  ALIENS   ***********************************/
+
+/*FUNCION ALIENS_VIS
+brief: se encarga de mostrar a los aliens
+ubi: (dcoord_t) coordenadas del LED de abajo a la izq
+return: void
+*/
+void aliens_vis(dcoord_t coor_inicial);
+
+/*FUNCION ALIENS_DEATH
+brief: apaga el led del alien que recibio un disparo
+ubi: (dcoord_t) coordenadas del LED del alien
+return: void
+*/
+void aliens_death(dcoord_t coord);
 
 /*******************************  THE FINAL BOSS  *********************************/
 
@@ -24,6 +45,13 @@ ubi: (dcoord_t) coordenadas del LED de arriba a la izq
 return: void
 */
 void final_boss_vis(dcoord_t ubi);
+
+/*FUNCION FINAL_BOSS_SHOT
+brief: toma las coordenadas del objeto para llamar la funcion que hace titilar los leds
+ubi: (dcoord_t) coordenadas del LED de abajo a la izq
+return: void
+*/
+void final_boss_shot(dcoord_t coord);
 
 /***********************************  LIVES   ***********************************/
 
@@ -51,9 +79,12 @@ return: void
 */
 void shields_life(int life_of_shield, dcoord_t coor_of_shield);
 
+/***********************************  GAME OVER   ***********************************/
 
-#define DELAY 300000 //0.3 segundos
-
-#define MAX_ITERATIONS 50
+/*FUNCION GAME_OVER
+brief: apaga los leds del display y genera una cara triste indicando la finalizacion del juego
+no recibe ni devuleve nada
+*/
+void game_over(void);
 
 #endif
