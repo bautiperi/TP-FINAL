@@ -1,5 +1,6 @@
 // INCLUDES
 #include "aux_r.h"
+#include <unistd.h>
 
 void led_flick(dcoord_t coor_)
 {
@@ -47,4 +48,23 @@ void multp_flick(dcoord_t coords[], int cant)
             disp_update();
         }
     }
+}
+
+void shutdown_disp(void)
+{
+    int i, j;
+    disp_clear();
+    dcoord_t coor;
+
+    // BOORO TODO
+    for (i = 0; i < 16; i++)
+    {
+        coor.x = i;
+        for (j = 0; j < 16; j++)
+        {
+            coor.y = j;
+            disp_write(coor, D_OFF);
+        }
+    }
+    disp_update();
 }

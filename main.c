@@ -1,6 +1,7 @@
 #include "obj_r.h"
 #include "libs/disdrv.h"
 #include "libs/joydrv.h"
+#include <unistd.h>
 
 int main(void)
 {
@@ -14,12 +15,12 @@ int main(void)
 	final_boss_vis(final_boss);
 	final_boss_shot(final_boss);
 
-	dcoord_t alien = {1, 8}; 
+	dcoord_t alien = {1, 8};
 	aliens_vis(alien);
 
 	dcoord_t shield = {1, 4};
 	shields_vis(shield);
-	
+
 	lives_vis(3);
 	usleep(3000000);
 	lives_vis(2);
@@ -28,6 +29,6 @@ int main(void)
 	usleep(3000000);
 
 	game_over();
-	
+
 	return 0;
 }

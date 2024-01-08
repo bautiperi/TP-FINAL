@@ -164,20 +164,9 @@ void shields_life(int life_of_shield, dcoord_t coor_of_shield)
 void game_over(void)
 {
     int i, j;
-    disp_clear();
     dcoord_t coor;
 
-    // BOORO TODO
-    for (i = 0; i < 16; i++)
-    {
-        coor.x = i;
-        for (j = 0; j < 16; j++)
-        {
-            coor.y = j;
-            disp_write(coor, D_OFF);
-        }
-    }
-    disp_update();
+    shutdown_disp();
 
     // CARITA TRISTE
     // ojo izq

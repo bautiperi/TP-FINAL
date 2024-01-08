@@ -21,6 +21,8 @@ return: void
 */
 void multp_flick(dcoord_t coords[], int cant);
 
+void shutdown_disp(void);
+
 // DEFINES
 #define DELAY 300000 // 0.3 segundos
 
