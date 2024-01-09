@@ -23,7 +23,10 @@ static int display_bullet (const int mapa[][COL]);
 
 #define SCALER 45
 
-int display_game (const int mapa[][COL], int score, int lives){
+//RESERVAR LAS ÚLTIMAS 5 CELDAS DE LA PRIMER FILA PARA DATOS, EN SIGUIENTE ORDEN:
+// HUBO IMPACTO (0 = Sí) | COORD X IMPACTO | COORD Y IMPACTO | SCORE | LIVES
+
+int display_game (const int mapa[][COL]){
 	int i = 0; //Si ocurre un error, la variable cambiará su valor, haciendo que se detenga la ejecución del programa
 
 	//Backbuffer se settea en negro
@@ -31,15 +34,17 @@ int display_game (const int mapa[][COL], int score, int lives){
 
 	i += display_barr(mapa);
 
-	display_impact(5,11);
-
-	i += display_stats (score, lives);
+	i += display_stats (mapa[0][COL-2], mapa[0][COL-1]);
 
 	i += display_player(mapa);
 
 	i += display_aliens(mapa);
 
 	i += display_bullet(mapa);
+
+	if(mapa[0][COL-5] == 0){
+		i += display_impact(mapa[0][COL-4],mapa[0][COL-3]);
+	}
 
 	if(i == 0){
 		al_flip_display();
@@ -71,7 +76,6 @@ static int display_barr (const int mapa[][COL]) {
     int x, y;
     //ESTA HARCODEADO, MODIFICAR PARA QUE ACEPTE OTROS NIVELES Y TAMAÑOS DE MATRICES
     for (y = 10; y < 12; y++){
-
     	for ( x = 0; x < 16; x++){
     		if(mapa[y][x] == BARRIER){
     			al_draw_scaled_bitmap(barrier_state_2, 0, 0, 64, 64, x* SCALER, y* SCALER , SCALER, SCALER, 0);
@@ -177,6 +181,7 @@ static int display_aliens (const int mapa[][COL]){
 	srand(time(NULL));
 	int rand_num = (rand()%100 + 1);
 
+	//Si el nro es mayor o igual a 50, muestra boss 1, caso contrario muestra boss 2
 	if(rand_num >= 50){
 		boss = al_load_bitmap("resources/boss1.png");
 	}
@@ -195,9 +200,11 @@ static int display_aliens (const int mapa[][COL]){
 	for (y = 1; y < FIL; y++){
 		for(x = 0; x < COL; x++){
 			if (mapa[y][x] == 2){
+				//Si el enemigo es un alien, muestra la imagen de un alien
 				al_draw_scaled_bitmap(alien, 0, 0, 360, 360, x* SCALER, y* SCALER , SCALER, SCALER, 0);
 			}
 			else if (mapa[y][x] == 3){
+				//Muestra la imagen del boss
 				al_draw_scaled_bitmap(boss, 0, 0, 360, 360, x * SCALER, y * SCALER, SCALER, SCALER, 0);
 			}
 		}
@@ -212,23 +219,32 @@ static int display_aliens (const int mapa[][COL]){
  * return: (int) En caso de haber un error devuelve -1, 0 en caso de no haber ningún problema
  *  */
 static int display_bullet(const int mapa[][COL]){
-	//Loop que encuentra los aliens y los muestra en pantalla
 	int x, y;
+
+	//Loop que encuentra los disparos y diferencia los de enemigos y jugador
 	for (y = 1; y < FIL; y++){
 		for(x = 0; x < COL; x++){
+
 			if (mapa[y][x] == 5){
+				//Si el disparo es de un jugador, lo muestra de color celeste
 				al_draw_filled_rounded_rectangle(x*SCALER-5, y*SCALER-5, x*SCALER+5, y*SCALER+5, 4, 4, al_map_rgb(173,216,230));
 			}
 			else if (mapa[y][x] == 6){
+				//Si el disparo es de un enemigo, lo muestra de color naranja
 				al_draw_filled_rounded_rectangle(x*SCALER-5, y*SCALER-5, x*SCALER+5, y*SCALER+5, 4, 4, al_map_rgb(252,75,8));
 			}
 		}
 	}
+
 	return 0;
 }
 
 void display_impact(int x, int y){
 	ALLEGRO_BITMAP * impact = NULL;
 	impact = al_load_bitmap("resources/impact.png");
+
+	//Muestra en pantalla el impacto
 	al_draw_scaled_bitmap(impact, 0, 0, 360, 360, x* SCALER, y* SCALER , SCALER, SCALER, 0);
+
+	//Hace un efecto de sonido para acompañar el impacto
 }
