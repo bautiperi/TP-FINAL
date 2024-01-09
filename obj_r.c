@@ -4,7 +4,7 @@
 #include "aux_r.h"
 
 // guardan las coordenadas del led de abajo a la izquierda
-dcoord_t shield1 = {1, 4}, shield2 = {5, 4}, shield3 = {9, 4}, shield4 = {13, 4};
+static dcoord_t shield1 = {1, 4}, shield2 = {5, 4}, shield3 = {9, 4}, shield4 = {13, 4};
 
 /***********************************  GAMER   ***********************************/
 

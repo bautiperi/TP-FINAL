@@ -3,14 +3,15 @@
 
 void menu_vis(joyinfo_t ubi)
 {
+    dcoord_t coord = {15, 0};
     while (ubi.y >= -70)
     {
-        disp_write({15, 0}, D_ON);
+        disp_write(coord, D_ON);
         disp_update();
 
         usleep(300000);
 
-        disp_write({15, 0}, D_OFF);
+        disp_write(coord, D_OFF);
         disp_update();
     }
     if (ubi.y < -70)

@@ -1,5 +1,5 @@
-#ifndef MENU_R.H
-#define MENU_R .H
+#ifndef MENU_R_H
+#define MENU_R_H
 
 #include "disdrv.h"
 #include "joydrv.h"
@@ -7,5 +7,6 @@
 
 /***********************************  VISUALIZACION   ***********************************/
 void menu_vis(joyinfo_t ubi);
+void menu_options(void);
 
 #endif
