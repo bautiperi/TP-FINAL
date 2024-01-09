@@ -2,8 +2,8 @@
 #ifndef OBJ_R_H
 #define OBJ_R_H
 
-#include "libs/disdrv.h"
-#include "libs/joydrv.h"
+#include "disdrv.h"
+#include "joydrv.h"
 
 /***********************************  GAMER   ***********************************/
 

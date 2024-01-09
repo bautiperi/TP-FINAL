@@ -1,8 +1,8 @@
 #ifndef MENU_R.H
 #define MENU_R .H
 
-#include "libs/disdrv.h"
-#include "libs/joydrv.h"
+#include "disdrv.h"
+#include "joydrv.h"
 #include "aux_r.h"
 
 /***********************************  VISUALIZACION   ***********************************/

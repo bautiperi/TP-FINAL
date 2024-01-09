@@ -1,6 +1,4 @@
 #include "obj_r.h"
-#include "libs/disdrv.h"
-#include "libs/joydrv.h"
 #include <unistd.h>
 
 int main(void)
