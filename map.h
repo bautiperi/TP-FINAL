@@ -25,6 +25,6 @@ brief: Se encarga de crear la matriz donde las funciones actualizan el estado de
 diff: (const int) Indica el nivel de dificultad seleccionado por el jugador
 return: (void)
 */
-void mapdef(const int diff, int mapa [][COL]);
+void map_def(const int diff, int mapa [][COL]);
 
 #endif /* MAP_H_ */

@@ -43,7 +43,7 @@ int display_game (const int mapa[][COL]){
 	i += display_bullet(mapa);
 
 	if(mapa[0][COL-5] == 0){
-		i += display_impact(mapa[0][COL-4],mapa[0][COL-3]);
+		display_impact(mapa[0][COL-4],mapa[0][COL-3]);
 	}
 
 	if(i == 0){

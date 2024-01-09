@@ -10,7 +10,7 @@ int main(void){
 	int mapa[FIL][COL];
 
 	//Llama a la función mapdef para inicializar el mapa
-	mapdef(EASY, mapa);
+	map_def(EASY, mapa);
 
 
 	if(display_init() == -1){
@@ -20,10 +20,11 @@ int main(void){
 	mapa[14][7] = 1;
 	mapa[14][8] = 1;
 	mapa[8][8] = 2;
-	mapa [10][12] = 5;
-	mapa [10][13] = 6;
+	//mapa [10][12] = 5;
+	//mapa [10][13] = 6;
+	mapa[0][COL-5] = 1;
 
-	display_game(mapa, 5, 3);
+	display_game(mapa);
 
 
 	//Para probar si el mapa se inicializa de forma correcta
