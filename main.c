@@ -26,7 +26,7 @@ int main(void)
 	lives_vis(1);
 	usleep(3000000);
 
-	// game_over();
+	game_over();
 
 	return 0;
 }
