@@ -1,3 +1,6 @@
+//HEADER
+#include "disp_game_a.h"
+
 //LIBRERIAS
 #include <stdio.h>
 #include <stdint.h>
@@ -10,9 +13,6 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
-
-//HEADER
-#include "disp_game_a.h"
 
 //DEFINICIÓN DE FUNCIONES PRIVADAS
 static int display_barr (const int mapa[][COL]);
@@ -50,6 +50,11 @@ int display_game (const int mapa[][COL], int score, int lives){
 	return i;
 }
 
+/* FUNCIÓN DISPLAY_BARR
+ * BRIEF: Se encarga de mostrar en pantalla las barreras/escudos
+ * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * return: (int) En caso de haber un error devuelve -1, 0 en caso de no haber ningún problema
+ *  */
 static int display_barr (const int mapa[][COL]) {
 
 	ALLEGRO_BITMAP *barrier_state_2 = NULL, *barrier_state_1 = NULL;
@@ -81,6 +86,12 @@ static int display_barr (const int mapa[][COL]) {
     return 0;
 }
 
+/* FUNCIÓN DISPLAY_STATS
+ * BRIEF: Se encarga de mostrar en pantalla el score, vidas actuales y una leyenda que indica como entrar al menu de pausa
+ * score: (int) Recibe el score actual del jugador
+ * lives: (int) Recibe la cantidad de vidas que tiene el jugador
+ * return: (int) En caso de haber un error devuelve -1, 0 en caso de no haber ningún problema
+ *  */
 static int display_stats (int score, int lives) {
 	int size = 30;
 
@@ -117,7 +128,12 @@ static int display_stats (int score, int lives) {
 		return 0;
 	}
 }
-//falta terminarrrr
+
+/* FUNCIÓN DISPLAY_PLAYER
+ * BRIEF: Se encarga de mostrar en pantalla al jugador
+ * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * return: (int) En caso de haber un error devuelve -1, 0 en caso de no haber ningún problema
+ *  */
 static int display_player (const int mapa[][COL]){
 	//Crea la imágen para el jugador
 /*
@@ -144,6 +160,11 @@ static int display_player (const int mapa[][COL]){
 	return 0;
 }
 
+/* FUNCIÓN DISPLAY_ALIENS
+ * BRIEF: Se encarga de mostrar en pantalla los enemigos (aliens y boss)
+ * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * return: (int) En caso de haber un error devuelve -1, 0 en caso de no haber ningún problema
+ *  */
 static int display_aliens (const int mapa[][COL]){
 	//Crea la imágen para los aliens
 	ALLEGRO_BITMAP * alien = NULL;
@@ -171,7 +192,7 @@ static int display_aliens (const int mapa[][COL]){
 
 	//Loop que encuentra los aliens y los muestra en pantalla
 	int x, y;
-	for (y = 0; y < FIL; y++){
+	for (y = 1; y < FIL; y++){
 		for(x = 0; x < COL; x++){
 			if (mapa[y][x] == 2){
 				al_draw_scaled_bitmap(alien, 0, 0, 360, 360, x* SCALER, y* SCALER , SCALER, SCALER, 0);
@@ -185,10 +206,15 @@ static int display_aliens (const int mapa[][COL]){
 	return 0;
 }
 
+/* FUNCIÓN DISPLAY_BULLET
+ * BRIEF: Se encarga de mostrar en pantalla las balas de enemigos y jugador (celestes jugador, naranja enemigo)
+ * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * return: (int) En caso de haber un error devuelve -1, 0 en caso de no haber ningún problema
+ *  */
 static int display_bullet(const int mapa[][COL]){
 	//Loop que encuentra los aliens y los muestra en pantalla
 	int x, y;
-	for (y = 0; y < FIL; y++){
+	for (y = 1; y < FIL; y++){
 		for(x = 0; x < COL; x++){
 			if (mapa[y][x] == 5){
 				al_draw_filled_rounded_rectangle(x*SCALER-5, y*SCALER-5, x*SCALER+5, y*SCALER+5, 4, 4, al_map_rgb(173,216,230));

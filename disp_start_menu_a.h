@@ -13,6 +13,11 @@
  * return: (int) En caso de haber un error devuelve -1
  *  */
 int display_init (void);
+
+/* FUNCIÓN DISPLAY_START_MENU
+ * BRIEF: Se encarga de mostrar el menú de inicio en pantalla
+ * return: (int) En caso de haber un error devuelve -1, caso contrario 0
+ *  */
 int display_start_menu(unsigned int boton);
 
 #endif /* DISP_START_MENU_A_C_ */

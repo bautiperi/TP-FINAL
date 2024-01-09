@@ -1,9 +1,11 @@
-//Acá van todas las funciones relacionadas con el menú de pausa del juego
+//HEADER
 #include "disp_pause_a.h"
+
+//LIBRERIAS
 #include <stdio.h>
+
+//LIBRERIAS ALLEGRO
 #include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
-#include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 

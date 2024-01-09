@@ -1,11 +1,17 @@
+//HEADER
 #include "disp_start_menu_a.h"
+
+//LIBRERIAS
 #include <stdio.h>
+
+//LIBRERIAS ALLEGRO
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
+//DEFINES
 #define FPS 60.0
 
 int display_init (void){
@@ -52,8 +58,6 @@ int display_init (void){
 
 	return 0;
 }
-
-// Acá van todas las funciones del menú de inicio
 
 int display_start_menu(unsigned int boton)
 {
