@@ -46,7 +46,7 @@ int main(void){
 			return -1;
 		}
 
-	display_start_menu();
+	display_scoreboard();
 
 	return 0;
 

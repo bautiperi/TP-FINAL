@@ -104,6 +104,8 @@ int display_start_menu(void){
 
 		} while(ret);
 
+		al_destroy_event_queue(event_queue);
+
 		return sel;
 }
 
