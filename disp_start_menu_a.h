@@ -16,8 +16,8 @@ int display_init (void);
 
 /* FUNCIÓN DISPLAY_START_MENU
  * BRIEF: Se encarga de mostrar el menú de inicio en pantalla
- * return: (int) En caso de haber un error devuelve -1, caso contrario 0
+ * return: (int) Devuelve lo que seleccionó el jugador: 1= Empezar el juego, 2= Scoreboard, 3= Salior del juego
  *  */
-int display_start_menu(unsigned int boton);
+int display_start_menu(void);
 
 #endif /* DISP_START_MENU_A_C_ */

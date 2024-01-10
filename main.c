@@ -7,6 +7,7 @@
 
 int main(void){
 
+	/*
 	int mapa[FIL][COL];
 
 	//Llama a la función mapdef para inicializar el mapa
@@ -29,7 +30,7 @@ int main(void){
 
 	//Para probar si el mapa se inicializa de forma correcta
 
-	/*int x, y;
+	int x, y;
 
 	for(x = 0; x < 16; x++){
 
@@ -39,15 +40,14 @@ int main(void){
 		}
 		putchar('\n');
 	}
-
-int main (void){
+*/
 
 	if(display_init() == -1){
 			return -1;
 		}
 
-	display_pause_menu(1);
-*/
+	display_start_menu();
+
 	return 0;
 
 }
