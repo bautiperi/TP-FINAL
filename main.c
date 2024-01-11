@@ -6,17 +6,20 @@ int main(void)
 {
 	dcoord_t gamer = {1, 1};
 	disp_init();
-	joy_init();
-	shutdown_disp();
+	disp_clear();
 
 	printf("EN MAIN -> GAMER_VIS: x: %d y: %d \n", gamer.x, gamer.y);
 	gamer_vis(gamer);
+	usleep(3000000);
 	gamer_shot(gamer);
+	usleep(3000000);
 
 	dcoord_t final_boss = {1, 15};
 	printf("EN MAIN -> FINAL_BOSS_VIS: x: %d y: %d \n", final_boss.x, final_boss.y);
 	final_boss_vis(final_boss);
+	uusleep(3000000);
 	final_boss_shot(final_boss);
+	usleep(3000000);
 
 	/*
 	dcoord_t alien = {1, 8};
@@ -27,6 +30,7 @@ int main(void)
 	dcoord_t shield = {1, 4};
 	printf("EN MAIN -> SHIELDS_VIS: x: %d y: %d \n", shield.x, shield.y);
 	shields_vis(shield);
+	usleep(3000000);
 
 	lives_vis(3);
 	usleep(3000000);
@@ -40,6 +44,7 @@ int main(void)
 	shutdown_disp();
 
 	game_over();
+	usleep(50000);
 
 	return 0;
 }
