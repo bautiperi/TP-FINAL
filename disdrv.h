@@ -25,7 +25,7 @@
 #define DISP_CANT_X_DOTS 16
 #define DISP_CANT_Y_DOTS 16
 
-#define DISP_MIN -1
+#define DISP_MIN 0
 #define DISP_MAX_X (DISP_MIN + DISP_CANT_X_DOTS - 1) // = 15
 #define DISP_MAX_Y (DISP_MIN + DISP_CANT_Y_DOTS - 1) // = 15
 

@@ -1,11 +1,14 @@
 #include "menu_r.h"
 #include <unistd.h>
+#include <stdio.h>
 
 void menu_vis(joyinfo_t ubi)
 {
     dcoord_t coord = {15, 0};
     while (ubi.y >= -70)
     {
+        printf("EN MENU_VIS -> UBI: x: %d y: %d \n", ubi.x, ubi.y);
+        printf("EN MENU_VIS -> COORD: x: %d y: %d \n", coord.x, coord.y);
         disp_write(coord, D_ON);
         disp_update();
 
@@ -33,16 +36,19 @@ void menu_options(void)
 
     for (i = 0; i < 42; i++)
     {
+        printf("EN MENU_OPTIONS -> MENU: x: %d y: %d \n", menu_wrd[i].x, menu_wrd[i].y);
         disp_write(menu_wrd[i], D_ON);
     }
 
     for (i = 0; i < 9; i++)
     {
+        printf("EN MENU_OPTIONS -> CONTINUE: x: %d y: %d \n", continue_btn[i].x, continue_btn[i].y);
         disp_write(continue_btn[i], D_ON);
     }
 
     for (i = 0; i < 10; i++)
     {
+        printf("EN MENU_OPTIONS -> EXIT: x: %d y: %d \n", exit_btn[i].x, exit_btn[i].y);
         disp_write(exit_btn[i], D_ON);
     }
 
