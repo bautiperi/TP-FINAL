@@ -10,9 +10,16 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_audio.h>
 
 //DEFINES
-#define FPS 60.0
+#define SIZE 800
+
+//DEFINES MENU
+#define TITLE_COLOR 255, 0, 127
+#define BUTTON_COLOR 250, 218, 221
+#define BUTTON_SEL_COLOR 233, 65, 150
+
 
 static void display_s_menu (unsigned int boton);
 
@@ -23,14 +30,6 @@ int display_init (void){
 	if ( !al_init()) {
 		fprintf(stderr, "No se pudo inicializar allegro \n");
 		return -1;
-	}
-
-	//Inicializa el timer
-	ALLEGRO_TIMER *timer = NULL;
-	timer = al_create_timer(1.0 / FPS); //crea el timer pero NO empieza a correr
-	if (!timer) {
-	    fprintf(stderr, "No se pudo inicializar el timer\n");
-	    return -1;
 	}
 
 	//Inicializa el teclado
@@ -57,8 +56,24 @@ int display_init (void){
 		return -1;
 	}
 
+	//Inicializa el uso de audio
+	if (!al_install_audio()) {
+	    fprintf(stderr, "Failed to initialize audio.\n");
+	    return -1;
+	}
+
+	if (!al_init_acodec_addon()) {
+	    fprintf(stderr, "Failed to initialize audio codecs.\n");
+	    return -1;
+	}
+
+	if (!al_reserve_samples(1)) {
+	    fprintf(stderr, "Failed to reserve samples.\n");
+	    return -1;
+	}
+
 	//Inicializa el display
-	display = al_create_display(720, 720);
+	display = al_create_display(800, 800);
 	if (!display) {
 		fprintf(stderr, "No se pudo crear el display \n");
 		return -1;
@@ -115,38 +130,38 @@ int display_start_menu(void){
  * return: (void)
  * */
 static void display_s_menu (unsigned int boton){
-	int size_title = 75;
-	int size_options = 40;
+	int size_title = 100;
+	int size_options = 65;
 
-	al_clear_to_color(al_map_rgb(15,20,42));
+	al_clear_to_color(al_map_rgb(54,1,63));
 
 	ALLEGRO_FONT *font_title = NULL;
 	font_title = al_load_ttf_font("resources/Zepto-Regular.ttf", size_title, 0);
-	al_draw_text(font_title, al_map_rgb(255, 255, 255), 100, 100, 0, "SPACE INVADERS");
+	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), SIZE /2, 135, ALLEGRO_ALIGN_CENTER, "SPACE INVADERS");
 
 	ALLEGRO_FONT *font = NULL;
 	font = al_load_ttf_font("resources/Zepto-Regular.ttf", size_options, 0);
 
 	switch(boton){
 	case 0:
-		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 200, ALLEGRO_ALIGN_CENTER, "NEW GAME");
-		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 250, ALLEGRO_ALIGN_CENTER, "HIGHSCORE");
-		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 300, ALLEGRO_ALIGN_CENTER, "QUIT GAME");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 330, ALLEGRO_ALIGN_CENTER, "NEW GAME");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "HIGHSCORE");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 470, ALLEGRO_ALIGN_CENTER, "QUIT GAME");
 		break;
 	case 1:
-		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 200, ALLEGRO_ALIGN_CENTER, ">> NEW GAME <<");
-		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 250, ALLEGRO_ALIGN_CENTER, "HIGHSCORE");
-		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 300, ALLEGRO_ALIGN_CENTER, "QUIT GAME");
+		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 330, ALLEGRO_ALIGN_CENTER, ">>  NEW GAME  <<");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "HIGHSCORE");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 470, ALLEGRO_ALIGN_CENTER, "QUIT GAME");
 		break;
 	case 2:
-		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 200, ALLEGRO_ALIGN_CENTER, "NEW GAME");
-		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 250, ALLEGRO_ALIGN_CENTER, ">> HIGHSCORE <<");
-		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 300, ALLEGRO_ALIGN_CENTER, "QUIT GAME");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 330, ALLEGRO_ALIGN_CENTER, "NEW GAME");
+		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, ">>  HIGHSCORE  <<");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 470, ALLEGRO_ALIGN_CENTER, "QUIT GAME");
 		break;
 	case 3:
-		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 200, ALLEGRO_ALIGN_CENTER, "NEW GAME");
-		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 250, ALLEGRO_ALIGN_CENTER, "HIGHSCORE");
-		al_draw_text(font, al_map_rgb(255, 255, 255), 360, 300, ALLEGRO_ALIGN_CENTER, ">> QUIT GAME <<");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 330, ALLEGRO_ALIGN_CENTER, "NEW GAME");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "HIGHSCORE");
+		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 470, ALLEGRO_ALIGN_CENTER, ">>  QUIT GAME  <<");
 		break;
 	}
 

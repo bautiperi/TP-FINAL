@@ -3,7 +3,7 @@
 
 //DEF DE FUNCIONES PRIVADAS
 static void barrier_diff (const int diff, int mapa[][COL]);
-static void barrier_gen (const int x, const int y, const int width, const int heigth, int mapa[][COL]);
+static void barrier_gen (const int x, const int y, const int width, const int heigth, int barr, int mapa[][COL]);
 
 
 //La función se encarga de generar la matriz donde se encuentra el mapa, llama a funciones para que la misma sea poblada y devuelve un puntero a una matriz
@@ -36,12 +36,20 @@ void map_def(const int diff, int mapa [][COL]) {
 static void barrier_diff (const int diff, int mapa[][COL]){
 
 	//Easy mode: Establece 4 barreras de 2x2 separadas por espacios de dos
-	if (diff  == EASY){
+	if (diff  == RASP){
 		int i;
 
 		//Loop donde se llama a la función barrier_gen para crear las barreras/escudos
 		for(i = 1; i < FIL; i += 4){
-			barrier_gen(i, 10, 2, 2, mapa);
+			barrier_gen(i, 10, 2, 2, -2, mapa);
+		}
+	}
+	else if (diff == EASY){
+		int i;
+
+		//Loop donde se llama a la función barrier_gen para crear las barreras/escudos
+		for(i = 2; i < FIL; i += 8){
+			barrier_gen(i, 22, 4, 4, -1, mapa);
 		}
 	}
 
@@ -54,10 +62,11 @@ static void barrier_diff (const int diff, int mapa[][COL]){
  * y: (int) Posición y de inicio (debe ser la sup. izq)
  * width: (int) Ancho deseado
  * heigth: (int) Alto deseado
+ * barr: (int) Indica que nro se le asigna a la barrera (cuantas veces se le tiene que disparar para romperla)
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
  * return: (void)
  *  */
-static void barrier_gen (const int x, const int y, const int width, const int heigth, int mapa[][COL]){
+static void barrier_gen (const int x, const int y, const int width, const int heigth, int barr, int mapa[][COL]){
 
 	int i, j;
 
@@ -65,7 +74,7 @@ static void barrier_gen (const int x, const int y, const int width, const int he
 	for(j = 0; j < heigth; j++){
 
 		for(i = 0; i < width; i++){
-			mapa[y + j][x + i] = BARRIER; //Pone en la celda el valor -2 (indicador de barrera)
+			mapa[y + j][x + i] = barr; //Pone en la celda el valor deseado para indicar como barrera
 		}
 	}
 }
