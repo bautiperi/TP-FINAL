@@ -15,9 +15,8 @@ int main(void){
 	//Llama a la función mapdef para inicializar el mapa
 	map_def(EASY, mapa);
 
-	mapa[5][5] = 2;
-	mapa[4][7] = 2;
-	mapa[6][10] = 2;
+	ships_create(mapa, EASY);
+
 	mapa[0][31] = 3;
 	mapa[0][COL-2] = 9999999;
 	mapa[28][16] = 1;

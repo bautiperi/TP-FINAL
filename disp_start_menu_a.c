@@ -12,6 +12,7 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_audio.h>
 
+
 //DEFINES
 #define SIZE 800
 
@@ -57,6 +58,7 @@ int display_init (void){
 	}
 
 	//Inicializa el uso de audio
+	/*
 	if (!al_install_audio()) {
 	    fprintf(stderr, "Failed to initialize audio.\n");
 	    return -1;
@@ -71,6 +73,7 @@ int display_init (void){
 	    fprintf(stderr, "Failed to reserve samples.\n");
 	    return -1;
 	}
+	*/
 
 	//Inicializa el display
 	display = al_create_display(800, 800);

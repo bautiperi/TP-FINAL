@@ -5,6 +5,7 @@
 static void barrier_diff (const int diff, int mapa[][COL]);
 static void barrier_gen (const int x, const int y, const int width, const int heigth, int barr, int mapa[][COL]);
 
+//Se usa y para las filas y x para las columnas, así coincide con los displays
 
 //La función se encarga de generar la matriz donde se encuentra el mapa, llama a funciones para que la misma sea poblada y devuelve un puntero a una matriz
 //dif es una variable que contiene el nivel de dificultad seleccionado
@@ -13,10 +14,10 @@ void map_def(const int diff, int mapa [][COL]) {
 	int x, y;
 
 	//Loop que puebla de "espacio" la matriz
-	for(x = 0; x < FIL; x++){
-		for( y = 0; y < COL; y++){
+	for(y = 0; y < FIL; y++){
+		for( x = 0; x < COL; x++){
 
-			mapa[x][y] = SPACE;
+			mapa[y][x] = SPACE;
 		}
 	}
 

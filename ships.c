@@ -3,32 +3,39 @@
 
 #include <unistd.h>
 
+//Están harcodeadeas para probar el display de Allegro
 int ships_create (int mapa[][COL], int diff){
 
-	mapa[5][5] = 2;
-	mapa[4][7] = 2;
-	mapa[6][10] = 2;
+	int x, y;
+	for(y = 5; y < 15; y += 2){
+		for(x = 4; x < 28; x += 3){
+			mapa[y][x] = 2;
+		}
+	}
+
+	return 0;
 }
 
 void ships_update (int mapa[][COL]){
 	while(1){
 	int x, y;
+	int wall = 1;
 
-	for(y = 1; y < FIL; y++){
-		for(x = 0; x < COL; x++){
+	//Volver a hacer
+	for(y = COL; (y > 0) && wall; y--){
+		for(x = FIL; x > 0; x--){
 			if(mapa[y][x] == 2){
-				if((x) < COL){
-					mapa[y][x+1] = 2;
-					mapa[y][x++] = 0;
+				if((x) == (COL - 2)){
+					wall = 0;
 				}
 				else{
-					mapa[y][0] = 2;
-					mapa[y][x++] = 0;
+					mapa[y][x+1] = 2;
+					mapa[y][x--] = 0;
 				}
 			}
 		}
+		usleep(100000);
 	}
-	usleep(500000);
 
 	}
 }
