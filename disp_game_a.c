@@ -43,19 +43,19 @@ int display_game (const int mapa[][COL]){
 	// FONT
 	ALLEGRO_FONT * font = al_load_ttf_font("resources/Barbie-font.ttf", FONT_SIZE, 0);
 
-	//TIMER
+	// TIMER
 	ALLEGRO_TIMER *timer = NULL;
 	ALLEGRO_EVENT_QUEUE *timer_ev_queue = al_create_event_queue();
 	timer = al_create_timer(1.0 / 60.0);  // 60 FPS
 	al_register_event_source(timer_ev_queue, al_get_timer_event_source(timer));
 
-	//DETECTA CUANDO SE OPRIME COSAS EN EL TECLADO
+	// DETECTA CUANDO SE OPRIME COSAS EN EL TECLADO
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 
 	ALLEGRO_EVENT event, ev;
 
-	//INICIALIZA EL TIMER
+	// INICIALIZA EL TIMER
 	al_start_timer(timer);
 
 	do{
@@ -64,25 +64,25 @@ int display_game (const int mapa[][COL]){
 		al_get_next_event(timer_ev_queue, &ev);
 
 		if( ev.type == ALLEGRO_EVENT_TIMER ){
-			//Backbuffer se settea en el fondo deseado
+			// Backbuffer se settea en el fondo deseado
 			al_clear_to_color(al_map_rgb(54,1,63));
-			//Muestra los escudos/barreras en pantalla
+			// Muestra los escudos/barreras en pantalla
 			display_barr(mapa, barrier);
-			//Muestra las vidas, score y una leyenda en pantalla
+			// Muestra las vidas, score y una leyenda en pantalla
 			display_stats(mapa[0][COL-2], mapa[0][COL-1], font, heart);
-			//Muestra el jugador en pantalla, se le debe pasar la coordenada x donde está el jugador
+			// Muestra el jugador en pantalla, se le debe pasar la coordenada x donde está el jugador
 			display_player(mapa, player);
-			//Muestra a los enemigos en pantalla
+			// Muestra a los enemigos en pantalla
 			display_aliens(mapa, alien);
-			//Muestra los disparos en pantalla
+			// Muestra los disparos en pantalla
 			display_bullet(mapa);
 
-			//En caso de haber un impacto, lo muestra en pantalla
+			// En caso de haber un impacto, lo muestra en pantalla
 			if(mapa[0][COL-5] == 1){
 				display_impact(mapa[0][COL-4],mapa[0][COL-3]);
 			}
 
-			//Muestra los cambios en pantalla
+			// Muestra los cambios en pantalla
 			al_flip_display();
 
 		}

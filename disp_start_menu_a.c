@@ -90,17 +90,18 @@ int display_start_menu(void){
 	int size_title = 150;
 	int size_options = 75;
 
+	//Font para el título
 	ALLEGRO_FONT *font_title = NULL;
 	font_title = al_load_ttf_font("resources/Barbie-font.ttf", size_title, 0);
-
+	// Font para los botones
 	ALLEGRO_FONT *font = NULL;
 	font = al_load_ttf_font("resources/Barbie-font.ttf", size_options, 0);
 
-	//COLA DE EVENTOS
+	// COLA DE EVENTOS
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 
-	//CARGA LA CANCIÓN "Dance the Night"
+	// CARGA LA CANCIÓN "Dance the Night"
 	ALLEGRO_SAMPLE *sample = al_load_sample("resources/Dance the night - Dua Lipa.wav");
 	ALLEGRO_SAMPLE_INSTANCE *sampleInstance = al_create_sample_instance(sample);
 	al_set_sample_instance_playmode(sampleInstance, ALLEGRO_PLAYMODE_LOOP);
@@ -108,10 +109,11 @@ int display_start_menu(void){
 
 	display_s_menu(sel, font_title, font);
 
-	//Pone la canción
+	// Pone la canción
 	al_play_sample_instance(sampleInstance);
 	al_set_sample_instance_gain(sampleInstance, 0.5);
 
+	//LOOP
 	do{
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
@@ -134,16 +136,18 @@ int display_start_menu(void){
 
 		display_s_menu(sel, font_title, font);
 
-
 		if(ev.keyboard.keycode == ALLEGRO_KEY_ENTER || ev.keyboard.keycode == ALLEGRO_KEY_SPACE){
 			ret = 0;
 		}
 
 	} while(ret);
 
+	//Destruye la cola de eventos
 	al_destroy_event_queue(event_queue);
 
-	for (float volume = 0.5; volume > 0.0; volume -= 0.01) {
+	// Hace un fade-out de la música
+	float volume;
+	for (volume = 0.5; volume > 0.0; volume -= 0.01) {
 		al_set_sample_instance_gain(sampleInstance, volume);
 	    al_rest(0.03);
 	}
@@ -166,7 +170,7 @@ static void display_s_menu (unsigned int boton, ALLEGRO_FONT * font_title, ALLEG
 	al_clear_to_color(al_map_rgb(54,1,63));
 
 	//TÍTULO
-	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), SIZE /2, 135, ALLEGRO_ALIGN_CENTER, "Space Invaders");
+	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), SIZE /2, 135, ALLEGRO_ALIGN_CENTER, "Space Barbie");
 
 	//BOTONES
 	switch(boton){
