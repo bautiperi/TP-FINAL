@@ -27,9 +27,9 @@ int main(void){
 
 
 	//CREACION DE THREAD
-	pthread_t enemigos;
+	//pthread_t enemigos;
 
-	pthread_create(&enemigos, NULL, ships_update, mapa);
+	//pthread_create(&enemigos, NULL, ships_update, mapa);
 
 	display_game(mapa);
 

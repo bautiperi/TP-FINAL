@@ -15,6 +15,6 @@
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
  * return: (int) En caso de haber un error devuelve -1
  *  */
-int display_game (int mapa[][COL]);
+int display_game (const int mapa[][COL]);
 
 #endif /* DISP_GAME_A_H_ */

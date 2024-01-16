@@ -11,6 +11,7 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 
 //DEFINES
@@ -58,7 +59,6 @@ int display_init (void){
 	}
 
 	//Inicializa el uso de audio
-	/*
 	if (!al_install_audio()) {
 	    fprintf(stderr, "Failed to initialize audio.\n");
 	    return -1;
@@ -73,7 +73,6 @@ int display_init (void){
 	    fprintf(stderr, "Failed to reserve samples.\n");
 	    return -1;
 	}
-	*/
 
 	//Inicializa el display
 	display = al_create_display(800, 800);
@@ -133,38 +132,38 @@ int display_start_menu(void){
  * return: (void)
  * */
 static void display_s_menu (unsigned int boton){
-	int size_title = 100;
-	int size_options = 65;
+	int size_title = 150;
+	int size_options = 75;
 
 	al_clear_to_color(al_map_rgb(54,1,63));
 
 	ALLEGRO_FONT *font_title = NULL;
-	font_title = al_load_ttf_font("resources/Zepto-Regular.ttf", size_title, 0);
-	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), SIZE /2, 135, ALLEGRO_ALIGN_CENTER, "SPACE INVADERS");
+	font_title = al_load_ttf_font("resources/Barbie-font.ttf", size_title, 0);
+	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), SIZE /2, 135, ALLEGRO_ALIGN_CENTER, "Space Invaders");
 
 	ALLEGRO_FONT *font = NULL;
-	font = al_load_ttf_font("resources/Zepto-Regular.ttf", size_options, 0);
+	font = al_load_ttf_font("resources/Barbie-font.ttf", size_options, 0);
 
 	switch(boton){
 	case 0:
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 330, ALLEGRO_ALIGN_CENTER, "NEW GAME");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "HIGHSCORE");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 470, ALLEGRO_ALIGN_CENTER, "QUIT GAME");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 320, ALLEGRO_ALIGN_CENTER, "New game");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "Highscore");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 480, ALLEGRO_ALIGN_CENTER, "Quit game");
 		break;
 	case 1:
-		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 330, ALLEGRO_ALIGN_CENTER, ">>  NEW GAME  <<");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "HIGHSCORE");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 470, ALLEGRO_ALIGN_CENTER, "QUIT GAME");
+		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 320, ALLEGRO_ALIGN_CENTER, "> >  New game  < <");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "Highscore");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 480, ALLEGRO_ALIGN_CENTER, "Quit game");
 		break;
 	case 2:
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 330, ALLEGRO_ALIGN_CENTER, "NEW GAME");
-		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, ">>  HIGHSCORE  <<");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 470, ALLEGRO_ALIGN_CENTER, "QUIT GAME");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 320, ALLEGRO_ALIGN_CENTER, "New game");
+		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "> >  Highscore  < <");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 480, ALLEGRO_ALIGN_CENTER, "Quit game");
 		break;
 	case 3:
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 330, ALLEGRO_ALIGN_CENTER, "NEW GAME");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "HIGHSCORE");
-		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 470, ALLEGRO_ALIGN_CENTER, ">>  QUIT GAME  <<");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 320, ALLEGRO_ALIGN_CENTER, "New game");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "Highscore");
+		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 480, ALLEGRO_ALIGN_CENTER, "> >  Quit game  < <");
 		break;
 	}
 

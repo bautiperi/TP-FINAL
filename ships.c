@@ -1,6 +1,5 @@
 //Acá van todas las funciones relacionadas a las cosas de enemigos
 #include "ships.h"
-
 #include <unistd.h>
 
 //Están harcodeadeas para probar el display de Allegro
@@ -37,5 +36,6 @@ void ships_update (int mapa[][COL]){
 		usleep(100000);
 	}
 
-	}
+}
+
 }

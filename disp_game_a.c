@@ -24,12 +24,12 @@ static void display_impact (const int x, const int y);
 
 #define SCALER 25
 #define BARRIER -1
-#define FONT_SIZE 30
+#define FONT_SIZE 35
 
 // RESERVAR LAS ÚLTIMAS 5 CELDAS DE LA PRIMER FILA PARA DATOS, EN SIGUIENTE ORDEN:
 // HUBO IMPACTO (1 = Sí) | COORD X IMPACTO | COORD Y IMPACTO | SCORE | LIVES
 
-int display_game (int mapa[][COL]){
+int display_game (const int mapa[][COL]){
 
 	// INICIALIZACIÓN DE ELEMENTOS PARA EL JUEGO:
 	// PLAYER IMAGE
@@ -41,7 +41,7 @@ int display_game (int mapa[][COL]){
 	// LIVES IMAGE
 	ALLEGRO_BITMAP * heart = al_load_bitmap("resources/heart_yes.png");
 	// FONT
-	ALLEGRO_FONT * font = al_load_ttf_font("resources/Zepto-Regular.ttf", FONT_SIZE, 0);
+	ALLEGRO_FONT * font = al_load_ttf_font("resources/Barbie-font.ttf", FONT_SIZE, 0);
 
 	//TIMER
 	ALLEGRO_TIMER *timer = NULL;
@@ -129,10 +129,10 @@ static void display_barr (const int mapa[][COL], ALLEGRO_BITMAP *barrier) {
 static void display_stats (int score, int lives, ALLEGRO_FONT *font, ALLEGRO_BITMAP *heart) {
 
 	//Escribe en pantalla el score que tiene el jugador
-	al_draw_textf(font, al_map_rgb(255, 255, 255), 25, 5, 0, "SCORE: %d", score);
+	al_draw_textf(font, al_map_rgb(255, 255, 255), 25, 5, 0, "Score: %d", score);
 
 	//Escribe en pantalla lives
-	al_draw_text(font, al_map_rgb(255, 255, 255), 590, 5, 0, "LIVES:");
+	al_draw_text(font, al_map_rgb(255, 255, 255), 615, 5, 0, "Lives:");
 
 	//Loop que pone en el buffer la cantidad de vidas que tiene el jugador
 	int i, x=680;
@@ -141,7 +141,7 @@ static void display_stats (int score, int lives, ALLEGRO_FONT *font, ALLEGRO_BIT
 	}
 
 	//Muestra en pantalla "Press ESC to pause the game"
-	al_draw_text(font, al_map_rgb(255, 255, 255), 400, 750, ALLEGRO_ALIGN_CENTER, "Press ESC to pause the game.");
+	al_draw_text(font, al_map_rgb(255, 255, 255), 400, 750, ALLEGRO_ALIGN_CENTER, "Press ESC to pause the game");
 
 }
 

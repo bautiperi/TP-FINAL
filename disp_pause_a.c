@@ -65,38 +65,38 @@ int display_pause_menu (void){
  * boton: (unsigned int) Es el botón a seleccionar
  * return: (void)*/
 static void display_p_menu (unsigned int boton) {
-	int size_title = 100;
-	int size_options = 65;
+	int size_title = 150;
+	int size_options = 75;
 
 	al_clear_to_color(al_map_rgb(54,1,63));
 
 	ALLEGRO_FONT *font_title = NULL;
-	font_title = al_load_ttf_font("resources/Zepto-Regular.ttf", size_title, 0);
-	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), SIZE /2, 125, ALLEGRO_ALIGN_CENTER, "PAUSE MENU");
+	font_title = al_load_ttf_font("resources/Barbie-font.ttf", size_title, 0);
+	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), SIZE /2, 125, ALLEGRO_ALIGN_CENTER, "Pause Menu");
 
 	ALLEGRO_FONT *font = NULL;
-	font = al_load_ttf_font("resources/Zepto-Regular.ttf", size_options, 0);
+	font = al_load_ttf_font("resources/Barbie-font.ttf", size_options, 0);
 
 	switch(boton){
 	case 0:
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 330, ALLEGRO_ALIGN_CENTER, "RESUME GAME");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "BACK TO MENU");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 470, ALLEGRO_ALIGN_CENTER, "QUIT GAME");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 320, ALLEGRO_ALIGN_CENTER, "Resume game");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "Back to main menu");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 480, ALLEGRO_ALIGN_CENTER, "Quit game");
 		break;
 	case 1:
-		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 330, ALLEGRO_ALIGN_CENTER, ">> RESUME GAME <<");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "BACK TO MENU");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 470, ALLEGRO_ALIGN_CENTER, "QUIT GAME");
+		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 320, ALLEGRO_ALIGN_CENTER, "> > Resume game < <");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "Back to main menu");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 480, ALLEGRO_ALIGN_CENTER, "Quit game");
 		break;
 	case 2:
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 330, ALLEGRO_ALIGN_CENTER, "RESUME GAME");
-		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, ">> BACK TO MENU <<");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 470, ALLEGRO_ALIGN_CENTER, "QUIT GAME");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 320, ALLEGRO_ALIGN_CENTER, "Resume game");
+		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "> > Back to main menu < <");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 480, ALLEGRO_ALIGN_CENTER, "Quit game");
 		break;
 	case 3:
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 330, ALLEGRO_ALIGN_CENTER, "RESUME GAME");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "BACK TO MENU");
-		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 470, ALLEGRO_ALIGN_CENTER, ">> QUIT GAME <<");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 320, ALLEGRO_ALIGN_CENTER, "Resume game");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "Back to main menu");
+		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 480, ALLEGRO_ALIGN_CENTER, "> > Quit game < <");
 		break;
 	}
 
