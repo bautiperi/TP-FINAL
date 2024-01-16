@@ -13,7 +13,6 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 
-
 //DEFINES
 #define SIZE 800
 
@@ -22,8 +21,8 @@
 #define BUTTON_COLOR 250, 218, 221
 #define BUTTON_SEL_COLOR 233, 65, 150
 
-
-static void display_s_menu (unsigned int boton);
+//PROTOTIPOS
+static void display_s_menu (unsigned int boton, ALLEGRO_FONT * font_title, ALLEGRO_FONT * font);
 
 int display_init (void){
 	ALLEGRO_DISPLAY * display = NULL;
@@ -87,43 +86,74 @@ int display_init (void){
 int display_start_menu(void){
 	int sel = 0, ret = 1;
 
-		ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
-		al_register_event_source(event_queue, al_get_keyboard_event_source());
+	//Carga las fonts
+	int size_title = 150;
+	int size_options = 75;
 
-		display_s_menu(0);
+	ALLEGRO_FONT *font_title = NULL;
+	font_title = al_load_ttf_font("resources/Barbie-font.ttf", size_title, 0);
 
-		do{
-			ALLEGRO_EVENT ev;
-			al_wait_for_event(event_queue, &ev);
+	ALLEGRO_FONT *font = NULL;
+	font = al_load_ttf_font("resources/Barbie-font.ttf", size_options, 0);
 
-			if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
-				if(ev.keyboard.keycode == ALLEGRO_KEY_DOWN || ev.keyboard.keycode == ALLEGRO_KEY_S){
-					sel++;
-				}
-				else if(ev.keyboard.keycode == ALLEGRO_KEY_UP || ev.keyboard.keycode == ALLEGRO_KEY_W){
-					sel--;
-				}
+	//COLA DE EVENTOS
+	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+	al_register_event_source(event_queue, al_get_keyboard_event_source());
+
+	//CARGA LA CANCIÓN "Dance the Night"
+	ALLEGRO_SAMPLE *sample = al_load_sample("resources/Dance the night - Dua Lipa.wav");
+	ALLEGRO_SAMPLE_INSTANCE *sampleInstance = al_create_sample_instance(sample);
+	al_set_sample_instance_playmode(sampleInstance, ALLEGRO_PLAYMODE_LOOP);
+	al_attach_sample_instance_to_mixer(sampleInstance, al_get_default_mixer());
+
+	display_s_menu(sel, font_title, font);
+
+	//Pone la canción
+	al_play_sample_instance(sampleInstance);
+	al_set_sample_instance_gain(sampleInstance, 0.5);
+
+	do{
+		ALLEGRO_EVENT ev;
+		al_wait_for_event(event_queue, &ev);
+
+		if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
+			if(ev.keyboard.keycode == ALLEGRO_KEY_DOWN || ev.keyboard.keycode == ALLEGRO_KEY_S){
+				sel++;
 			}
-
-			if(sel > 3){
-				sel = 1;
+			else if(ev.keyboard.keycode == ALLEGRO_KEY_UP || ev.keyboard.keycode == ALLEGRO_KEY_W){
+				sel--;
 			}
-			else if(sel <= 0){
-				sel = 3;
-			}
+		}
 
-			display_s_menu(sel);
+		if(sel > 3){
+			sel = 1;
+		}
+		else if(sel <= 0){
+			sel = 3;
+		}
+
+		display_s_menu(sel, font_title, font);
 
 
-			if(ev.keyboard.keycode == ALLEGRO_KEY_ENTER || ev.keyboard.keycode == ALLEGRO_KEY_SPACE){
-				ret = 0;
-			}
+		if(ev.keyboard.keycode == ALLEGRO_KEY_ENTER || ev.keyboard.keycode == ALLEGRO_KEY_SPACE){
+			ret = 0;
+		}
 
-		} while(ret);
+	} while(ret);
 
-		al_destroy_event_queue(event_queue);
+	al_destroy_event_queue(event_queue);
 
-		return sel;
+	for (float volume = 0.5; volume > 0.0; volume -= 0.01) {
+		al_set_sample_instance_gain(sampleInstance, volume);
+	    al_rest(0.03);
+	}
+
+	//Deja de correr la canción y elimina la instancia
+	al_stop_sample_instance(sampleInstance);
+	al_destroy_sample_instance(sampleInstance);
+	al_destroy_sample(sample);
+
+	return sel;
 }
 
 /* FUNCIÓN DISPLAY_P_MENU
@@ -131,19 +161,14 @@ int display_start_menu(void){
  * boton: (u int) Recibe la selección del jugador para mostrar en pantalla
  * return: (void)
  * */
-static void display_s_menu (unsigned int boton){
-	int size_title = 150;
-	int size_options = 75;
+static void display_s_menu (unsigned int boton, ALLEGRO_FONT * font_title, ALLEGRO_FONT * font){
 
 	al_clear_to_color(al_map_rgb(54,1,63));
 
-	ALLEGRO_FONT *font_title = NULL;
-	font_title = al_load_ttf_font("resources/Barbie-font.ttf", size_title, 0);
+	//TÍTULO
 	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), SIZE /2, 135, ALLEGRO_ALIGN_CENTER, "Space Invaders");
 
-	ALLEGRO_FONT *font = NULL;
-	font = al_load_ttf_font("resources/Barbie-font.ttf", size_options, 0);
-
+	//BOTONES
 	switch(boton){
 	case 0:
 		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 320, ALLEGRO_ALIGN_CENTER, "New game");

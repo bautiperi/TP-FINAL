@@ -31,7 +31,7 @@ int main(void){
 
 	//pthread_create(&enemigos, NULL, ships_update, mapa);
 
-	display_game(mapa);
+	display_start_menu();
 
 	return 0;
 
