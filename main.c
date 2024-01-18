@@ -1,37 +1,28 @@
 #include <stdio.h>
 #include <pthread.h>
+#include <unistd.h>
+#include <allegro5/allegro.h>
 
-#include "disp_game_a.h"
 #include "map.h"
 #include "disp_start_menu_a.h"
-#include "disp_pause_a.h"
-#include "ships.h"
-#include "disp_scoreboard_a.h"
+#include "disp_game_a.h"
+#include "back_game_a.h"
 
 int main(void){
 
+	//INICIALIZA EL DISPLAY
+	ALLEGRO_DISPLAY * display = display_init();
+
+	if (display == NULL){
+		fprintf(stderr, "Error al inicializar el display y sus librerias, descripción del error arriba");
+		return -1;
+	}
+
 	int mapa[FIL][COL];
 
-	//Llama a la función mapdef para inicializar el mapa
 	map_def(EASY, mapa);
 
-	ships_create(mapa, EASY);
-
-	mapa[0][31] = 3;
-	mapa[0][COL-2] = 9999999;
-	mapa[28][16] = 1;
-	mapa[27][16] = 5;
-
-
-	display_init();
-
-
-	//CREACION DE THREAD
-	//pthread_t enemigos;
-
-	//pthread_create(&enemigos, NULL, ships_update, mapa);
-
-	display_start_menu();
+	display_game(mapa);
 
 	return 0;
 

@@ -9,23 +9,23 @@ void alien_movement_h(int mapa[][COL], int fil, int col)
     // se mueve hacia la derecha
     if (dir == 1)
     {
-        for (y = col; y <= 5; y++)
+        for (y = fil; y < 15 ; y++)
         {
-            for (x = fil; x < COL - 1; x + 2)
+            for (x = col; x < COL - 1; x++)
             {
-                swap(mapa, x, y, x + 1, y);
+                swap(mapa, y, x, y, x + 1);
             }
         }
         dir *= -1;
-        alien_movement_v(mapa, fil, col);
+        //alien_movement_v(mapa, fil, col);
     }
     else
     { // se mueve hacia la izquierda
         for (y = col; y <= 5; y++)
         {
-            for (x = COL - 1; x >= 0; x - 2)
+            for (x = COL - 1; x >= 0; x -= 2)
             {
-                swap(mapa, x, y, x - 1, y);
+                swap(mapa, y, x, y, x - 1);
             }
         }
         dir *= -1;
@@ -37,11 +37,11 @@ void alien_movement_v(int mapa[][COL], int fil, int col)
 {
     int x, y;
     // se mueve hacia abajo
-    for (x = fil; x <= COL - 1; x++)
+    for (y = fil; y < COL; y++)
     {
-        for (y = col; y > 22; y - 2)
+        for (x = col; x < 22; x -= 2)
         { // NO SABEMOS CUANDO ARRANCAN LOS SHIPS
-            swap(mapa, x, y, x - 1, y);
+            swap(mapa, y, x, y, x -1);
         }
     }
 }

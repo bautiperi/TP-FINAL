@@ -1,41 +1,37 @@
 //Acá van todas las funciones relacionadas a las cosas de enemigos
 #include "ships.h"
+
 #include <unistd.h>
 
-//Están harcodeadeas para probar el display de Allegro
-int ships_create (int mapa[][COL], int diff){
+static void spawn_gen (int mapa[][COL], int ini_y, int desp_y, int type_of_enemy, int r_o_a);
 
-	int x, y;
-	for(y = 5; y < 15; y += 2){
-		for(x = 4; x < 28; x += 3){
-			mapa[y][x] = 2;
+//Están harcodeadeas para probar el display de Allegro
+int ships_create (int diff, int mapa[][COL]){
+
+	if (diff == EASY){
+		int i, enemy = 4;
+
+		for(i = 4; i < 20; i += 4){
+			spawn_gen(mapa, i, i + 4, enemy--, 0);
 		}
+
 	}
 
 	return 0;
 }
 
-void ships_update (int mapa[][COL]){
-	while(1){
-	int x, y;
-	int wall = 1;
+static void spawn_gen (int mapa[][COL], int ini_y, int desp_y, int type_of_enemy, int r_o_a){
 
-	//Volver a hacer
-	for(y = COL; (y > 0) && wall; y--){
-		for(x = FIL; x > 0; x--){
-			if(mapa[y][x] == 2){
-				if((x) == (COL - 2)){
-					wall = 0;
-				}
-				else{
-					mapa[y][x+1] = 2;
-					mapa[y][x--] = 0;
-				}
+	//Indica si es rasp o allegro
+	if(r_o_a == 0){
+		int y, x;
+		for(y = ini_y; y < desp_y; y += 2){
+
+			for(x = 3; x < 29; x += 3){
+				mapa[y][x] = type_of_enemy;
 			}
 		}
-		usleep(100000);
 	}
 
-}
 
 }

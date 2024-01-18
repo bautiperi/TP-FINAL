@@ -1,6 +1,7 @@
 //HEADER
 #include "disp_game_a.h"
 
+#include "disp_start_menu_a.h"
 //LIBRERIAS
 #include <stdio.h>
 #include <stdint.h>
@@ -18,7 +19,7 @@
 static void display_barr (const int mapa[][COL], ALLEGRO_BITMAP * barrier);
 static void display_stats (int score, int lives, ALLEGRO_FONT * font, ALLEGRO_BITMAP * heart);
 static void display_player (const int mapa[][COL], ALLEGRO_BITMAP * player);
-static void display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien);
+static void display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLEGRO_BITMAP * alien_2);
 static void display_bullet (const int mapa[][COL]);
 static void display_impact (const int x, const int y);
 
@@ -35,7 +36,8 @@ int display_game (const int mapa[][COL]){
 	// PLAYER IMAGE
 	ALLEGRO_BITMAP * player = al_load_bitmap("resources/player.png");
 	// ALIENS IMAGE
-	ALLEGRO_BITMAP * alien = al_load_bitmap("resources/aliens.png");
+	ALLEGRO_BITMAP * alien_1 = al_load_bitmap("resources/aliens.png");
+	ALLEGRO_BITMAP * alien_2 = al_load_bitmap("resources/aliens_2.png");
 	// BARRIERS IMAGE
 	ALLEGRO_BITMAP *barrier = al_load_bitmap("resources/barrier.png");
 	// LIVES IMAGE
@@ -73,7 +75,7 @@ int display_game (const int mapa[][COL]){
 			// Muestra el jugador en pantalla, se le debe pasar la coordenada x donde está el jugador
 			display_player(mapa, player);
 			// Muestra a los enemigos en pantalla
-			display_aliens(mapa, alien);
+			display_aliens(mapa, alien_1, alien_2);
 			// Muestra los disparos en pantalla
 			display_bullet(mapa);
 
@@ -89,6 +91,7 @@ int display_game (const int mapa[][COL]){
 
 		if(event.type == ALLEGRO_EVENT_KEY_DOWN){
 			if(event.keyboard.keycode == ALLEGRO_KEY_ESCAPE){
+
 				return 0;
 			}
 		}
@@ -167,7 +170,7 @@ static void display_player (const int mapa[][COL], ALLEGRO_BITMAP * player){
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
  * return: (int) En caso de haber un error devuelve -1, 0 en caso de no haber ningún problema
  *  */
-static void display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien){
+static void display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLEGRO_BITMAP * alien_2){
 	//Crea la imagen para el boss
 	ALLEGRO_BITMAP * boss = NULL;
 	//Crea un nro aleatorio para definir que imagen usar:
@@ -188,11 +191,19 @@ static void display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien){
 		for(x = 0; x < COL; x++){
 			if (mapa[y][x] == 2){
 				//Si el enemigo es un alien, muestra la imagen de un alien
-				al_draw_scaled_bitmap(alien, 0, 0, 308, 308, x * SCALER, y * SCALER , 30, 30, 0);
+				al_draw_scaled_bitmap(alien_1, 0, 0, 308, 308, x * SCALER, y * SCALER , 30, 30, 0);
 			}
 			else if (mapa[y][x] == 3){
-				//Muestra la imagen del boss
-				al_draw_scaled_bitmap(boss, 0, 0, 360, 360, x * SCALER, y * SCALER, SCALER, SCALER, 0);
+				//Si el enemigo es un alien, muestra la imagen de un alien
+				al_draw_scaled_bitmap(alien_2, 0, 0, 308, 308, x * SCALER, y * SCALER , 30, 30, 0);
+			}
+			else if (mapa [y][x] == 4){
+				//Si el enemigo es un alien, muestra la imagen de un alien
+				al_draw_scaled_bitmap(alien_1, 0, 0, 308, 308, x * SCALER, y * SCALER , 30, 30, 0);
+			}
+			else if (mapa [y][x] == 5){
+				//Si el enemigo es un alien, muestra la imagen de un alien
+				al_draw_scaled_bitmap(boss, 0, 0, 308, 308, x * SCALER, y * SCALER , 30, 30, 0);
 			}
 		}
 	}
@@ -211,11 +222,11 @@ static void display_bullet(const int mapa[][COL]){
 	for (y = 4; y < (FIL - 4); y++){
 		for(x = 0; x < COL; x++){
 
-			if (mapa[y][x] == 5){
+			if (mapa[y][x] == 6){
 				//Si el disparo es de un jugador, lo muestra de color celeste
 				al_draw_filled_rounded_rectangle(x*SCALER-5, y*SCALER-5, x*SCALER+5, y*SCALER+5, 4, 4, al_map_rgb(204,143,233));
 			}
-			else if (mapa[y][x] == 6){
+			else if (mapa[y][x] == 7){
 				//Si el disparo es de un enemigo, lo muestra de color naranja
 				al_draw_filled_rounded_rectangle(x*SCALER-5, y*SCALER-5, x*SCALER+5, y*SCALER+5, 4, 4, al_map_rgb(130,39,215));
 			}

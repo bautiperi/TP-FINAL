@@ -10,7 +10,7 @@
 
 #include "map.h"
 
-int ships_create (int mapa[][COL], int diff);
+int ships_create (int diff, int mapa[][COL]);
 void ships_update (int mapa[][COL]);
 
 

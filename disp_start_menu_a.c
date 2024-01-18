@@ -5,7 +5,6 @@
 #include <stdio.h>
 
 //LIBRERIAS ALLEGRO
-#include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
@@ -24,13 +23,13 @@
 //PROTOTIPOS
 static void display_s_menu (unsigned int boton, ALLEGRO_FONT * font_title, ALLEGRO_FONT * font);
 
-int display_init (void){
+ALLEGRO_DISPLAY * display_init (void){
 	ALLEGRO_DISPLAY * display = NULL;
 
 	//Inicializa Allegro
 	if ( !al_init()) {
 		fprintf(stderr, "No se pudo inicializar allegro \n");
-		return -1;
+		return NULL;
 	}
 
 	//Inicializa el teclado
@@ -42,45 +41,45 @@ int display_init (void){
 	//Inicializa el manejo de imágenes
 	if (!al_init_image_addon()) {
 	        fprintf(stderr, "No se pudo inicializar el manejo de imagenes\n");
-	        return -1;
+	        return NULL;
 	}
 
 	//Inicializa el uso de formas
 		if (!al_init_primitives_addon()) {
 			fprintf(stderr, "No se pudo inicializar el manejo de primitivas\n");
-			return -1;
+			return NULL;
 		}
 
 	//Inicializa el uso de fonts
 	if (!al_init_font_addon() || !al_init_ttf_addon()) {
 		fprintf(stderr, "No se pudo inicializar el manejo de fuentes y texto\n");
-		return -1;
+		return NULL;
 	}
 
 	//Inicializa el uso de audio
 	if (!al_install_audio()) {
 	    fprintf(stderr, "Failed to initialize audio.\n");
-	    return -1;
+	    return NULL;
 	}
 
 	if (!al_init_acodec_addon()) {
 	    fprintf(stderr, "Failed to initialize audio codecs.\n");
-	    return -1;
+	    return NULL;
 	}
 
 	if (!al_reserve_samples(1)) {
 	    fprintf(stderr, "Failed to reserve samples.\n");
-	    return -1;
+	    return NULL;
 	}
 
 	//Inicializa el display
 	display = al_create_display(800, 800);
 	if (!display) {
 		fprintf(stderr, "No se pudo crear el display \n");
-		return -1;
+		return NULL;
 	}
 
-	return 0;
+	return display;
 }
 
 int display_start_menu(void){
