@@ -19,7 +19,7 @@
 static void display_barr (const int mapa[][COL], ALLEGRO_BITMAP * barrier);
 static void display_stats (int score, int lives, ALLEGRO_FONT * font, ALLEGRO_BITMAP * heart);
 static void display_player (const int mapa[][COL], ALLEGRO_BITMAP * player);
-static void display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLEGRO_BITMAP * alien_2);
+static void display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLEGRO_BITMAP * alien_2, ALLEGRO_BITMAP * alien_3);
 static void display_bullet (const int mapa[][COL]);
 static void display_impact (const int x, const int y);
 
@@ -75,7 +75,7 @@ int display_game (const int mapa[][COL]){
 			// Muestra el jugador en pantalla, se le debe pasar la coordenada x donde está el jugador
 			display_player(mapa, player);
 			// Muestra a los enemigos en pantalla
-			display_aliens(mapa, alien_1, alien_2);
+			display_aliens(mapa, alien_1, alien_2, heart);
 			// Muestra los disparos en pantalla
 			display_bullet(mapa);
 
@@ -159,7 +159,7 @@ static void display_player (const int mapa[][COL], ALLEGRO_BITMAP * player){
 	int x;
 	for(x = 0; x < COL; x++){
 		if(mapa[28][x] == 1){
-			al_draw_scaled_bitmap(player, 0, 0, 128, 64, (x-1)* SCALER, 28 * SCALER , SCALER * 2, SCALER, 0);
+			al_draw_scaled_bitmap(player, 0, 0, 128, 64, x * SCALER, 28 * SCALER , SCALER * 2, SCALER, 0);
 		}
 	}
 
@@ -170,7 +170,7 @@ static void display_player (const int mapa[][COL], ALLEGRO_BITMAP * player){
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
  * return: (int) En caso de haber un error devuelve -1, 0 en caso de no haber ningún problema
  *  */
-static void display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLEGRO_BITMAP * alien_2){
+static void display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLEGRO_BITMAP * alien_2, ALLEGRO_BITMAP * alien_3){
 	//Crea la imagen para el boss
 	ALLEGRO_BITMAP * boss = NULL;
 	//Crea un nro aleatorio para definir que imagen usar:

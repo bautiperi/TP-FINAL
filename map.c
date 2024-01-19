@@ -1,6 +1,5 @@
 #include "map.h"
 
-#include <stdio.h>
 #include "ships.h"
 
 //DEF DE FUNCIONES PRIVADAS
@@ -26,9 +25,11 @@ void map_def(const int diff, int mapa [][COL]) {
 	//Llama a la función encargada de crear los obstáculos
 	barrier_diff(diff, mapa);
 
-	//Llama a la función encargada de crear los enemigos y spawnear al jugador
+	//Llama a la función encargada de crear los enemigos
 	ships_create(diff, mapa);
 
+	//Ubica al jugador en el centro del mapa
+	mapa[28][15] = 1;
 }
 
 /* FUNCIÓN BARRIER_DIFF
