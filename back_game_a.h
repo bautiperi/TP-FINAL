@@ -10,7 +10,6 @@
  * col: (int) columna inicial
  * return: (void)
  */
-void alien_movement_h(int mapa[][COL], int fil, int col);
-
+void alien_movement_h(int mapa[][COL]);
 
 #endif /* BACK_GAME_A_H_ */
