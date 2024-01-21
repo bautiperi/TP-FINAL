@@ -4,6 +4,8 @@
 //LIBRERIAS
 #include <stdio.h>
 
+#include "disp_scoreboard_a.h"
+
 //LIBRERIAS ALLEGRO
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
@@ -82,6 +84,7 @@ ALLEGRO_DISPLAY * display_init (void){
 	return display;
 }
 
+//sel = 1 -> Iniciar juego nuevo | sel = 2 -> Scoreboard | sel = 3 -> exit game
 int display_start_menu(void){
 	int sel = 0, ret = 1;
 
@@ -135,8 +138,29 @@ int display_start_menu(void){
 
 		display_s_menu(sel, font_title, font);
 
-		if(ev.keyboard.keycode == ALLEGRO_KEY_ENTER || ev.keyboard.keycode == ALLEGRO_KEY_SPACE){
-			ret = 0;
+		if (ev.type == ALLEGRO_EVENT_KEY_DOWN){
+			if(ev.keyboard.keycode == ALLEGRO_KEY_ENTER || ev.keyboard.keycode == ALLEGRO_KEY_SPACE){
+				//Si se selecciona el scoreboard, se llama a la función encargada de ello
+				if(sel == 2){
+					// Hace un fade-out de la música
+					float volume;
+					for (volume = 0.5; volume > 0.2; volume -= 0.01) {
+						al_set_sample_instance_gain(sampleInstance, volume);
+						al_rest(0.02);
+					}
+
+					display_scoreboard();
+
+					//Hace un fade-in
+					for (volume = 0.2; volume < 0.5; volume += 0.01) {
+						al_set_sample_instance_gain(sampleInstance, volume);
+						al_rest(0.02);
+					}
+				}
+				else if(sel != 0){
+					ret = 0;
+				}
+			}
 		}
 
 	} while(ret);

@@ -1,7 +1,8 @@
 //HEADER
 #include "disp_game_a.h"
 
-#include "disp_start_menu_a.h"
+#include "disp_pause_a.h"
+
 //LIBRERIAS
 #include <stdio.h>
 #include <stdint.h>
@@ -14,6 +15,8 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 //DEFINICIÓN DE FUNCIONES PRIVADAS
 static void display_barr (const int mapa[][COL], ALLEGRO_BITMAP * barrier);
@@ -44,6 +47,21 @@ int display_game (const int mapa[][COL]){
 	ALLEGRO_BITMAP * heart = al_load_bitmap("resources/heart_yes.png");
 	// FONT
 	ALLEGRO_FONT * font = al_load_ttf_font("resources/Barbie-font.ttf", FONT_SIZE, 0);
+
+	// CARGA LA CANCIÓN "Journey to the real world"
+	ALLEGRO_SAMPLE *background = al_load_sample("resources/Journey To The Real World - Tame Impala.wav");
+	ALLEGRO_SAMPLE_INSTANCE *backgroundInstance = al_create_sample_instance(background);
+	al_set_sample_instance_playmode(backgroundInstance, ALLEGRO_PLAYMODE_LOOP);
+	al_attach_sample_instance_to_mixer(backgroundInstance, al_get_default_mixer());
+
+	//CARGA LA CANCIÓN "I´m just ken"
+	ALLEGRO_SAMPLE *ken_alien = al_load_sample("resources/Im Just Ken - Ryan Gosling.wav");
+	ALLEGRO_SAMPLE_INSTANCE *kenInstance = al_create_sample_instance(ken_alien);
+	al_attach_sample_instance_to_mixer(kenInstance, al_get_default_mixer());
+
+	// Pone la canción
+	al_play_sample_instance(backgroundInstance);
+	al_set_sample_instance_gain(backgroundInstance, 0.4);
 
 	// TIMER
 	ALLEGRO_TIMER *timer = NULL;
@@ -92,7 +110,34 @@ int display_game (const int mapa[][COL]){
 		if(event.type == ALLEGRO_EVENT_KEY_DOWN){
 			if(event.keyboard.keycode == ALLEGRO_KEY_ESCAPE){
 
-				return 0;
+				float volume;
+				//Hace un fade-in
+				for (volume = 0.4; volume < 0.5; volume += 0.01) {
+					al_set_sample_instance_gain(backgroundInstance, volume);
+					al_rest(0.02);
+				}
+
+				int sel = display_pause_menu();
+
+				if(sel == 3){
+					return sel;
+				}
+				//Para volver al menú principal
+				else if (sel == 2) {
+					// Hace un fade-out de la música
+					for (volume = 0.5; volume > 0.0; volume -= 0.01) {
+						al_set_sample_instance_gain(backgroundInstance, volume);
+						al_rest(0.01);
+					}
+
+					//Deja de correr la canción y elimina la instancia
+					al_stop_sample_instance(backgroundInstance);
+					al_destroy_sample_instance(backgroundInstance);
+					al_destroy_sample(background);
+
+					return 0;
+				}
+
 			}
 		}
 

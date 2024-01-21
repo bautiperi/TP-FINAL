@@ -17,11 +17,20 @@ int main(void){
 		return -1;
 	}
 
-	int mapa[FIL][COL];
+	int sel = 0;
 
-	map_def(EASY, mapa);
+	while( sel != 3 ){
+		sel = display_start_menu();
 
-	display_game(mapa);
+		//Inicializar juego
+		if(sel == 1){
+			int mapa[FIL][COL];
+
+			map_def(EASY, mapa);
+
+			sel = display_game(mapa);
+		}
+	}
 
 	return 0;
 
