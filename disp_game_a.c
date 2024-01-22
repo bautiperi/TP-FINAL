@@ -2,6 +2,7 @@
 #include "disp_game_a.h"
 
 #include "disp_pause_a.h"
+#include "back_game_a.h"
 
 //LIBRERIAS
 #include <stdio.h>
@@ -22,7 +23,7 @@
 static void display_barr (const int mapa[][COL], ALLEGRO_BITMAP * barrier);
 static void display_stats (int score, int lives, ALLEGRO_FONT * font, ALLEGRO_BITMAP * heart);
 static void display_player (const int mapa[][COL], ALLEGRO_BITMAP * player);
-static void display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLEGRO_BITMAP * alien_2, ALLEGRO_BITMAP * alien_3);
+static int display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLEGRO_BITMAP * alien_2, ALLEGRO_BITMAP * alien_3, ALLEGRO_BITMAP * boss);
 static void display_bullet (const int mapa[][COL]);
 static void display_impact (const int x, const int y);
 
@@ -35,12 +36,16 @@ static void display_impact (const int x, const int y);
 
 int display_game (const int mapa[][COL]){
 
+	int ken_flag = 0, ken_flag_continue = 0;
+
 	// INICIALIZACIÓN DE ELEMENTOS PARA EL JUEGO:
 	// PLAYER IMAGE
 	ALLEGRO_BITMAP * player = al_load_bitmap("resources/player.png");
-	// ALIENS IMAGE
+	// ALIENS Y BOSS IMAGE
 	ALLEGRO_BITMAP * alien_1 = al_load_bitmap("resources/aliens.png");
 	ALLEGRO_BITMAP * alien_2 = al_load_bitmap("resources/aliens_2.png");
+	ALLEGRO_BITMAP * alien_3 = al_load_bitmap("resources/aliens_2.png");
+	ALLEGRO_BITMAP * boss = al_load_bitmap("resources/aliens_2.png");
 	// BARRIERS IMAGE
 	ALLEGRO_BITMAP *barrier = al_load_bitmap("resources/barrier.png");
 	// LIVES IMAGE
@@ -83,6 +88,21 @@ int display_game (const int mapa[][COL]){
 		al_get_next_event(event_queue, &event);
 		al_get_next_event(timer_ev_queue, &ev);
 
+		if(ken_flag == 1 && ken_flag_continue == 0){
+			ken_flag_continue = 1;
+
+			al_stop_sample_instance(backgroundInstance);
+			al_play_sample_instance(kenInstance);
+			al_set_sample_instance_gain(kenInstance, 0.5);
+
+		}
+		else if (ken_flag == 0 && ken_flag_continue == 1){
+			ken_flag_continue = 0;
+			al_stop_sample_instance(kenInstance);
+			al_play_sample_instance(backgroundInstance);
+			al_set_sample_instance_gain(backgroundInstance, 0.4);
+		}
+
 		if( ev.type == ALLEGRO_EVENT_TIMER ){
 			// Backbuffer se settea en el fondo deseado
 			al_clear_to_color(al_map_rgb(54,1,63));
@@ -93,7 +113,7 @@ int display_game (const int mapa[][COL]){
 			// Muestra el jugador en pantalla, se le debe pasar la coordenada x donde está el jugador
 			display_player(mapa, player);
 			// Muestra a los enemigos en pantalla
-			display_aliens(mapa, alien_1, alien_2, heart);
+			ken_flag = display_aliens(mapa, alien_1, alien_2, alien_3, boss);
 			// Muestra los disparos en pantalla
 			display_bullet(mapa);
 
@@ -204,7 +224,7 @@ static void display_player (const int mapa[][COL], ALLEGRO_BITMAP * player){
 	int x;
 	for(x = 0; x < COL; x++){
 		if(mapa[28][x] == 1){
-			al_draw_scaled_bitmap(player, 0, 0, 128, 64, x * SCALER, 28 * SCALER , SCALER * 2, SCALER, 0);
+			al_draw_scaled_bitmap(player, 0, 0, 128, 64, (x-1) * SCALER, 28 * SCALER , SCALER * 2, SCALER, 0);
 		}
 	}
 
@@ -213,25 +233,12 @@ static void display_player (const int mapa[][COL], ALLEGRO_BITMAP * player){
 /* FUNCIÓN DISPLAY_ALIENS
  * BRIEF: Se encarga de mostrar en pantalla los enemigos (aliens y boss)
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
- * return: (int) En caso de haber un error devuelve -1, 0 en caso de no haber ningún problema
+ * return: (int) En caso de que el boss esté en pantalla, se devuelve 1 para que se escuche la canción
  *  */
-static void display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLEGRO_BITMAP * alien_2, ALLEGRO_BITMAP * alien_3){
-	//Crea la imagen para el boss
-	ALLEGRO_BITMAP * boss = alien_2;
-	//Crea un nro aleatorio para definir que imagen usar:
-	srand(time(NULL));
-	int rand_num = (rand()%100 + 1);
-
-	//Si el nro es mayor o igual a 50, muestra boss 1, caso contrario muestra boss 2
-	/*if(rand_num >= 50){
-		//boss = al_load_bitmap("resources/boss1.png");
-	}
-	else {
-		boss = al_load_bitmap("resources/boss2.png");
-	}*/
+static int display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLEGRO_BITMAP * alien_2, ALLEGRO_BITMAP * alien_3, ALLEGRO_BITMAP * boss){
 
 	//Loop que encuentra los aliens y los muestra en pantalla
-	int x, y;
+	int x, y, ken_flag = 0;
 	for (y = 1; y < (FIL - 4); y++){
 		for(x = 0; x < COL; x++){
 			if (mapa[y][x] == 2){
@@ -244,14 +251,17 @@ static void display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALL
 			}
 			else if (mapa [y][x] == 4){
 				//Si el enemigo es un alien, muestra la imagen de un alien
-				al_draw_scaled_bitmap(alien_1, 0, 0, 308, 308, x * SCALER, y * SCALER , 30, 30, 0);
+				al_draw_scaled_bitmap(alien_3, 0, 0, 308, 308, x * SCALER, y * SCALER , 30, 30, 0);
 			}
 			else if (mapa [y][x] == 5){
 				//Si el enemigo es un alien, muestra la imagen de un alien
 				al_draw_scaled_bitmap(boss, 0, 0, 308, 308, x * SCALER, y * SCALER , 30, 30, 0);
+				ken_flag++;
 			}
 		}
 	}
+
+	return ken_flag;
 
 }
 

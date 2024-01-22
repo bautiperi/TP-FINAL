@@ -25,4 +25,6 @@ void final_boss_creation(int mapa[][COL]);
  */
 void gamer_movement(int mapa[][COL], int dir);
 
+void gamer_fire (int mapa[][COL]);
+
 #endif /* BACK_GAME_A_H_ */
