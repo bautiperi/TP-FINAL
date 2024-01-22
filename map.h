@@ -11,7 +11,7 @@
 //TAMAÑO DE LA MATRIZ
 #define COL 16
 #define FIL 16
-
+    
 //DIFICULTAD
 #define EASY 1
 

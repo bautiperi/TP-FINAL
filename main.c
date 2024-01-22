@@ -4,7 +4,7 @@
 
 int main(void)
 {
-	dcoord_t gamer = {1, 1};
+	dcoord_t gamer = {1, 15};
 	disp_init();
 	disp_clear();
 
@@ -14,7 +14,7 @@ int main(void)
 	gamer_shot(gamer);
 	usleep(3000000);
 
-	dcoord_t final_boss = {1, 15};
+	dcoord_t final_boss = {1, 1};
 	printf("EN MAIN -> FINAL_BOSS_VIS: x: %d y: %d \n", final_boss.x, final_boss.y);
 	final_boss_vis(final_boss);
 	uusleep(3000000);
@@ -27,7 +27,7 @@ int main(void)
 	aliens_vis(alien);
 	*/
 
-	dcoord_t shield = {1, 4};
+	dcoord_t shield = {1, 12};
 	printf("EN MAIN -> SHIELDS_VIS: x: %d y: %d \n", shield.x, shield.y);
 	shields_vis(shield);
 	usleep(3000000);

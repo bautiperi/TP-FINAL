@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 // guardan las coordenadas del led de abajo a la izquierda
-static dcoord_t shield1 = {1, 4}, shield2 = {5, 4}, shield3 = {9, 4}, shield4 = {13, 4};
+// static dcoord_t shield1 = {1, 12}, shield2 = {5, 12}, shield3 = {9, 12}, shield4 = {13, 12};
 
 /***********************************  GAMER   ***********************************/
 
@@ -14,10 +14,10 @@ void gamer_vis(dcoord_t ubi)
     int i;
     dcoord_t ubi_inicial = ubi;
 
-    for (i = ubi_inicial.x; i < ubi_inicial.x + 3; i++)
+    for (i = ubi_inicial.x; i < ubi_inicial.x - 3; i--)
     {
         ubi.x = i;
-        if (i == ubi_inicial.x + 1)
+        if (i == ubi_inicial.x - 1)
         {
             printf("EN GAMER_VIS 1: x: %d y: %d \n", ubi.x, ubi.y);
             disp_write(ubi, D_ON);
@@ -39,7 +39,7 @@ void gamer_vis(dcoord_t ubi)
 void gamer_shot(dcoord_t coord)
 {
     int i;
-    dcoord_t arr[4] = {coord, {++coord.x, coord.y}, {coord.x, ++coord.y}, {++coord.x, --coord.y}};
+    dcoord_t arr[4] = {coord, {++coord.x, coord.y}, {coord.x, --coord.y}, {++coord.x, ++coord.y}};
     for (i = 0; i < 4; i++)
     {
         printf("EN GAMER_SHOT %d: x: %d y: %d \n", i, arr[i].x, arr[i].y);
@@ -54,7 +54,7 @@ void aliens_vis(dcoord_t coor_inicial)
 {
     int i, j;
     dcoord_t coor = coor_inicial;
-    for (j = coor.y; j < coor.y + 4; j++)
+    for (j = coor.y; j < coor.y - 4; j--)
     {
         if ((j % 2) == 0)
         {
@@ -102,10 +102,10 @@ void final_boss_vis(dcoord_t ubi)
         {
             printf("EN FINAL_BOSS_VIS 1: x: %d y: %d \n", ubi.x, ubi.y);
             disp_write(ubi, D_ON);
-            ubi.y--;
+            ubi.y++;
             printf("EN FINAL_BOSS_VIS 2: x: %d y: %d \n", ubi.x, ubi.y);
             disp_write(ubi, D_ON);
-            ubi.y++;
+            ubi.y--;
             printf("EN FINAL_BOSS_VIS 3: x: %d y: %d \n", ubi.x, ubi.y);
         }
         else
@@ -120,7 +120,7 @@ void final_boss_vis(dcoord_t ubi)
 void final_boss_shot(dcoord_t coord)
 {
     int i;
-    dcoord_t arr[4] = {coord, {++coord.x, coord.y}, {coord.x, --coord.y}, {++coord.x, ++coord.y}};
+    dcoord_t arr[4] = {coord, {++coord.x, coord.y}, {coord.x, ++coord.y}, {++coord.x, --coord.y}};
     for (i = 0; i < 4; i++)
     {
         printf("EN FINAL_BOSS_SHOT %d: x: %d y: %d \n", i, arr[i].x, arr[i].y);
@@ -166,13 +166,13 @@ void shields_vis(dcoord_t coor)
 {
     printf("EN SHIELDS_VIS 1: x: %d y: %d \n", coor.x, coor.y);
     disp_write(coor, D_ON); // prendo led de abajo a la izq
-    coor.y++;
+    coor.y--;
     printf("EN SHIELDS_VIS 2: x: %d y: %d \n", coor.x, coor.y);
     disp_write(coor, D_ON); // prendo led de arriba a la izq
     coor.x++;
     printf("EN SHIELDS_VIS 3: x: %d y: %d \n", coor.x, coor.y);
     disp_write(coor, D_ON); // prendo led de arriba a la der
-    coor.y--;
+    coor.y++;
     printf("EN SHIELDS_VIS 4: x: %d y: %d \n", coor.x, coor.y);
     disp_write(coor, D_ON); // prendo led de abajo a la der
     disp_update();
@@ -206,7 +206,7 @@ void game_over(void)
 
     // CARITA TRISTE
     // ojo izq
-    for (i = 9; i <= 11; i++)
+    for (i = 4; i <= 6; i++)
     {
         coor.y = i;
         for (j = 5; j <= 6; j++)
@@ -217,7 +217,7 @@ void game_over(void)
         }
     }
     // ojo der
-    for (i = 9; i <= 11; i++)
+    for (i = 4; i <= 6; i++)
     {
         coor.y = i;
         for (j = 9; j <= 10; j++)
@@ -231,7 +231,7 @@ void game_over(void)
     for (i = 4; i <= 6; i++)
     {
         coor.x = i;
-        for (j = 3; j <= 5; j++)
+        for (j = 12; j >= 10; j--)
         {
             coor.y = j;
             printf("EN GAME_OVER C %d %d: x: %d y: %d \n", i, j, coor.x, coor.y);
@@ -248,7 +248,7 @@ void game_over(void)
     for (i = 9; i <= 11; i++)
     {
         coor.x = i;
-        for (j = 5; j >= 3; j--)
+        for (j = 10; j <= 12; j++)
         {
             coor.y = j;
             printf("EN GAME_OVER E %d %d: x: %d y: %d \n", i, j, coor.x, coor.y);
