@@ -55,6 +55,7 @@ int main(void)
 	usleep(50000);
 
 	shutdown_disp();
+	usleep(50000);
 
 	return 0;
 }
