@@ -28,6 +28,8 @@ int main(void){
 
 			map_def(EASY, mapa);
 
+			pthread_t * up_aliens = pthread_create(&up_aliens, NULL, alien_movement_h, mapa);
+
 			sel = display_game(mapa);
 		}
 	}
