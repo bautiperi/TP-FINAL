@@ -7,6 +7,4 @@
 
 /***********************************  VISUALIZACION   ***********************************/
 void menu_vis(joyinfo_t ubi);
-void menu_options(void);
-
 #endif

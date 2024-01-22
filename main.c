@@ -1,12 +1,20 @@
 #include <unistd.h>
 #include "obj_r.h"
+#include "menu_r.h"
 #include <stdio.h>
 
 int main(void)
 {
 	dcoord_t gamer = {1, 15};
 	disp_init();
+	joy_init();
 	disp_clear();
+	usleep(1000000);
+
+	joyinfo_t ubi = joy_read();
+	menu_vis(ubi);
+	usleep(3000000);
+	shutdown_disp();
 
 	printf("EN MAIN -> GAMER_VIS: x: %d y: %d \n", gamer.x, gamer.y);
 	gamer_vis(gamer);
@@ -45,6 +53,8 @@ int main(void)
 
 	game_over();
 	usleep(50000);
+
+	shutdown_disp();
 
 	return 0;
 }

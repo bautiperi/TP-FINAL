@@ -198,61 +198,16 @@ void shields_life(int life_of_shield, dcoord_t coor_of_shield)
 
 void game_over(void)
 {
-    int i, j;
-    dcoord_t coor;
+    int i;
+    // coordenadas de la carita triste
+    dcoord_t coor[20] = {{5, 4}, {5, 5}, {5, 6}, {6, 4}, {6, 5}, {6, 6}, {9, 4}, {9, 5}, {9, 6}, {10, 4}, {10, 5}, {10, 6}, {4, 12}, {5, 11}, {6, 10}, {7, 10}, {8, 10}, {9, 10}, {10, 11}, {11, 12}};
 
     shutdown_disp();
 
-    // CARITA TRISTE
-    // ojo izq
-    for (i = 4; i <= 6; i++)
+    for (i = 0; i < 20; i++)
     {
-        coor.y = i;
-        for (j = 5; j <= 6; j++)
-        {
-            coor.x = j;
-            printf("EN GAME_OVER A %d %d: x: %d y: %d \n", i, j, coor.x, coor.y);
-            disp_write(coor, D_ON);
-        }
-    }
-    // ojo der
-    for (i = 4; i <= 6; i++)
-    {
-        coor.y = i;
-        for (j = 9; j <= 10; j++)
-        {
-            coor.x = j;
-            printf("EN GAME_OVER B %d %d: x: %d y: %d \n", i, j, coor.x, coor.y);
-            disp_write(coor, D_ON);
-        }
-    }
-    // boca
-    for (i = 4; i <= 6; i++)
-    {
-        coor.x = i;
-        for (j = 12; j >= 10; j--)
-        {
-            coor.y = j;
-            printf("EN GAME_OVER C %d %d: x: %d y: %d \n", i, j, coor.x, coor.y);
-            disp_write(coor, D_ON);
-        }
-    }
-    for (i = 7; i <= 8; i++)
-    {
-        coor.x = i;
-        printf("EN GAME_OVER D %d: x: %d y: %d \n", i, coor.x, coor.y);
-        disp_write(coor, D_ON);
+        disp_write(coor[i], D_ON);
     }
 
-    for (i = 9; i <= 11; i++)
-    {
-        coor.x = i;
-        for (j = 10; j <= 12; j++)
-        {
-            coor.y = j;
-            printf("EN GAME_OVER E %d %d: x: %d y: %d \n", i, j, coor.x, coor.y);
-            disp_write(coor, D_ON);
-        }
-    }
     disp_update();
 }
