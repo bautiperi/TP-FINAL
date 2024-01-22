@@ -25,6 +25,11 @@ void final_boss_creation(int mapa[][COL]);
  */
 void gamer_movement(int mapa[][COL], int dir);
 
+/* FUNCIÓN GAMER_FIRE
+ * BRIEF: Es llamada al momento del que el jugador dispara, se encarga de "llevar" el disparo por el mapa y detectar si hubo una colisión
+ * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * return: (void)
+ */
 void gamer_fire (int mapa[][COL]);
 
 #endif /* BACK_GAME_A_H_ */
