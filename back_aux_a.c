@@ -1,4 +1,4 @@
-#include "back_aux_a.c"
+#include "back_aux_a.h"
 
 
 void swap(int mapa[][COL], int x1, int y1, int x2, int y2)

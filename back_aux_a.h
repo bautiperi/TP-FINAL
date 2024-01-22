@@ -8,6 +8,8 @@
 #ifndef BACK_AUX_A_H_
 #define BACK_AUX_A_H_
 
+#include "map.h"
+
 void swap(int mapa[][COL], int x1, int y1, int x2, int y2);
 
 #endif /* BACK_AUX_A_H_ */

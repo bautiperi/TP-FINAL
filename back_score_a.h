@@ -8,6 +8,8 @@
 #ifndef BACK_SCORE_A_H_
 #define BACK_SCORE_A_H_
 
+#include "map.h"
+
 /* FUNCIÓN SCORE_UPDATER
  * BRIEF: Actualiza el score actual del jugador
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
