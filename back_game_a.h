@@ -15,6 +15,6 @@ void alien_movement_h(int mapa[][COL]);
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
  * return: (void)
  */
-void final_boss_movement(mapa[][COL]);
+void final_boss_movement(int mapa[][COL]);
 
 #endif /* BACK_GAME_A_H_ */

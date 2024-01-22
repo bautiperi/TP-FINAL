@@ -12,7 +12,7 @@ void alien_movement_h(int mapa[][COL])
     int x, y;
     int dir = 1, flag = 0;
     // se mueve hacia la derecha
-    usleep(3000000);
+    usleep(2000000);
 
     while (1)
     {
@@ -56,17 +56,20 @@ void alien_movement_h(int mapa[][COL])
             {
                 for (x = COL - 1; x >= 0; x--)
                 {
-                    if (mapa[y][1] == 4)
+                	// Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
+                	if (mapa[y][1] == 4)
                     {
-                        dir = 1;
-                        flag = 1;
+                		dir = 1; // Hace el cambio de dirección
+                        flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
                     }
-                    else if (mapa[y][x - 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                	// Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
+                	else if (mapa[y][x - 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
                     {
                         mapa[y][x - 1] = 0;
                         swap(mapa, x, y, x - 1, y);
                         x--;
                     }
+                	// Cambia la posición del enemigo
                     else if (mapa[y][x - 1] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
                     {
                         swap(mapa, x, y, x - 1, y);
@@ -75,7 +78,7 @@ void alien_movement_h(int mapa[][COL])
                 }
             }
         }
-        usleep(2000000);
+        usleep(0500000);
     }
 }
 
@@ -90,18 +93,20 @@ static void alien_movement_v(int mapa[][COL])
 {
     int x, y;
     // se mueve hacia abajo
-    for (y = 1; y < FIL; y++)
+    for (x = 0; x < COL; x++)
     {
-        for (x = 0; x < COL; x += 2)
+        for (y = 1; y < FIL; y ++)
         {
-            if (mapa[y + 1][x] == -1 && mapa[y][x] == 2)
+            if (mapa[y + 1][x] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
             {
                 mapa[y + 1][x] = 0;
-                swap(mapa, y, x, y + 1, x);
+                swap(mapa, x, y, x, y + 1);
+                y++;
             }
-            else if (mapa[y + 1][x] == 0 && mapa[y][x] == 2)
+            else if (mapa[y + 1][x] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
             {
-                swap(mapa, y, x, y + 1, x + 1);
+                swap(mapa, x, y, x, y + 1);
+                y++;
             }
         }
     }
@@ -115,11 +120,11 @@ static void swap(int mapa[][COL], int x1, int y1, int x2, int y2)
     mapa[y2][x2] = aux;
 }
 
-void final_boss_movement(mapa[][COL])
+void final_boss_movement(int mapa[][COL])
 {
-    int x, y, dir, flag = 0;
-    srand(time(NULL));
-    dir = rand % 3 - 1;
+    int x, y, dir = 5, flag = 0;
+    //srand(time(NULL));
+    //dir = rand() % 3 - 1;
     // se mueve hacia la derecha
     usleep(3000000);
 
@@ -175,6 +180,6 @@ void final_boss_movement(mapa[][COL])
                 }
             }
         }
-        usleep(2000000);
+        usleep(500000);
     }
 }

@@ -217,18 +217,18 @@ static void display_player (const int mapa[][COL], ALLEGRO_BITMAP * player){
  *  */
 static void display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLEGRO_BITMAP * alien_2, ALLEGRO_BITMAP * alien_3){
 	//Crea la imagen para el boss
-	ALLEGRO_BITMAP * boss = NULL;
+	ALLEGRO_BITMAP * boss = alien_2;
 	//Crea un nro aleatorio para definir que imagen usar:
 	srand(time(NULL));
 	int rand_num = (rand()%100 + 1);
 
 	//Si el nro es mayor o igual a 50, muestra boss 1, caso contrario muestra boss 2
-	if(rand_num >= 50){
-		boss = al_load_bitmap("resources/boss1.png");
+	/*if(rand_num >= 50){
+		//boss = al_load_bitmap("resources/boss1.png");
 	}
 	else {
 		boss = al_load_bitmap("resources/boss2.png");
-	}
+	}*/
 
 	//Loop que encuentra los aliens y los muestra en pantalla
 	int x, y;
