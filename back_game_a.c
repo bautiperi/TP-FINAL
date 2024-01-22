@@ -6,8 +6,15 @@
 
 static void alien_movement_v(int mapa[][COL]);
 static void swap(int mapa[][COL], int x1, int y1, int x2, int y2);
+/* FUNCIÓN ALIEN_MOVEMENT_H
+ * BRIEF: mueve horizontalmente a el final boss
+ * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * dir: (int) direccion del movimiento (izq = -1, der = 0 o 1)
+ * return: (void)
+ */
+void final_boss_movement(int mapa[][COL]);
 
-void alien_movement_h(int mapa[][COL])
+void alien_movement(int mapa[][COL])
 {
     int x, y;
     int dir = 1, flag = 0;
@@ -56,20 +63,20 @@ void alien_movement_h(int mapa[][COL])
             {
                 for (x = COL - 1; x >= 0; x--)
                 {
-                	// Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-                	if (mapa[y][1] == 4)
+                    // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
+                    if (mapa[y][1] == 4)
                     {
-                		dir = 1; // Hace el cambio de dirección
+                        dir = 1;  // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
                     }
-                	// Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
-                	else if (mapa[y][x - 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
+                    else if (mapa[y][x - 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
                     {
                         mapa[y][x - 1] = 0;
                         swap(mapa, x, y, x - 1, y);
                         x--;
                     }
-                	// Cambia la posición del enemigo
+                    // Cambia la posición del enemigo
                     else if (mapa[y][x - 1] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
                     {
                         swap(mapa, x, y, x - 1, y);
@@ -95,7 +102,7 @@ static void alien_movement_v(int mapa[][COL])
     // se mueve hacia abajo
     for (x = 0; x < COL; x++)
     {
-        for (y = 1; y < FIL; y ++)
+        for (y = 1; y < FIL; y++)
         {
             if (mapa[y + 1][x] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
             {
@@ -120,33 +127,43 @@ static void swap(int mapa[][COL], int x1, int y1, int x2, int y2)
     mapa[y2][x2] = aux;
 }
 
-void final_boss_movement(int mapa[][COL])
+void final_boss_creation(int mapa[][COL])
 {
-    int x, y, dir = 5, flag = 0;
-    //srand(time(NULL));
-    //dir = rand() % 3 - 1;
-    // se mueve hacia la derecha
+    srand(time(NULL));
+    int dir = rand() % 3 - 1;
+    // si dir>=0 el enemigo aparece a la izquierda del mapa en direccion a la derecha
+    if (dir >= 0)
+    {
+        mapa[3][0] = 5;
+    }
+    // si dir = -1 el enemigo aparece a la derecha del mapa en direccion a la izquierda
+    else
+    {
+        mapa[3][COL - 1] = 5;
+    }
+    final_boss_movement(mapa, dir);
+}
+
+static void final_boss_movement(int mapa[][COL], int dir)
+{
+    int x, y;
+
     usleep(3000000);
 
     while (1)
     {
+        //  se mueve hacia la derecha
         if (dir >= 0)
         {
-
             for (y = 1; y < FIL; y++)
             {
                 for (x = 0; x < COL; x++)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-                    if (mapa[y][COL - 2] == 5 && !flag)
-                    {
-                        dir = -1; // Hace el cambio de dirección
-                        flag++;   // hace que llegue al otro extremo y desaparezca
-                    }
                     // Elimina al enemigo
-                    else if (mapa[y][COL - 2] == 5 && flag)
+                    if (mapa[y][COL - 1] == 5)
                     {
-                        mapa[y][COL - 2] = 0; // hace que no haya mas enemigo
+                        mapa[y][COL - 1] = 0; // hace que no haya mas enemigo
                     }
                     // Cambia la posición del enemigo
                     else if (mapa[y][x] == 5)
@@ -163,12 +180,7 @@ void final_boss_movement(int mapa[][COL])
             {
                 for (x = COL - 1; x >= 0; x--)
                 {
-                    if (mapa[y][0] == 4 && !flag)
-                    {
-                        dir = 1;
-                        flag++;
-                    }
-                    else if (mapa[y][0] == 5 && flag)
+                    if (mapa[y][0] == 5)
                     {
                         mapa[y][0] = 0;
                     }
@@ -181,5 +193,21 @@ void final_boss_movement(int mapa[][COL])
             }
         }
         usleep(500000);
+    }
+}
+
+void gamer_movement(int mapa[][COL], int dir) // REVISAR: se mueve muy rapido? => avisar a cami ;)
+{
+    int x, y;
+    for (y = 1; y < FIL; y++)
+    {
+        for (x = 0; x < COL; x++)
+        {
+            if (mapa[y][x] == 1 && (x + dir >= 0) && (x + dir < COL))
+            {
+                swap(mapa, x, y, x + dir, y);
+                x++;
+            }
+        }
     }
 }
