@@ -1,11 +1,12 @@
 #include "back_game_a.h"
 
+#include "back_aux_a.h"
 #include <unistd.h>
 #include <time.h>
 #include <stdlib.h>
 
 static void alien_movement_v(int mapa[][COL]);
-static void swap(int mapa[][COL], int x1, int y1, int x2, int y2);
+
 /* FUNCIÓN ALIEN_MOVEMENT_H
  * BRIEF: mueve horizontalmente a el final boss
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
@@ -118,13 +119,6 @@ static void alien_movement_v(int mapa[][COL])
         }
     }
     usleep(1000000);
-}
-
-static void swap(int mapa[][COL], int x1, int y1, int x2, int y2)
-{
-    int aux = mapa[y1][x1];
-    mapa[y1][x1] = mapa[y2][x2];
-    mapa[y2][x2] = aux;
 }
 
 void final_boss_creation(int mapa[][COL])
