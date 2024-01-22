@@ -17,7 +17,7 @@ int main(void)
 	dcoord_t final_boss = {1, 1};
 	printf("EN MAIN -> FINAL_BOSS_VIS: x: %d y: %d \n", final_boss.x, final_boss.y);
 	final_boss_vis(final_boss);
-	uusleep(3000000);
+	usleep(3000000);
 	final_boss_shot(final_boss);
 	usleep(3000000);
 

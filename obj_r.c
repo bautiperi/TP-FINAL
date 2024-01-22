@@ -1,7 +1,6 @@
 
 // INCLUDES
 #include "obj_r.h"
-#include "aux_r.h"
 #include <stdio.h>
 
 // guardan las coordenadas del led de abajo a la izquierda
