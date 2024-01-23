@@ -13,9 +13,9 @@ int main(void)
 	disp_clear();
 
 	int mapa[FIL][COL];
-	mapdef(RASP, mapa);
+	map_def(RASP, mapa);
 
-	obj_gen(mapa, 3);
+	obj_vis(mapa, 3);
 
 	return 0;
 }

@@ -10,6 +10,6 @@ brief: se encarga de analizar la matriz y llamar a las funciones pertinentes
 mapa: (int **) matriz a analizar
 return: void
 */
-void obj_vis(int mapa[][COL]);
+void obj_vis(int mapa[][COL], int vidas);
 
 #endif /* CONECTION_B_R_H */

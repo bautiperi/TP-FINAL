@@ -65,5 +65,6 @@ void obj_vis(int mapa[][COL], int vidas)
             }
         }
     }
+
     disp_update();
 }
