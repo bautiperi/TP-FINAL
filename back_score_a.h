@@ -24,4 +24,6 @@ void score_updater (int mapa[][COL], int idetifier);
  */
 void score_saver (int mapa[][COL]);
 
+char name[50] = "";
+
 #endif /* BACK_STORE_A_H_ */

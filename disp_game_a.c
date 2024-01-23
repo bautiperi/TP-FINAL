@@ -3,6 +3,7 @@
 
 #include "disp_pause_a.h"
 #include "back_game_a.h"
+#include "disp_scoreboard_a.h"
 
 //LIBRERIAS
 #include <stdio.h>
@@ -68,6 +69,10 @@ int display_game (const int mapa[][COL]){
 	al_play_sample_instance(backgroundInstance);
 	al_set_sample_instance_gain(backgroundInstance, 0.4);
 
+	// -------------- LLAMA PARA PEDIR EL NOMBRE DEL JUGADOR --------------
+	//display_score_name(); Deshabilitado para probar el juego más facilmente
+	// --------------------------------------------------------------------
+
 	// TIMER
 	ALLEGRO_TIMER *timer = NULL;
 	ALLEGRO_EVENT_QUEUE *timer_ev_queue = al_create_event_queue();
@@ -82,6 +87,9 @@ int display_game (const int mapa[][COL]){
 
 	// INICIALIZA EL TIMER
 	al_start_timer(timer);
+
+	//Habilita los threads del juego, interacciones del usuario, movimiento de enemigos, etc
+	flag_game_update = 1;
 
 	do{
 
@@ -130,6 +138,9 @@ int display_game (const int mapa[][COL]){
 		if(event.type == ALLEGRO_EVENT_KEY_DOWN){
 			if(event.keyboard.keycode == ALLEGRO_KEY_ESCAPE){
 
+				//DETIENE LOS THREADS
+				flag_game_update = 1;
+
 				float volume;
 				//Hace un fade-in
 				for (volume = 0.4; volume < 0.5; volume += 0.01) {
@@ -152,8 +163,9 @@ int display_game (const int mapa[][COL]){
 
 					//Deja de correr la canción y elimina la instancia
 					al_stop_sample_instance(backgroundInstance);
-					al_destroy_sample_instance(backgroundInstance);
+					al_destroy_sample_instance(kenInstance);
 					al_destroy_sample(background);
+					al_destroy_sample(ken_alien);
 
 					return 0;
 				}
@@ -178,7 +190,7 @@ static void display_barr (const int mapa[][COL], ALLEGRO_BITMAP *barrier) {
     for (y = 22; y < 27; y++){
     	for ( x = 0; x < 32; x++){
     		if(mapa[y][x] == BARRIER){
-    			al_draw_scaled_bitmap(barrier, 0, 0, 64, 64, x* SCALER, y* SCALER , SCALER, SCALER, 0);
+    			al_draw_scaled_bitmap(barrier, 0, 0, 64, 64, x* SCALER - SCALER/2, y* SCALER , SCALER, SCALER, 0);
     		}
     	}
 
@@ -225,6 +237,7 @@ static void display_player (const int mapa[][COL], ALLEGRO_BITMAP * player){
 	for(x = 0; x < COL; x++){
 		if(mapa[28][x] == 1){
 			al_draw_scaled_bitmap(player, 0, 0, 128, 64, (x-1) * SCALER, 28 * SCALER , SCALER * 2, SCALER, 0);
+			return;
 		}
 	}
 
@@ -243,19 +256,19 @@ static int display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLE
 		for(x = 0; x < COL; x++){
 			if (mapa[y][x] == 2){
 				//Si el enemigo es un alien, muestra la imagen de un alien
-				al_draw_scaled_bitmap(alien_1, 0, 0, 308, 308, x * SCALER, y * SCALER , 30, 30, 0);
+				al_draw_scaled_bitmap(alien_1, 0, 0, 308, 308, x * SCALER - SCALER/2, y * SCALER , 30, 30, 0);
 			}
 			else if (mapa[y][x] == 3){
 				//Si el enemigo es un alien, muestra la imagen de un alien
-				al_draw_scaled_bitmap(alien_2, 0, 0, 308, 308, x * SCALER, y * SCALER , 30, 30, 0);
+				al_draw_scaled_bitmap(alien_2, 0, 0, 308, 308, x * SCALER - SCALER/2, y * SCALER , 30, 30, 0);
 			}
 			else if (mapa [y][x] == 4){
 				//Si el enemigo es un alien, muestra la imagen de un alien
-				al_draw_scaled_bitmap(alien_3, 0, 0, 308, 308, x * SCALER, y * SCALER , 30, 30, 0);
+				al_draw_scaled_bitmap(alien_3, 0, 0, 308, 308, x * SCALER - SCALER/2, y * SCALER , 30, 30, 0);
 			}
 			else if (mapa [y][x] == 5){
 				//Si el enemigo es un alien, muestra la imagen de un alien
-				al_draw_scaled_bitmap(boss, 0, 0, 308, 308, x * SCALER, y * SCALER , 30, 30, 0);
+				al_draw_scaled_bitmap(boss, 0, 0, 308, 308, x * SCALER - SCALER/2, y * SCALER , 30, 30, 0);
 				ken_flag++;
 			}
 		}

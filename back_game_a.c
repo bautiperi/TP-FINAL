@@ -5,6 +5,9 @@
 #include <time.h>
 #include <stdlib.h>
 
+//Variable global que sirve como flag para detener la ejecución de los threads
+int flag_game_update = 0;
+
 static void alien_movement_v(int mapa[][COL]);
 
 /* FUNCIÓN ALIEN_MOVEMENT_H
@@ -24,7 +27,8 @@ void alien_movement(int mapa[][COL])
 
     while (1)
     {
-        if (flag == 1)
+
+    	if (flag == 1)
         {
             alien_movement_v(mapa);
             flag = 0;
@@ -233,7 +237,7 @@ void gamer_fire(int mapa[][COL])
         {
             swap(mapa, pos_x, y, pos_x, y - 1);
         }
-        else if (y - 1 == 0)
+        else if (y - 1 < 0)
         {
             mapa[y][pos_x] = 0;
         }
@@ -247,9 +251,18 @@ void gamer_fire(int mapa[][COL])
                 mapa[y - 1][pos_x] += 1;
                 mapa[y][pos_x] = 0;
             }
-            else if (mapa[y - 1][pos_x] == 2)
+            else if (mapa[y - 1][pos_x] != 0)
             {
-                // Llamar a función para dar puntos
+            	//llamar a la función de puntos
+
+            	flag_game_update = 0;
+
+            	mapa[y - 1][pos_x] = 0;
+
+            	mapa[y][pos_x] = 0;
+
+            	flag_game_update = 1;
+
             }
             // Seguir para el resto de enemigos
         }

@@ -15,4 +15,6 @@ typedef struct {
 
 int display_scoreboard (void);
 
+int display_score_name (void);
+
 #endif /* DISP_SCOREBOARD_A_H_ */

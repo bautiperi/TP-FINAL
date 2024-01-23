@@ -172,7 +172,7 @@ int display_start_menu(void){
 	float volume;
 	for (volume = 0.5; volume > 0.0; volume -= 0.01) {
 		al_set_sample_instance_gain(sampleInstance, volume);
-	    al_rest(0.03);
+	    al_rest(0.02);
 	}
 
 	//Deja de correr la canción y elimina la instancia

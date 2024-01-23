@@ -32,4 +32,7 @@ void gamer_movement(int mapa[][COL], int dir);
  */
 void gamer_fire (int mapa[][COL]);
 
+//Declaración de variable global (flag)
+extern int flag_game_update;
+
 #endif /* BACK_GAME_A_H_ */

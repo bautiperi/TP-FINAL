@@ -12,6 +12,7 @@
 
 //LIBRERIAS ALLEGRO
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
@@ -94,6 +95,83 @@ static void display_board (player_t players[MAX_PLAYERS]){
 
 	//Muestra los cambios en pantalla
 	al_flip_display();
+
+}
+
+int display_score_name (void) {
+	int exit = 1, pos = 0;
+
+	int size_title = 55;
+	int size_subtitle = 45;
+	int size_name = 40;
+
+	//Busco la variable de back_score_a para que se guarde el nombre del jugador
+	extern char name[50];
+
+	//Carga la fuente para el título
+	ALLEGRO_FONT *font_title = NULL;
+	font_title = al_load_ttf_font("resources/Barbie-font.ttf", size_title, 0);
+
+	//Carga la fuente para el subtítulo
+	ALLEGRO_FONT *font_subtitle = NULL;
+	font_subtitle = al_load_ttf_font("resources/Barbie-font.ttf", size_subtitle, 0);
+
+	//Carga la fuente para el nombre
+	ALLEGRO_FONT *font_name = NULL;
+	font_name = al_load_ttf_font("resources/Barbie-font.ttf", size_name, 0);
+
+	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+	al_register_event_source(event_queue, al_get_keyboard_event_source());
+
+	ALLEGRO_EVENT ev;
+
+	do{
+		//Pone al fonde de color
+		al_clear_to_color(al_map_rgb(54,1,63));
+
+		//Escribe en el buffer la leyenda
+		al_draw_text(font_title, al_map_rgb(233, 65, 150), 400, 250, ALLEGRO_ALIGN_CENTER, "Write your name to save the score of your game:");
+		al_draw_text(font_subtitle, al_map_rgb(233, 65, 150), 400, 730, ALLEGRO_ALIGN_CENTER, "After you're done, press ENTER to start the game. Good luck!");
+
+		//Genera la caja donde se escribe el nombre del jugador para que se pueda visualizar
+		al_draw_filled_rounded_rectangle(165, 360, 635, 440, 10, 10, al_map_rgb(227,185,255));
+		al_draw_filled_rounded_rectangle(170, 365, 630, 435, 10, 10, al_map_rgb(186,85,255));
+
+		//Escribe en el buffer el nombre:
+		al_draw_text(font_name, al_map_rgb(250, 218, 225), 180, 375, ALLEGRO_ALIGN_LEFT, name);
+
+		al_flip_display();
+
+		al_wait_for_event(event_queue, &ev);
+
+		if (ev.type == ALLEGRO_EVENT_KEY_CHAR) {
+			if(ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE){
+				exit = 0;
+			}
+			else if(ev.keyboard.keycode == ALLEGRO_KEY_ENTER){
+				al_destroy_event_queue(event_queue);
+				al_destroy_font(font_title);
+				al_destroy_font(font_subtitle);
+				al_destroy_font(font_name);
+
+				return 0;
+			}
+			else if(ev.keyboard.keycode == ALLEGRO_KEY_BACKSPACE){
+				if(pos > 0){
+					name[--pos] = '\0';
+				}
+			}
+			else if(ev.keyboard.unichar >= 32 && ev.keyboard.unichar <= 126){
+				if(al_get_text_width(font_name, name) < 435){
+					name[pos++] = (char)ev.keyboard.unichar;
+					name[pos] = '\0';
+				}
+			}
+		}
+
+	}while(exit);
+
+	al_destroy_event_queue(event_queue);
 
 }
 

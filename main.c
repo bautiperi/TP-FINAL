@@ -6,6 +6,7 @@
 #include "disp_start_menu_a.h"
 #include "disp_game_a.h"
 #include "back_game_a.h"
+#include "disp_scoreboard_a.h"
 
 void update_player_keyboard (int mapa[][COL]);
 
@@ -46,6 +47,7 @@ int main(void){
 }
 
 void update_player_keyboard (int mapa[][COL]){
+
 	// DETECTA CUANDO SE OPRIME COSAS EN EL TECLADO
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
@@ -54,24 +56,30 @@ void update_player_keyboard (int mapa[][COL]){
 
 	while (1){
 
-		al_get_next_event(event_queue, &event);
+		if(flag_game_update == 0){
+			al_get_next_event(event_queue, &event);
+		}
+		else {
+			al_get_next_event(event_queue, &event);
 
-		if(event.type == ALLEGRO_EVENT_KEY_DOWN || event.type == ALLEGRO_EVENT_KEY_CHAR){
-			if( event.keyboard.keycode == ALLEGRO_KEY_RIGHT || event.keyboard.keycode == ALLEGRO_KEY_D){
-				gamer_movement(mapa, 1);
-				al_rest(0.045);
+			if(event.type == ALLEGRO_EVENT_KEY_DOWN || event.type == ALLEGRO_EVENT_KEY_CHAR){
+				if( event.keyboard.keycode == ALLEGRO_KEY_RIGHT || event.keyboard.keycode == ALLEGRO_KEY_D){
+					gamer_movement(mapa, 1);
+					al_rest(0.045);
+				}
+				else if (event.keyboard.keycode == ALLEGRO_KEY_LEFT || event.keyboard.keycode == ALLEGRO_KEY_A){
+					gamer_movement(mapa, -1);
+					al_rest(0.045);
+				}
 			}
-			else if (event.keyboard.keycode == ALLEGRO_KEY_LEFT || event.keyboard.keycode == ALLEGRO_KEY_A){
-				gamer_movement(mapa, -1);
-				al_rest(0.045);
+
+			if(event.type == ALLEGRO_EVENT_KEY_DOWN){
+				if (event.keyboard.keycode == ALLEGRO_KEY_X){
+					pthread_t * gamer_shot;
+					pthread_create(&gamer_shot, NULL, gamer_fire, mapa);
+				}
 			}
 		}
 
-		if(event.type == ALLEGRO_EVENT_KEY_DOWN){
-			if (event.keyboard.keycode == ALLEGRO_KEY_X){
-				pthread_t * gamer_shot;
-				pthread_create(&gamer_shot, NULL, gamer_fire, mapa);
-			}
-		}
 	}
 }
