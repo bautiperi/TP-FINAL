@@ -17,8 +17,12 @@ int main(void)
 
 	obj_vis(mapa, 3);
 
+	shutdown_disp();
+	usleep(500000);
+
 	return 0;
 }
+
 /*dcoord_t gamer = {1, 15};
 	disp_init();
 	joy_init();

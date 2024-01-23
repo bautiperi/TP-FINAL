@@ -26,7 +26,7 @@ void map_def(const int diff, int mapa[][COL])
 	barrier_diff(diff, mapa);
 
 	// Lama a la funcion encargada de crear a los aliens
-	ships_gen(mapa, diff);
+	ships_gen(mapa, RASP);
 
 	// Llama a la función encargada de crear los enemigos y spawnear al jugador
 	mapa[15][6] = 1;

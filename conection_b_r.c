@@ -1,4 +1,5 @@
 #include "conection_b_r.h"
+#include <unistd.h>
 
 /*IDENTIFICACIÓN EN EL MAPA:
 - -1 (-2 en Rasp) = BARRERA
@@ -25,7 +26,7 @@ void obj_vis(int mapa[][COL], int vidas)
                 gamer_vis(coords);
                 gamer++;
             }
-            else if (mapa[y][x] == 4 && !aliens)
+            else if ((mapa[y][x] == 4 || mapa[y][x] == 3 || mapa[y][x] == 2) && !aliens)
             {
                 coords.y = y + 4;
                 aliens_vis(coords);
@@ -65,6 +66,6 @@ void obj_vis(int mapa[][COL], int vidas)
             }
         }
     }
-
     disp_update();
+    usleep(2000000);
 }
