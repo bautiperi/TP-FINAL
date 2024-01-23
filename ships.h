@@ -1,13 +1,15 @@
-/*
- * ships.h
- *
- *  Created on: Jan 4, 2024
- *      Author: bauti
- */
+#ifndef SHIPS_H
+#define SHIPS_H
 
-#ifndef SHIPS_H_
-#define SHIPS_H_
+#include "map.h"
 
+#define ALIEN 4
 
+/*FUNCION SHIPS_GEN
+brief: se encarga de generar a los aliens
+ubi: (int) matriz del mapa
+return: void
+*/
+void ships_gen(int mapa[][COL]);
 
-#endif /* SHIPS_H_ */
+#endif /* SHIPS_H */

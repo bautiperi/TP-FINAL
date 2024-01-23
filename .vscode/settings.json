@@ -1,5 +1,7 @@
 {
   "files.associations": {
-    "obj_r.h": "c"
+    "obj_r.h": "c",
+    "map.h": "c",
+    "aux_r.h": "c"
   }
 }

@@ -32,7 +32,7 @@ void gamer_vis(dcoord_t ubi)
             disp_write(ubi, D_ON);
         }
     }
-    disp_update();
+    // disp_update();
 }
 
 void gamer_shot(dcoord_t coord)
@@ -78,14 +78,14 @@ void aliens_vis(dcoord_t coor_inicial)
             }
         }
     }
-    disp_update();
+    // disp_update();
 }
 
 void aliens_death(dcoord_t coord)
 {
     disp_write(coord, D_OFF);
     printf("EN ALIEN_DEATH: x: %d y: %d \n", coord.x, coord.y);
-    disp_update();
+    // disp_update();
 }
 
 /*******************************  THE FINAL BOSS  *********************************/
@@ -113,7 +113,7 @@ void final_boss_vis(dcoord_t ubi)
             printf("EN FINAL_BOSS_VIS 4: x: %d y: %d \n", ubi.x, ubi.y);
         }
     }
-    disp_update();
+    // disp_update();
 }
 
 void final_boss_shot(dcoord_t coord)
@@ -143,12 +143,12 @@ void lives_vis(int cant)
     case 1: // CASO 1 VIDAS: BORRA LA SEGUNDA VIDA
         printf("EN LIVES_VIS 1v: x: %d y: %d \n", second_life.x, second_life.y);
         disp_write(second_life, D_OFF);
-        disp_update();
+        // disp_update();
         break;
     case 2:
         printf("EN LIVES_VIS 2v: x: %d y: %d \n", third_life.x, third_life.y);
         disp_write(third_life, D_OFF);
-        disp_update();
+        // disp_update();
         break;
     default:
         disp_write(third_life, D_ON);
@@ -156,7 +156,7 @@ void lives_vis(int cant)
         disp_write(first_life, D_ON);
         break;
     }
-    disp_update();
+    // disp_update();
 }
 
 /***********************************  SHIELDS  ***********************************/
@@ -174,7 +174,7 @@ void shields_vis(dcoord_t coor)
     coor.y++;
     printf("EN SHIELDS_VIS 4: x: %d y: %d \n", coor.x, coor.y);
     disp_write(coor, D_ON); // prendo led de abajo a la der
-    disp_update();
+                            // disp_update();
 }
 
 void shields_life(int life_of_shield, dcoord_t coor_of_shield)

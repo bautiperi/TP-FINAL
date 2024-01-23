@@ -6,34 +6,37 @@
 - 1  = Jugador
 - 2 a 4 = Enemigo
 - 5 = Boss
-- 6 y 7 = Disparos*/
+- 6(jugador) y 7(enemigos) = Disparos*/
 
-void polling(int mapa[][COL])
+void obj_vis(int mapa[][COL], int vidas)
 {
-    int x, y, gamer = 0, shields = 0, aliens = 0, boss = 0;
-    dcoord_t coords;
+    int gamer = 0, shields = 0, aliens = 0, boss = 0;
+    unsigned int x, y;
+    dcoord_t coords, aux;
+    lives_vis(vidas);
     for (x = 0; x < COL; x++)
     {
         for (y = 0; y < FIL; y++)
         {
-            coords = {x, y};
+            coords.x = x;
+            coords.y = y;
             if (mapa[y][x] == 1 && !gamer)
             {
                 gamer_vis(coords);
                 gamer++;
             }
-            else if (mapa[x][y] == 4 && !aliens)
+            else if (mapa[y][x] == 4 && !aliens)
             {
                 coords.y = y + 4;
                 aliens_vis(coords);
                 aliens++;
             }
-            else if (mapa[x][y] == 5 && !boss)
+            else if (mapa[y][x] == 5 && !boss)
             {
                 final_boss_vis(coords);
                 boss++;
             }
-            else if (mapa[x][y] == -1 && !shields)
+            else if (mapa[y][x] == -1 && !shields)
             {
                 coords.y++;
                 shields_vis(coords);
@@ -45,6 +48,22 @@ void polling(int mapa[][COL])
                 shields_vis(coords);
                 shields++;
             }
+            else if (mapa[y][x] == 6 || mapa[y][x] == 7)
+            {
+                disp_write(coords, D_ON);
+                aux = coords;
+                if (mapa[y][x] == 6)
+                {
+                    aux.y++;
+                    disp_write(aux, D_OFF);
+                }
+                else
+                {
+                    aux.y--;
+                    disp_write(aux, D_OFF);
+                }
+            }
         }
     }
+    disp_update();
 }

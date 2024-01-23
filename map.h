@@ -1,30 +1,33 @@
-/*
- * map.h
- *
- *  Created on: Jan 4, 2024
- *      Author: Grupo 5
- */
-
 #ifndef MAP_H_
 #define MAP_H_
 
-//TAMAÑO DE LA MATRIZ
+#include <stdio.h>
+#include "ships.h"
+
+// TAMAÑO DE LA MATRIZ
 #define COL 16
 #define FIL 16
-    
-//DIFICULTAD
+
+// DIFICULTAD
+#define RASP 0
 #define EASY 1
 
-//CONSTANTES
+// CONSTANTES
 #define SPACE 0
-#define BARRIER -2
-#define BRO_BARRIER -1
+#define BARRIER -1
+
+// DEFINICIÓN DE COORDENADAS
+typedef struct
+{
+    unsigned int x;
+    unsigned int y;
+} coord_t;
 
 /*FUNCION MAPDEF
 brief: Se encarga de crear la matriz donde las funciones actualizan el estado del juego
 diff: (const int) Indica el nivel de dificultad seleccionado por el jugador
 return: (void)
 */
-void mapdef(const int diff, int mapa [][COL]);
+void map_def(const int diff, int mapa[][COL]);
 
 #endif /* MAP_H_ */

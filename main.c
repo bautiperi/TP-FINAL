@@ -1,11 +1,25 @@
 #include <unistd.h>
 #include "obj_r.h"
 #include "menu_r.h"
+#include "map.h"
+#include "ships.h"
+#include "conection_b_r.h"
 #include <stdio.h>
 
 int main(void)
 {
-	dcoord_t gamer = {1, 15};
+	disp_init();
+	joy_init();
+	disp_clear();
+
+	int mapa[FIL][COL];
+	mapdef(RASP, mapa);
+
+	obj_gen(mapa, 3);
+
+	return 0;
+}
+/*dcoord_t gamer = {1, 15};
 	disp_init();
 	joy_init();
 	disp_clear();
@@ -29,11 +43,11 @@ int main(void)
 	final_boss_shot(final_boss);
 	usleep(3000000);
 
-	/*
-	dcoord_t alien = {1, 8};
-	printf("EN MAIN -> ALIEN_VIS: x: %d y: %d \n", alien.x, alien.y);
-	aliens_vis(alien);
-	*/
+
+	//dcoord_t alien = {1, 8};
+	//printf("EN MAIN -> ALIEN_VIS: x: %d y: %d \n", alien.x, alien.y);
+	//aliens_vis(alien);
+
 
 	dcoord_t shield = {1, 12};
 	printf("EN MAIN -> SHIELDS_VIS: x: %d y: %d \n", shield.x, shield.y);
@@ -55,7 +69,4 @@ int main(void)
 	usleep(50000);
 
 	shutdown_disp();
-	usleep(50000);
-
-	return 0;
-}
+	usleep(50000); */
