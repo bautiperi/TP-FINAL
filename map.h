@@ -1,27 +1,9 @@
 #ifndef MAP_H_
 #define MAP_H_
 
+#include "defines.h"
 #include <stdio.h>
 #include "ships.h"
-
-// TAMAÑO DE LA MATRIZ
-#define COL 16
-#define FIL 16
-
-// DIFICULTAD
-#define RASP 0
-#define EASY 1
-
-// CONSTANTES
-#define SPACE 0
-#define BARRIER -1
-
-// DEFINICIÓN DE COORDENADAS
-typedef struct
-{
-    unsigned int x;
-    unsigned int y;
-} coord_t;
 
 /*FUNCION MAPDEF
 brief: Se encarga de crear la matriz donde las funciones actualizan el estado del juego

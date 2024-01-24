@@ -49,7 +49,7 @@ void gamer_shot(dcoord_t coord)
 
 /***********************************  ALIENS   ***********************************/
 
-void aliens_vis(dcoord_t coor_inicial)
+void aliens_vis(int mapa[][COL], dcoord_t coor_inicial)
 {
     int i, j;
     dcoord_t coor = coor_inicial;
@@ -60,7 +60,8 @@ void aliens_vis(dcoord_t coor_inicial)
             for (i = coor.x; i < coor.x + 13; i++)
             {
                 printf("EN ALIEN_VIS A %d: x: %d y: %d \n", i, coor.x, coor.y);
-                disp_write(coor, D_ON);
+                if (mapa[coor.y][coor.x] == 2 || mapa[coor.y][coor.x] == 3 || mapa[coor.y][coor.x] == 4)
+                    disp_write(coor, D_ON);
                 ++coor.x;
                 printf("EN ALIEN_VIS A %d: x: %d y: %d \n", i, coor.x, coor.y);
                 disp_write(coor, D_OFF);
@@ -71,7 +72,8 @@ void aliens_vis(dcoord_t coor_inicial)
             for (i = coor.x + 1; i < coor.x + 14; i++)
             {
                 printf("EN ALIEN_VIS B %d: x: %d y: %d \n", i, coor.x, coor.y);
-                disp_write(coor, D_ON);
+                if (mapa[coor.y][coor.x] == 2 || mapa[coor.y][coor.x] == 3 || mapa[coor.y][coor.x] == 4)
+                    disp_write(coor, D_ON);
                 ++coor.x;
                 printf("EN ALIEN_VIS B %d: x: %d y: %d \n", i, coor.x, coor.y);
                 disp_write(coor, D_OFF);

@@ -1,6 +1,7 @@
 #ifndef AUX_R_H
 #define AUX_R_H
 
+#include "defines.h"
 #include "disdrv.h"
 #include "joydrv.h"
 
@@ -21,11 +22,10 @@ return: void
 */
 void multp_flick(dcoord_t coords[], int cant);
 
+/*FUNCION SHUTDOWN_DISP
+brief: apaga todo el display
+return: void
+*/
 void shutdown_disp(void);
 
-// DEFINES
-#define DELAY 300000 // 0.3 segundos
-
-#define MAX_ITERATIONS 50
-
-#endif
+#endif /* AUX_R_H */

@@ -2,10 +2,11 @@
 #ifndef OBJ_R_H
 #define OBJ_R_H
 
+#include "defines.h"
 #include "disdrv.h"
 #include "joydrv.h"
-
 #include "aux_r.h"
+#include "map.h"
 
 /***********************************  GAMER   ***********************************/
 
@@ -30,7 +31,7 @@ brief: se encarga de mostrar a los aliens
 ubi: (dcoord_t) coordenadas del LED de abajo a la izq
 return: void
 */
-void aliens_vis(dcoord_t coor_inicial);
+void aliens_vis(int mapa[][COL], dcoord_t coor_inicial);
 
 /*FUNCION ALIENS_DEATH
 brief: apaga el led del alien que recibio un disparo
@@ -89,4 +90,4 @@ no recibe ni devuleve nada
 */
 void game_over(void);
 
-#endif
+#endif /* OBJ_R_H */
