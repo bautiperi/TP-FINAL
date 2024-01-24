@@ -29,7 +29,7 @@ void obj_vis(int mapa[][COL], int vidas)
             else if ((mapa[y][x] == 4 || mapa[y][x] == 3 || mapa[y][x] == 2) && !aliens)
             {
                 coords.y = y + 4;
-                aliens_vis(coords, mapa);
+                aliens_vis(mapa, coords);
                 aliens++;
             }
             else if (mapa[y][x] == 5 && !boss)

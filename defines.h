@@ -1,6 +1,8 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
+#include <stdint.h>
+
 // TAMAÑO DE LA MATRIZ
 #define COL 16
 #define FIL 16
@@ -12,8 +14,8 @@
 // DEFINICIÓN DE COORDENADAS GENERICAS
 typedef struct
 {
-    unsigned int x;
-    unsigned int y;
+    uint8_t x;
+    uint8_t y;
 } coord_t;
 
 // DEFINES TIEMPOS DE FLICKS
