@@ -70,53 +70,46 @@ void obj_vis(int mapa[][COL], int vidas)
     usleep(2000000);
 }
 
-void display_collision(coord_t coord, int obj, int diff)
+void display_collision(coord_t coord, int obj)
 {
     // vidas de los escudos (2 cada uno)
     static int barrier_1 = 2, barrier_2 = 2, barrier_3 = 2, barrier_4 = 2;
-    if (diff == RASP)
+    switch (obj)
     {
-        switch (obj)
+    case BARRIER:         // BARRERA: -1
+        if (coord.x == 1) // BARRERA 1
         {
-        case BARRIER:         // BARRERA: -1
-            if (coord.x == 1) // BARRERA 1
-            {
-                barrier_1--; // resta una vida
-                shields_life(barrier_1, (dcoord_t)coord);
-            }
-            else if (coord.x == 5) // BARRERA 2
-            {
-                barrier_2--;
-                shields_life(barrier_2, (dcoord_t)coord);
-            }
-            else if (coord.x == 9) // BARRERA 3
-            {
-                barrier_3--;
-                shields_life(barrier_3, (dcoord_t)coord);
-            }
-            else if (coord.x == 13) // BARRERA 4
-            {
-                barrier_4--;
-                shields_life(barrier_4, (dcoord_t)coord);
-            }
-            break;
-        case JUGADOR: // JUGADOR: 1
-            gamer_shot((dcoord_t)coord);
-            break;
-        case ALIEN_2: // ALIEN
-        case ALIEN_3: // ALIEN
-        case ALIEN_4: // ALIEN
-            aliens_death((dcoord_t)coord);
-            break;
-        case BOSS: // BOSS: 5
-            final_boss_shot((dcoord_t)coord);
-            break;
-        default:
-            break;
+            barrier_1--; // resta una vida
+            shields_life(barrier_1, (dcoord_t)coord);
         }
-    }
-    else if (diff == EASY)
-    {
-        // CODIGO PARA ALLEGRO :)
+        else if (coord.x == 5) // BARRERA 2
+        {
+            barrier_2--;
+            shields_life(barrier_2, (dcoord_t)coord);
+        }
+        else if (coord.x == 9) // BARRERA 3
+        {
+            barrier_3--;
+            shields_life(barrier_3, (dcoord_t)coord);
+        }
+        else if (coord.x == 13) // BARRERA 4
+        {
+            barrier_4--;
+            shields_life(barrier_4, (dcoord_t)coord);
+        }
+        break;
+    case JUGADOR: // JUGADOR: 1
+        gamer_shot((dcoord_t)coord);
+        break;
+    case ALIEN_2: // ALIEN
+    case ALIEN_3: // ALIEN
+    case ALIEN_4: // ALIEN
+        aliens_death((dcoord_t)coord);
+        break;
+    case BOSS: // BOSS: 5
+        final_boss_shot((dcoord_t)coord);
+        break;
+    default:
+        break;
     }
 }

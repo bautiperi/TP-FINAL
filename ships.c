@@ -5,7 +5,7 @@ void ships_gen(int mapa[][COL], int diff)
     int x, y, value;
     if (diff == RASP)
     {
-        for (x = 1; x < 15; x++)
+        for (x = 1; x < 14; x++)
         {
             if (x % 2 == 0)
             {
