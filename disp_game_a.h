@@ -8,7 +8,7 @@
 #ifndef DISP_GAME_A_H_
 #define DISP_GAME_A_H_
 
-#include "map.h"
+#include "_defines.h"
 
 /* FUNCIÓN DISPLAY_GAME
  * BRIEF: Se encarga de actualizar la pantalla dentro del juego
