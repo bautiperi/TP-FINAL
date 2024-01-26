@@ -24,7 +24,7 @@ int main(void)
 	int mapa[FIL][COL];
 	map_def(RASP, mapa);
 
-	pthread_t *up_aliens, *up_boss, *up_player;
+	pthread_t up_aliens, up_boss, up_player;
 	pthread_create(&up_boss, NULL, final_boss_creation, mapa);
 	pthread_create(&up_aliens, NULL, alien_movement, mapa);
 	// pthread_create(&up_player, NULL, update_player_joystick, mapa);
