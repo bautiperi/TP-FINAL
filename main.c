@@ -5,20 +5,30 @@
 #include "map.h"
 #include "joydrv.h"
 #include "disdrv.h"
+#include "back_aux_a.h"
+#include "back_game_a.h"
+#include "back_score_a.h"
 
 int main(void)
 {
-
+	int sel = 0;
 	disp_init();
 	joy_init();
 	disp_clear();
 
+	/*while (sel != )
+	{
+
+	}*/
+
 	int mapa[FIL][COL];
 	map_def(RASP, mapa);
-	mapa[1][6] = 5;
 
-	obj_vis(mapa, 3);
-	usleep(3000000);
+	pthread_t *up_aliens, *up_boss, *up_player;
+	pthread_create(&up_boss, NULL, final_boss_creation, mapa);
+	pthread_create(&up_aliens, NULL, alien_movement, mapa);
+	// pthread_create(&up_player, NULL, update_player_joystick, mapa);
+	obj_vis(mapa, mapa[0][COL - 1]);
 
 	shutdown_disp();
 	usleep(500000);

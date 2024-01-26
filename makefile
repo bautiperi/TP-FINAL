@@ -1,4 +1,4 @@
-raspberry: main.o obj_r.o aux_r.o menu_r.o conection_b_r.o map.o ships.o disdrv.o joydrv.o
+raspberry: main.o obj_r.o aux_r.o menu_r.o conection_b_r.o map.o ships.o back_aux_a.o back_game_a.o back_score_a.o disdrv.o joydrv.o
 	gcc main.o obj_r.o aux_r.o menu_r.o conection_b_r.o map.o ships.o disdrv.o joydrv.o -Wall -g -o raspberry
 	
 main.o: main.c map.h disdrv.h joydrv.h defines.h conection_b_r.h aux_r.h
@@ -21,3 +21,12 @@ map.o: map.c map.h ships.h defines.h
 
 ships.o: ships.c ships.h defines.h
 	gcc ships.c -c -Wall -g
+
+back_game_a.o: back_game_a.c back_game_a.h back_aux_a.h defines.h
+	gcc back_game_a.c -c -Wall -g
+
+back_aux_a.o: back_aux_a.c back_aux_a.h defines.h
+	gcc back_aux_a.c -c -Wall -g
+
+back_score_a.o: back_score_a.c back_score_a.h defines.h
+	gcc back_score_a.c -c -Wall -g

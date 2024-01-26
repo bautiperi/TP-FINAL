@@ -11,61 +11,67 @@
 
 void obj_vis(int mapa[][COL], int vidas)
 {
-    int gamer = 0, shields = 0, boss = 0;
+    int gamer, shields, boss;
     unsigned int x, y;
     dcoord_t coords, aux;
-    lives_vis(vidas);
-    for (x = 0; x < COL; x++)
+
+    while (1)
     {
-        for (y = 0; y < FIL; y++)
+        gamer = 0;
+        shields = 0;
+        boss = 0;
+        lives_vis(vidas);
+        for (x = 0; x < COL; x++)
         {
-            coords.x = x;
-            coords.y = y;
-            if (mapa[y][x] == 1 && !gamer)
+            for (y = 0; y < FIL; y++)
             {
-                gamer_vis(coords);
-                gamer++;
-            }
-            else if (mapa[y][x] == 4 || mapa[y][x] == 3 || mapa[y][x] == 2)
-            {
-                aliens_vis(coords);
-            }
-            else if (mapa[y][x] == 5 && !boss)
-            {
-                final_boss_vis(coords);
-                boss++;
-            }
-            else if (mapa[y][x] == -1 && !shields)
-            {
-                coords.y++;
-                shields_vis(coords);
-                coords.x += 4;
-                shields_vis(coords);
-                coords.x += 4;
-                shields_vis(coords);
-                coords.x += 4;
-                shields_vis(coords);
-                shields++;
-            }
-            else if (mapa[y][x] == 6 || mapa[y][x] == 7)
-            {
-                disp_write(coords, D_ON);
-                aux = coords;
-                if (mapa[y][x] == 6)
+                coords.x = x;
+                coords.y = y;
+                if (mapa[y][x] == 1 && !gamer)
                 {
-                    aux.y++;
-                    disp_write(aux, D_OFF);
+                    gamer_vis(coords);
+                    gamer++;
                 }
-                else
+                else if (mapa[y][x] == 4 || mapa[y][x] == 3 || mapa[y][x] == 2)
                 {
-                    aux.y--;
-                    disp_write(aux, D_OFF);
+                    aliens_vis(coords);
+                }
+                else if (mapa[y][x] == 5 && !boss)
+                {
+                    final_boss_vis(coords);
+                    boss++;
+                }
+                else if (mapa[y][x] == -1 && !shields)
+                {
+                    coords.y++;
+                    shields_vis(coords);
+                    coords.x += 4;
+                    shields_vis(coords);
+                    coords.x += 4;
+                    shields_vis(coords);
+                    coords.x += 4;
+                    shields_vis(coords);
+                    shields++;
+                }
+                else if (mapa[y][x] == 6 || mapa[y][x] == 7)
+                {
+                    disp_write(coords, D_ON);
+                    aux = coords;
+                    if (mapa[y][x] == 6)
+                    {
+                        aux.y++;
+                        disp_write(aux, D_OFF);
+                    }
+                    else
+                    {
+                        aux.y--;
+                        disp_write(aux, D_OFF);
+                    }
                 }
             }
         }
+        disp_update();
     }
-    disp_update();
-    usleep(2000000);
 }
 
 void display_collision(coord_t coord_1, int obj)
