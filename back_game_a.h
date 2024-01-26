@@ -2,6 +2,7 @@
 #define BACK_GAME_A_H_
 
 #include "defines.h"
+#include "back_aux_a.h"
 
 /* FUNCIÓN ALIEN_MOVEMENT
  * BRIEF: mueve horizontalmente a los aliens

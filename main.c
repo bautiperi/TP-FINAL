@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <pthread.h>
+
 #include "conection_b_r.h"
 #include "aux_r.h"
 #include "map.h"
@@ -7,7 +8,6 @@
 #include "disdrv.h"
 #include "back_aux_a.h"
 #include "back_game_a.h"
-#include "back_score_a.h"
 
 int main(void)
 {

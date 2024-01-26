@@ -1,8 +1,8 @@
 raspberry: main.o obj_r.o aux_r.o menu_r.o conection_b_r.o map.o ships.o back_aux_a.o back_game_a.o back_score_a.o disdrv.o joydrv.o
-	gcc main.o obj_r.o aux_r.o menu_r.o conection_b_r.o map.o ships.o disdrv.o joydrv.o -Wall -g -o raspberry
+	gcc main.o obj_r.o aux_r.o menu_r.o conection_b_r.o map.o ships.o disdrv.o joydrv.o back_aux_a.o back_game_a.o back_score_a.o -Wall -g -pthread -o raspberry
 	
-main.o: main.c map.h disdrv.h joydrv.h defines.h conection_b_r.h aux_r.h
-	gcc main.c -c -Wall -g 
+main.o: main.c map.h disdrv.h joydrv.h defines.h conection_b_r.h aux_r.h back_game_a.h
+	gcc main.c -c -Wall -g -lpthread 
 
 obj_r.o: obj_r.c obj_r.h aux_r.h disdrv.h joydrv.h defines.h
 	gcc obj_r.c -c -Wall -g 
