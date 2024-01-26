@@ -13,17 +13,17 @@ void gamer_vis(dcoord_t ubi)
     int i;
     dcoord_t ubi_inicial = ubi;
 
-    for (i = ubi_inicial.x; i < ubi_inicial.x - 3; i--)
+    for (i = ubi_inicial.x; i < ubi_inicial.x + 3; i++)
     {
         ubi.x = i;
-        if (i == ubi_inicial.x - 1)
+        if (i == ubi_inicial.x + 1)
         {
             printf("EN GAMER_VIS 1: x: %d y: %d \n", ubi.x, ubi.y);
             disp_write(ubi, D_ON);
-            ubi.y++;
+            ubi.y--;
             printf("EN GAMER_VIS 2: x: %d y: %d \n", ubi.x, ubi.y);
             disp_write(ubi, D_ON);
-            ubi.y--;
+            ubi.y++;
             printf("EN GAMER_VIS 3: x: %d y: %d \n", ubi.x, ubi.y);
         }
         else
@@ -49,38 +49,9 @@ void gamer_shot(dcoord_t coord)
 
 /***********************************  ALIENS   ***********************************/
 
-void aliens_vis(int mapa[][COL], dcoord_t coor_inicial)
+void aliens_vis(dcoord_t coor_inicial)
 {
-    int i, j;
-    dcoord_t coor = coor_inicial;
-    for (j = coor.y; j < coor.y - 4; j--)
-    {
-        if ((j % 2) == 0)
-        {
-            for (i = coor.x; i < coor.x + 13; i++)
-            {
-                printf("EN ALIEN_VIS A %d: x: %d y: %d \n", i, coor.x, coor.y);
-                if (mapa[coor.y][coor.x] == 2 || mapa[coor.y][coor.x] == 3 || mapa[coor.y][coor.x] == 4)
-                    disp_write(coor, D_ON);
-                ++coor.x;
-                printf("EN ALIEN_VIS A %d: x: %d y: %d \n", i, coor.x, coor.y);
-                disp_write(coor, D_OFF);
-            }
-        }
-        else
-        {
-            for (i = coor.x + 1; i < coor.x + 14; i++)
-            {
-                printf("EN ALIEN_VIS B %d: x: %d y: %d \n", i, coor.x, coor.y);
-                if (mapa[coor.y][coor.x] == 2 || mapa[coor.y][coor.x] == 3 || mapa[coor.y][coor.x] == 4)
-                    disp_write(coor, D_ON);
-                ++coor.x;
-                printf("EN ALIEN_VIS B %d: x: %d y: %d \n", i, coor.x, coor.y);
-                disp_write(coor, D_OFF);
-            }
-        }
-    }
-    // disp_update();
+    disp_write(coor_inicial, D_ON);
 }
 
 void aliens_death(dcoord_t coord)

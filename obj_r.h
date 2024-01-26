@@ -31,7 +31,7 @@ brief: se encarga de mostrar a los aliens
 ubi: (dcoord_t) coordenadas del LED de abajo a la izq
 return: void
 */
-void aliens_vis(int mapa[][COL], dcoord_t coor_inicial);
+void aliens_vis(dcoord_t coor_inicial);
 
 /*FUNCION ALIENS_DEATH
 brief: apaga el led del alien que recibio un disparo

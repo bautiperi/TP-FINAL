@@ -14,8 +14,10 @@ int main(void)
 
 	int mapa[FIL][COL];
 	map_def(RASP, mapa);
+	mapa[1][6] = 5;
 
 	obj_vis(mapa, 3);
+	usleep(3000000);
 
 	shutdown_disp();
 	usleep(500000);

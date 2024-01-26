@@ -26,11 +26,9 @@ void obj_vis(int mapa[][COL], int vidas)
                 gamer_vis(coords);
                 gamer++;
             }
-            else if ((mapa[y][x] == 4 || mapa[y][x] == 3 || mapa[y][x] == 2) && !aliens)
+            else if (mapa[y][x] == 4 || mapa[y][x] == 3 || mapa[y][x] == 2)
             {
-                coords.y = y + 4;
-                aliens_vis(mapa, coords);
-                aliens++;
+                aliens_vis(coords);
             }
             else if (mapa[y][x] == 5 && !boss)
             {
@@ -70,8 +68,11 @@ void obj_vis(int mapa[][COL], int vidas)
     usleep(2000000);
 }
 
-void display_collision(coord_t coord, int obj)
+void display_collision(coord_t coord_1, int obj)
 {
+    dcoord_t coord;
+    coord.x = coord_1.x;
+    coord.y = coord_1.y;
     // vidas de los escudos (2 cada uno)
     static int barrier_1 = 2, barrier_2 = 2, barrier_3 = 2, barrier_4 = 2;
     switch (obj)
@@ -80,34 +81,34 @@ void display_collision(coord_t coord, int obj)
         if (coord.x == 1) // BARRERA 1
         {
             barrier_1--; // resta una vida
-            shields_life(barrier_1, (dcoord_t)coord);
+            shields_life(barrier_1, coord);
         }
         else if (coord.x == 5) // BARRERA 2
         {
             barrier_2--;
-            shields_life(barrier_2, (dcoord_t)coord);
+            shields_life(barrier_2, coord);
         }
         else if (coord.x == 9) // BARRERA 3
         {
             barrier_3--;
-            shields_life(barrier_3, (dcoord_t)coord);
+            shields_life(barrier_3, coord);
         }
         else if (coord.x == 13) // BARRERA 4
         {
             barrier_4--;
-            shields_life(barrier_4, (dcoord_t)coord);
+            shields_life(barrier_4, coord);
         }
         break;
     case JUGADOR: // JUGADOR: 1
-        gamer_shot((dcoord_t)coord);
+        gamer_shot(coord);
         break;
     case ALIEN_2: // ALIEN
     case ALIEN_3: // ALIEN
     case ALIEN_4: // ALIEN
-        aliens_death((dcoord_t)coord);
+        aliens_death(coord);
         break;
     case BOSS: // BOSS: 5
-        final_boss_shot((dcoord_t)coord);
+        final_boss_shot(coord);
         break;
     default:
         break;
