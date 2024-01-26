@@ -36,7 +36,9 @@ int main(void){
 			pthread_create(&up_boss, NULL, final_boss_creation, mapa);
 			pthread_create(&up_aliens, NULL, alien_movement, mapa);
 			pthread_create(&up_player, NULL, update_player_keyboard, mapa);
-
+			
+			pthread_t * gamer_shot;
+			pthread_create(&gamer_shot, NULL, enemy_fire, mapa);
 
 			sel = display_game(mapa);
 		}
