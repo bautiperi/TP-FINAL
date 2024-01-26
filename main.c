@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <pthread.h>
 #include "conection_b_r.h"
 #include "aux_r.h"
 #include "map.h"
@@ -7,6 +8,7 @@
 
 int main(void)
 {
+
 	disp_init();
 	joy_init();
 	disp_clear();

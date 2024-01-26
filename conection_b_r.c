@@ -11,7 +11,7 @@
 
 void obj_vis(int mapa[][COL], int vidas)
 {
-    int gamer = 0, shields = 0, aliens = 0, boss = 0;
+    int gamer = 0, shields = 0, boss = 0;
     unsigned int x, y;
     dcoord_t coords, aux;
     lives_vis(vidas);
