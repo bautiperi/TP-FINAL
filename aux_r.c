@@ -58,7 +58,7 @@ void multp_flick(dcoord_t coords[], int cant)
 void shutdown_disp(void)
 {
     int i, j;
-    disp_clear();
+    // disp_clear();
     dcoord_t coor;
 
     // BOORO TODO
