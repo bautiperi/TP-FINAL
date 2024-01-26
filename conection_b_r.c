@@ -70,6 +70,7 @@ void obj_vis(int mapa[][COL], int vidas)
                 }
             }
         }
+        shutdown_disp();
         disp_update();
     }
 }
