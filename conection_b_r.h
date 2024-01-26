@@ -2,9 +2,7 @@
 #define CONECTION_B_R_H
 
 #include "defines.h"
-#include "map.h"
 #include "obj_r.h"
-#include "aux_r.h"
 
 /*FUNCION OBJ_VIS
 brief: se encarga de analizar la matriz y llamar a las funciones pertinentes

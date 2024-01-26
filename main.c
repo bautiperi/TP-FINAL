@@ -1,9 +1,7 @@
 #include <unistd.h>
-#include "obj_r.h"
-#include "menu_r.h"
-#include "map.h"
-#include "ships.h"
 #include "conection_b_r.h"
+#include "aux_r.h"
+#include "map.h"
 
 int main(void)
 {

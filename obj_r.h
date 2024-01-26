@@ -6,7 +6,6 @@
 #include "disdrv.h"
 #include "joydrv.h"
 #include "aux_r.h"
-#include "map.h"
 
 /***********************************  GAMER   ***********************************/
 
