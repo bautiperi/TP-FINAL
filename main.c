@@ -2,6 +2,8 @@
 #include "conection_b_r.h"
 #include "aux_r.h"
 #include "map.h"
+#include "joydrv.h"
+#include "disdrv.h"
 
 int main(void)
 {
