@@ -4,7 +4,6 @@
 #include "map.h"
 #include "ships.h"
 #include "conection_b_r.h"
-#include <stdio.h>
 
 int main(void)
 {
