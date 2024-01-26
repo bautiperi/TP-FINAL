@@ -17,6 +17,7 @@ void obj_vis(int mapa[][COL], int vidas)
 
     while (1)
     {
+        shutdown_disp();
         gamer = 0;
         shields = 0;
         boss = 0;
@@ -70,8 +71,8 @@ void obj_vis(int mapa[][COL], int vidas)
                 }
             }
         }
-        shutdown_disp();
         disp_update();
+        usleep(33333);
     }
 }
 
