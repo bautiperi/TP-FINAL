@@ -30,6 +30,9 @@ void map_def(const int diff, int mapa[][COL])
 
 	// Llama a la función encargada de crear los enemigos y spawnear al jugador
 	mapa[15][6] = 1;
+
+	// Flag que indica que arranque en el menu de inicio
+	mapa[4][0] = 2;
 }
 
 static void barrier_diff(const int diff, int mapa[][COL])

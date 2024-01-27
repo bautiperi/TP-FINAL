@@ -14,4 +14,6 @@ return: void
 */
 void menu_vis(int mapa[][COL]);
 
+void menu_principal_vis(int mapa[][COL]);
+
 #endif /* MENU_R_H */

@@ -61,3 +61,30 @@ static void menu_options(int mapa[][COL])
     }
     // disp_update();
 }
+
+void menu_principal_vis(int mapa[][COL])
+{
+    dcoord_t start_wrd[51] = {{2, 1}, {1, 1}, {0, 1}, {0, 2}, {0, 3}, {1, 3}, {2, 3}, {2, 4}, {2, 5}, {1, 5}, {0, 5}, {3, 1}, {4, 1}, {5, 1}, {4, 2}, {4, 3}, {4, 4}, {4, 5}, {6, 1}, {6, 2}, {6, 3}, {6, 4}, {6, 5}, {7, 1}, {7, 3}, {8, 1}, {8, 3}, {9, 1}, {9, 2}, {9, 3}, {9, 4}, {9, 5}, {10, 1}, {10, 2}, {10, 3}, {10, 4}, {10, 5}, {11, 1}, {11, 3}, {11, 4}, {12, 1}, {12, 2}, {12, 3}, {12, 5}, {13, 1}, {14, 1}, {15, 1}, {14, 2}, {14, 3}, {14, 4}, {14, 5}};
+
+    dcoord_t continue_btn[16] = {{2, 8}, {2, 9}, {2, 10}, {2, 11}, {2, 12}, {2, 13}, {2, 14}, {3, 9}, {3, 10}, {3, 11}, {3, 12}, {3, 13}, {4, 10}, {4, 11}, {4, 12}, {5, 11}};
+
+    dcoord_t power_off_btn[16] = {{11, 9}, {11, 10}, {11, 11}, {9, 10}, {10, 10}, {12, 10}, {13, 10}, {9, 11}, {9, 12}, {9, 13}, {13, 11}, {13, 12}, {13, 13}, {10, 13}, {11, 13}, {12, 13}};
+
+    for (i = 0; i < 51; i++)
+    {
+        printf("EN MENU_OPTIONS -> START: x: %d y: %d \n", start_wrd[i].x, start_wrd[i].y);
+        disp_write(start_wrd[i], D_ON);
+    }
+
+    for (i = 0; i < 16; i++)
+    {
+        printf("EN MENU_OPTIONS -> CONTINUE: x: %d y: %d \n", continue_btn[i].x, continue_btn[i].y);
+        disp_write(continue_btn[i], D_ON);
+    }
+
+    for (i = 0; i < 16; i++)
+    {
+        printf("EN MENU_OPTIONS -> POWER OFF: x: %d y: %d \n", power_off_btn[i].x, power_off_btn[i].y);
+        disp_write(power_off_btn[i], D_ON);
+    }
+}
