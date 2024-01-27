@@ -8,7 +8,7 @@
 #include "back_game_a.h"
 #include "disp_scoreboard_a.h"
 
-void update_player_keyboard (int mapa[][COL]);
+void * update_player_keyboard (void * arg);
 
 int main(void){
 
@@ -37,8 +37,8 @@ int main(void){
 			pthread_create(&up_aliens, NULL, alien_movement, mapa);
 			pthread_create(&up_player, NULL, update_player_keyboard, mapa);
 			
-			pthread_t * gamer_shot;
-			pthread_create(&gamer_shot, NULL, enemy_fire, mapa);
+			pthread_t enemy_shot;
+			pthread_create(&enemy_shot, NULL, enemy_fire, mapa);
 
 			sel = display_game(mapa);
 		}
@@ -48,7 +48,9 @@ int main(void){
 
 }
 
-void update_player_keyboard (int mapa[][COL]){
+void * update_player_keyboard (void * arg){
+
+	int (*mapa)[COL] = (int (*)[COL])arg;
 
 	// DETECTA CUANDO SE OPRIME COSAS EN EL TECLADO
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
@@ -77,7 +79,7 @@ void update_player_keyboard (int mapa[][COL]){
 
 			if(event.type == ALLEGRO_EVENT_KEY_DOWN){
 				if (event.keyboard.keycode == ALLEGRO_KEY_X){
-					pthread_t * gamer_shot;
+					pthread_t gamer_shot;
 					pthread_create(&gamer_shot, NULL, gamer_fire, mapa);
 				}
 			}

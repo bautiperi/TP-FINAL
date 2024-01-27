@@ -20,8 +20,10 @@ static void alien_movement_v(int mapa[][COL]);
  */
 static void final_boss_movement(int mapa[][COL], int dir);
 
-void alien_movement(int mapa[][COL])
+void * alien_movement (void * arg)
 {
+	int (*mapa)[COL] = (int (*)[COL])arg;
+
     int x, y;
     int dir = 1, flag = 0;
     // se mueve hacia la derecha
@@ -217,8 +219,10 @@ void gamer_movement(int mapa[][COL], int dir) // REVISAR: se mueve muy rapido? =
     }
 }
 
-void gamer_fire(int mapa[][COL])
+void * gamer_fire(void * arg)
 {
+	int (*mapa)[COL] = (int (*)[COL])arg;
+
     int x, y = 28, stop = 1;
     int pos_x;
 
