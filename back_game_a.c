@@ -37,7 +37,7 @@ void *alien_movement(void *arg)
             alien_movement_v(mapa);
             flag = 0;
         }
-        else if (dir == 1)
+        else // if (dir == 1)
         {
 
             for (y = 1; y < FIL; y++)
@@ -47,26 +47,26 @@ void *alien_movement(void *arg)
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
                     if (enemy_checker(COL - 1, y, mapa))
                     {
-                        dir = -1; // Hace el cambio de dirección
-                        flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
+                        dir *= -1; // Hace el cambio de dirección
+                        flag = 1;  // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
                     }
                     // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
-                    else if (mapa[y][x + 1] == -1 && (enemy_checker(x, y, mapa)))
+                    else if (mapa[y][x + dir] == -1 && (enemy_checker(x, y, mapa)))
                     {
                         mapa[y][x + 1] = 0;
-                        swap(mapa, x, y, x + 1, y);
+                        swap(mapa, x, y, x + dir, y);
                         x++;
                     }
                     // Cambia la posición del enemigo
-                    else if (mapa[y][x + 1] == 0 && (enemy_checker(x, y, mapa)))
+                    else if (mapa[y][x + dir] == 0 && (enemy_checker(x, y, mapa)))
                     {
-                        swap(mapa, x, y, x + 1, y);
+                        swap(mapa, x, y, x + dir, y);
                         x++;
                     }
                 }
             }
         }
-        else
+        /*else
         { // Se mueve hacia la izquierda
             for (y = 1; y < FIL; y++)
             {
@@ -93,7 +93,7 @@ void *alien_movement(void *arg)
                     }
                 }
             }
-        }
+        }*/
         usleep(1500000);
     }
 }
