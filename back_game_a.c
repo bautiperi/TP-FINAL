@@ -127,8 +127,11 @@ static void alien_movement_v(int mapa[][COL])
     usleep(1000000);
 }
 
-void final_boss_creation(int mapa[][COL])
+void * final_boss_creation(void *arg)
 {
+
+	int (*mapa)[COL] = (int (*)[COL])arg;
+
     usleep(15000000);
 
     srand(time(NULL));
@@ -144,6 +147,8 @@ void final_boss_creation(int mapa[][COL])
         mapa[3][COL - 1] = BOSS;
     }
     final_boss_movement(mapa, dir);
+
+    return NULL;
 }
 
 static void final_boss_movement(int mapa[][COL], int dir)
