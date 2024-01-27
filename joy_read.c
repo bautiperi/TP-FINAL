@@ -15,7 +15,7 @@ void joy_movement(int mapa[][COL])
     dcoord_t coords = {15, 0};
     FLICK_OPTION = 0; // flag para seleccion en el menu
     // JUEGO
-    while (1)
+    do
     {
         coord = joy_read();
         if (STATUS == 0) // JUEGO
@@ -85,5 +85,5 @@ void joy_movement(int mapa[][COL])
                 STATUS = 0; // VUELVE AL JUEGO
             }
         }
-    }
+    } while (END_GAME != 1);
 }
