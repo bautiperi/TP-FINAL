@@ -116,12 +116,12 @@ static void alien_movement_v(int mapa[][COL])
             {
                 mapa[y + 1][x] = 0;
                 swap(mapa, x, y, x, y + 1);
-                y++;
+                // y++;
             }
             else if (mapa[y + 1][x] == SPACE && enemy_checker(x, y, mapa))
             {
                 swap(mapa, x, y, x, y + 1);
-                y++;
+                // y++;
             }
         }
     }
