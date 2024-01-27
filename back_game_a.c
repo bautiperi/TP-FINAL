@@ -31,7 +31,6 @@ void *alien_movement(void *arg)
 
     while (1)
     {
-
         if (flag == 1)
         {
             alien_movement_v(mapa);
@@ -50,18 +49,18 @@ void *alien_movement(void *arg)
                         dir *= -1; // Hace el cambio de dirección
                         flag = 1;  // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
                     }
-                    // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
+                    // Si adelante había una barrera la "destruye" y continúa cambiando la posición del enemigo
                     else if (mapa[y][x + dir] == -1 && (enemy_checker(x, y, mapa)))
                     {
                         mapa[y][x + 1] = 0;
                         swap(mapa, x, y, x + dir, y);
-                        x++;
+                        // x++;
                     }
                     // Cambia la posición del enemigo
                     else if (mapa[y][x + dir] == 0 && (enemy_checker(x, y, mapa)))
                     {
                         swap(mapa, x, y, x + dir, y);
-                        x++;
+                        // x++;
                     }
                 }
             }
