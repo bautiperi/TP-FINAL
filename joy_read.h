@@ -4,6 +4,7 @@
 #include "joydrv.h"
 #include "back_game_a.h"
 #include "menu_r.h"
+#include "conection_b_r.h"
 #include "defines.h"
 
 /* FUNCIÓN JOY_MOVEMENT

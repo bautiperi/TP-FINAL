@@ -31,5 +31,5 @@ back_aux_a.o: back_aux_a.c back_aux_a.h defines.h
 back_score_a.o: back_score_a.c back_score_a.h defines.h
 	gcc back_score_a.c -c -Wall -g
 
-joy_read: joy_read.c joy_read.h defines.h back_game_a.h menu_r.h
+joy_read: joy_read.c joy_read.h defines.h back_game_a.h menu_r.h conection_b_r.h
 	gcc joy_read.c -c -Wall -g
