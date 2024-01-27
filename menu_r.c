@@ -7,7 +7,7 @@ static void menu_options(int mapa[][COL]);
 void menu_vis(int mapa[][COL])
 {
     dcoord_t coords = {0, 15};
-    if (mapa[4][0] == 0)
+    if (STATUS == 0)
     {
         // PRENDE Y APAGA EL LED DE MENU
         disp_write(coords, D_ON);
@@ -50,12 +50,12 @@ static void menu_options(int mapa[][COL])
         disp_write(exit_btn[i], D_ON);
     }
 
-    // Segun el flag de mapa[5][0] titila la opcion seleccionada
-    if (mapa[5][0] == 0)
+    // Segun el flag de FLICK_OPTION titila la opcion seleccionada
+    if (FLICK_OPTION == 0)
     {
         multp_flick(continue_btn, 9);
     }
-    if (mapa[5][0] == 1)
+    if (FLICK_OPTION == 1)
     {
         multp_flick(exit_btn, 10);
     }
@@ -90,11 +90,11 @@ void menu_principal_vis(int mapa[][COL])
         disp_write(power_off_btn[i], D_ON);
     }
 
-    if (mapa[5][0] == 0)
+    if (FLICK_OPTION == 0)
     {
         multp_flick(continue_btn, 9);
     }
-    if (mapa[5][0] == 1)
+    if (FLICK_OPTION == 1)
     {
         multp_flick(power_off_btn, 10);
     }

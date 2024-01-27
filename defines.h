@@ -37,6 +37,6 @@ typedef struct
 // FLAGS
 #define STATUS mapa[4][0] 
 #define FLICK_OPTION mapa[5][0]
-#define 
+#define END_GAME mapa[6][0]
 
 #endif /* DEFINES_H */

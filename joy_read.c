@@ -1,22 +1,23 @@
 #include "joy_read.h"
 
 /*
-mapa[4][0] es un flag
-mapa[4][0] = 0 -> en el juego
-mapa[4][0] = 1 -> en el menu
-mapa[4][0] = 2 -> menu principal
+STATUS es un flag
+STATUS = 0 -> en el juego
+STATUS = 1 -> en el menu
+STATUS = 2 -> menu principal
 */
+
 
 void joy_movement(int mapa[][COL])
 {
     joyinfo_t coord = {0, 0, J_NOPRESS};
     int npos = 0;
     dcoord_t coords = {15, 0};
-    mapa[5][0] = 0; // flag para seleccion en el menu
+    FLICK_OPTION = 0; // flag para seleccion en el menu
     // JUEGO
     while (1)
     {
-        if (mapa[4][0] == 0) // JUEGO
+        if (STATUS == 0) // JUEGO
         {
             coord = joy_read();
             if (coord.sw = J_PRESS) // dispara el player
@@ -34,52 +35,52 @@ void joy_movement(int mapa[][COL])
 
             if (coord.y <= THRESHOLD)
             { // si la coordenada en y no se movio hacia la seleccion del menu
-                mapa[4][0] = 0;
+                STATUS = 0;
             }
             else
             { // sino, cambia al menu
-                mapa[4][0] = 1;
+                STATUS = 1;
             }
             gamer_movement(mapa, npos); // genera el movimiento del player
         }
-        if (mapa[4][0] == 1) // MENU
+        if (STATUS == 1) // MENU
         {
             if (coord.x > THRESHOLD && coord.sw == J_NOPRESS)
             {
-                mapa[5][0] = 1; // TITILA EL PLAY
+                FLICK_OPTION = 1; // TITILA EL PLAY
             }
             else if (coord.x > THRESHOLD && coord.sw == J_PRESS)
             {
-                mapa[4][0] = 2; // CAMBIA A MENU PRINCIPAL
+                STATUS = 2; // CAMBIA A MENU PRINCIPAL
             }
             if (coord.x < -THRESHOLD && coord.sw == J_NOPRESS)
             {
-                mapa[5][0] = 0; // TITLA EL SALIR
+                FLICK_OPTION = 0; // TITLA EL SALIR
             }
             else if (coord.x < -THRESHOLD && coord.sw == J_PRESS)
             {
-                mapa[4][0] = 0; // VUELVE AL JUEGO
+                STATUS = 0; // VUELVE AL JUEGO
             }
         }
-        if (mapa[4][0] == 2) // MENU PRINCIPAL
+        if (STATUS == 2) // MENU PRINCIPAL
         {
             menu_principal_vis(mapa);
             if (coord.x > THRESHOLD && coord.sw == J_NOPRESS)
             {
-                mapa[5][0] = 1; // TITILA EL PLAY
+                FLICK_OPTION = 1; // TITILA EL PLAY
             }
             else if (coord.x > THRESHOLD && coord.sw == J_PRESS)
             {
                 shutdown_disp(); // APAGA EL DISPLAY
-                mapa[6][0] = 1;  // INDICA QUE SE TERMNINO EL JUEGO
+                END_GAME = 1;  // INDICA QUE SE TERMNINO EL JUEGO
             }
             if (coord.x < -THRESHOLD && coord.sw == J_NOPRESS)
             {
-                mapa[5][0] = 0; // TITLA EL APAGAR
+                FLICK_OPTION = 0; // TITLA EL APAGAR
             }
             else if (coord.x < -THRESHOLD && coord.sw == J_PRESS)
             {
-                mapa[4][0] = 0; // VUELVE AL JUEGO
+                STATUS = 0; // VUELVE AL JUEGO
             }
         }
     }
