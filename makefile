@@ -22,7 +22,7 @@ map.o: map.c map.h ships.h defines.h
 ships.o: ships.c ships.h defines.h
 	gcc ships.c -c -Wall -g
 
-back_game_a.o: back_game_a.c back_game_a.h back_aux_a.h defines.h
+back_game_a.o: back_game_a.c back_game_a.h back_aux_a.h back_score_a.h defines.h
 	gcc back_game_a.c -c -Wall -g
 
 back_aux_a.o: back_aux_a.c back_aux_a.h defines.h
