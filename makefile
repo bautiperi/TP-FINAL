@@ -1,4 +1,4 @@
-raspberry: main.o obj_r.o aux_r.o menu_r.o conection_b_r.o map.o ships.o back_aux_a.o back_game_a.o back_score_a.o disdrv.o joydrv.o
+raspberry: main.o obj_r.o aux_r.o menu_r.o conection_b_r.o map.o ships.o back_aux_a.o back_game_a.o back_score_a.o joy_read.o disdrv.o joydrv.o
 	gcc main.o obj_r.o aux_r.o menu_r.o conection_b_r.o map.o ships.o disdrv.o joydrv.o back_aux_a.o back_game_a.o back_score_a.o -Wall -g -pthread -o raspberry
 	
 main.o: main.c map.h disdrv.h joydrv.h defines.h conection_b_r.h aux_r.h back_game_a.h
@@ -30,3 +30,6 @@ back_aux_a.o: back_aux_a.c back_aux_a.h defines.h
 
 back_score_a.o: back_score_a.c back_score_a.h defines.h
 	gcc back_score_a.c -c -Wall -g
+
+joy_read: joy_read.c joy_read.h defines.h back_game_a.h menu_r.h
+	gcc joy_read.c -c -Wall -g
