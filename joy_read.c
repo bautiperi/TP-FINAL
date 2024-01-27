@@ -7,7 +7,6 @@ STATUS = 1 -> en el menu
 STATUS = 2 -> menu principal
 */
 
-
 void joy_movement(int mapa[][COL])
 {
     joyinfo_t coord = {0, 0, J_NOPRESS};
