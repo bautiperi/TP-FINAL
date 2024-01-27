@@ -54,7 +54,7 @@ static void barrier_diff (const int diff, int mapa[][COL]){
 
 		//Loop donde se llama a la función barrier_gen para crear las barreras/escudos
 		for(i = 2; i < FIL; i += 8){
-			barrier_gen(i, 22, 4, 4, -1, mapa);
+			barrier_gen(i, 22, 4, 4, BARRIER, mapa);
 		}
 	}
 

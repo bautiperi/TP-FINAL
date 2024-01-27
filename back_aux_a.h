@@ -8,7 +8,7 @@
 #ifndef BACK_AUX_A_H_
 #define BACK_AUX_A_H_
 
-#include "map.h"
+#include "_defines.h"
 
 /* FUNCIÓN SWAP
  * BRIEF: Cambia el contenido de dos celdas de la matriz

@@ -1,7 +1,7 @@
 #ifndef BACK_GAME_A_H_
 #define BACK_GAME_A_H_
 
-#include "map.h"
+#include "_defines.h"
 
 /* FUNCIÓN ALIEN_MOVEMENT
  * BRIEF: mueve horizontalmente a los aliens
@@ -31,6 +31,8 @@ void gamer_movement(int mapa[][COL], int dir);
  * return: (void)
  */
 void gamer_fire (int mapa[][COL]);
+
+void enemy_fire(int mapa[][COL]);
 
 //Declaración de variable global (flag)
 extern int flag_game_update;

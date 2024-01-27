@@ -1,6 +1,5 @@
 //HEADER
 #include "disp_game_a.h"
-
 #include "disp_pause_a.h"
 #include "back_game_a.h"
 #include "disp_scoreboard_a.h"
@@ -30,7 +29,6 @@ static void display_impact (const int x, const int y);
 
 //DEFINICIONES PARA ALLEGRO
 #define SCALER 25
-#define BARRIER -1
 #define FONT_SIZE 35
 
 #define POS_X(x) ((x)* SCALER - SCALER/2)
@@ -259,19 +257,19 @@ static int display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLE
 	int x, y, ken_flag = 0;
 	for (y = 1; y < (FIL - 4); y++){
 		for(x = 0; x < COL; x++){
-			if (mapa[y][x] == 2){
+			if (mapa[y][x] == ALIEN_2){
 				//Si el enemigo es un alien, muestra la imagen de un alien
 				al_draw_scaled_bitmap(alien_1, 0, 0, 308, 308, POS_X(x), POS_Y(y) , 30, 30, 0);
 			}
-			else if (mapa[y][x] == 3){
+			else if (mapa[y][x] == ALIEN_3){
 				//Si el enemigo es un alien, muestra la imagen de un alien
 				al_draw_scaled_bitmap(alien_2, 0, 0, 308, 308, POS_X(x), POS_Y(y) , 30, 30, 0);
 			}
-			else if (mapa [y][x] == 4){
+			else if (mapa [y][x] == ALIEN_4){
 				//Si el enemigo es un alien, muestra la imagen de un alien
 				al_draw_scaled_bitmap(alien_3, 0, 0, 308, 308, POS_X(x), POS_Y(y) , 30, 30, 0);
 			}
-			else if (mapa [y][x] == 5){
+			else if (mapa [y][x] == BOSS){
 				//Si el enemigo es un alien, muestra la imagen de un alien
 				al_draw_scaled_bitmap(boss, 0, 0, 308, 308, POS_X(x), POS_Y(y) , 30, 30, 0);
 				ken_flag++;
@@ -295,11 +293,11 @@ static void display_bullet(const int mapa[][COL]){
 	for (y = 4; y < (FIL - 4); y++){
 		for(x = 0; x < COL; x++){
 
-			if (mapa[y][x] == 6){
+			if (mapa[y][x] == FIRE_PL){
 				//Si el disparo es de un jugador, lo muestra de color celeste
 				al_draw_filled_rounded_rectangle(x*SCALER -5, POS_Y(y) -5, x*SCALER +5, POS_Y(y) +5, 4, 4, al_map_rgb(204,143,233));
 			}
-			else if (mapa[y][x] == 7){
+			else if (mapa[y][x] == FIRE_EN){
 				//Si el disparo es de un enemigo, lo muestra de color naranja
 				al_draw_filled_rounded_rectangle(x*SCALER -5, POS_Y(y) -5, x*SCALER +5, POS_Y(y) +5, 4, 4, al_map_rgb(130,39,215));
 			}

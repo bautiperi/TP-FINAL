@@ -8,7 +8,7 @@
 #ifndef SHIPS_H_
 #define SHIPS_H_
 
-#include "map.h"
+#include "_defines.h"
 
 void ships_create (int diff, int mapa[][COL]);
 
