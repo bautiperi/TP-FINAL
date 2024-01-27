@@ -46,14 +46,14 @@ void alien_movement(int mapa[][COL])
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
                     }
                     // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
-                    else if (mapa[y][x + 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    else if (mapa[y][x + 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4) && !flag)
                     {
                         mapa[y][x + 1] = 0;
                         swap(mapa, x, y, x + 1, y);
                         x++;
                     }
                     // Cambia la posición del enemigo
-                    else if (mapa[y][x + 1] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    else if (mapa[y][x + 1] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4) && !flag)
                     {
                         swap(mapa, x, y, x + 1, y);
                         x++;
@@ -68,20 +68,20 @@ void alien_movement(int mapa[][COL])
                 for (x = COL - 1; x >= 0; x--)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-                    if (mapa[y][1] == 4)
+                    if (mapa[y][0] == 4)
                     {
                         dir = 1;  // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
                     }
                     // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
-                    else if (mapa[y][x - 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    else if (mapa[y][x - 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4) && !flag)
                     {
                         mapa[y][x - 1] = 0;
                         swap(mapa, x, y, x - 1, y);
                         x--;
                     }
                     // Cambia la posición del enemigo
-                    else if (mapa[y][x - 1] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    else if (mapa[y][x - 1] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4) && !flag)
                     {
                         swap(mapa, x, y, x - 1, y);
                         x--;
@@ -211,7 +211,7 @@ void gamer_movement(int mapa[][COL], int dir) // REVISAR: se mueve muy rapido? =
 
 void gamer_fire(int mapa[][COL])
 {
-    int x, y = 28, stop = 1;
+    int x, y = COL - 2, stop = 1;
     int pos_x;
 
     // Busca la posición del jugador al momento del disparo, cuando lo encuentra, enciende un flag para detener el loop y guardar la posición
@@ -272,9 +272,9 @@ void enemy_fire(int mapa[][COL]) // genera los disparos enemigos, me falta termi
     int x, y, shot, xb, eureka;
     srand(time(NULL));
 
-    for (x = 0; x < 32; x++) // recorre el area donde se encuentran los aliens
+    for (x = 0; x < COL; x++) // recorre el area donde se encuentran los aliens
     {
-        for (y = 22; y > 5; y--)
+        for (y = FIL; y > 3; y--)
         {
             if (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4) // verifica que haya aliens para que disparen
             {
@@ -285,7 +285,7 @@ void enemy_fire(int mapa[][COL]) // genera los disparos enemigos, me falta termi
                     xb = x;
                     eureka = 1;
 
-                    for (y++; y < 32 && eureka; y++)
+                    for (y++; y < FIL && eureka; y++)
                     {
                         usleep(150000);
 
@@ -293,7 +293,7 @@ void enemy_fire(int mapa[][COL]) // genera los disparos enemigos, me falta termi
                         {
                             swap(mapa, xb, y, xb, y + 1);
                         }
-                        else if (y + 1 == 32) // Llega al borde inferior del mapa
+                        else if (y + 1 == FIL) // Llega al borde inferior del mapa
                         {
                             mapa[y][xb] = 0;
                         }

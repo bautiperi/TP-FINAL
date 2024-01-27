@@ -24,7 +24,7 @@ void obj_vis(int mapa[][COL], int vidas)
         lives_vis(vidas);
         for (x = 0; x < COL; x++)
         {
-            for (y = 0; y < FIL; y++)
+            for (y = 1; y < FIL; y++)
             {
                 coords.x = x;
                 coords.y = y;

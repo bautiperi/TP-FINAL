@@ -31,4 +31,7 @@ typedef struct
 #define SPACE 0
 #define BARRIER -1
 
+// JOYSTICK
+#define THRESHOLD 40 // Límite a partir del cual se mueve el LED encendido
+
 #endif /* DEFINES_H */

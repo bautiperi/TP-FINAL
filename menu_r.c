@@ -2,30 +2,26 @@
 #include <unistd.h>
 #include <stdio.h>
 
-static void menu_options(void);
+static void menu_options(int mapa[][COL]);
 
-void menu_vis(joyinfo_t ubi)
+void menu_vis(int mapa[][COL])
 {
-    dcoord_t coord = {15, 0};
-    if (ubi.y >= 0)
+    dcoord_t coords = {0, 15};
+    if (mapa[4][0] == 0)
     {
-        printf("EN MENU_VIS -> UBI: x: %d y: %d \n", ubi.x, ubi.y);
-        printf("EN MENU_VIS -> COORD: x: %d y: %d \n", coord.x, coord.y);
-        disp_write(coord, D_ON);
+        // PRENDE Y APAGA EL LED DE MENU
+        disp_write(coords, D_ON);
         disp_update();
-
         usleep(300000);
-
-        disp_write(coord, D_OFF);
-        disp_update();
+        disp_write(coords, D_OFF);
     }
-    else if (ubi.y < 0)
+    else
     {
-        menu_options();
+        menu_options(mapa);
     }
 }
 
-static void menu_options(void)
+static void menu_options(int mapa[][COL])
 {
     shutdown_disp();
 
@@ -54,5 +50,14 @@ static void menu_options(void)
         disp_write(exit_btn[i], D_ON);
     }
 
-    disp_update();
+    // Segun el flag de mapa[5][0] titila la opcion seleccionada
+    if (mapa[5][0] == 0)
+    {
+        multp_flick(continue_btn, , 9);
+    }
+    if (mapa[5][0] == 1)
+    {
+        multp_flick(exit_btn, 10);
+    }
+    // disp_update();
 }

@@ -12,6 +12,6 @@ brief: se encarga de la visualizacion de colisiones con los escudos
 ubi: (joyinfo_t) ubicacion del joystick
 return: void
 */
-void menu_vis(joyinfo_t ubi);
+void menu_vis(int mapa[][COL]);
 
 #endif /* MENU_R_H */
