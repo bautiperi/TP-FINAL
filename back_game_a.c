@@ -17,8 +17,10 @@ static void alien_movement_v(int mapa[][COL]);
  */
 static void final_boss_movement(int mapa[][COL], int dir);
 
-void alien_movement(int mapa[][COL])
+void *alien_movement(void *arg)
 {
+    int(*mapa)[COL] = (int(*)[COL])arg;
+
     int x, y;
     int dir = 1, flag = 0;
     // se mueve hacia la derecha
@@ -40,20 +42,20 @@ void alien_movement(int mapa[][COL])
                 for (x = 0; x < COL; x++)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-                    if (mapa[y][COL - 2] == 4 && mapa[y][COL - 2] == 3 && mapa[y][COL - 2] == 2)
+                    if (enemy_checker(COL - 2, y, mapa))
                     {
                         dir = -1; // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
                     }
                     // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
-                    else if (mapa[y][x + 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4) && !flag)
+                    else if (mapa[y][x + 1] == -1 && (enemy_checker(x, y, mapa)))
                     {
                         mapa[y][x + 1] = 0;
                         swap(mapa, x, y, x + 1, y);
                         x++;
                     }
                     // Cambia la posición del enemigo
-                    else if (mapa[y][x + 1] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4) && !flag)
+                    else if (mapa[y][x + 1] == 0 && (enemy_checker(x, y, mapa)))
                     {
                         swap(mapa, x, y, x + 1, y);
                         x++;
@@ -68,20 +70,20 @@ void alien_movement(int mapa[][COL])
                 for (x = COL - 1; x >= 0; x--)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-                    if (mapa[y][COL - 2] == 4 && mapa[y][COL - 2] == 3 && mapa[y][COL - 2] == 2)
+                    if (enemy_checker(1, y, mapa))
                     {
                         dir = 1;  // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
                     }
                     // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
-                    else if (mapa[y][x - 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4) && !flag)
+                    else if (mapa[y][x - 1] == BARRIER && enemy_checker(x, y, mapa))
                     {
                         mapa[y][x - 1] = 0;
                         swap(mapa, x, y, x - 1, y);
                         x--;
                     }
                     // Cambia la posición del enemigo
-                    else if (mapa[y][x - 1] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4) && !flag)
+                    else if (mapa[y][x - 1] == 0 && enemy_checker(x, y, mapa))
                     {
                         swap(mapa, x, y, x - 1, y);
                         x--;
@@ -108,13 +110,13 @@ static void alien_movement_v(int mapa[][COL])
     {
         for (y = 1; y < FIL; y++)
         {
-            if (mapa[y + 1][x] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+            if (mapa[y + 1][x] == BARRIER && enemy_checker(x, y, mapa))
             {
                 mapa[y + 1][x] = 0;
                 swap(mapa, x, y, x, y + 1);
                 y++;
             }
-            else if (mapa[y + 1][x] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+            else if (mapa[y + 1][x] == SPACE && enemy_checker(x, y, mapa))
             {
                 swap(mapa, x, y, x, y + 1);
                 y++;
@@ -124,8 +126,11 @@ static void alien_movement_v(int mapa[][COL])
     usleep(1000000);
 }
 
-void final_boss_creation(int mapa[][COL])
+void *final_boss_creation(void *arg)
 {
+
+    int(*mapa)[COL] = (int(*)[COL])arg;
+
     usleep(15000000);
 
     srand(time(NULL));
@@ -133,14 +138,16 @@ void final_boss_creation(int mapa[][COL])
     // si dir>=0 el enemigo aparece a la izquierda del mapa en direccion a la derecha
     if (dir >= 0)
     {
-        mapa[3][0] = 5;
+        mapa[3][0] = BOSS;
     }
     // si dir = -1 el enemigo aparece a la derecha del mapa en direccion a la izquierda
     else
     {
-        mapa[3][COL - 1] = 5;
+        mapa[3][COL - 1] = BOSS;
     }
     final_boss_movement(mapa, dir);
+
+    return NULL;
 }
 
 static void final_boss_movement(int mapa[][COL], int dir)
@@ -158,12 +165,12 @@ static void final_boss_movement(int mapa[][COL], int dir)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
                     // Elimina al enemigo
-                    if (mapa[y][COL - 1] == 5)
+                    if (mapa[y][COL - 1] == BOSS)
                     {
-                        mapa[y][COL - 1] = 0; // hace que no haya mas enemigo
+                        mapa[y][COL - 1] = SPACE; // hace que no haya mas enemigo
                     }
                     // Cambia la posición del enemigo
-                    else if (mapa[y][x] == 5)
+                    else if (mapa[y][x] == BOSS)
                     {
                         swap(mapa, x, y, x + 1, y);
                         x++;
@@ -181,7 +188,7 @@ static void final_boss_movement(int mapa[][COL], int dir)
                     {
                         mapa[y][0] = 0;
                     }
-                    else if (mapa[y][x] == 5)
+                    else if (mapa[y][x] == BOSS)
                     {
                         swap(mapa, x, y, x - 1, y);
                         x--;
@@ -209,9 +216,11 @@ void gamer_movement(int mapa[][COL], int dir) // REVISAR: se mueve muy rapido? =
     }
 }
 
-void gamer_fire(int mapa[][COL])
+void *gamer_fire(void *arg)
 {
-    int x, y = COL - 2, stop = 1;
+    int(*mapa)[COL] = (int(*)[COL])arg;
+
+    int x, y = 28, stop = 1;
     int pos_x;
 
     // Busca la posición del jugador al momento del disparo, cuando lo encuentra, enciende un flag para detener el loop y guardar la posición
@@ -219,7 +228,7 @@ void gamer_fire(int mapa[][COL])
     {
         if (mapa[y][x] == 1)
         {
-            mapa[y - 1][x] = 6;
+            mapa[y - 1][x] = FIRE_PL;
             stop = 0;
             pos_x = x;
         }
@@ -232,37 +241,40 @@ void gamer_fire(int mapa[][COL])
     {
         usleep(150000);
 
-        if (mapa[y - 1][pos_x] == 0)
+        if (mapa[y - 1][pos_x] == SPACE)
         {
             swap(mapa, pos_x, y, pos_x, y - 1);
         }
         else if (y - 1 < 0)
         {
-            mapa[y][pos_x] = 0;
+            mapa[y][pos_x] = SPACE;
         }
         else
         {
             eureka = 0;
             // Si es una barrera, la destruye y borra al disparo del mapa
 
-            if (mapa[y - 1][pos_x] == -1)
+            if (mapa[y - 1][pos_x] == BARRIER)
             {
-                mapa[y - 1][pos_x] += 1;
-                mapa[y][pos_x] = 0;
+                // Destruye la barrera
+                mapa[y - 1][pos_x] = SPACE;
+                // Elimina el disparo
+                mapa[y][pos_x] = SPACE;
             }
-            else if (mapa[y - 1][pos_x] != 0)
+            // Si es un enemigo, destruye el disparo y elimina al enemigo, tmb llama a la función score_updater para sumarle los puntos al jugador
+            else if (mapa[y - 1][pos_x] != SPACE)
             {
-                // llamar a la función de puntos
-
+                // Evita que se puedan mover los enemigos al momento de ser detectados, para lograr evitar errores
                 flag_game_update = 0;
 
-                mapa[y - 1][pos_x] = 0;
+                score_updater(mapa, mapa[y - 1][pos_x]);
 
-                mapa[y][pos_x] = 0;
+                mapa[y - 1][pos_x] = SPACE;
+
+                mapa[y][pos_x] = SPACE;
 
                 flag_game_update = 1;
             }
-            // Seguir para el resto de enemigos
         }
     }
 }
@@ -272,9 +284,9 @@ void enemy_fire(int mapa[][COL]) // genera los disparos enemigos, me falta termi
     int x, y, shot, xb, eureka;
     srand(time(NULL));
 
-    for (x = 0; x < COL; x++) // recorre el area donde se encuentran los aliens
+    for (x = 0; x < 32; x++) // recorre el area donde se encuentran los aliens
     {
-        for (y = FIL; y > 3; y--)
+        for (y = 22; y > 5; y--)
         {
             if (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4) // verifica que haya aliens para que disparen
             {
@@ -285,7 +297,7 @@ void enemy_fire(int mapa[][COL]) // genera los disparos enemigos, me falta termi
                     xb = x;
                     eureka = 1;
 
-                    for (y++; y < FIL && eureka; y++)
+                    for (y++; y < 32 && eureka; y++)
                     {
                         usleep(150000);
 
@@ -293,7 +305,7 @@ void enemy_fire(int mapa[][COL]) // genera los disparos enemigos, me falta termi
                         {
                             swap(mapa, xb, y, xb, y + 1);
                         }
-                        else if (y + 1 == FIL) // Llega al borde inferior del mapa
+                        else if (y + 1 == 32) // Llega al borde inferior del mapa
                         {
                             mapa[y][xb] = 0;
                         }
