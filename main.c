@@ -29,7 +29,7 @@ int main(void)
 	pthread_create(&up_boss, NULL, final_boss_creation, mapa);
 	pthread_create(&up_aliens, NULL, alien_movement, mapa);
 	pthread_create(&up_player, NULL, joy_movement, mapa);
-	ptthread_create(&up_menu, NULL, menu_vis, mapa);
+	pthread_create(&up_menu, NULL, menu_vis, mapa);
 	obj_vis(mapa, mapa[0][COL - 1]);
 
 	shutdown_disp();
