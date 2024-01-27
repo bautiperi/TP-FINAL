@@ -30,7 +30,7 @@ typedef struct
 #define JUGADOR 1
 #define SPACE 0
 #define BARRIER -1
-#define FIRE_PL
+#define FIRE_PL 6
 // JOYSTICK
 #define THRESHOLD 40 // Límite a partir del cual se mueve el LED encendido
 
