@@ -14,7 +14,6 @@ return: void
 */
 void menu_vis(int mapa[][COL]);
 
-
 /***********************************  VISUALIZACION   ***********************************/
 /*FUNCION MENU_PRINCIPAL_VIS
 brief: se encarga de la visualizacion del menu principal

@@ -18,6 +18,7 @@ void joy_movement(int mapa[][COL])
     {
         if (STATUS == 0) // JUEGO
         {
+            obj_vis(mapa, mapa[0][COL - 1]);
             coord = joy_read();
             if (coord.sw = J_PRESS) // dispara el player
             {
@@ -44,6 +45,7 @@ void joy_movement(int mapa[][COL])
         }
         if (STATUS == 1) // MENU
         {
+            menu_vis(mapa);
             if (coord.x > THRESHOLD && coord.sw == J_NOPRESS)
             {
                 FLICK_OPTION = 1; // TITILA EL PLAY
@@ -71,7 +73,7 @@ void joy_movement(int mapa[][COL])
             else if (coord.x > THRESHOLD && coord.sw == J_PRESS)
             {
                 shutdown_disp(); // APAGA EL DISPLAY
-                END_GAME = 1;  // INDICA QUE SE TERMNINO EL JUEGO
+                END_GAME = 1;    // INDICA QUE SE TERMNINO EL JUEGO
             }
             if (coord.x < -THRESHOLD && coord.sw == J_NOPRESS)
             {
