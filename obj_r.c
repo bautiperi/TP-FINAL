@@ -147,7 +147,7 @@ void shields_vis(dcoord_t coor)
     coor.y++;
     printf("EN SHIELDS_VIS 4: x: %d y: %d \n", coor.x, coor.y);
     disp_write(coor, D_ON); // prendo led de abajo a la der
-                            // disp_update();
+     // disp_update();
 }
 
 void shields_life(int life_of_shield, dcoord_t coor_of_shield)

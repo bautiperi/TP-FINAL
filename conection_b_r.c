@@ -22,7 +22,7 @@ void obj_vis(int mapa[][COL], int vidas)
         shields = 0;
         boss = 0;
         lives_vis(vidas);
-        for (x = 0; x < COL; x++)
+        for (x = 0; x < COL - 1; x++)
         {
             for (y = 1; y < FIL; y++)
             {
