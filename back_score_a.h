@@ -8,7 +8,7 @@
 #ifndef BACK_SCORE_A_H_
 #define BACK_SCORE_A_H_
 
-#include "_defines.h"
+#include "defines.h"
 
 /* FUNCIÓN SCORE_UPDATER
  * BRIEF: Actualiza el score actual del jugador
