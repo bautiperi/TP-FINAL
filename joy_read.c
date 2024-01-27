@@ -26,11 +26,15 @@ void joy_movement(int mapa[][COL])
             }
             if (coord.x > THRESHOLD) // movimiento a la derecha
             {
-                npos++;
+                npos = 1;
             }
-            if (coord.x < -THRESHOLD) // movimiento a la izquierda
+            else if (coord.x < -THRESHOLD) // movimiento a la izquierda
             {
-                npos--;
+                npos = -1;
+            }
+            else
+            {
+                npos = 0;
             }
 
             if (coord.y <= THRESHOLD)
