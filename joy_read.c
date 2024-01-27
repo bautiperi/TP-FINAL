@@ -9,6 +9,7 @@ STATUS = 2 -> menu principal
 
 void joy_movement(int mapa[][COL])
 {
+    joy_init();
     joyinfo_t coord = {0, 0, J_NOPRESS};
     int npos = 0;
     dcoord_t coords = {15, 0};
