@@ -26,10 +26,9 @@ int main(void)
 	map_def(RASP, mapa);
 
 	pthread_t up_aliens, up_boss, up_player, up_vis;
-	pthread_create(&up_player, NULL, joy_movement, mapa);
+	// pthread_create(&up_player, NULL, joy_movement, mapa);
 	pthread_create(&up_boss, NULL, final_boss_creation, mapa);
 	pthread_create(&up_aliens, NULL, alien_movement, mapa);
-	
 
 	shutdown_disp();
 	usleep(500000);
