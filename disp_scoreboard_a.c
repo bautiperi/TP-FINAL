@@ -1,9 +1,3 @@
-/*
- * disp_scoreboard_a.c
- *
- *  Created on: Jan 10, 2024
- *      Author: bauti
- */
 //HEADER
 #include "disp_scoreboard_a.h"
 
