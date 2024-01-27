@@ -1,9 +1,3 @@
-/*
- * back_aux_a.h
- *
- *  Created on: Jan 22, 2024
- *      Author: bauti
- */
 
 #ifndef BACK_AUX_A_H_
 #define BACK_AUX_A_H_
