@@ -10,6 +10,8 @@
 
 #include "defines.h"
 
+#include <pthread.h>
+
 void swap(int mapa[][COL], int x1, int y1, int x2, int y2);
 
 /* FUNCIÓN ENEMY_CHECKER
