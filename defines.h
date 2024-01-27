@@ -39,4 +39,23 @@ typedef struct
 #define FLICK_OPTION mapa[5][0]
 #define END_GAME mapa[6][0]
 
+// MAPA
+#define SPACE 0
+#define BARRIER -1
+
+// JUGADOR
+#define SPAWN_POINT mapa[15][6]
+#define JUGADOR 1
+
+// DISPAROS
+#define FIRE_PL 6
+#define FIRE_EN 7
+
+// DEFINICIONES DE VALORES ESPECÍFICOS
+#define LIFES mapa[0][COL - 1]
+#define SCORE mapa[0][COL - 2]
+#define IMPACT mapa[0][COL - 5]
+#define IMPACT_X mapa[0][COL - 4]
+#define IMPACT_Y mapa[0][COL - 3]
+
 #endif /* DEFINES_H */

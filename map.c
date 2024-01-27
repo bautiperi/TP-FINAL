@@ -29,7 +29,7 @@ void map_def(const int diff, int mapa[][COL])
 	ships_gen(mapa, RASP);
 
 	// Llama a la función encargada de crear los enemigos y spawnear al jugador
-	mapa[15][6] = 1;
+	SPAWN_POINT = 1;
 
 	// Flag que indica que arranque en el menu de inicio
 	mapa[4][0] = 0;
