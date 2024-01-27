@@ -29,6 +29,7 @@ int main(void)
 	// pthread_create(&up_player, NULL, joy_movement, mapa);
 	pthread_create(&up_boss, NULL, final_boss_creation, mapa);
 	pthread_create(&up_aliens, NULL, alien_movement, mapa);
+	obj_vis(mapa, mapa[0][COL - 1]);
 
 	shutdown_disp();
 	usleep(500000);
