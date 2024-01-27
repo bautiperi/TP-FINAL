@@ -16,10 +16,10 @@ void joy_movement(int mapa[][COL])
     // JUEGO
     while (1)
     {
+        coord = joy_read();
         if (STATUS == 0) // JUEGO
         {
             obj_vis(mapa, mapa[0][COL - 1]);
-            coord = joy_read();
             if (coord.sw = J_PRESS) // dispara el player
             {
                 gamer_fire(mapa);
