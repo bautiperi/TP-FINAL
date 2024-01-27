@@ -45,7 +45,7 @@ void *alien_movement(void *arg)
                 for (x = 0; x < COL; x += 2)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-                    if (enemy_checker(COL - 2, y, mapa))
+                    if (enemy_checker(COL - 1, y, mapa))
                     {
                         dir = -1; // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
@@ -223,7 +223,7 @@ void *gamer_fire(void *arg)
 {
     int(*mapa)[COL] = (int(*)[COL])arg;
 
-    int x, y = 28, stop = 1;
+    int x, y = FIL - 1, stop = 1;
     int pos_x;
 
     // Busca la posición del jugador al momento del disparo, cuando lo encuentra, enciende un flag para detener el loop y guardar la posición
@@ -287,9 +287,9 @@ void enemy_fire(int mapa[][COL]) // genera los disparos enemigos, me falta termi
     int x, y, shot, xb, eureka;
     srand(time(NULL));
 
-    for (x = 0; x < 32; x++) // recorre el area donde se encuentran los aliens
+    for (x = 0; x < COL; x++) // recorre el area donde se encuentran los aliens
     {
-        for (y = 22; y > 5; y--)
+        for (y = FIL; y > 4; y--)
         {
             if (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4) // verifica que haya aliens para que disparen
             {
@@ -300,7 +300,7 @@ void enemy_fire(int mapa[][COL]) // genera los disparos enemigos, me falta termi
                     xb = x;             // guarda la posición del disparo
                     eureka = 1;         // crea un flag
 
-                    for (y++; y < 32 && eureka; y++) // empieza a mover el disparo por el mapa
+                    for (y++; y < COL && eureka; y++) // empieza a mover el disparo por el mapa
                     {
                         usleep(100000);
 
@@ -315,7 +315,7 @@ void enemy_fire(int mapa[][COL]) // genera los disparos enemigos, me falta termi
                             mapa[y][xb] = 7;
                             y--;
                         }
-                        else if (y + 1 == 32) // si llega al borde inferior del mapa borra el disparo
+                        else if (y + 1 == COL) // si llega al borde inferior del mapa borra el disparo
                         {
                             mapa[y][xb] = 0;
                         }
