@@ -53,7 +53,7 @@ static void menu_options(int mapa[][COL])
     // Segun el flag de mapa[5][0] titila la opcion seleccionada
     if (mapa[5][0] == 0)
     {
-        multp_flick(continue_btn, , 9);
+        multp_flick(continue_btn, 9);
     }
     if (mapa[5][0] == 1)
     {
@@ -69,6 +69,8 @@ void menu_principal_vis(int mapa[][COL])
     dcoord_t continue_btn[16] = {{2, 8}, {2, 9}, {2, 10}, {2, 11}, {2, 12}, {2, 13}, {2, 14}, {3, 9}, {3, 10}, {3, 11}, {3, 12}, {3, 13}, {4, 10}, {4, 11}, {4, 12}, {5, 11}};
 
     dcoord_t power_off_btn[16] = {{11, 9}, {11, 10}, {11, 11}, {9, 10}, {10, 10}, {12, 10}, {13, 10}, {9, 11}, {9, 12}, {9, 13}, {13, 11}, {13, 12}, {13, 13}, {10, 13}, {11, 13}, {12, 13}};
+
+    int i;
 
     for (i = 0; i < 51; i++)
     {
