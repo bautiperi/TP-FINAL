@@ -31,7 +31,7 @@ int main(void){
 
 			map_def(EASY, mapa);
 
-			pthread_t * up_aliens, * up_boss, *up_player;
+			pthread_t up_aliens, up_boss, up_player;
 
 			pthread_create(&up_boss, NULL, final_boss_creation, mapa);
 			pthread_create(&up_aliens, NULL, alien_movement, mapa);
