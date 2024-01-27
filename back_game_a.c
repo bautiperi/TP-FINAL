@@ -281,6 +281,8 @@ void * gamer_fire(void * arg)
             }
         }
     }
+
+    return NULL;
 }
 
 void enemy_fire(int mapa[][COL]) // genera los disparos enemigos, me falta terminarla y organizarla mejor
