@@ -28,9 +28,14 @@ static int display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLE
 static void display_bullet (const int mapa[][COL]);
 static void display_impact (const int x, const int y);
 
+//DEFINICIONES PARA ALLEGRO
 #define SCALER 25
 #define BARRIER -1
 #define FONT_SIZE 35
+
+#define POS_X(x) ((x)* SCALER - SCALER/2)
+#define POS_Y(y) ((y) * SCALER)
+
 
 // RESERVAR LAS ÚLTIMAS 5 CELDAS DE LA PRIMER FILA PARA DATOS, EN SIGUIENTE ORDEN:
 // HUBO IMPACTO (1 = Sí) | COORD X IMPACTO | COORD Y IMPACTO | SCORE | LIVES
@@ -48,7 +53,7 @@ int display_game (const int mapa[][COL]){
 	ALLEGRO_BITMAP * alien_3 = al_load_bitmap("resources/aliens_2.png");
 	ALLEGRO_BITMAP * boss = al_load_bitmap("resources/aliens_2.png");
 	// BARRIERS IMAGE
-	ALLEGRO_BITMAP *barrier = al_load_bitmap("resources/barrier.png");
+	ALLEGRO_BITMAP * barrier = al_load_bitmap("resources/barrier.png");
 	// LIVES IMAGE
 	ALLEGRO_BITMAP * heart = al_load_bitmap("resources/heart_yes.png");
 	// FONT
@@ -190,7 +195,7 @@ static void display_barr (const int mapa[][COL], ALLEGRO_BITMAP *barrier) {
     for (y = 22; y < 27; y++){
     	for ( x = 0; x < 32; x++){
     		if(mapa[y][x] == BARRIER){
-    			al_draw_scaled_bitmap(barrier, 0, 0, 64, 64, x* SCALER - SCALER/2, y* SCALER , SCALER, SCALER, 0);
+    			al_draw_scaled_bitmap(barrier, 0, 0, 64, 64, POS_X(x), POS_Y(y) , SCALER, SCALER, 0);
     		}
     	}
 
@@ -256,19 +261,19 @@ static int display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLE
 		for(x = 0; x < COL; x++){
 			if (mapa[y][x] == 2){
 				//Si el enemigo es un alien, muestra la imagen de un alien
-				al_draw_scaled_bitmap(alien_1, 0, 0, 308, 308, x * SCALER - SCALER/2, y * SCALER , 30, 30, 0);
+				al_draw_scaled_bitmap(alien_1, 0, 0, 308, 308, POS_X(x), POS_Y(y) , 30, 30, 0);
 			}
 			else if (mapa[y][x] == 3){
 				//Si el enemigo es un alien, muestra la imagen de un alien
-				al_draw_scaled_bitmap(alien_2, 0, 0, 308, 308, x * SCALER - SCALER/2, y * SCALER , 30, 30, 0);
+				al_draw_scaled_bitmap(alien_2, 0, 0, 308, 308, POS_X(x), POS_Y(y) , 30, 30, 0);
 			}
 			else if (mapa [y][x] == 4){
 				//Si el enemigo es un alien, muestra la imagen de un alien
-				al_draw_scaled_bitmap(alien_3, 0, 0, 308, 308, x * SCALER - SCALER/2, y * SCALER , 30, 30, 0);
+				al_draw_scaled_bitmap(alien_3, 0, 0, 308, 308, POS_X(x), POS_Y(y) , 30, 30, 0);
 			}
 			else if (mapa [y][x] == 5){
 				//Si el enemigo es un alien, muestra la imagen de un alien
-				al_draw_scaled_bitmap(boss, 0, 0, 308, 308, x * SCALER - SCALER/2, y * SCALER , 30, 30, 0);
+				al_draw_scaled_bitmap(boss, 0, 0, 308, 308, POS_X(x), POS_Y(y) , 30, 30, 0);
 				ken_flag++;
 			}
 		}
@@ -292,11 +297,11 @@ static void display_bullet(const int mapa[][COL]){
 
 			if (mapa[y][x] == 6){
 				//Si el disparo es de un jugador, lo muestra de color celeste
-				al_draw_filled_rounded_rectangle(x*SCALER-5, y*SCALER-5, x*SCALER+5, y*SCALER+5, 4, 4, al_map_rgb(204,143,233));
+				al_draw_filled_rounded_rectangle(x*SCALER -5, POS_Y(y) -5, x*SCALER +5, POS_Y(y) +5, 4, 4, al_map_rgb(204,143,233));
 			}
 			else if (mapa[y][x] == 7){
 				//Si el disparo es de un enemigo, lo muestra de color naranja
-				al_draw_filled_rounded_rectangle(x*SCALER-5, y*SCALER-5, x*SCALER+5, y*SCALER+5, 4, 4, al_map_rgb(130,39,215));
+				al_draw_filled_rounded_rectangle(x*SCALER -5, POS_Y(y) -5, x*SCALER +5, POS_Y(y) +5, 4, 4, al_map_rgb(130,39,215));
 			}
 		}
 	}
@@ -313,7 +318,7 @@ static void display_impact(const int x, const int y){
 	ALLEGRO_BITMAP * impact = al_load_bitmap("resources/impact.png");
 
 	//Muestra en pantalla el impacto
-	al_draw_scaled_bitmap(impact, 0, 0, 360, 360, x* SCALER, y* SCALER , SCALER, SCALER, 0);
+	al_draw_scaled_bitmap(impact, 0, 0, 360, 360, POS_X(x), POS_Y(y) , SCALER, SCALER, 0);
 
 	//Hace un efecto de sonido para acompañar el impacto (a hacer)
 }

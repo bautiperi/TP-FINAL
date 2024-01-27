@@ -8,11 +8,6 @@
 #ifndef DISP_SCOREBOARD_A_H_
 #define DISP_SCOREBOARD_A_H_
 
-typedef struct {
-    char name[50];
-    int score;
-} player_t;
-
 int display_scoreboard (void);
 
 int display_score_name (void);

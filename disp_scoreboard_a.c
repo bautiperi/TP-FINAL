@@ -7,6 +7,8 @@
 //HEADER
 #include "disp_scoreboard_a.h"
 
+#include "back_score_a.h"
+
 //LIBRERIAS
 #include <stdio.h>
 
@@ -172,6 +174,8 @@ int display_score_name (void) {
 	}while(exit);
 
 	al_destroy_event_queue(event_queue);
+
+	return 0;
 
 }
 

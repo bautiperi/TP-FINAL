@@ -1,7 +1,7 @@
 Renzo 100000
 Cami 10000
 Palo 48900
-Bauti 28921
+Bauti 64070
 ... 0
 ... 0
 ... 0

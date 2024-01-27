@@ -1,6 +1,8 @@
 #include "back_game_a.h"
 
 #include "back_aux_a.h"
+#include "back_score_a.h"
+
 #include <unistd.h>
 #include <time.h>
 #include <stdlib.h>
@@ -251,11 +253,13 @@ void gamer_fire(int mapa[][COL])
                 mapa[y - 1][pos_x] += 1;
                 mapa[y][pos_x] = 0;
             }
+            //Si es un enemigo, destruye el disparo y elimina al enemigo, tmb llama a la función score_updater para sumarle los puntos al jugador
             else if (mapa[y - 1][pos_x] != 0)
             {
-            	//llamar a la función de puntos
-
+            	//Evita que se puedan mover los enemigos al momento de ser detectados, para lograr evitar errores
             	flag_game_update = 0;
+
+            	score_updater(mapa, mapa[y - 1][pos_x]);
 
             	mapa[y - 1][pos_x] = 0;
 
@@ -264,7 +268,6 @@ void gamer_fire(int mapa[][COL])
             	flag_game_update = 1;
 
             }
-            // Seguir para el resto de enemigos
         }
     }
 }

@@ -17,13 +17,18 @@
  */
 void score_updater (int mapa[][COL], int idetifier);
 
-/* FUNCIÓN GAMER_MOVEMENT
+/* FUNCIÓN SCORE_SAVER
  * BRIEF: Guarda el score del jugador en un archivo, ordenandolo de mayor a menor puntaje
- * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
- * return: (void)
+ * score: (int) Es el score del juego actual
+ * return: (int) Devuelve 0 si no hubo errores y se pudo guardar el score del jugador, -1 caso contrario
  */
-void score_saver (int mapa[][COL]);
+int score_saver (int score);
 
-char name[50] = "";
+extern char name[50];
+
+typedef struct {
+    char name[50];
+    int score;
+} player_t;
 
 #endif /* BACK_STORE_A_H_ */
