@@ -32,7 +32,7 @@ void map_def(const int diff, int mapa[][COL])
 	mapa[15][6] = 1;
 
 	// Flag que indica que arranque en el menu de inicio
-	mapa[4][0] = 2;
+	mapa[4][0] = 0;
 }
 
 static void barrier_diff(const int diff, int mapa[][COL])
