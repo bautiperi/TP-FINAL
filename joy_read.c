@@ -37,12 +37,8 @@ void joy_movement(int mapa[][COL])
                 npos = 0;
             }
 
-            if (coord.y <= THRESHOLD)
+            if (coord.y >= THRESHOLD)
             { // si la coordenada en y no se movio hacia la seleccion del menu
-                STATUS = 0;
-            }
-            else
-            { // sino, cambia al menu
                 STATUS = 1;
             }
             gamer_movement(mapa, npos); // genera el movimiento del player
