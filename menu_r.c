@@ -89,4 +89,13 @@ void menu_principal_vis(int mapa[][COL])
         printf("EN MENU_OPTIONS -> POWER OFF: x: %d y: %d \n", power_off_btn[i].x, power_off_btn[i].y);
         disp_write(power_off_btn[i], D_ON);
     }
+
+    if (mapa[5][0] == 0)
+    {
+        multp_flick(continue_btn, 9);
+    }
+    if (mapa[5][0] == 1)
+    {
+        multp_flick(power_off_btn, 10);
+    }
 }

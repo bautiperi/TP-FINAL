@@ -64,6 +64,23 @@ void joy_movement(int mapa[][COL])
         if (mapa[4][0] == 2) // MENU PRINCIPAL
         {
             menu_principal_vis(mapa);
+            if (coord.x > THRESHOLD && coord.sw == J_NOPRESS)
+            {
+                mapa[5][0] = 1; // TITILA EL PLAY
+            }
+            else if (coord.x > THRESHOLD && coord.sw == J_PRESS)
+            {
+                shutdown_disp(); // APAGA EL DISPLAY
+                mapa[6][0] = 1;  // INDICA QUE SE TERMNINO EL JUEGO
+            }
+            if (coord.x < -THRESHOLD && coord.sw == J_NOPRESS)
+            {
+                mapa[5][0] = 0; // TITLA EL APAGAR
+            }
+            else if (coord.x < -THRESHOLD && coord.sw == J_PRESS)
+            {
+                mapa[4][0] = 0; // VUELVE AL JUEGO
+            }
         }
     }
 }

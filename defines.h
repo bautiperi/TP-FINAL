@@ -34,4 +34,7 @@ typedef struct
 // JOYSTICK
 #define THRESHOLD 40 // Límite a partir del cual se mueve el LED encendido
 
+// FLAGS
+#define STATUS mapa[4][0] 
+
 #endif /* DEFINES_H */
