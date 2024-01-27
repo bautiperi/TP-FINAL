@@ -1,5 +1,7 @@
 #include "back_aux_a.h"
 
+#include <pth>
+
 
 void swap(int mapa[][COL], int x1, int y1, int x2, int y2)
 {
