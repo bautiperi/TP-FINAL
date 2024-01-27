@@ -138,11 +138,30 @@ int display_game (const int mapa[][COL]){
 
 		}
 
+		if(LIFES == 0){
+			//Agregar animación de game over
+
+			// Hace un fade-out de la música
+			float volume;
+			for (volume = 0.5; volume > 0.0; volume -= 0.01) {
+				al_set_sample_instance_gain(backgroundInstance, volume);
+				al_rest(0.01);
+			}
+
+			//Deja de correr la canción y elimina la instancia
+			al_stop_sample_instance(backgroundInstance);
+			al_destroy_sample_instance(kenInstance);
+			al_destroy_sample(background);
+			al_destroy_sample(ken_alien);
+
+			return 0;
+		}
+
 		if(event.type == ALLEGRO_EVENT_KEY_DOWN){
 			if(event.keyboard.keycode == ALLEGRO_KEY_ESCAPE){
 
 				//DETIENE LOS THREADS
-				flag_game_update = 1;
+				flag_game_update = 0;
 
 				float volume;
 				//Hace un fade-in

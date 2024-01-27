@@ -24,6 +24,13 @@ void score_updater (int mapa[][COL], int idetifier);
  */
 int score_saver (int score);
 
+/* FUNCIÓN LIFE_UPDATER
+ * BRIEF: Actualiza la cantidad de vidas que tiene el jugador
+ * mapa: (matriz de inta) Es la matriz donde se desarrolla el juego
+ * return: (int) Devuelve 0 si el jugador todavía tiene vidas, caso contrario devuelve 1
+ */
+int life_updater (int mapa[][COL]);
+
 extern char name[50];
 
 typedef struct {

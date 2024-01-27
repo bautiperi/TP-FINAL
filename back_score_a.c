@@ -4,14 +4,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-//Donde se guarda el score del juego actual
-#define SCORE mapa[0][COL - 2]
 
 char name[50] = "";
 
 static int player_comp (const void * a, const void * b);
 
-void score_updater (int mapa[][COL], int identifier){
+void score_updater (int mapa[][COL], int identifier)
+{
 
 	//Dependiendo del enemigo al que se le pegó, se agregarán una determinada cantidad de puntos al score
 	switch (identifier) {
@@ -31,7 +30,8 @@ void score_updater (int mapa[][COL], int identifier){
 
 }
 
-int score_saver (int score){
+int score_saver (int score)
+{
 	FILE *scoreboard = fopen("scoreboard.txt", "a+");
 
 	if( scoreboard == NULL){
@@ -86,9 +86,22 @@ int score_saver (int score){
 	return 0;
 }
 
-static int player_comp (const void * a, const void * b){
+static int player_comp (const void * a, const void * b)
+{
 
 	return ((*(player_t *) b).score - (*(player_t *) a).score);
+
+}
+
+int life_updater (int mapa[][COL])
+{
+	if(--LIFES == 0){
+		return 1;
+	}
+	else{
+		SPAWN_POINT = JUGADOR;
+		return 0;
+	}
 
 }
 

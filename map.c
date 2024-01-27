@@ -29,7 +29,9 @@ void map_def(const int diff, int mapa [][COL]) {
 	ships_create(diff, mapa);
 
 	//Ubica al jugador en el centro del mapa
-	mapa[28][15] = 1;
+	SPAWN_POINT = JUGADOR;
+
+	LIFES = 3;
 }
 
 /* FUNCIÓN BARRIER_DIFF
