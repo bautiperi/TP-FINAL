@@ -130,7 +130,11 @@ static void alien_movement_v(int mapa[][COL])
     {
         for (y = 1; y < FIL; y++)
         {
-            if (mapa[y + 1][x] == BARRIER && enemy_checker(x, y, mapa))
+            //Si un enemigo llega a esta altura, el jugador ha perdido el juego
+        	if(y == FIL - 3 && enemy_checker(x, y, mapa)){
+            	LIFES = 0;
+            }
+            else if (mapa[y + 1][x] == BARRIER && enemy_checker(x, y, mapa))
             {
                 mapa[y + 1][x] = SPACE;
                 swap(mapa, x, y, x, y + 1);
@@ -371,9 +375,9 @@ void enemy_fire(int mapa[][COL]) // Genera los disparos enemigos
 						}
 					}
 				}
-				recorre_col = rand() % 3 + 1;
+				recorre_fil = rand() % 3 + 1;
 			}
-			recorre_fil = rand() % 4 + 1;
+			recorre_col = rand() % 4 + 1;
 		}
 	}
 }
