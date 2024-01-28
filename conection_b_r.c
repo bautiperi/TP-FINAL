@@ -39,7 +39,7 @@ void obj_vis(int mapa[][COL], int vidas)
                 }
                 else if (mapa[y][x] == 5 && !boss)
                 {
-                    final_boss_vis(coords);
+                    final_boss_vis(coords, mapa);
                     boss++;
                 }
                 else if (mapa[y][x] == -1 && shields <= 16)
