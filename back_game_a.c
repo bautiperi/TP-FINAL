@@ -149,11 +149,13 @@ void *final_boss_creation(void *arg)
     // si dir>=0 el enemigo aparece a la izquierda del mapa en direccion a la derecha
     if (dir >= 0)
     {
+        mapa[6][0] = 1;
         mapa[1][0] = BOSS;
     }
     // si dir = -1 el enemigo aparece a la derecha del mapa en direccion a la izquierda
     else
     {
+        mapa[6][0] = -1;
         mapa[1][COL - 1] = BOSS;
     }
     final_boss_movement(mapa, dir);
