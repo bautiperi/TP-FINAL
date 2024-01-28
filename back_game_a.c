@@ -227,10 +227,15 @@ void gamer_movement(int mapa[][COL], int dir) // REVISAR: se mueve muy rapido? =
     {
         for (x = 0; x < COL; x++)
         {
-            if (mapa[y][x] == JUGADOR && (x + dir > 0) && (x + dir < COL - 1))
+            if (mapa[y][x] == JUGADOR && mapa[y][x + dir] == FIRE_EN)
             {
-                swap(mapa, x, y, x + dir, y);
-                x++;
+                mapa[y][x] = 0;
+                life_updater(mapa);
+            }
+            else if(mapa[y][x] == JUGADOR && (x + dir > 0) && (x + dir < COL - 1))
+            {
+            	swap(mapa, x, y, x + dir, y);
+            	x++;
             }
         }
     }
@@ -311,11 +316,11 @@ void enemy_fire(int mapa[][COL]) // Genera los disparos enemigos
 
 	while(1)
 	{
-		recorre_fil = rand() % 4 + 1;
-		for (x = 0; x < 32; x+=recorre_fil) // Recorre el area donde se encuentran los aliens
+		recorre_col = rand() % 4 + 1;
+		for (x = 0; x < 32; x+=recorre_col) // Recorre el area donde se encuentran los aliens
 		{
-			recorre_col = rand() % 3 + 1;
-			for  (y = 22; y > 5; y-=recorre_col)
+			recorre_fil = rand() % 3 + 1;
+			for  (y = 22; y > 0; y-=recorre_fil)
 			{
 				if (enemy_checker(x, y, mapa)) // Verifica que haya aliens para que disparen
 				{
@@ -326,7 +331,7 @@ void enemy_fire(int mapa[][COL]) // Genera los disparos enemigos
 						xb = x; // Guarda la coordenada x del disparo
 						eureka = 1; // Crea un flag
 
-						for (y++; y < 32  && eureka; y++) // Empieza a mover el disparo por el mapa
+						for (y++; y < FIL  && eureka; y++) // Empieza a mover el disparo por el mapa
 						{
 							usleep(80000);
 
@@ -341,7 +346,7 @@ void enemy_fire(int mapa[][COL]) // Genera los disparos enemigos
 								mapa[y][xb] = FIRE_EN;
 								y--;
 							}
-							else if (y + 1 == 32) // Si la bala llega al borde inferior del mapa desaparece
+							else if (y + 1 == FIL) // Si la bala llega al borde inferior del mapa desaparece
 							{
 							   mapa[y][xb] = SPACE;
 							}
@@ -356,7 +361,11 @@ void enemy_fire(int mapa[][COL]) // Genera los disparos enemigos
 								}
 								else if (mapa[y + 1][xb] == JUGADOR || mapa[y + 1][xb-1] == JUGADOR || mapa[y + 1][xb+1] == JUGADOR) // Si la bala impacta al jugador
 								{
-									mapa[y][xb] = SPACE;// Por ahora borra al disparo del mapa, falta hacer la función para quitar una vida al jugador
+									mapa[y][xb] = SPACE;
+									mapa[y+1][xb] = SPACE;
+									mapa[y+1][xb+1] = SPACE;
+									mapa[y+1][xb-1] = SPACE;
+									life_updater(mapa);
 								}
 							}
 						}
