@@ -78,7 +78,8 @@ void *alien_movement(void *arg)
         { // Se mueve hacia la izquierda
             for (y = 1; y < FIL; y++)
             {
-                for (x = COL; x >= 0; x--)
+                x = COL;
+                do // (x = COL; x >= 0; x--)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
                     if (mapa[y][2] == 3 && mapa[y - 1][1] == 4)
@@ -99,7 +100,8 @@ void *alien_movement(void *arg)
                         swap(mapa, x, y, x - 1, y);
                         x--;
                     }
-                }
+                    x--;
+                } while (x >= 0);
             }
         }
         usleep(1500000);
