@@ -48,12 +48,12 @@ void *alien_movement(void *arg)
         else if (dir == 1)
         {
 
-            for (y = 1; y < FIL; y++)
+            for (y = 1; y <= FIL; y++)
             {
-                for (x = 0; x < COL; x++)
+                for (x = 0; x <= COL; x++)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-                    if (enemy_checker(COL - 1, y, mapa))
+                    if (enemy_checker(COL - 2, y, mapa))
                     {
                         dir = -1; // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
@@ -66,7 +66,7 @@ void *alien_movement(void *arg)
                         x++;
                     }
                     // Cambia la posición del enemigo
-                    else if ((mapa[y][x + 1] == 0 || enemy_checker(x + 1, y, mapa)) && (enemy_checker(x, y, mapa)))
+                    else if (mapa[y][x + 1] == 0 && (enemy_checker(x, y, mapa)))
                     {
                         swap(mapa, x, y, x + 1, y);
                         x++;
@@ -76,12 +76,12 @@ void *alien_movement(void *arg)
         }
         else
         { // Se mueve hacia la izquierda
-            for (y = 1; y < FIL; y++)
+            for (y = 1; y <= FIL; y++)
             {
                 for (x = COL - 1; x >= 0; x--)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-                    if (enemy_checker(0, y, mapa))
+                    if (enemy_checker(1, y, mapa))
                     {
                         dir = 1;  // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
@@ -94,7 +94,7 @@ void *alien_movement(void *arg)
                         x--;
                     }
                     // Cambia la posición del enemigo
-                    else if ((mapa[y][x - 1] == 0 || enemy_checker(x - 1, y, mapa)) && enemy_checker(x, y, mapa))
+                    else if (mapa[y][x - 1] == 0 && enemy_checker(x, y, mapa))
                     {
                         swap(mapa, x, y, x - 1, y);
                         x--;
