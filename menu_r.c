@@ -2,26 +2,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-static void menu_options(int mapa[][COL]);
-
 void menu_vis(int mapa[][COL])
-{
-    dcoord_t coords = {0, 15};
-    if (STATUS == 0)
-    {
-        // PRENDE Y APAGA EL LED DE MENU
-        disp_write(coords, D_ON);
-        disp_update();
-        usleep(300000);
-        disp_write(coords, D_OFF);
-    }
-    else
-    {
-        menu_options(mapa);
-    }
-}
-
-static void menu_options(int mapa[][COL])
 {
     shutdown_disp();
 
@@ -59,7 +40,7 @@ static void menu_options(int mapa[][COL])
     {
         multp_flick(exit_btn, 10);
     }
-    // disp_update();
+    disp_update();
 }
 
 void menu_principal_vis(int mapa[][COL])

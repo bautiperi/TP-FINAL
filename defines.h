@@ -35,8 +35,8 @@ typedef struct
 #define THRESHOLD 40 // Límite a partir del cual se mueve el LED encendido
 
 // FLAGS
-#define STATUS mapa[4][0]
-#define FLICK_OPTION mapa[5][0]
+#define STATUS mapa[0][4]
+#define FLICK_OPTION mapa[0][6]
 #define END_GAME mapa[6][0]
 
 // MAPA

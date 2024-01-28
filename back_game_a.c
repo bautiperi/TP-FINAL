@@ -292,8 +292,9 @@ void *gamer_fire(void *arg)
     }
 }
 
-void enemy_fire(int mapa[][COL]) // Genera los disparos enemigos
+void *enemy_fire(void *arg) // Genera los disparos enemigos
 {
+    int(*mapa)[COL] = (int(*)[COL])arg;
     int x, y, shot, xb, eureka, recorre_fil, recorre_col;
     time_t t;
     srand((unsigned)time(&t));
