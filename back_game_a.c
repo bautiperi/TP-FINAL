@@ -53,7 +53,7 @@ void *alien_movement(void *arg)
                 for (x = 0; x < COL; x++)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-                    if (mapa[y][COL - 2] == 4)
+                    if (mapa[y][COL - 2] == 4 || mapa[y][COL - 2] == 3 || mapa[y][COL - 2] == 2)
                     {
                         dir = -1; // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
@@ -66,7 +66,7 @@ void *alien_movement(void *arg)
                         x++;
                     }
                     // Cambia la posición del enemigo
-                    else if (mapa[y][x + 1] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    else if ((mapa[y][x + 1] == 0 || mapa[y][x + 1] == 2 || mapa[y][x + 1] == 3 || mapa[y][x + 1] == 4) && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
                     {
                         swap(mapa, x, y, x + 1, y);
                         x++;
@@ -81,7 +81,7 @@ void *alien_movement(void *arg)
                 for (x = COL; x >= 0; x--)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-                    if (mapa[y][1] == 4)
+                    if (mapa[y][1] == 4 || mapa[y][1] == 3 || mapa[y][1] == 2)
                     {
                         dir = 1;  // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
@@ -95,7 +95,7 @@ void *alien_movement(void *arg)
                         x--;
                     }
                     // Cambia la posición del enemigo
-                    else if (mapa[y][x - 1] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    else if ((mapa[y][x - 1] == 0 || mapa[y][x - 1] == 2 || mapa[y][x - 1] == 3 || mapa[y][x - 1] == 4) && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
                     {
                         swap(mapa, x, y, x - 1, y);
                         x--;
