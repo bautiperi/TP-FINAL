@@ -28,6 +28,8 @@ static void final_boss_movement(int mapa[][COL], int dir);
  */
 static void final_boss_movement(int mapa[][COL], int dir);
 
+
+/*
 void *alien_movement(void *arg)
 {
     int(*mapa)[COL] = (int(*)[COL])arg;
@@ -53,13 +55,13 @@ void *alien_movement(void *arg)
                 for (x = 0; x < COL; x++)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-                    if (mapa[y][COL - 1] == 4)
+                    if (mapa[y][COL - 2] == 4)
                     {
                         dir = -1; // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
                     }
                     // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
-                    if (mapa[y][x + 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    else if (mapa[y][x + 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
                     {
                         mapa[y][x + 1] = 0;
                         swap(mapa, x, y, x + 1, y);
@@ -81,13 +83,13 @@ void *alien_movement(void *arg)
                 for (x = COL; x >= 0; x--)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-                    if (mapa[y][0] == 4)
+                    if (mapa[y][1] == 4)
                     {
                         dir = 1;  // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
                     }
                     // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
-                    if (mapa[y][x - 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    else if (mapa[y][x - 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
                     {
                         mapa[y][x - 1] = 0;
                         swap(mapa, x, y, x - 1, y);
@@ -105,6 +107,8 @@ void *alien_movement(void *arg)
         usleep(1500000);
     }
 }
+
+*/
 
 /* FUNCIÓN ALIEN_MOVEMENT_V
  * BRIEF: mueve verticalmente a los aliens
@@ -348,9 +352,12 @@ void enemy_fire(int mapa[][COL]) // genera los disparos enemigos, me falta termi
     }
 }
 
-/*
 
-void alien_movement(int mapa[][COL]) {
+
+
+void *alien_movement(int mapa[][COL]) {
+
+    int(*mapa)[COL] = (int(*)[COL])arg;
     int x, y;
     int dir = 1, flag = 0;
 
@@ -400,4 +407,3 @@ void alien_movement(int mapa[][COL]) {
 
 
 
-*/
