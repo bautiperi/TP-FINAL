@@ -69,15 +69,17 @@ int main(void)
 			{
 				FLICK_OPTION = 1; // TITILA EL PLAY
 			}
-			else if (coord.x > THRESHOLD && coord.sw == J_PRESS)
-			{
-				STATUS = 2; // CAMBIA A MENU PRINCIPAL
-			}
+
 			if (coord.x < -THRESHOLD && coord.sw == J_NOPRESS)
 			{
 				FLICK_OPTION = 0; // TITLA EL SALIR
 			}
-			else if (coord.x < -THRESHOLD && coord.sw == J_PRESS)
+
+			if (FLICK_OPTION == 1 && coord.sw == J_PRESS)
+			{
+				STATUS = 2; // CAMBIA A MENU PRINCIPAL
+			}
+			else if (FLICK_OPTION == 0 && coord.sw == J_PRESS)
 			{
 				STATUS = 0; // VUELVE AL JUEGO
 				flag_game_update = 1;
