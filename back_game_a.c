@@ -31,43 +31,40 @@ void *alien_movement(void *arg)
 
     while (1)
     {
-        /*if (flag == 1)
+        if (flag == 1)
         {
+            alien_movement_v(mapa);
+            flag = 0;
         }
         else // if (dir == 1)
-        {*/
-
-        for (y = 1; y < FIL; y++)
         {
-            // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-            if (enemy_checker(COL - 1, y, mapa) || enemy_checker(0, y, mapa))
-            {
-                dir *= -1; // Hace el cambio de dirección
-                flag = 1;  // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
-            }
-            if (flag)
-            {
-                alien_movement_v(mapa);
-                flag = 0;
-            }
+
             for (x = 0; x < COL; x++)
             {
-                // Si adelante había una barrera la "destruye" y continúa cambiando la posición del enemigo
-                if (mapa[y][x + dir] == -1 && (enemy_checker(x, y, mapa)))
+                // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
+                if (enemy_checker(COL - 1, y, mapa) || enemy_checker(0, y, mapa))
                 {
-                    mapa[y][x + 1] = 0;
-                    swap(mapa, x, y, x + dir, y);
-                    // x++;
+                    dir *= -1; // Hace el cambio de dirección
+                    flag = 1;  // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
                 }
-                // Cambia la posición del enemigo
-                else if (mapa[y][x + dir] == 0 && (enemy_checker(x, y, mapa)))
+                for (y = 1; y < FIL; y++)
                 {
-                    swap(mapa, x, y, x + dir, y);
-                    // x++;
+                    // Si adelante había una barrera la "destruye" y continúa cambiando la posición del enemigo
+                    if (mapa[y][x + dir] == -1 && (enemy_checker(x, y, mapa)))
+                    {
+                        mapa[y][x + 1] = 0;
+                        swap(mapa, x, y, x + dir, y);
+                        // x++;
+                    }
+                    // Cambia la posición del enemigo
+                    else if (mapa[y][x + dir] == 0 && (enemy_checker(x, y, mapa)))
+                    {
+                        swap(mapa, x, y, x + dir, y);
+                        // x++;
+                    }
                 }
             }
         }
-        //}
         /*else
         { // Se mueve hacia la izquierda
             for (y = 1; y < FIL; y++)
@@ -341,3 +338,31 @@ void enemy_fire(int mapa[][COL]) // genera los disparos enemigos, me falta termi
         }
     }
 }
+
+/*
+
+void *alien_movement(void *arg)
+{
+    int(*mapa)[COL] = (int(*)[COL])arg;
+
+    int x, y;
+    int dir = 1, flag = 0;
+
+    while (1)
+    {
+        alien_movement_h(mapa, dir);
+
+        // Analiza si se llegó al extremo de la matriz, para cambiar la dirección y bajar
+        if (enemy_checker(COL - 1, FIL - 1, mapa) || enemy_checker(0, FIL - 1, mapa))
+        {
+            dir *= -1; // Cambia la dirección
+            alien_movement_v(mapa); // Mueve verticalmente al cambiar de dirección
+        }
+
+        usleep(1500000);
+    }
+}
+
+
+
+*/
