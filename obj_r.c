@@ -2,6 +2,7 @@
 // INCLUDES
 #include "obj_r.h"
 #include <stdio.h>
+#include <unistd.h>
 
 // guardan las coordenadas del led de abajo a la izquierda
 // static dcoord_t shield1 = {1, 12}, shield2 = {5, 12}, shield3 = {9, 12}, shield4 = {13, 12};
