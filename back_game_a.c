@@ -66,7 +66,7 @@ void *alien_movement(void *arg)
                         x++;
                     }
                     // Cambia la posición del enemigo
-                    else if (mapa[y][x + 1] == 0 && (enemy_checker(x, y, mapa)))
+                    else if ((mapa[y][x + 1] == 0 || mapa[y][x + 1] == 2 || mapa[y][x + 1] == 3 || mapa[y][x + 1] == 4) && (enemy_checker(x, y, mapa)))
                     {
                         swap(mapa, x, y, x + 1, y);
                         x++;
@@ -94,7 +94,7 @@ void *alien_movement(void *arg)
                         x--;
                     }
                     // Cambia la posición del enemigo
-                    else if (mapa[y][x - 1] == 0 && enemy_checker(x, y, mapa))
+                    else if ((mapa[y][x - 1] == 0 || mapa[y][x - 1] == 2 || mapa[y][x - 1] == 3 || mapa[y][x - 1] == 4) && enemy_checker(x, y, mapa))
                     {
                         swap(mapa, x, y, x - 1, y);
                         x--;
