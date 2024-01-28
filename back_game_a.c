@@ -28,7 +28,6 @@ static void final_boss_movement(int mapa[][COL], int dir);
  */
 static void final_boss_movement(int mapa[][COL], int dir);
 
-
 /*
 void *alien_movement(void *arg)
 {
@@ -352,58 +351,73 @@ void enemy_fire(int mapa[][COL]) // genera los disparos enemigos, me falta termi
     }
 }
 
-
-
-
-void *alien_movement(int mapa[][COL]) {
+void *alien_movement(void *arg)
+{
 
     int(*mapa)[COL] = (int(*)[COL])arg;
     int x, y;
     int dir = 1, flag = 0;
 
-    while (1) {
-        usleep(2000000);  // Espera antes de moverse
+    while (1)
+    {
+        usleep(2000000); // Espera antes de moverse
 
-        if (flag == 1) {
+        if (flag == 1)
+        {
             alien_movement_v(mapa);
             flag = 0;
-        } else if (dir == 1) {
+        }
+        else if (dir == 1)
+        {
             // Se mueve hacia la derecha
-            for (y = 1; y < FIL; y++) {
-                for (x = COL - 2; x >= 0; x--) {  // Cambiado el bucle para empezar desde COL-2
+            for (y = 1; y < FIL; y++)
+            {
+                for (x = COL - 2; x >= 0; x--)
+                { // Cambiado el bucle para empezar desde COL-2
                     // Analiza si se llegó al extremo de la matriz
-                    if (mapa[y][x] == 4) {
-                        dir = -1;  // Cambio de dirección
-                        flag = 1;  // Llama a la función para el cambio vertical
-                    } else if (mapa[y][x + 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4)) {
+                    if (mapa[y][x] == 4)
+                    {
+                        dir = -1; // Cambio de dirección
+                        flag = 1; // Llama a la función para el cambio vertical
+                    }
+                    else if (mapa[y][x + 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    {
                         mapa[y][x + 1] = 0;
                         swap(mapa, x, y, x + 1, y);
-                    } else if (mapa[y][x + 1] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4)) {
+                    }
+                    else if (mapa[y][x + 1] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    {
                         swap(mapa, x, y, x + 1, y);
                     }
                 }
             }
-        } else {
+        }
+        else
+        {
             // Se mueve hacia la izquierda
-            for (y = 1; y < FIL; y++) {
-                for (x = 1; x < COL; x++) {  // Cambiado el bucle para empezar desde 1
+            for (y = 1; y < FIL; y++)
+            {
+                for (x = 1; x < COL; x++)
+                { // Cambiado el bucle para empezar desde 1
                     // Analiza si se llegó al extremo de la matriz
-                    if (mapa[y][x] == 4) {
-                        dir = 1;   // Cambio de dirección
-                        flag = 1;  // Llama a la función para el cambio vertical
-                    } else if (mapa[y][x - 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4)) {
+                    if (mapa[y][x] == 4)
+                    {
+                        dir = 1;  // Cambio de dirección
+                        flag = 1; // Llama a la función para el cambio vertical
+                    }
+                    else if (mapa[y][x - 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    {
                         mapa[y][x - 1] = 0;
                         swap(mapa, x, y, x - 1, y);
-                    } else if (mapa[y][x - 1] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4)) {
+                    }
+                    else if (mapa[y][x - 1] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    {
                         swap(mapa, x, y, x - 1, y);
                     }
                 }
             }
         }
 
-        usleep(1500000);  // Espera después de moverse
+        usleep(1500000); // Espera después de moverse
     }
 }
-
-
-
