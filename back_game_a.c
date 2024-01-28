@@ -8,6 +8,7 @@
 #include <stdlib.h>
 
 // Variable global que sirve como flag para detener la ejecución de los threads
+// 0 -> Falso, están en pausa | 1 -> Ejecutan | 2 -> Exit threads
 int flag_game_update = 0;
 
 static void alien_movement_v(int mapa[][COL]);
@@ -39,6 +40,15 @@ void *alien_movement(void *arg)
 
     while (1)
     {
+        // Pone el thread "en pausa"
+        while (flag_game_update == 0)
+        {
+        }
+        // Termina la ejecución del thread
+        if (flag_game_update == 2)
+        {
+            return NULL;
+        }
 
         if (flag == 1)
         {
@@ -139,35 +149,50 @@ static void alien_movement_v(int mapa[][COL])
 
 void *final_boss_creation(void *arg)
 {
+    time_t t;
+    srand((unsigned)time(&t));
 
-    int(*mapa)[COL] = (int(*)[COL])arg;
-
-    usleep(15000000);
-
-    srand(time(NULL));
-    int dir = rand() % 3 - 1;
-    // si dir>=0 el enemigo aparece a la izquierda del mapa en direccion a la derecha
-    if (dir >= 0)
+    while (1)
     {
-        mapa[0][6] = 1;
-        mapa[1][0] = BOSS;
-    }
-    // si dir = -1 el enemigo aparece a la derecha del mapa en direccion a la izquierda
-    else
-    {
-        mapa[0][6] = -1;
-        mapa[1][COL - 1] = BOSS;
-    }
-    final_boss_movement(mapa, dir);
+        // Pone el thread "en pausa"
+        while (flag_game_update == 0)
+        {
+        }
+        // Termina la ejecución del thread
+        if (flag_game_update == 2)
+        {
+            return NULL;
+        }
 
-    return NULL;
+        int(*mapa)[COL] = (int(*)[COL])arg;
+        int timing = rand() % 15 + 1;
+
+        usleep(timing * 1000000);
+
+        int dir = rand() % 3 - 1;
+        // si dir>=0 el enemigo aparece a la izquierda del mapa en direccion a la derecha
+        if (dir >= 0)
+        {
+            mapa[0][6] = 1;
+            mapa[1][0] = BOSS;
+        }
+        // si dir = -1 el enemigo aparece a la derecha del mapa en direccion a la izquierda
+        else
+        {
+            mapa[0][6] = -1;
+            mapa[1][COL - 1] = BOSS;
+        }
+        final_boss_movement(mapa, dir);
+
+        return NULL;
+    }
 }
 
 static void final_boss_movement(int mapa[][COL], int dir)
 {
     int x, y;
 
-    while (1)
+    while (mapa[0][6] != 0)
     {
         //  se mueve hacia la derecha
         if (dir >= 0)
@@ -181,6 +206,7 @@ static void final_boss_movement(int mapa[][COL], int dir)
                     if (mapa[y][COL - 1] == BOSS)
                     {
                         mapa[y][COL - 1] = SPACE; // hace que no haya mas enemigo
+                        mapa[0][6] = 0;
                     }
                     // Cambia la posición del enemigo
                     else if (mapa[y][x] == BOSS)
@@ -200,6 +226,7 @@ static void final_boss_movement(int mapa[][COL], int dir)
                     if (mapa[y][0] == 5)
                     {
                         mapa[y][0] = 0;
+                        mapa[0][6] = 0;
                     }
                     else if (mapa[y][x] == BOSS)
                     {
@@ -231,7 +258,25 @@ void gamer_movement(int mapa[][COL], int dir) // REVISAR: se mueve muy rapido? =
 
 void *gamer_fire(void *arg)
 {
+    // Pone el thread "en pausa"
+    while (flag_game_update == 0)
+    {
+    }
+    // Termina la ejecución del thread
+    if (flag_game_update == 2)
+    {
+        return NULL;
+    }
     int(*mapa)[COL] = (int(*)[COL])arg;
+
+    if (flag_gamer_shot == 0)
+    {
+        return NULL;
+    }
+    else
+    {
+        flag_gamer_shot--;
+    }
 
     int x, y = FIL - 1, stop = 1;
     int pos_x;
@@ -301,6 +346,16 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
 
     while (1)
     {
+        // Pone el thread "en pausa"
+        while (flag_game_update == 0)
+        {
+        }
+        // Termina la ejecución del thread
+        if (flag_game_update == 2)
+        {
+            return NULL;
+        }
+
         recorre_col = rand() % 4 + 1;
         for (x = 0; x < 32; x += recorre_col) // Recorre el area donde se encuentran los aliens
         {

@@ -18,9 +18,12 @@ int main(void)
 	disp_clear();
 
 	int mapa[FIL][COL];
-	map_def(RASP, mapa);
 
 	pthread_t up_aliens, up_boss, up_vis, up_aliens_fire;
+	pthread_create(&up_boss, NULL, final_boss_creation, mapa);
+	pthread_create(&up_aliens, NULL, alien_movement, mapa);
+	pthread_create(&up_aliens_fire, NULL, enemy_fire, mapa);
+
 	joyinfo_t coord = {0, 0, J_NOPRESS};
 	int npos = 0;
 	dcoord_t coord_menu = {0, 15};
@@ -32,9 +35,6 @@ int main(void)
 		coord = joy_read();
 		if (STATUS == 0) // JUEGO
 		{
-			pthread_create(&up_boss, NULL, final_boss_creation, mapa);
-			pthread_create(&up_aliens, NULL, alien_movement, mapa);
-			pthread_create(&up_aliens_fire, NULL, enemy_fire, mapa);
 			led_flick(coord_menu);
 
 			obj_vis(mapa, mapa[0][COL - 1]);
@@ -59,6 +59,7 @@ int main(void)
 			if (coord.y >= THRESHOLD)
 			{ // si la coordenada en y no se movio hacia la seleccion del menu
 				STATUS = 1;
+				flag_game_update = 0;
 			}
 			gamer_movement(mapa, npos); // genera el movimiento del player
 		}
@@ -80,6 +81,7 @@ int main(void)
 			else if (coord.x < -THRESHOLD && coord.sw == J_PRESS)
 			{
 				STATUS = 0; // VUELVE AL JUEGO
+				flag_game_update = 1;
 			}
 		}
 		if (STATUS == 2) // MENU PRINCIPAL
@@ -87,20 +89,23 @@ int main(void)
 			menu_principal_vis(mapa);
 			if (coord.x > THRESHOLD && coord.sw == J_NOPRESS)
 			{
-				FLICK_OPTION = 1; // TITILA EL PLAY
+				FLICK_OPTION = 1; // TITILA EL APAGAR
 			}
 			else if (coord.x > THRESHOLD && coord.sw == J_PRESS)
 			{
 				shutdown_disp(); // APAGA EL DISPLAY
-				END_GAME = 1;	 // INDICA QUE SE TERMNINO EL JUEGO
+				flag_game_update = 0;
+				END_GAME = 1; // INDICA QUE SE TERMNINO EL JUEGO
 			}
 			if (coord.x < -THRESHOLD && coord.sw == J_NOPRESS)
 			{
-				FLICK_OPTION = 0; // TITLA EL APAGAR
+				FLICK_OPTION = 0; // TITLA EL PLAY
 			}
 			else if (coord.x < -THRESHOLD && coord.sw == J_PRESS)
 			{
 				STATUS = 0; // VUELVE AL JUEGO
+				map_def(RASP, mapa);
+				flag_game_update = 1;
 			}
 		}
 	} while (END_GAME != 1);
