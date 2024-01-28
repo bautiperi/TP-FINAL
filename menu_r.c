@@ -66,10 +66,10 @@ void menu_principal_vis(int mapa[][COL])
 
     if (FLICK_OPTION == 0)
     {
-        multp_flick(continue_btn, 9);
+        multp_flick(continue_btn, 16);
     }
     if (FLICK_OPTION == 1)
     {
-        multp_flick(power_off_btn, 10);
+        multp_flick(power_off_btn, 16);
     }
 }
