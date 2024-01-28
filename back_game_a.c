@@ -8,10 +8,8 @@
 #include <stdlib.h>
 
 //Variable global que sirve como flag para detener la ejecución de los threads
+// 0 -> Falso, están en pausa | 1 -> Ejecutan | 2 -> Exit threads
 int flag_game_update = 0;
-
-//Variable global que establece la cantidad de disparos que puede efectuar
-int flag_gamer_shot = 4;
 
 static void alien_movement_v(int mapa[][COL]);
 
@@ -34,6 +32,14 @@ void * alien_movement (void * arg)
 
     while (1)
     {
+    	//Pone el thread "en pausa"
+    	while (flag_game_update == 0){
+
+    	}
+    	//Termina la ejecución del thread
+    	if(flag_game_update == 2){
+    		return NULL;
+    	}
 
     	if (flag == 1)
         {
@@ -155,6 +161,14 @@ static void alien_movement_v(int mapa[][COL])
 
 void * final_boss_creation(void *arg)
 {
+	//Pone el thread "en pausa"
+	while (flag_game_update == 0){
+
+	}
+	//Termina la ejecución del thread
+	if(flag_game_update == 2){
+	    return NULL;
+	}
 
 	int (*mapa)[COL] = (int (*)[COL])arg;
 
@@ -248,6 +262,9 @@ void gamer_movement(int mapa[][COL], int dir) // REVISAR: se mueve muy rapido? =
     }
 }
 
+//Variable global que establece la cantidad de disparos que puede efectuar
+int flag_gamer_shot = 4;
+
 void * gamer_fire(void * arg)
 {
 	if(flag_gamer_shot == 0){
@@ -333,6 +350,15 @@ void * enemy_fire(void * arg) // Genera los disparos enemigos
 
 	while(1)
 	{
+		//Pone el thread "en pausa"
+		while (flag_game_update == 0){
+
+		}
+		//Termina la ejecución del thread
+		if(flag_game_update == 2){
+			return NULL;
+		}
+
 		recorre_col = rand() % 4 + 1;
 		for (x = 0; x < 32; x+=recorre_col) // Recorre el area donde se encuentran los aliens
 		{
@@ -379,10 +405,18 @@ void * enemy_fire(void * arg) // Genera los disparos enemigos
 								else if (mapa[y + 1][xb] == JUGADOR || mapa[y + 1][xb-1] == JUGADOR || mapa[y + 1][xb+1] == JUGADOR) // Si la bala impacta al jugador
 								{
 									mapa[y][xb] = SPACE;
+
+									//Para mostrar el impacto en el front
+									IMPACT = 1; //Indica que hubo un impacto
+									IMPACT_X = xb;
+									IMPACT_Y = y +1;
+
 									mapa[y+1][xb] = SPACE;
 									mapa[y+1][xb+1] = SPACE;
 									mapa[y+1][xb-1] = SPACE;
 									life_updater(mapa);
+
+									IMPACT = 0;
 								}
 							}
 						}

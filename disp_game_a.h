@@ -17,4 +17,7 @@
  *  */
 int display_game (const int mapa[][COL]);
 
+//Declaración de variable global en back_game (flag)
+extern int flag_game_update;
+
 #endif /* DISP_GAME_A_H_ */

@@ -34,7 +34,4 @@ void * gamer_fire(void * arg);
 
 void * enemy_fire(void * arg);
 
-//Declaración de variable global (flag)
-extern int flag_game_update;
-
 #endif /* BACK_GAME_A_H_ */
