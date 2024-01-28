@@ -10,6 +10,7 @@
 // Variable global que sirve como flag para detener la ejecución de los threads
 // 0 -> Falso, están en pausa | 1 -> Ejecutan | 2 -> Exit threads
 int flag_game_update = 0;
+int flag_gamer_shot = 4;
 
 static void alien_movement_v(int mapa[][COL]);
 
@@ -335,6 +336,7 @@ void *gamer_fire(void *arg)
             }
         }
     }
+    return NULL;
 }
 
 void *enemy_fire(void *arg) // Genera los disparos enemigos

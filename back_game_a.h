@@ -10,14 +10,14 @@
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
  * return: (void)
  */
-void *alien_movement(void *arg);
+void * alien_movement(void *arg);
 
 /* FUNCIÓN FINAL_BOSS_CREATION
  * BRIEF: crea al final boss y llama a la funcion de su movimiento
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
  * return: (void)
  */
-void *final_boss_creation(void *arg);
+void * final_boss_creation(void *arg);
 
 /* FUNCIÓN GAMER_MOVEMENT
  * BRIEF: mueve el gamer en la matriz
@@ -32,9 +32,9 @@ void gamer_movement(int mapa[][COL], int dir);
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
  * return: (void)
  */
-void *gamer_fire(void *arg);
+void * gamer_fire(void *arg);
 
-void enemy_fire(int mapa[][COL]);
+void * enemy_fire(void *arg);
 
 // Declaración de variable global (flag)
 extern int flag_game_update;

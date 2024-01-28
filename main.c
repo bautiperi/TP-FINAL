@@ -8,6 +8,7 @@
 #include "disdrv.h"
 #include "back_aux_a.h"
 #include "back_game_a.h"
+#include "menu_r.h"
 
 int main(void)
 {
@@ -18,7 +19,7 @@ int main(void)
 
 	int mapa[FIL][COL];
 
-	pthread_t up_aliens, up_boss, up_vis, up_aliens_fire;
+	pthread_t up_aliens, up_boss, up_aliens_fire;
 	pthread_create(&up_boss, NULL, final_boss_creation, mapa);
 	pthread_create(&up_aliens, NULL, alien_movement, mapa);
 	pthread_create(&up_aliens_fire, NULL, enemy_fire, mapa);
@@ -26,7 +27,6 @@ int main(void)
 	joyinfo_t coord = {0, 0, J_NOPRESS};
 	int npos = 0;
 	dcoord_t coord_menu = {0, 15};
-	dcoord_t coords = {15, 0};
 	FLICK_OPTION = 0; // flag para seleccion en el menu
 	// JUEGO
 	do
