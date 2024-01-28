@@ -8,7 +8,6 @@
 #include "disdrv.h"
 #include "back_aux_a.h"
 #include "back_game_a.h"
-#include "joy_read.h"
 
 int main(void)
 {
