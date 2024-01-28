@@ -63,29 +63,82 @@ void aliens_death(dcoord_t coord)
 
 /*******************************  THE FINAL BOSS  *********************************/
 
-void final_boss_vis(dcoord_t ubi)
+void final_boss_vis(dcoord_t ubi, int mapa[][COL])
 {
     int i;
     dcoord_t ubi_inicial = ubi;
-    for (i = ubi_inicial.x; i < ubi_inicial.x + 3; i++)
+    int flag = mapa[0][6];
+    if (mapa[1][14] == BOSS && flag > 0)
     {
-        ubi.x = i;
-        if (i == ubi_inicial.x + 1)
+        for (i = ubi_inicial.x; i < ubi_inicial.x + 2; i++)
         {
-            printf("EN FINAL_BOSS_VIS 1: x: %d y: %d \n", ubi.x, ubi.y);
-            disp_write(ubi, D_ON);
-            ubi.y++;
-            printf("EN FINAL_BOSS_VIS 2: x: %d y: %d \n", ubi.x, ubi.y);
-            disp_write(ubi, D_ON);
-            ubi.y--;
-            printf("EN FINAL_BOSS_VIS 3: x: %d y: %d \n", ubi.x, ubi.y);
-        }
-        else
-        {
-            disp_write(ubi, D_ON);
-            printf("EN FINAL_BOSS_VIS 4: x: %d y: %d \n", ubi.x, ubi.y);
+            ubi.x = i;
+
+            if (i == ubi_inicial.x + 1)
+            {
+                printf("EN FINAL_BOSS_VIS 1: x: %d y: %d \n", ubi.x, ubi.y);
+                disp_write(ubi, D_ON);
+                ubi.y++;
+                printf("EN FINAL_BOSS_VIS 2: x: %d y: %d \n", ubi.x, ubi.y);
+                disp_write(ubi, D_ON);
+                ubi.y--;
+                printf("EN FINAL_BOSS_VIS 3: x: %d y: %d \n", ubi.x, ubi.y);
+            }
+            else
+            {
+                disp_write(ubi, D_ON);
+                printf("EN FINAL_BOSS_VIS 4: x: %d y: %d \n", ubi.x, ubi.y);
+            }
         }
     }
+    else if (mapa[1][15] == BOSS && flag > 0)
+    {
+        disp_write(ubi, D_ON);
+    }
+    else if (mapa[1][0] == BOSS && flag < 0)
+    {
+        usleep(500000);
+        ubi_inicial.x = 0;
+        ubi_inicial.y = 1;
+        disp_write(ubi_inicial, D_ON);
+        ubi_inicial.y++;
+        disp_write(ubi_inicial, D_ON);
+        ubi_inicial.y--;
+        ubi_inicial.x++;
+        disp_write(ubi_inicial, D_ON);
+        usleep(500000);
+        disp_write(ubi_inicial, D_OFF);
+        ubi_inicial.y++;
+        ubi_inicial.x--;
+        disp_write(ubi_inicial, D_OFF);
+        usleep(500000);
+        ubi_inicial.y--;
+        disp_write(ubi_inicial, D_OFF);
+    }
+    else
+    {
+        for (i = ubi_inicial.x; i < ubi_inicial.x + 3; i++)
+        {
+            ubi.x = i;
+
+            if (i == ubi_inicial.x + 1)
+            {
+                printf("EN FINAL_BOSS_VIS 1: x: %d y: %d \n", ubi.x, ubi.y);
+                disp_write(ubi, D_ON);
+                ubi.y++;
+                printf("EN FINAL_BOSS_VIS 2: x: %d y: %d \n", ubi.x, ubi.y);
+                disp_write(ubi, D_ON);
+                ubi.y--;
+                printf("EN FINAL_BOSS_VIS 3: x: %d y: %d \n", ubi.x, ubi.y);
+            }
+            else
+            {
+                disp_write(ubi, D_ON);
+                printf("EN FINAL_BOSS_VIS 4: x: %d y: %d \n", ubi.x, ubi.y);
+            }
+        }
+    }
+
     // disp_update();
 }
 
