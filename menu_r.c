@@ -1,6 +1,5 @@
 #include "menu_r.h"
 #include <unistd.h>
-#include <stdio.h>
 
 void menu_vis(int mapa[][COL])
 {
@@ -15,19 +14,16 @@ void menu_vis(int mapa[][COL])
 
     for (i = 0; i < 42; i++)
     {
-        printf("EN MENU_OPTIONS -> MENU: x: %d y: %d \n", menu_wrd[i].x, menu_wrd[i].y);
         disp_write(menu_wrd[i], D_ON);
     }
 
     for (i = 0; i < 9; i++)
     {
-        printf("EN MENU_OPTIONS -> CONTINUE: x: %d y: %d \n", continue_btn[i].x, continue_btn[i].y);
         disp_write(continue_btn[i], D_ON);
     }
 
     for (i = 0; i < 10; i++)
     {
-        printf("EN MENU_OPTIONS -> EXIT: x: %d y: %d \n", exit_btn[i].x, exit_btn[i].y);
         disp_write(exit_btn[i], D_ON);
     }
 
@@ -55,19 +51,16 @@ void menu_principal_vis(int mapa[][COL])
 
     for (i = 0; i < 51; i++)
     {
-        printf("EN MENU_OPTIONS -> START: x: %d y: %d \n", start_wrd[i].x, start_wrd[i].y);
         disp_write(start_wrd[i], D_ON);
     }
 
     for (i = 0; i < 16; i++)
     {
-        printf("EN MENU_OPTIONS -> CONTINUE: x: %d y: %d \n", continue_btn[i].x, continue_btn[i].y);
         disp_write(continue_btn[i], D_ON);
     }
 
     for (i = 0; i < 16; i++)
     {
-        printf("EN MENU_OPTIONS -> POWER OFF: x: %d y: %d \n", power_off_btn[i].x, power_off_btn[i].y);
         disp_write(power_off_btn[i], D_ON);
     }
 

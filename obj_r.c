@@ -1,7 +1,6 @@
 
 // INCLUDES
 #include "obj_r.h"
-#include <stdio.h>
 #include <unistd.h>
 
 // guardan las coordenadas del led de abajo a la izquierda
@@ -19,17 +18,13 @@ void gamer_vis(dcoord_t ubi)
         ubi.x = i;
         if (i == ubi_inicial.x + 1)
         {
-            printf("EN GAMER_VIS 1: x: %d y: %d \n", ubi.x, ubi.y);
             disp_write(ubi, D_ON);
             ubi.y--;
-            printf("EN GAMER_VIS 2: x: %d y: %d \n", ubi.x, ubi.y);
             disp_write(ubi, D_ON);
             ubi.y++;
-            printf("EN GAMER_VIS 3: x: %d y: %d \n", ubi.x, ubi.y);
         }
         else
         {
-            printf("EN GAMER_VIS 4: x: %d y: %d \n", ubi.x, ubi.y);
             disp_write(ubi, D_ON);
         }
     }
@@ -40,10 +35,6 @@ void gamer_shot(dcoord_t coord)
 {
     int i;
     dcoord_t arr[4] = {coord, {++coord.x, coord.y}, {coord.x, --coord.y}, {++coord.x, ++coord.y}};
-    for (i = 0; i < 4; i++)
-    {
-        printf("EN GAMER_SHOT %d: x: %d y: %d \n", i, arr[i].x, arr[i].y);
-    }
 
     multp_flick(arr, 4);
 }
@@ -58,7 +49,6 @@ void aliens_vis(dcoord_t coor_inicial)
 void aliens_death(dcoord_t coord)
 {
     disp_write(coord, D_OFF);
-    printf("EN ALIEN_DEATH: x: %d y: %d \n", coord.x, coord.y);
     // disp_update();
 }
 
@@ -77,18 +67,14 @@ void final_boss_vis(dcoord_t ubi, int mapa[][COL])
 
             if (i == ubi_inicial.x + 1)
             {
-                printf("EN FINAL_BOSS_VIS 1: x: %d y: %d \n", ubi.x, ubi.y);
                 disp_write(ubi, D_ON);
                 ubi.y++;
-                printf("EN FINAL_BOSS_VIS 2: x: %d y: %d \n", ubi.x, ubi.y);
                 disp_write(ubi, D_ON);
                 ubi.y--;
-                printf("EN FINAL_BOSS_VIS 3: x: %d y: %d \n", ubi.x, ubi.y);
             }
             else
             {
                 disp_write(ubi, D_ON);
-                printf("EN FINAL_BOSS_VIS 4: x: %d y: %d \n", ubi.x, ubi.y);
             }
         }
     }
@@ -124,18 +110,14 @@ void final_boss_vis(dcoord_t ubi, int mapa[][COL])
 
             if (i == ubi_inicial.x + 1)
             {
-                printf("EN FINAL_BOSS_VIS 1: x: %d y: %d \n", ubi.x, ubi.y);
                 disp_write(ubi, D_ON);
                 ubi.y++;
-                printf("EN FINAL_BOSS_VIS 2: x: %d y: %d \n", ubi.x, ubi.y);
                 disp_write(ubi, D_ON);
                 ubi.y--;
-                printf("EN FINAL_BOSS_VIS 3: x: %d y: %d \n", ubi.x, ubi.y);
             }
             else
             {
                 disp_write(ubi, D_ON);
-                printf("EN FINAL_BOSS_VIS 4: x: %d y: %d \n", ubi.x, ubi.y);
             }
         }
     }
@@ -147,10 +129,6 @@ void final_boss_shot(dcoord_t coord)
 {
     int i;
     dcoord_t arr[4] = {coord, {++coord.x, coord.y}, {coord.x, ++coord.y}, {++coord.x, --coord.y}};
-    for (i = 0; i < 4; i++)
-    {
-        printf("EN FINAL_BOSS_SHOT %d: x: %d y: %d \n", i, arr[i].x, arr[i].y);
-    }
     multp_flick(arr, 4);
 }
 
@@ -163,17 +141,14 @@ void lives_vis(int cant)
     switch (cant)
     {
     case 0: // CASO 0 VIDAS: BORRA LA ULTIMA VIDA
-        printf("EN LIVES_VIS 0v: x: %d y: %d \n", first_life.x, first_life.y);
         disp_write(first_life, D_OFF);
 
         break;
     case 1: // CASO 1 VIDAS: BORRA LA SEGUNDA VIDA
-        printf("EN LIVES_VIS 1v: x: %d y: %d \n", second_life.x, second_life.y);
         disp_write(second_life, D_OFF);
         // disp_update();
         break;
     case 2:
-        printf("EN LIVES_VIS 2v: x: %d y: %d \n", third_life.x, third_life.y);
         disp_write(third_life, D_OFF);
         // disp_update();
         break;
@@ -199,12 +174,10 @@ void shields_life(int life_of_shield, dcoord_t coor_of_shield)
     // segunda colision -> se apaga (2 vidas por cada led)
     if (life_of_shield == 1)
     {
-        printf("EN SHIELDS_LIFE 1: x: %d y: %d \n", coor_of_shield.x, coor_of_shield.y);
         led_flick(coor_of_shield);
     }
     else
     {
-        printf("EN SHIELDS_LIFE 2: x: %d y: %d \n", coor_of_shield.x, coor_of_shield.y);
         disp_write(coor_of_shield, D_OFF);
         disp_update();
     }
