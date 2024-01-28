@@ -42,7 +42,7 @@ void obj_vis(int mapa[][COL], int vidas)
                     final_boss_vis(coords);
                     boss++;
                 }
-                else if (mapa[y][x] == -1 && !shields)
+                else if ((mapa[y][x] == -1 || mapa[y + 1][x] == -1) && !shields)
                 {
                     coords.y += 2;
                     shields_vis(coords);
