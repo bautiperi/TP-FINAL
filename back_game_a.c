@@ -54,18 +54,18 @@ static void alien_movement_h(int mapa[][COL], int dir)
 {
     int x, y;
 
-    for (y = 1; y < FIL; y++)
+    for (y = FIL - 1; y > 0; y--)
     {
         for (x = 0; x < COL; x++)
         {
             // Analiza si adelante hay una barrera y destrúyela
-            if (mapa[y][x + dir] == BARRIER && enemy_checker(x, y, mapa))
+            if (mapa[y][x + dir] == BARRIER && enemy_checker(x + dir, y, mapa))
             {
                 mapa[y][x + dir] = 0;
-                swap(mapa, x, y, x + dir, y);
             }
+
             // Cambia la posición del enemigo
-            else if (mapa[y][x + dir] == 0 && enemy_checker(x, y, mapa))
+            if (enemy_checker(x, y, mapa))
             {
                 swap(mapa, x, y, x + dir, y);
             }
@@ -87,13 +87,13 @@ static void alien_movement_v(int mapa[][COL])
         for (y = FIL - 1; y >= 0; y--)
         {
             // Analiza si abajo hay una barrera y destrúyela
-            if (mapa[y + 1][x] == BARRIER && enemy_checker(x, y, mapa))
+            if (mapa[y + 1][x] == BARRIER && enemy_checker(x, y + 1, mapa))
             {
                 mapa[y + 1][x] = 0;
-                swap(mapa, x, y, x, y + 1);
             }
+
             // Cambia la posición del enemigo
-            else if (mapa[y + 1][x] == SPACE && enemy_checker(x, y, mapa))
+            if (enemy_checker(x, y, mapa) && mapa[y][x] != BARRIER)
             {
                 swap(mapa, x, y, x, y + 1);
             }
