@@ -287,19 +287,21 @@ void * gamer_fire(void * arg)
 
 void enemy_fire(int mapa[][COL]) // Genera los disparos enemigos
 {
-	int x, y, shot, xb, eureka;
+	int x, y, shot, xb, eureka, recorre_fil, recorre_col;
 	srand(time(NULL));
 
 	while(1)
 	{
-		for (x = 0; x < 32; x++) // Recorre el area donde se encuentran los aliens
+		recorre_fil = rand() % 4 + 1;
+		for (x = 0; x < 32; x+=recorre_fil) // Recorre el area donde se encuentran los aliens
 		{
-			for  (y = 22; y > 5; y--)
+			recorre_col = rand() % 3 + 1;
+			for  (y = 22; y > 5; y-=recorre_col)
 			{
 				if (mapa[y][x] == ALIEN_2 || mapa[y][x] == ALIEN_3 || mapa[y][x] == ALIEN_4) // Verifica que haya aliens para que disparen
 				{
-					shot = rand() % 50;
-					if(shot < 40) // Genera disparos en una cantidad determinada de las iteraciones
+					shot = rand() % 100;
+					if(shot < 75) // Genera disparos en una cantidad determinada de las iteraciones
 					{
 						mapa[y + 1][x] = FIRE_EN; // Crea la bala enemiga
 						xb = x; // Guarda la coordenada x del disparo
@@ -307,7 +309,7 @@ void enemy_fire(int mapa[][COL]) // Genera los disparos enemigos
 
 						for (y++; y < 32  && eureka; y++) // Empieza a mover el disparo por el mapa
 						{
-							usleep(100000);
+							usleep(80000);
 
 							if (mapa[y + 1][xb] == SPACE) // Si la bala tiene el camino despejado avanza
 							{
@@ -341,7 +343,9 @@ void enemy_fire(int mapa[][COL]) // Genera los disparos enemigos
 						}
 					}
 				}
+				recorre_col = rand() % 3 + 1;
 			}
+			recorre_fil = rand() % 4 + 1;
 		}
 	}
 }
