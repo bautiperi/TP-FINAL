@@ -68,9 +68,9 @@ void *alien_movement(void *arg)
         }
         else
         { // Se mueve hacia la izquierda
-            for (y = 1; y < FIL; y++)
+            for (x = COL; x >= 0; x--)
             {
-                for (x = COL - 1; x >= 0; x--)
+                for (y = 1; y < COL; y++)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
                     if (enemy_checker(0, y, mapa))
