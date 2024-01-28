@@ -95,7 +95,8 @@ static int player_comp (const void * a, const void * b)
 
 int life_updater (int mapa[][COL])
 {
-	if(--LIFES == 0){
+	LIFES--;
+	if(LIFES == 0){
 		return 1;
 	}
 	else{

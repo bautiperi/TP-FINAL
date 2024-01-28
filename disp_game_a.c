@@ -101,8 +101,6 @@ int display_game (const int mapa[][COL]){
 
 		if(ken_flag == 1 && ken_flag_continue == 0){
 			ken_flag_continue = 1;
-
-			al_stop_sample_instance(backgroundInstance);
 			al_play_sample_instance(kenInstance);
 			al_set_sample_instance_gain(kenInstance, 0.5);
 
@@ -110,7 +108,6 @@ int display_game (const int mapa[][COL]){
 		else if (ken_flag == 0 && ken_flag_continue == 1){
 			ken_flag_continue = 0;
 			al_stop_sample_instance(kenInstance);
-			al_play_sample_instance(backgroundInstance);
 			al_set_sample_instance_gain(backgroundInstance, 0.4);
 		}
 
@@ -120,7 +117,7 @@ int display_game (const int mapa[][COL]){
 			// Muestra los escudos/barreras en pantalla
 			display_barr(mapa, barrier);
 			// Muestra las vidas, score y una leyenda en pantalla
-			display_stats(mapa[0][COL-2], mapa[0][COL-1], font, heart);
+			display_stats(SCORE, LIFES, font, heart);
 			// Muestra el jugador en pantalla, se le debe pasar la coordenada x donde está el jugador
 			display_player(mapa, player);
 			// Muestra a los enemigos en pantalla
@@ -128,13 +125,15 @@ int display_game (const int mapa[][COL]){
 			// Muestra los disparos en pantalla
 			display_bullet(mapa);
 
-			// En caso de haber un impacto, lo muestra en pantalla
-			if(mapa[0][COL-5] == 1){
-				display_impact(mapa[0][COL-4],mapa[0][COL-3]);
-			}
-
 			// Muestra los cambios en pantalla
 			al_flip_display();
+
+			// En caso de haber un impacto, lo muestra en pantalla
+			if(IMPACT == 1){
+				display_impact(mapa[0][COL-4],mapa[0][COL-3]);
+				al_flip_display();
+				al_rest(0.5);
+			}
 
 		}
 
@@ -335,7 +334,7 @@ static void display_impact(const int x, const int y){
 	ALLEGRO_BITMAP * impact = al_load_bitmap("resources/impact.png");
 
 	//Muestra en pantalla el impacto
-	al_draw_scaled_bitmap(impact, 0, 0, 360, 360, POS_X(x), POS_Y(y) , SCALER, SCALER, 0);
+	al_draw_scaled_bitmap(impact, 0, 0, 360, 360, POS_X(x), POS_Y(y), SCALER, SCALER, 0);
 
 	//Hace un efecto de sonido para acompañar el impacto (a hacer)
 }

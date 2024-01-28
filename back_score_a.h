@@ -31,8 +31,6 @@ int score_saver (int score);
  */
 int life_updater (int mapa[][COL]);
 
-extern char name[50];
-
 typedef struct {
     char name[50];
     int score;
