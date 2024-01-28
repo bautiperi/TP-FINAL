@@ -78,11 +78,10 @@ void *alien_movement(void *arg)
         { // Se mueve hacia la izquierda
             for (y = 1; y < FIL; y++)
             {
-                x = COL;
-                do // (x = COL; x >= 0; x--)
+                for (x = COL; x >= 0; x--)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-                    if (mapa[y][1] == 4)
+                    if (x == 1 && mapa[y][x] == 4)
                     {
                         dir = 1;  // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
@@ -100,8 +99,7 @@ void *alien_movement(void *arg)
                         swap(mapa, x, y, x - 1, y);
                         x--;
                     }
-                    x--;
-                } while (x >= 0);
+                }
             }
         }
         usleep(1500000);
