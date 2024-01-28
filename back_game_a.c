@@ -285,57 +285,60 @@ void * gamer_fire(void * arg)
     return NULL;
 }
 
-void enemy_fire(int mapa[][COL]) // genera los disparos enemigos, me falta terminarla y organizarla mejor
+void enemy_fire(int mapa[][COL]) // Genera los disparos enemigos
 {
-	int x,y,shot,xb,eureka;
+	int x, y, shot, xb, eureka;
 	srand(time(NULL));
 
-	for (x=0; x<32; x++) // recorre el area donde se encuentran los aliens
+	while(1)
 	{
-		for  (y=22; y>5; y--)
+		for (x = 0; x < 32; x++) // Recorre el area donde se encuentran los aliens
 		{
-			if (mapa[y][x]==2 || mapa[y][x]==3 || mapa[y][x]==4) // verifica que haya aliens para que disparen
+			for  (y = 22; y > 5; y--)
 			{
-				shot=rand()%50;
-				if(shot<40) // genera disparos en una cantidad determinada de las iteraciones
+				if (mapa[y][x] == ALIEN_2 || mapa[y][x] == ALIEN_3 || mapa[y][x] == ALIEN_4) // Verifica que haya aliens para que disparen
 				{
-					mapa[y + 1][x] = 7; //crea la bala enemiga
-					xb=x; //guarda la posición del disparo
-					eureka=1; //crea un flag
-
-					for (y++; y < 32  && eureka; y++) //empieza a mover el disparo por el mapa
+					shot = rand() % 50;
+					if(shot < 40) // Genera disparos en una cantidad determinada de las iteraciones
 					{
-						usleep(100000);
+						mapa[y + 1][x] = FIRE_EN; // Crea la bala enemiga
+						xb = x; // Guarda la coordenada x del disparo
+						eureka = 1; // Crea un flag
 
-					    if (mapa[y + 1][xb] == 0) // si la bala tiene el camino despejado
-					    {
-					    	swap(mapa, xb, y, xb, y + 1);
-					    }
-					    else if (mapa[y + 1][xb] ==2 || mapa[y + 1][xb] ==3 || mapa[y + 1][xb] ==4) // si la bala se encuentra con otro alien hace que dispare ese alien
-					   	{
-					    	mapa[y][xb] = 0;
-					    	y+=2;
-					    	mapa[y][xb] = 7;
-					    	y--;
-					   	}
-					    else if (y + 1 == 32) // si llega al borde inferior del mapa borra el disparo
-					    {
-					       mapa[y][xb] = 0;
-					    }
-					    else
-					    {
-					    	eureka = 0;
+						for (y++; y < 32  && eureka; y++) // Empieza a mover el disparo por el mapa
+						{
+							usleep(100000);
 
-					        if (mapa[y + 1][xb] == -1) // Si se encuentra una barrera, la destruye y borra al disparo del mapa
-					        {
-					        	mapa[y + 1][xb] += 1;
-					            mapa[y][xb] = 0;
-					        }
-					        else if (mapa[y + 1][xb] == 1 || mapa[y + 1][xb-1] == 1 || mapa[y + 1][xb+1] == 1) //Si la bala impacta al jugador
-					        {
-					        	mapa[y][xb] = 0;// Por ahora borra al disparo del mapa, falta hacer la función para quitar una vida al jugador
-					        }
-					    }
+							if (mapa[y + 1][xb] == SPACE) // Si la bala tiene el camino despejado avanza
+							{
+								swap(mapa, xb, y, xb, y + 1);
+							}
+							else if (mapa[y + 1][xb] == ALIEN_2 || mapa[y + 1][xb] == ALIEN_3 || mapa[y + 1][xb] == ALIEN_4) // Si la bala se encuentra con otro alien hace que dispare ese alien
+							{
+								mapa[y][xb] = SPACE;
+								y+=2;
+								mapa[y][xb] = FIRE_EN;
+								y--;
+							}
+							else if (y + 1 == 32) // Si la bala llega al borde inferior del mapa desaparece
+							{
+							   mapa[y][xb] = SPACE;
+							}
+							else
+							{
+								eureka = 0;
+
+								if (mapa[y + 1][xb] == BARRIER) // Si se encuentra una barrera, la destruye y borra al disparo del mapa
+								{
+									mapa[y + 1][xb] += 1;
+									mapa[y][xb] = SPACE;
+								}
+								else if (mapa[y + 1][xb] == JUGADOR || mapa[y + 1][xb-1] == JUGADOR || mapa[y + 1][xb+1] == JUGADOR) // Si la bala impacta al jugador
+								{
+									mapa[y][xb] = SPACE;// Por ahora borra al disparo del mapa, falta hacer la función para quitar una vida al jugador
+								}
+							}
+						}
 					}
 				}
 			}
