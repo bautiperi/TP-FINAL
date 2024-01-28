@@ -20,7 +20,13 @@ static void alien_movement_v(int mapa[][COL]);
  */
 static void final_boss_movement(int mapa[][COL], int dir);
 
-static void alien_movement_h(int mapa[][COL], int dir);
+/* FUNCIÓN ALIEN_MOVEMENT_H
+ * BRIEF: mueve horizontalmente a el final boss
+ * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * dir: (int) direccion del movimiento (izq = -1, der = 0 o 1)
+ * return: (void)
+ */
+static void final_boss_movement(int mapa[][COL], int dir);
 
 void *alien_movement(void *arg)
 {
@@ -28,74 +34,103 @@ void *alien_movement(void *arg)
 
     int x, y;
     int dir = 1, flag = 0;
+    // se mueve hacia la derecha
+    usleep(2000000);
 
     while (1)
     {
-        alien_movement_h(mapa, dir);
 
-        // Analiza si se llegó al extremo de la matriz, para cambiar la dirección y bajar
-        if (enemy_checker(COL - 1, FIL - 1, mapa) || enemy_checker(0, FIL - 1, mapa))
+        if (flag == 1)
         {
-            dir *= -1;              // Cambia la dirección
-            alien_movement_v(mapa); // Mueve verticalmente al cambiar de dirección
+            alien_movement_v(mapa);
+            flag = 0;
         }
+        else if (dir == 1)
+        {
 
+            for (y = 1; y < FIL; y++)
+            {
+                for (x = 0; x < COL; x++)
+                {
+                    // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
+                    if (mapa[y][COL - 2] == 4)
+                    {
+                        dir = -1; // Hace el cambio de dirección
+                        flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
+                    }
+                    // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
+                    else if (mapa[y][x + 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    {
+                        mapa[y][x + 1] = 0;
+                        swap(mapa, x, y, x + 1, y);
+                        x++;
+                    }
+                    // Cambia la posición del enemigo
+                    else if (mapa[y][x + 1] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    {
+                        swap(mapa, x, y, x + 1, y);
+                        x++;
+                    }
+                }
+            }
+        }
+        else
+        { // Se mueve hacia la izquierda
+            for (y = 1; y < FIL; y++)
+            {
+                for (x = COL - 1; x >= 0; x--)
+                {
+                    // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
+                    if (mapa[y][1] == 4)
+                    {
+                        dir = 1;  // Hace el cambio de dirección
+                        flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
+                    }
+                    // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
+                    else if (mapa[y][x - 1] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    {
+                        mapa[y][x - 1] = 0;
+                        swap(mapa, x, y, x - 1, y);
+                        x--;
+                    }
+                    // Cambia la posición del enemigo
+                    else if (mapa[y][x - 1] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
+                    {
+                        swap(mapa, x, y, x - 1, y);
+                        x--;
+                    }
+                }
+            }
+        }
         usleep(1500000);
-    }
-}
-
-/* FUNCIÓN ALIEN_MOVEMENT_H
- * BRIEF: mueve horizontalmente a los aliens
- * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
- * dir: (int) dirección del movimiento (izq = -1, der = 0 o 1)
- * return: (void)
- */
-static void alien_movement_h(int mapa[][COL], int dir)
-{
-    int x, y;
-
-    for (y = FIL - 1; y > 0; y--)
-    {
-        for (x = 0; x < COL; x++)
-        {
-            // Analiza si adelante hay una barrera y destrúyela
-            if (mapa[y][x + dir] == BARRIER && enemy_checker(x + dir, y, mapa))
-            {
-                mapa[y][x + dir] = 0;
-            }
-
-            // Cambia la posición del enemigo
-            if (enemy_checker(x, y, mapa))
-            {
-                swap(mapa, x, y, x + dir, y);
-            }
-        }
     }
 }
 
 /* FUNCIÓN ALIEN_MOVEMENT_V
  * BRIEF: mueve verticalmente a los aliens
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * fil: (int) fila inicial
+ * col: (int) columna inicial
  * return: (void)
  */
 static void alien_movement_v(int mapa[][COL])
 {
     int x, y;
-
+    // se mueve hacia abajo
     for (x = 0; x < COL; x++)
     {
-        for (y = FIL - 1; y >= 0; y--)
+        for (y = 1; y < FIL; y++)
         {
-            // Analiza si abajo hay una barrera y destrúyela
-            if (mapa[y + 1][x] == BARRIER && enemy_checker(x, y + 1, mapa))
+            if (mapa[y + 1][x] == -1 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
             {
                 mapa[y + 1][x] = 0;
+                swap(mapa, x, y, x, y + 1);
+                y++;
             }
-
-            // Cambia la posición del enemigo
-            if (enemy_checker(x, y, mapa) && mapa[y][x] != BARRIER)
+            else if (mapa[y + 1][x] == 0 && (mapa[y][x] == 2 || mapa[y][x] == 3 || mapa[y][x] == 4))
             {
                 swap(mapa, x, y, x, y + 1);
+                y++;
             }
         }
     }
