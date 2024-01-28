@@ -90,17 +90,19 @@ int main(void)
 			{
 				FLICK_OPTION = 1; // TITILA EL APAGAR
 			}
-			else if (coord.x > THRESHOLD && coord.sw == J_PRESS)
+
+			if (coord.x < -THRESHOLD && coord.sw == J_NOPRESS)
+			{
+				FLICK_OPTION = 0; // TITLA EL PLAY
+			}
+
+			if (FLICK_OPTION == 1 && coord.sw == J_PRESS)
 			{
 				shutdown_disp(); // APAGA EL DISPLAY
 				flag_game_update = 0;
 				END_GAME = 1; // INDICA QUE SE TERMNINO EL JUEGO
 			}
-			if (coord.x < -THRESHOLD && coord.sw == J_NOPRESS)
-			{
-				FLICK_OPTION = 0; // TITLA EL PLAY
-			}
-			else if (coord.x < -THRESHOLD && coord.sw == J_PRESS)
+			else if (FLICK_OPTION == 0 && coord.sw == J_PRESS)
 			{
 				STATUS = 0; // VUELVE AL JUEGO
 				map_def(RASP, mapa);
