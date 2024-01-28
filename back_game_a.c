@@ -102,7 +102,7 @@ void *alien_movement(void *arg)
                 }
             }
         }
-        usleep(1500000);
+        usleep(500000);
     }
 }
 
