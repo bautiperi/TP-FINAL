@@ -10,6 +10,9 @@
 //Variable global que sirve como flag para detener la ejecución de los threads
 int flag_game_update = 0;
 
+//Variable global que establece la cantidad de disparos que puede efectuar
+int flag_gamer_shot = 4;
+
 static void alien_movement_v(int mapa[][COL]);
 
 /* FUNCIÓN ALIEN_MOVEMENT_H
@@ -247,6 +250,13 @@ void gamer_movement(int mapa[][COL], int dir) // REVISAR: se mueve muy rapido? =
 
 void * gamer_fire(void * arg)
 {
+	if(flag_gamer_shot == 0){
+		return NULL;
+	}
+	else{
+		flag_gamer_shot--;
+	}
+
 	int (*mapa)[COL] = (int (*)[COL])arg;
 
     int x, y = 28, stop = 1;
@@ -309,11 +319,14 @@ void * gamer_fire(void * arg)
         }
     }
 
+    flag_gamer_shot++;
     return NULL;
 }
 
-void enemy_fire(int mapa[][COL]) // Genera los disparos enemigos
+void * enemy_fire(void * arg) // Genera los disparos enemigos
 {
+	int (*mapa)[COL] = (int (*)[COL])arg;
+
 	int x, y, shot, xb, eureka, recorre_fil, recorre_col;
 	time_t t;
 	srand((unsigned) time(&t));
@@ -381,3 +394,5 @@ void enemy_fire(int mapa[][COL]) // Genera los disparos enemigos
 		}
 	}
 }
+
+
