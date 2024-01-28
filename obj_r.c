@@ -136,18 +136,7 @@ void lives_vis(int cant)
 
 void shields_vis(dcoord_t coor)
 {
-    printf("EN SHIELDS_VIS 1: x: %d y: %d \n", coor.x, coor.y);
-    disp_write(coor, D_ON); // prendo led de abajo a la izq
-    coor.y--;
-    printf("EN SHIELDS_VIS 2: x: %d y: %d \n", coor.x, coor.y);
-    disp_write(coor, D_ON); // prendo led de arriba a la izq
-    coor.x++;
-    printf("EN SHIELDS_VIS 3: x: %d y: %d \n", coor.x, coor.y);
-    disp_write(coor, D_ON); // prendo led de arriba a la der
-    coor.y++;
-    printf("EN SHIELDS_VIS 4: x: %d y: %d \n", coor.x, coor.y);
-    disp_write(coor, D_ON); // prendo led de abajo a la der
-     // disp_update();
+    disp_write(coor, D_ON);
 }
 
 void shields_life(int life_of_shield, dcoord_t coor_of_shield)
