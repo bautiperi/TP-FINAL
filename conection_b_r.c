@@ -45,6 +45,7 @@ void obj_vis(int mapa[][COL], int vidas)
                 else if (mapa[y][x] == -1 && !shields)
                 {
                     coords.y++;
+                    coords.x++;
                     shields_vis(coords);
                     coords.x += 4;
                     shields_vis(coords);
