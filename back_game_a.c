@@ -53,7 +53,7 @@ void *alien_movement(void *arg)
                 for (x = 0; x < COL; x++)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-                    if (enemy_checker(COL - 2, y, mapa))
+                    if (enemy_checker(COL - 1, y, mapa))
                     {
                         dir = -1; // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
@@ -81,7 +81,7 @@ void *alien_movement(void *arg)
                 for (x = COL - 1; x >= 0; x--)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-                    if (enemy_checker(1, y, mapa))
+                    if (enemy_checker(0, y, mapa))
                     {
                         dir = 1;  // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
