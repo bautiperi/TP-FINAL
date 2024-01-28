@@ -28,7 +28,6 @@ static void final_boss_movement(int mapa[][COL], int dir);
  */
 static void final_boss_movement(int mapa[][COL], int dir);
 
-
 void *alien_movement(void *arg)
 {
     int(*mapa)[COL] = (int(*)[COL])arg;
@@ -79,10 +78,10 @@ void *alien_movement(void *arg)
         { // Se mueve hacia la izquierda
             for (y = 1; y < FIL; y++)
             {
-                for (x = COL; x > 0; x--)
+                for (x = COL - 1; x >= 0; x--)
                 {
                     // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
-                    if (mapa[y][1] == 4)
+                    if (mapa[y][2] == 4)
                     {
                         dir = 1;  // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
@@ -106,8 +105,6 @@ void *alien_movement(void *arg)
         usleep(1500000);
     }
 }
-
-
 
 /* FUNCIÓN ALIEN_MOVEMENT_V
  * BRIEF: mueve verticalmente a los aliens
@@ -350,4 +347,3 @@ void enemy_fire(int mapa[][COL]) // genera los disparos enemigos, me falta termi
         }
     }
 }
-
