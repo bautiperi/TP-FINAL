@@ -46,7 +46,7 @@ brief: se encarga de mostrar al final boss
 ubi: (dcoord_t) coordenadas del LED de arriba a la izq
 return: void
 */
-void final_boss_vis(dcoord_t ubi, int mapa[][COL])
+void final_boss_vis(dcoord_t ubi, int mapa[][COL]);
 
 /*FUNCION FINAL_BOSS_SHOT
 brief: toma las coordenadas del objeto para llamar la funcion que hace titilar los leds
