@@ -31,13 +31,11 @@ int main(void){
 
 			map_def(EASY, mapa);
 
-			pthread_t up_aliens, up_boss, up_player;
+			pthread_t up_aliens, up_boss, up_player, enemy_shot;
 
 			pthread_create(&up_boss, NULL, final_boss_creation, mapa);
 			pthread_create(&up_aliens, NULL, alien_movement, mapa);
 			pthread_create(&up_player, NULL, update_player_keyboard, mapa);
-			
-			pthread_t enemy_shot;
 			pthread_create(&enemy_shot, NULL, enemy_fire, mapa);
 
 			sel = display_game(mapa);
