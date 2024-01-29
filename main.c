@@ -1,12 +1,16 @@
+//LIBRERIAS
 #include <stdio.h>
 #include <pthread.h>
 #include <allegro5/allegro.h>
 
-#include "map.h"
+//FRONT
 #include "disp_start_menu_a.h"
 #include "disp_game_a.h"
-#include "back_game_a.h"
 #include "disp_scoreboard_a.h"
+//BACK
+#include "map.h"
+#include "back_game_a.h"
+#include "back_player.h"
 
 void * update_player_keyboard (void * arg);
 
@@ -31,6 +35,9 @@ int main(void){
 
 			map_def(EASY, mapa);
 
+			//Flag en 0 para que los threads no se inicialicen y estén en pausa
+			flag_game_update = 0;
+
 			pthread_t up_aliens, up_boss, up_player, enemy_shot;
 
 			pthread_create(&up_boss, NULL, final_boss_creation, mapa);
@@ -40,6 +47,8 @@ int main(void){
 
 			sel = display_game(mapa);
 		}
+
+		flag_game_update = 2;
 	}
 
 	return 0;

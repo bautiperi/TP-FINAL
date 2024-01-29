@@ -2,6 +2,7 @@
 
 #include "back_aux_a.h"
 #include "back_score_a.h"
+#include "back_player.h"
 
 #include <unistd.h>
 #include <time.h>
@@ -241,105 +242,6 @@ static void final_boss_movement(int mapa[][COL], int dir)
     }
 }
 
-void gamer_movement(int mapa[][COL], int dir) // REVISAR: se mueve muy rapido? => avisar a cami ;)
-{
-    int x, y;
-    for (y = 1; y < FIL; y++)
-    {
-        for (x = 0; x < COL; x++)
-        {
-            if (mapa[y][x] == JUGADOR && mapa[y][x + dir] == FIRE_EN)
-            {
-                mapa[y][x] = 0;
-                life_updater(mapa);
-            }
-            else if(mapa[y][x] == JUGADOR && (x + dir > 0) && (x + dir < COL - 1))
-            {
-            	swap(mapa, x, y, x + dir, y);
-            	x++;
-            }
-        }
-    }
-}
-
-//Variable global que establece la cantidad de disparos que puede efectuar
-int flag_gamer_shot = 4;
-
-void * gamer_fire(void * arg)
-{
-	if(flag_gamer_shot == 0){
-		return NULL;
-	}
-	else{
-		flag_gamer_shot--;
-	}
-
-	int (*mapa)[COL] = (int (*)[COL])arg;
-
-    int x, y = 28, stop = 1;
-    int pos_x;
-
-    // Busca la posición del jugador al momento del disparo, cuando lo encuentra, enciende un flag para detener el loop y guardar la posición
-    for (x = 0; stop && x < COL; x++)
-    {
-        if (mapa[y][x] == 1)
-        {
-            mapa[y - 1][x] = FIRE_PL;
-            stop = 0;
-            pos_x = x;
-        }
-    }
-
-    int eureka = 1;
-
-    // Empieza a mover el disparo por el mapa, en caso de encontrar un obstáculo lo destruye y se elimina el disparo
-    for (y--; y > 1 && eureka; y--)
-    {
-        usleep(150000);
-
-
-        if (mapa[y - 1][pos_x] == SPACE)
-        {
-            swap(mapa, pos_x, y, pos_x, y - 1);
-        }
-        else if (y - 1 < 0)
-        {
-            mapa[y][pos_x] = SPACE;
-        }
-        else
-        {
-            eureka = 0;
-            // Si es una barrera, la destruye y borra al disparo del mapa
-
-            if (mapa[y - 1][pos_x] == BARRIER)
-            {
-                //Destruye la barrera
-            	mapa[y - 1][pos_x] = SPACE;
-                //Elimina el disparo
-                mapa[y][pos_x] = SPACE;
-            }
-            //Si es un enemigo, destruye el disparo y elimina al enemigo, tmb llama a la función score_updater para sumarle los puntos al jugador
-            else if (mapa[y - 1][pos_x] != SPACE)
-            {
-            	//Evita que se puedan mover los enemigos al momento de ser detectados, para lograr evitar errores
-            	flag_game_update = 0;
-
-            	score_updater(mapa, mapa[y - 1][pos_x]);
-
-            	mapa[y - 1][pos_x] = SPACE;
-
-            	mapa[y][pos_x] = SPACE;
-
-            	flag_game_update = 1;
-
-            }
-        }
-    }
-
-    flag_gamer_shot++;
-    return NULL;
-}
-
 void * enemy_fire(void * arg) // Genera los disparos enemigos
 {
 	int (*mapa)[COL] = (int (*)[COL])arg;
@@ -406,17 +308,16 @@ void * enemy_fire(void * arg) // Genera los disparos enemigos
 								{
 									mapa[y][xb] = SPACE;
 
-									//Para mostrar el impacto en el front
-									IMPACT = 1; //Indica que hubo un impacto
-									IMPACT_X = xb;
-									IMPACT_Y = y +1;
-
 									mapa[y+1][xb] = SPACE;
 									mapa[y+1][xb+1] = SPACE;
 									mapa[y+1][xb-1] = SPACE;
 									life_updater(mapa);
 
-									IMPACT = 0;
+									IMPACT_X = xb;
+									IMPACT_Y = y +1;
+
+									pthread_t impact_up;
+									pthread_create(&impact_up, NULL, impact_updater, mapa);
 								}
 							}
 						}
@@ -428,5 +329,3 @@ void * enemy_fire(void * arg) // Genera los disparos enemigos
 		}
 	}
 }
-
-

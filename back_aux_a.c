@@ -1,5 +1,7 @@
 #include "back_aux_a.h"
 
+//LIBRERIAS
+#include <unistd.h>
 
 void swap(int mapa[][COL], int x1, int y1, int x2, int y2)
 {
@@ -11,4 +13,18 @@ void swap(int mapa[][COL], int x1, int y1, int x2, int y2)
 int enemy_checker (int x, int y, const int mapa[][COL])
 {
 	return (mapa[y][x] == ALIEN_2 || mapa[y][x] == ALIEN_3 || mapa[y][x] == ALIEN_4);
+}
+
+void * impact_updater (void * arg){
+
+	int (*mapa)[COL] = (int (*)[COL])arg;
+
+	IMPACT = 1; //Indica que hubo un impacto
+
+	usleep(450000);
+
+	IMPACT = 0;
+
+	return NULL;
+
 }

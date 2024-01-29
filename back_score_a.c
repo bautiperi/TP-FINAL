@@ -1,13 +1,15 @@
 #include "back_score_a.h"
 
+//LIBRERIAS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-
-char name[50] = "";
-
+//PROTOTIPOS FUNCIONES PRIVADAS
 static int player_comp (const void * a, const void * b);
+
+//String donde se almacena el nombre del jugador
+char name[50] = "";
 
 void score_updater (int mapa[][COL], int identifier)
 {
@@ -90,19 +92,6 @@ static int player_comp (const void * a, const void * b)
 {
 
 	return ((*(player_t *) b).score - (*(player_t *) a).score);
-
-}
-
-int life_updater (int mapa[][COL])
-{
-	LIFES--;
-	if(LIFES == 0){
-		return 1;
-	}
-	else{
-		SPAWN_POINT = JUGADOR;
-		return 0;
-	}
 
 }
 

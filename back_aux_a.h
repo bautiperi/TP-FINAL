@@ -31,4 +31,6 @@ void swap(int mapa[][COL], int x1, int y1, int x2, int y2);
  */
 int enemy_checker (int x, int y, const int mapa[][COL]);
 
+void * impact_updater (void * arg);
+
 #endif /* BACK_AUX_A_H_ */

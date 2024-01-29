@@ -25,7 +25,7 @@ static void display_stats (int score, int lives, ALLEGRO_FONT * font, ALLEGRO_BI
 static void display_player (const int mapa[][COL], ALLEGRO_BITMAP * player);
 static int display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLEGRO_BITMAP * alien_2, ALLEGRO_BITMAP * alien_3, ALLEGRO_BITMAP * boss);
 static void display_bullet (const int mapa[][COL]);
-static void display_impact (const int x, const int y);
+static void display_impact(const int x, const int y, ALLEGRO_BITMAP * impact);
 
 //DEFINICIONES PARA ALLEGRO
 #define SCALER 25
@@ -45,7 +45,7 @@ int display_game (const int mapa[][COL]){
 	// INICIALIZACIÓN DE ELEMENTOS PARA EL JUEGO:
 	// PLAYER IMAGE
 	ALLEGRO_BITMAP * player = al_load_bitmap("resources/player.png");
-	// ALIENS Y BOSS IMAGE
+	// ALIENS & BOSS IMAGE
 	ALLEGRO_BITMAP * alien_1 = al_load_bitmap("resources/aliens.png");
 	ALLEGRO_BITMAP * alien_2 = al_load_bitmap("resources/aliens_2.png");
 	ALLEGRO_BITMAP * alien_3 = al_load_bitmap("resources/aliens_2.png");
@@ -54,6 +54,8 @@ int display_game (const int mapa[][COL]){
 	ALLEGRO_BITMAP * barrier = al_load_bitmap("resources/barrier.png");
 	// LIVES IMAGE
 	ALLEGRO_BITMAP * heart = al_load_bitmap("resources/heart_yes.png");
+	// IMPACT IMAGE
+	ALLEGRO_BITMAP * impact = al_load_bitmap("resources/impact.png");
 	// FONT
 	ALLEGRO_FONT * font = al_load_ttf_font("resources/Barbie-font.ttf", FONT_SIZE, 0);
 
@@ -125,15 +127,13 @@ int display_game (const int mapa[][COL]){
 			// Muestra los disparos en pantalla
 			display_bullet(mapa);
 
-			// Muestra los cambios en pantalla
-			al_flip_display();
-
 			// En caso de haber un impacto, lo muestra en pantalla
 			if(IMPACT == 1){
-				display_impact(mapa[0][COL-4],mapa[0][COL-3]);
-				al_flip_display();
-				al_rest(0.5);
+				display_impact(IMPACT_X, IMPACT_Y, impact);
 			}
+
+			// Muestra los cambios en pantalla
+			al_flip_display();
 
 		}
 
@@ -328,13 +328,12 @@ static void display_bullet(const int mapa[][COL]){
  * BRIEF: Se encarga de mostrar en pantalla cuando un disparo le pega a una barrera o a un alien
  * x: (int) Coordenada x donde ocurre el impacto
  * y: (int) Coordenada y donde ocurre el impacto
+ * impact: (Puntero a ALLEGRO_BITMAP) Recibe la foto para el impacto a mostrar en pantalla
  * return: (int) En caso de haber un error devuelve -1
  *  */
-static void display_impact(const int x, const int y){
-	ALLEGRO_BITMAP * impact = al_load_bitmap("resources/impact.png");
+static void display_impact(const int x, const int y, ALLEGRO_BITMAP * impact){
 
 	//Muestra en pantalla el impacto
 	al_draw_scaled_bitmap(impact, 0, 0, 360, 360, POS_X(x), POS_Y(y), SCALER, SCALER, 0);
 
-	//Hace un efecto de sonido para acompañar el impacto (a hacer)
 }
