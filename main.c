@@ -3,13 +3,13 @@
 #include <pthread.h>
 #include <allegro5/allegro.h>
 
+#include "back_game.h"
 //FRONT
 #include "disp_start_menu_a.h"
 #include "disp_game_a.h"
 #include "disp_scoreboard_a.h"
 //BACK
 #include "map.h"
-#include "back_game_a.h"
 #include "back_player.h"
 
 void * update_player_keyboard (void * arg);

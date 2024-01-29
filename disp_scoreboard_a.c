@@ -1,9 +1,6 @@
 //HEADER
 #include "disp_scoreboard_a.h"
 
-#include "back_score_a.h"
-
-//LIBRERIAS
 #include <stdio.h>
 
 //LIBRERIAS ALLEGRO
@@ -11,6 +8,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include "back_score.h"
 
 //DEFINES
 #define MAX_PLAYERS 10

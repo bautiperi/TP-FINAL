@@ -1,6 +1,5 @@
-#include "back_score_a.h"
+#include "back_score.h"
 
-//LIBRERIAS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

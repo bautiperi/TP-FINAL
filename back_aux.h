@@ -5,8 +5,8 @@
  *      Author: bauti
  */
 
-#ifndef BACK_AUX_A_H_
-#define BACK_AUX_A_H_
+#ifndef BACK_AUX_H_
+#define BACK_AUX_H_
 
 #include "_defines.h"
 
@@ -33,4 +33,4 @@ int enemy_checker (int x, int y, const int mapa[][COL]);
 
 void * impact_updater (void * arg);
 
-#endif /* BACK_AUX_A_H_ */
+#endif /* BACK_AUX_H_ */

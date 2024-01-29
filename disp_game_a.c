@@ -1,7 +1,6 @@
 //HEADER
 #include "disp_game_a.h"
 #include "disp_pause_a.h"
-#include "back_game_a.h"
 #include "disp_scoreboard_a.h"
 
 //LIBRERIAS
@@ -18,6 +17,7 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
+#include "back_game.h"
 
 //DEFINICIÓN DE FUNCIONES PRIVADAS
 static void display_barr (const int mapa[][COL], ALLEGRO_BITMAP * barrier);

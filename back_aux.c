@@ -1,6 +1,5 @@
-#include "back_aux_a.h"
+#include "back_aux.h"
 
-//LIBRERIAS
 #include <unistd.h>
 
 void swap(int mapa[][COL], int x1, int y1, int x2, int y2)

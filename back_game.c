@@ -1,12 +1,12 @@
-#include "back_game_a.h"
+#include "back_game.h"
 
-#include "back_aux_a.h"
-#include "back_score_a.h"
 #include "back_player.h"
 
 #include <unistd.h>
 #include <time.h>
 #include <stdlib.h>
+#include "back_aux.h"
+#include "back_score.h"
 
 //Variable global que sirve como flag para detener la ejecución de los threads
 // 0 -> Falso, están en pausa | 1 -> Ejecutan | 2 -> Exit threads

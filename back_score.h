@@ -5,8 +5,8 @@
  *      Author: bauti
  */
 
-#ifndef BACK_SCORE_A_H_
-#define BACK_SCORE_A_H_
+#ifndef BACK_SCORE_H_
+#define BACK_SCORE_H_
 
 #include "_defines.h"
 
