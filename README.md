@@ -12,3 +12,4 @@ La estructura de nuestro repositorio en Github cuenta con tres ramas distintas, 
 - **Main**: Esta rama combina ambos proyectos, para PC y Raspberry Pi.
 - **Allegro**: Contiene todo el backend y frontend destinado para la ejecución en PC.
 - **Raspberry**: Esta rama contiene tanto el backend como el frontend diseñado específicamente para la plataforma Raspberry Pi.
+![](https://i.imgur.com/zaon42X.png)
