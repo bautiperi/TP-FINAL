@@ -246,12 +246,11 @@ static void final_boss_movement(int mapa[][COL], int dir)
 
 void gamer_movement(int mapa[][COL], int dir) // REVISAR: se mueve muy rapido? => avisar a cami ;)
 {
-    printf("GAMER MOVEMENT");
     int x, y = 15; // Pondría un define para que quede mejor :)
 
     for (x = 0; x < COL; x++)
     {
-        if (mapa[y][x] == 1 && (x + dir > 0) && (x + dir < COL - 1))
+        if (mapa[y][x] == 1 && (x + dir > 0) && (x + dir < COL - 3))
         {
             swap(mapa, x, y, x + dir, y);
             x++;
