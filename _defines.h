@@ -18,7 +18,8 @@
 #define EASY 1
 
 // JUGADOR
-#define SPAWN_POINT mapa[28][COL/2 -1]
+#define POS_Y_PL 28
+#define SPAWN_POINT mapa[POS_Y_PL][COL/2 -1]
 #define JUGADOR 1
 
 // VALOR DE ENEMIGOS
@@ -33,7 +34,7 @@
 
 // DEFINICIONES DE VALORES ESPECÍFICOS
 #define DIFICULTAD mapa[0][0]
-#define LIFES mapa[0][COL-1]
+#define LIVES mapa[0][COL-1]
 #define SCORE mapa[0][COL-2]
 #define IMPACT mapa[0][COL-5]
 #define IMPACT_X mapa[0][COL-4]

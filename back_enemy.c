@@ -214,7 +214,7 @@ static void alien_movement_v(int mapa[][COL])
         {
             //Si un enemigo llega a esta altura, el jugador ha perdido el juego
         	if(y == FIL - 3 && enemy_checker(x, y, mapa)){
-            	LIFES = 0;
+            	LIVES = 0;
             }
             else if (mapa[y + 1][x] == BARRIER && enemy_checker(x, y, mapa))
             {
@@ -263,7 +263,7 @@ void * final_boss_creation(void *arg)
     }
     final_boss_movement(mapa, dir);
 
-    return NULL;
+    pthread_exit(NULL);
 }
 
 /* FUNCIÓN FINAL_BOSS_MOVEMENT
@@ -408,4 +408,6 @@ void * enemy_fire(void * arg) // Genera los disparos enemigos
 			recorre_col = rand() % 4 + 1;
 		}
 	}
+
+	pthread_exit(NULL);
 }

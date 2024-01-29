@@ -47,7 +47,7 @@ void map_def(const int diff, int mapa [][COL]) {
 	//Ubica al jugador en el centro del mapa
 	SPAWN_POINT = JUGADOR;
 
-	LIFES = 3;
+	LIVES = 3;
 }
 
 /* FUNCIÓN BARRIER_DIFF

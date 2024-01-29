@@ -161,7 +161,7 @@ int display_game (const int mapa[][COL]){
 			// Muestra los escudos/barreras en pantalla
 			display_barr(mapa, barrier);
 			// Muestra las vidas, score y una leyenda en pantalla
-			display_stats(SCORE, LIFES, font, heart);
+			display_stats(SCORE, LIVES, font, heart);
 			// Muestra el jugador en pantalla, se le debe pasar la coordenada x donde está el jugador
 			display_player(mapa, player);
 			// Muestra a los enemigos en pantalla
@@ -179,7 +179,7 @@ int display_game (const int mapa[][COL]){
 
 		}
 
-		if(LIFES == 0){
+		if(LIVES == 0){
 			//Muestra en pantalla game over
 			display_game_over(SCORE);
 			//Espera a que el jugador decida volver al menú principal
