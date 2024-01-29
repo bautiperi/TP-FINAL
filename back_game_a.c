@@ -263,12 +263,14 @@ void *gamer_fire(void *arg)
     // Pone el thread "en pausa"
     while (flag_game_update == 0)
     {
+        fprintf(stderr, "Estoy pausado \n");
     }
     // Termina la ejecución del thread
     if (flag_game_update == 2)
     {
         return NULL;
     }
+
     int(*mapa)[COL] = (int(*)[COL])arg;
 
     if (flag_gamer_shot == 0)
