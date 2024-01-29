@@ -17,7 +17,7 @@ void *joy_reading(void *arg)
             led_flick(coord_menu);
 
             obj_vis(mapa, mapa[0][COL - 1]);
-            if ((coord.sw) = (J_PRESS)) // dispara el player
+            if ((coord.sw) == (J_PRESS)) // dispara el player
             {
                 pthread_t up_gamer_fire;
                 pthread_create(&up_gamer_fire, NULL, gamer_fire, mapa);
