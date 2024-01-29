@@ -26,6 +26,8 @@ int main(void)
 	pthread_create(&up_aliens_fire, NULL, enemy_fire, mapa);
 	pthread_create(&up_joy, NULL, joy_reading, mapa);
 
+	// Espera a que se termine de ejecutar el thread up_joy
+	pthread_join(up_joy, NULL);
 	game_over();
 	usleep(500000);
 	shutdown_disp();
