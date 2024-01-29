@@ -44,6 +44,7 @@ int main(void)
 
 			if ((coord.sw) == (J_PRESS)) // dispara el player
 			{
+				fprintf(stderr, "PUUUM");
 				pthread_t up_gamer_fire;
 				pthread_create(&up_gamer_fire, NULL, gamer_fire, mapa);
 			}
@@ -62,7 +63,6 @@ int main(void)
 
 			if (coord.y >= THRESHOLD)
 			{ // si la coordenada en y no se movio hacia la seleccion del menu
-				fprintf(stderr, "ENTRE A STATUS=0   5 \n");
 				STATUS = 1;
 				flag_game_update = 0;
 			}
