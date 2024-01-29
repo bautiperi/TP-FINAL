@@ -35,9 +35,10 @@ int main(void)
 	// JUEGO
 	do
 	{
-		coord = joy_read();
-		if (STATUS == 0) // JUEGO
+
+		while (STATUS == 0) // JUEGO
 		{
+			coord = joy_read();
 			// led_flick(coord_menu);
 
 			obj_vis(mapa, mapa[0][COL - 1]);
@@ -71,8 +72,9 @@ int main(void)
 			}
 			gamer_movement(mapa, npos); // genera el movimiento del player
 		}
-		else if (STATUS == 1) // MENU
+		while (STATUS == 1) // MENU
 		{
+			coord = joy_read();
 			menu_vis(mapa);
 			if (coord.x > THRESHOLD && coord.sw == J_NOPRESS)
 			{
@@ -94,8 +96,9 @@ int main(void)
 				flag_game_update = 1;
 			}
 		}
-		else if (STATUS == 2) // MENU PRINCIPAL
+		while (STATUS == 2) // MENU PRINCIPAL
 		{
+			coord = joy_read();
 			menu_principal_vis(mapa);
 			if (coord.x > THRESHOLD && coord.sw == J_NOPRESS)
 			{
