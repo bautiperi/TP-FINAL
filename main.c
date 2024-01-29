@@ -24,7 +24,7 @@ int main(void)
 	pthread_create(&up_boss, NULL, final_boss_creation, mapa);
 	pthread_create(&up_aliens, NULL, alien_movement, mapa);
 	pthread_create(&up_aliens_fire, NULL, enemy_fire, mapa);
-	pthread_create(&up_boss, NULL, joy_reading, mapa);
+	pthread_create(&up_joy, NULL, joy_reading, mapa);
 
 	game_over();
 	usleep(500000);
