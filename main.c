@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <pthread.h>
+#include <stdio.h>
 
 #include "conection_b_r.h"
 #include "aux_r.h"
@@ -42,24 +43,29 @@ int main(void)
 			obj_vis(mapa, mapa[0][COL - 1]);
 			if ((coord.sw) == (J_PRESS)) // dispara el player
 			{
+				fprintf(stderr, "ENTRE A STATUS=0   1 \n");
 				pthread_t up_gamer_fire;
 				pthread_create(&up_gamer_fire, NULL, gamer_fire, mapa);
 			}
 			if (coord.x > THRESHOLD) // movimiento a la derecha
 			{
+				fprintf(stderr, "ENTRE A STATUS=0   2 \n");
 				npos = 1;
 			}
 			else if (coord.x < -THRESHOLD) // movimiento a la izquierda
 			{
+				fprintf(stderr, "ENTRE A STATUS=0   3 \n");
 				npos = -1;
 			}
 			else
 			{
+				fprintf(stderr, "ENTRE A STATUS=0   4 \n");
 				npos = 0;
 			}
 
 			if (coord.y >= THRESHOLD)
 			{ // si la coordenada en y no se movio hacia la seleccion del menu
+				fprintf(stderr, "ENTRE A STATUS=0   5 \n");
 				STATUS = 1;
 				flag_game_update = 0;
 			}

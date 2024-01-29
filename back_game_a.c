@@ -245,6 +245,7 @@ static void final_boss_movement(int mapa[][COL], int dir)
 
 void gamer_movement(int mapa[][COL], int dir) // REVISAR: se mueve muy rapido? => avisar a cami ;)
 {
+    printf("GAMER MOVEMENT");
     int x, y = 15; // Pondría un define para que quede mejor :)
 
     for (x = 0; x < COL; x++)
