@@ -8,6 +8,7 @@
 #include "map.h"
 #include "obj_r.h"
 #include "back_game_a.h"
+#include "conection_b_r.h"
 
 extern int flag_game_update;
 

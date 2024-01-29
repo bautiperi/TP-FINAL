@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <stdlib.h>
+#include <pthreads.h>
 
 // Variable global que sirve como flag para detener la ejecución de los threads
 // 0 -> Falso, están en pausa | 1 -> Ejecutan | 2 -> Exit threads
@@ -115,6 +116,7 @@ void *alien_movement(void *arg)
         }
         usleep(500000);
     }
+    pthread_exit(NULL);
 }
 
 /* FUNCIÓN ALIEN_MOVEMENT_V
@@ -185,7 +187,7 @@ void *final_boss_creation(void *arg)
         }
         final_boss_movement(mapa, dir);
 
-        return NULL;
+        pthread_exit(NULL);
     }
 }
 
@@ -336,7 +338,7 @@ void *gamer_fire(void *arg)
             }
         }
     }
-    return NULL;
+    pthread_exit(NULL);
 }
 
 void *enemy_fire(void *arg) // Genera los disparos enemigos
@@ -418,4 +420,5 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
             recorre_col = rand() % 4 + 1;
         }
     }
+    pthread_exit(NULL);
 }
