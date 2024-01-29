@@ -3,6 +3,7 @@
 
 void *joy_reading(void *arg)
 {
+    joy_init();
     int(*mapa)[COL] = (int(*)[COL])arg;
     joyinfo_t coord = {0, 0, J_NOPRESS};
     int npos = 0;
@@ -14,7 +15,7 @@ void *joy_reading(void *arg)
         coord = joy_read();
         if (STATUS == 0) // JUEGO
         {
-            led_flick(coord_menu);
+            // led_flick(coord_menu);
 
             obj_vis(mapa, mapa[0][COL - 1]);
             if ((coord.sw) == (J_PRESS)) // dispara el player

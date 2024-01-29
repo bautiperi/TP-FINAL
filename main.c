@@ -15,7 +15,6 @@ int main(void)
 {
 	int sel = 0;
 	disp_init();
-	joy_init();
 	disp_clear();
 
 	int mapa[FIL][COL];
