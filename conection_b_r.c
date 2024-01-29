@@ -66,7 +66,10 @@ void *obj_vis(void *arg)
                     if (mapa[y][x] == 6)
                     {
                         aux.y++;
-                        disp_write(aux, D_OFF);
+                        if (aux.y != 15)
+                        {
+                            disp_write(aux, D_OFF);
+                        }
                     }
                     else
                     {
