@@ -44,7 +44,7 @@ int main(void)
 
 			if ((coord.sw) == (J_PRESS)) // dispara el player
 			{
-				fprintf(stderr, "PUUUM");
+				fprintf(stderr, "PUUUM \n");
 				pthread_t up_gamer_fire;
 				pthread_create(&up_gamer_fire, NULL, gamer_fire, mapa);
 			}
