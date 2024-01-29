@@ -10,7 +10,8 @@ mapa: (int **) matriz a analizar
 vidas: (int)
 return: void
 */
-void obj_vis(int mapa[][COL], int vidas);
+
+void *obj_vis(void *arg);
 
 /*FUNCION DETECT_COLLISION
 brief: dependiendo que objeto es impactado se llama a la funcion correspondiente para su display

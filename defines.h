@@ -52,10 +52,11 @@ typedef struct
 #define FIRE_EN 7
 
 // DEFINICIONES DE VALORES ESPECÍFICOS
-#define LIFES mapa[0][COL - 1]
+#define LIVES mapa[0][COL - 1]
 #define SCORE mapa[0][COL - 2]
 #define IMPACT mapa[0][COL - 5]
 #define IMPACT_X mapa[0][COL - 4]
 #define IMPACT_Y mapa[0][COL - 3]
+
 
 #endif /* DEFINES_H */

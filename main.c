@@ -20,7 +20,8 @@ int main(void)
 	int mapa[FIL][COL];
 	map_def(RASP, mapa);
 
-	pthread_t up_aliens, up_boss, up_aliens_fire, up_joy;
+	pthread_t up_aliens, up_boss, up_aliens_fire, up_vis;
+	pthread_create(&up_vis, NULL, obj_vis, mapa);
 	pthread_create(&up_boss, NULL, final_boss_creation, mapa);
 	pthread_create(&up_aliens, NULL, alien_movement, mapa);
 	pthread_create(&up_aliens_fire, NULL, enemy_fire, mapa);
@@ -36,13 +37,12 @@ int main(void)
 	END_GAME = 0;
 	do
 	{
-
 		while (STATUS == 0) // JUEGO
 		{
 			coord = joy_read();
 			// led_flick(coord_menu);
+			fprintf(stderr, "ENTRE AL WHILE \n");
 
-			obj_vis(mapa, mapa[0][COL - 1]);
 			if ((coord.sw) == (J_PRESS)) // dispara el player
 			{
 				fprintf(stderr, "ENTRE A STATUS=0   1 \n");

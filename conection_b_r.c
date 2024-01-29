@@ -1,5 +1,6 @@
 #include "conection_b_r.h"
 #include <unistd.h>
+#include <pthread.h>
 
 /*IDENTIFICACIÓN EN EL MAPA:
 - -1 (-2 en Rasp) = BARRERA
@@ -9,19 +10,30 @@
 - 5 = Boss
 - 6(jugador) y 7(enemigos) = Disparos*/
 
-void obj_vis(int mapa[][COL], int vidas)
+void *obj_vis(void *arg)
 {
+    int(*mapa)[COL] = (int(*)[COL])arg;
     int gamer, shields, boss;
     unsigned int x, y;
     dcoord_t coords, aux;
 
     while (1)
     {
+        // Pone el thread "en pausa"
+        while (flag_game_update == 0)
+        {
+        }
+        // Termina la ejecución del thread
+        if (flag_game_update == 2)
+        {
+            return NULL;
+        }
+
         shutdown_disp();
         gamer = 0;
         shields = 0;
         boss = 0;
-        lives_vis(vidas);
+        lives_vis(LIVES);
         for (x = 0; x < COL; x++)
         {
             for (y = 1; y < FIL; y++)
@@ -67,6 +79,7 @@ void obj_vis(int mapa[][COL], int vidas)
         disp_update();
         usleep(33333);
     }
+    pthread_exit(NULL);
 }
 
 void display_collision(coord_t coord_1, int obj)
