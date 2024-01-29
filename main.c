@@ -111,6 +111,7 @@ int main(void)
 				shutdown_disp(); // APAGA EL DISPLAY
 				flag_game_update = 0;
 				END_GAME = 1; // INDICA QUE SE TERMNINO EL JUEGO
+				STATUS = 3;
 			}
 			else if (FLICK_OPTION == 0 && coord.sw == J_PRESS)
 			{
