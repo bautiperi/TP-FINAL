@@ -42,7 +42,7 @@ void *joy_reading(void *arg)
             }
             gamer_movement(mapa, npos); // genera el movimiento del player
         }
-        if (STATUS == 1) // MENU
+        else if (STATUS == 1) // MENU
         {
             menu_vis(mapa);
             if (coord.x > THRESHOLD && coord.sw == J_NOPRESS)
@@ -65,7 +65,7 @@ void *joy_reading(void *arg)
                 flag_game_update = 1;
             }
         }
-        if (STATUS == 2) // MENU PRINCIPAL
+        else if (STATUS == 2) // MENU PRINCIPAL
         {
             menu_principal_vis(mapa);
             if (coord.x > THRESHOLD && coord.sw == J_NOPRESS)
