@@ -263,7 +263,6 @@ void *gamer_fire(void *arg)
     // Pone el thread "en pausa"
     while (flag_game_update == 0)
     {
-        fprintf(stderr, "Estoy pausado \n");
     }
     // Termina la ejecución del thread
     if (flag_game_update == 2)
@@ -285,6 +284,8 @@ void *gamer_fire(void *arg)
     int x, y = FIL - 1, stop = 1;
     int pos_x;
 
+    fprintf(stderr, "Entré para hacer un disparo, y pasé el semáforo \n");
+
     // Busca la posición del jugador al momento del disparo, cuando lo encuentra, enciende un flag para detener el loop y guardar la posición
     for (x = 0; stop && x < COL; x++)
     {
@@ -293,6 +294,7 @@ void *gamer_fire(void *arg)
             mapa[y - 1][x] = FIRE_PL;
             stop = 0;
             pos_x = x;
+            fprintf(stderr, "Encontré al jugador \n");
         }
     }
 
@@ -322,6 +324,7 @@ void *gamer_fire(void *arg)
                 mapa[y - 1][pos_x] = SPACE;
                 // Elimina el disparo
                 mapa[y][pos_x] = SPACE;
+                fprintf(stderr, "Eliminé una barrera \n");
             }
             // Si es un enemigo, destruye el disparo y elimina al enemigo, tmb llama a la función score_updater para sumarle los puntos al jugador
             else if (mapa[y - 1][pos_x] != SPACE)
