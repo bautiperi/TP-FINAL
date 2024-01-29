@@ -404,13 +404,6 @@ void *gamer_fire(void *arg)
                 // Evita que se puedan mover los enemigos al momento de ser detectados, para lograr evitar errores
                 flag_game_update = 0;
 
-                IMPACT_X = pos_x;
-                IMPACT_Y = y - 1;
-
-                pthread_t impact_up;
-
-                pthread_create(&impact_up, NULL, impact_updater, mapa);
-
                 score_updater(mapa, mapa[y - 1][pos_x]);
 
                 mapa[y - 1][pos_x] = SPACE;
