@@ -17,6 +17,7 @@ int main(void)
 	disp_clear();
 
 	int mapa[FIL][COL];
+	map_def(mapa);
 
 	pthread_t up_aliens, up_boss, up_aliens_fire, up_joy;
 	pthread_create(&up_boss, NULL, final_boss_creation, mapa);

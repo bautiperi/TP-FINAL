@@ -32,7 +32,7 @@ typedef struct
 #define BARRIER -1
 #define FIRE_PL 6
 // JOYSTICK
-#define THRESHOLD 40 // Límite a partir del cual se mueve el LED encendido
+#define THRESHOLD 20 // Límite a partir del cual se mueve el LED encendido
 
 // FLAGS
 #define STATUS mapa[0][4]
