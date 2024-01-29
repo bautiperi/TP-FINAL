@@ -4,6 +4,8 @@
 #include "defines.h"
 #include "obj_r.h"
 
+extern int flag_game_update;
+
 /*FUNCION OBJ_VIS
 brief: se encarga de analizar la matriz y llamar a las funciones pertinentes
 mapa: (int **) matriz a analizar
