@@ -245,16 +245,14 @@ static void final_boss_movement(int mapa[][COL], int dir)
 
 void gamer_movement(int mapa[][COL], int dir) // REVISAR: se mueve muy rapido? => avisar a cami ;)
 {
-    int x, y; // = 28; //HARDCODEADO PARA ALLEGRO
-    for (y = 1; y < FIL; y++)
+    int x, y = 15; // Pondría un define para que quede mejor :)
+
+    for (x = 0; x < COL; x++)
     {
-        for (x = 0; x < COL; x++)
+        if (mapa[y][x] == 1 && (x + dir > 0) && (x + dir < COL - 1))
         {
-            if (mapa[y][x] == 1 && (x + dir > 0) && (x + dir < COL - 1))
-            {
-                swap(mapa, x, y, x + dir, y);
-                x++;
-            }
+            swap(mapa, x, y, x + dir, y);
+            x++;
         }
     }
 }
