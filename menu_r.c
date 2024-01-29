@@ -27,7 +27,7 @@ void menu_vis(int mapa[][COL])
         disp_write(exit_btn[i], D_ON);
     }
 
-    // Segun el flag de FLICK_OPTION titila la opcion seleccionada
+    /*// Segun el flag de FLICK_OPTION titila la opcion seleccionada
     if (FLICK_OPTION == 0)
     {
         multp_flick(continue_btn, 9);
@@ -35,7 +35,7 @@ void menu_vis(int mapa[][COL])
     if (FLICK_OPTION == 1)
     {
         multp_flick(exit_btn, 10);
-    }
+    }*/
     disp_update();
 }
 
@@ -48,6 +48,7 @@ void menu_principal_vis(int mapa[][COL])
     dcoord_t power_off_btn[16] = {{11, 9}, {11, 10}, {11, 11}, {9, 10}, {10, 10}, {12, 10}, {13, 10}, {9, 11}, {9, 12}, {9, 13}, {13, 11}, {13, 12}, {13, 13}, {10, 13}, {11, 13}, {12, 13}};
 
     int i;
+    shutdown_disp();
 
     for (i = 0; i < 51; i++)
     {
@@ -64,12 +65,13 @@ void menu_principal_vis(int mapa[][COL])
         disp_write(power_off_btn[i], D_ON);
     }
 
-    if (FLICK_OPTION == 0)
+    /*if (FLICK_OPTION == 0)
     {
         multp_flick(continue_btn, 16);
     }
     if (FLICK_OPTION == 1)
     {
         multp_flick(power_off_btn, 16);
-    }
+    }*/
+    disp_update();
 }
