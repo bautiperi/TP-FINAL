@@ -74,7 +74,10 @@ void *obj_vis(void *arg)
                     else
                     {
                         aux.y--;
-                        disp_write(aux, D_OFF);
+                        if (mapa[aux.y][x] != 2 && mapa[aux.y][x] != 3 && mapa[aux.y][x] != 4 && mapa[aux.y][x] != 5)
+                        {
+                            disp_write(aux, D_OFF);
+                        }
                     }
                 }
             }
