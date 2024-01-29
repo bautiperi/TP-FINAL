@@ -25,11 +25,11 @@ void score_updater (int mapa[][COL], int identifier)
 	srand((unsigned) time(&t));
 	static int enemy_counter;
 	//Dependiendo del enemigo al que se le pegó, se agregarán una determinada cantidad de puntos al score
-	if(identifier != 5){
+	if(identifier < 5){
 		SCORE += identifier *10;
 		enemy_counter++;
 	}
-	else{
+	else if (identifier == 5){
 		//Agrega en el score un nro aleatorio entre 50 y 100
 		SCORE += (rand()%6 + 5) *10;
 	}

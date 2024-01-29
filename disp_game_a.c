@@ -69,11 +69,14 @@ static void display_bullet (const int mapa[][COL]);
  *  */
 static void display_impact(const int x, const int y, ALLEGRO_BITMAP * impact);
 
+/* FUNCIÓN DISPLAY_IMPACT
+ * BRIEF: Se encarga de mostrar en pantalla cuando el jugador perdió, también muestra su score final
+ * score: (int) Score final del jugador
+ * return: (void)
+ *  */
+static void display_game_over (const int score);
 //Declaración de variable global en main.c (flag para threads)
 extern int flag_game_update;
-
-#define FONT_SIZE 35
-
 // ------------------------------------------------------------------------------------------------------------ //
 
 int display_game (const int mapa[][COL]){
@@ -176,22 +179,26 @@ int display_game (const int mapa[][COL]){
 		}
 
 		if(LIFES == 0){
-			//Agregar animación de game over
+			//Muestra en pantalla game over
+			display_game_over(SCORE);
+			//Espera a que el jugador decida volver al menú principal
+			al_wait_for_event(event_queue, &event);
+			if(event.type == ALLEGRO_EVENT_KEY_DOWN){
+				// Hace un fade-out de la música
+				float volume;
+				for (volume = 0.5; volume > 0.0; volume -= 0.01) {
+					al_set_sample_instance_gain(backgroundInstance, volume);
+					al_rest(0.01);
+				}
 
-			// Hace un fade-out de la música
-			float volume;
-			for (volume = 0.5; volume > 0.0; volume -= 0.01) {
-				al_set_sample_instance_gain(backgroundInstance, volume);
-				al_rest(0.01);
+				//Deja de correr la canción y elimina la instancia
+				al_stop_sample_instance(backgroundInstance);
+				al_destroy_sample_instance(kenInstance);
+				al_destroy_sample(background);
+				al_destroy_sample(ken_alien);
+
+				return 0;
 			}
-
-			//Deja de correr la canción y elimina la instancia
-			al_stop_sample_instance(backgroundInstance);
-			al_destroy_sample_instance(kenInstance);
-			al_destroy_sample(background);
-			al_destroy_sample(ken_alien);
-
-			return 0;
 		}
 
 		if(event.type == ALLEGRO_EVENT_KEY_DOWN){
@@ -375,3 +382,27 @@ static void display_impact(const int x, const int y, ALLEGRO_BITMAP * impact){
 	al_draw_scaled_bitmap(impact, 0, 0, 360, 360, POS_X(x), POS_Y(y), SCALER, SCALER, 0);
 
 }
+
+/* FUNCIÓN DISPLAY_IMPACT
+ * BRIEF: Se encarga de mostrar en pantalla cuando el jugador perdió, también muestra su score final
+ * score: (int) Score final del jugador
+ * return: (void)
+ *  */
+static void display_game_over (const int score){
+	ALLEGRO_FONT *font_title = NULL;
+	font_title = al_load_ttf_font("resources/Barbie-font.ttf", TITLE_SIZE, 0);
+	ALLEGRO_FONT *font_score = NULL;
+	font_score = al_load_ttf_font("resources/Barbie-font.ttf", 55, 0);
+	ALLEGRO_FONT *font_description = NULL;
+	font_description = al_load_ttf_font("resources/Barbie-font.ttf", 35, 0);
+
+	al_clear_to_color(al_map_rgb(54,1,63));
+
+	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), DISPLAY_CENTRE, 135, ALLEGRO_ALIGN_CENTER, "Game Over! :(");
+	al_draw_textf(font_score, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 350, ALLEGRO_ALIGN_CENTER, "Your score was: %d", score);
+	al_draw_text(font_description, al_map_rgb(BUTTON_COLOR), 400, 750, ALLEGRO_ALIGN_CENTER, "Press any key to go back to the main menu");
+
+
+	al_flip_display();
+}
+
