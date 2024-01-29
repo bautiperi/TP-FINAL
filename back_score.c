@@ -1,32 +1,37 @@
+//-----------------------------------------------------------------------------------------------------------------------------------------//
 #include "back_score.h"
 
+//LIBRERIAS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 //PROTOTIPOS FUNCIONES PRIVADAS
+/* FUNCIÓN PLAYER_COMP
+ * BRIEF: Función que se encarga de comparar el score de dos jugadores para saber cual es más alto, para que se ordene de mayor a menor
+ * a: (puntero a void constante) Es el primer jugador (el de la izquierda)
+ * b: (puntero a void constante) Es el segundo jugador (el de la derecha)
+ * return: (int) Devuelve el valor de verdad para cambiar o no el orden de ambos jugadores
+ */
 static int player_comp (const void * a, const void * b);
+//-----------------------------------------------------------------------------------------------------------------------------------------//
 
 //String donde se almacena el nombre del jugador
 char name[50] = "";
 
 void score_updater (int mapa[][COL], int identifier)
 {
-
+	time_t t;
+	srand((unsigned) time(&t));
+	static int enemy_counter;
 	//Dependiendo del enemigo al que se le pegó, se agregarán una determinada cantidad de puntos al score
-	switch (identifier) {
-	case 2:
-		SCORE += 10;
-		break;
-	case 3:
-		SCORE += 20;
-		break;
-	case 4:
-		SCORE += 30;
-		break;
-	case 5:
-		SCORE += 50;
-		break;
+	if(identifier != 5){
+		SCORE += identifier *10;
+		enemy_counter++;
+	}
+	else{
+		//Agrega en el score un nro aleatorio entre 50 y 100
+		SCORE += (rand()%6 + 5) *10;
 	}
 
 }
@@ -87,6 +92,12 @@ int score_saver (int score)
 	return 0;
 }
 
+/* FUNCIÓN PLAYER_COMP
+ * BRIEF: Función que se encarga de comparar el score de dos jugadores para saber cual es más alto, para que se ordene de mayor a menor
+ * a: (puntero a void constante) Es el primer jugador (el de la izquierda)
+ * b: (puntero a void constante) Es el segundo jugador (el de la derecha)
+ * return: (int) Devuelve el valor de verdad para cambiar o no el orden de ambos jugadores
+ */
 static int player_comp (const void * a, const void * b)
 {
 

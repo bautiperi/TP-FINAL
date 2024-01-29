@@ -1,4 +1,4 @@
-//--------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------------------//
 #include "back_enemy.h"
 #include "back_player.h"
 #include "back_aux.h"
@@ -28,10 +28,10 @@ static void final_boss_movement(int mapa[][COL], int dir);
  * return: (void)
  */
 static void spawn_gen (int mapa[][COL], coord_t ini, coord_t desp, int type_of_enemy);
-//Variable global que sirve como flag para detener la ejecución de los threads
-// 0 -> Falso, están en pausa | 1 -> Ejecutan | 2 -> Exit threads
-int flag_game_update = 0;
-//--------------------------------------------------------------------------------//
+
+//Variable global de main.c (flag para threads)
+extern int flag_game_update;
+//-----------------------------------------------------------------------------------------------------//
 
 void ships_create (int diff, int mapa[][COL])
 {
@@ -301,7 +301,7 @@ static void final_boss_movement(int mapa[][COL], int dir)
                 }
             }
         }
-        usleep(500000);
+        usleep(450000);
     }
 }
 

@@ -5,40 +5,40 @@
 
 #ifndef RASP
 
-//TAMAÑO DE LA MATRIZ
+// TAMAÑO DE LA MATRIZ
 #define COL 32
 #define FIL 32
 
-//MAPA
+// MAPA
 #define SPACE 0
 #define BARRIER -1
 
-//DIFICULTAD
+// DIFICULTAD
 #define RASP 0
 #define EASY 1
 
-//JUGADOR
+// JUGADOR
 #define SPAWN_POINT mapa[28][COL/2 -1]
 #define JUGADOR 1
 
-//VALOR DE ENEMIGOS
+// VALOR DE ENEMIGOS
 #define BOSS 5
 #define ALIEN_4 4
 #define ALIEN_3 3
 #define ALIEN_2 2
 
-//DISPAROS
+// DISPAROS
 #define FIRE_PL 6
 #define FIRE_EN 7
 
-//DEFINICIONES DE VALORES ESPECÍFICOS
+// DEFINICIONES DE VALORES ESPECÍFICOS
 #define LIFES mapa[0][COL-1]
 #define SCORE mapa[0][COL-2]
 #define IMPACT mapa[0][COL-5]
 #define IMPACT_X mapa[0][COL-4]
 #define IMPACT_Y mapa[0][COL-3]
 
-//DEFINICIÓN DE COORDENADAS
+// DEFINICIÓN DE COORDENADAS
 typedef struct {
 	unsigned int x;
 	unsigned int y;

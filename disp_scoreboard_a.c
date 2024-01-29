@@ -1,6 +1,10 @@
+// --------------------------------------------------------------------------------- //
 //HEADER
 #include "disp_scoreboard_a.h"
+#include "back_score.h"
+#include "_defines_display.h"
 
+//LIBRERIAS
 #include <stdio.h>
 
 //LIBRERIAS ALLEGRO
@@ -8,12 +12,17 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
-#include "back_score.h"
 
 //DEFINES
 #define MAX_PLAYERS 10
 
+//PROTOTIPOS FUNCIONES PRIVADAS
+/* FUNCIÓN DISPLAY_BOARD
+ * BRIEF: Se encarga de mostrar los jugadores que forman parte del scoreboard
+ * return: (void)
+ *  */
 static void display_board (player_t players[MAX_PLAYERS]);
+// --------------------------------------------------------------------------------- //
 
 int display_scoreboard (void){
 	int exit = 1;
@@ -55,8 +64,12 @@ int display_scoreboard (void){
 	return 0;
 }
 
+/* FUNCIÓN DISPLAY_BOARD
+ * BRIEF: Se encarga de mostrar los jugadores que forman parte del scoreboard
+ * return: (void)
+ *  */
 static void display_board (player_t players[MAX_PLAYERS]){
-	int size_title = 75;
+	int size_title = 125;
 	int size_name = 30;
 
 	//Pone al fonde de color
@@ -64,24 +77,24 @@ static void display_board (player_t players[MAX_PLAYERS]){
 
 	//Carga la fuente para el título
 	ALLEGRO_FONT *font_title = NULL;
-	font_title = al_load_ttf_font("resources/Zepto-Regular.ttf", size_title, 0);
+	font_title = al_load_ttf_font("resources/Barbie-font.ttf", size_title, 0);
 
 	//Escribe en el buffer "SCOREBOARD"
-	al_draw_text(font_title, al_map_rgb(233, 65, 150), 400, 65, ALLEGRO_ALIGN_CENTER, "HIGHSCORE");
+	al_draw_text(font_title, al_map_rgb(233, 65, 150), 400, 65, ALLEGRO_ALIGN_CENTER, "Highscore");
 
 	//Carga la fuente para los nombres
 	ALLEGRO_FONT *font = NULL;
 	font = al_load_ttf_font("resources/Zepto-Regular.ttf", size_name, 0);
 
 	//Escribe el primer nombre y su puntaje en color rosa neon
-	al_draw_textf(font, al_map_rgb(255, 215, 0), 210, 160, ALLEGRO_ALIGN_LEFT, "%s", players[0].name);
-	al_draw_textf(font, al_map_rgb(255, 215, 0), 585, 160, ALLEGRO_ALIGN_RIGHT, "%d", players[0].score);
+	al_draw_textf(font, al_map_rgb(255, 215, 0), 210, 185, ALLEGRO_ALIGN_LEFT, "%s", players[0].name);
+	al_draw_textf(font, al_map_rgb(255, 215, 0), 585, 185, ALLEGRO_ALIGN_RIGHT, "%d", players[0].score);
 
 	//Loop que escribe el resto de los nombres y sus respectivos puntajes en blanco
 	int i;
 	for(i = 1; i < 10; i++){
-		al_draw_textf(font, al_map_rgb(250, 218, 221), 210, 160 + i*35, ALLEGRO_ALIGN_LEFT, "%s", players[i].name);
-		al_draw_textf(font, al_map_rgb(250, 218, 221), 585, 160 + i*35, ALLEGRO_ALIGN_RIGHT, "%d", players[i].score);
+		al_draw_textf(font, al_map_rgb(250, 218, 221), 210, 185 + i*35, ALLEGRO_ALIGN_LEFT, "%s", players[i].name);
+		al_draw_textf(font, al_map_rgb(250, 218, 221), 585, 185 + i*35, ALLEGRO_ALIGN_RIGHT, "%d", players[i].score);
 	}
 
 	//Leyenda que explica como volver a la pantalla anterior

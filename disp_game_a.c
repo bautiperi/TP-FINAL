@@ -1,7 +1,8 @@
-//HEADER
+// ------------------------------------------------------------------------------------------------------------ //
 #include "disp_game_a.h"
 #include "disp_pause_a.h"
 #include "disp_scoreboard_a.h"
+#include "_defines_display.h"
 
 //LIBRERIAS
 #include <stdio.h>
@@ -18,26 +19,62 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 
-#include "back_enemy.h"
-
-//DEFINICIÓN DE FUNCIONES PRIVADAS
+//PROTOTIPOS DE FUNCIONES PRIVADAS
+/* FUNCIÓN DISPLAY_BARR
+ * BRIEF: Se encarga de mostrar en pantalla las barreras/escudos
+ * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * barrier: (Puntero tipo ALLEGRO_BITMAP) Es la imagen utilizada para mostrar en pantalla las barreras
+ * return: (void)
+ *  */
 static void display_barr (const int mapa[][COL], ALLEGRO_BITMAP * barrier);
+
+/* FUNCIÓN DISPLAY_STATS
+ * BRIEF: Se encarga de mostrar en pantalla el score, vidas actuales y una leyenda que indica como entrar al menu de pausa
+ * score: (int) Recibe el score actual del jugador
+ * lives: (int) Recibe la cantidad de vidas que tiene el jugador
+ * font: (puntero tipo ALEGRO_FONT) Recibe el tipo de fuente a utilizar
+ * heart: (puntero tipo ALLEGRO_BITMAP) Recibe la imágen para mostrar la cantidad de vidas que tiene el jugador
+ * return: (void)
+ *  */
 static void display_stats (int score, int lives, ALLEGRO_FONT * font, ALLEGRO_BITMAP * heart);
+
+/* FUNCIÓN DISPLAY_PLAYER
+ * BRIEF: Se encarga de mostrar en pantalla al jugador
+ * mapa: (matriz de ints) Matriz donde se desarrolla el juego
+ * player: (puntero tipo ALLEGRO_BITMAP) Imagen que se muestra en pantalla para representar al jugador)
+ * return: (void)
+ *  */
 static void display_player (const int mapa[][COL], ALLEGRO_BITMAP * player);
+
+/* FUNCIÓN DISPLAY_ALIENS
+ * BRIEF: Se encarga de mostrar en pantalla los enemigos (aliens y boss)
+ * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * return: (int) En caso de que el boss esté en pantalla, se devuelve 1 para que se escuche la canción
+ *  */
 static int display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLEGRO_BITMAP * alien_2, ALLEGRO_BITMAP * alien_3, ALLEGRO_BITMAP * boss);
+
+/* FUNCIÓN DISPLAY_BULLET
+ * BRIEF: Se encarga de mostrar en pantalla las balas de enemigos y jugador (celestes jugador, naranja enemigo)
+ * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * return: (void)
+ *  */
 static void display_bullet (const int mapa[][COL]);
+
+/* FUNCIÓN DISPLAY_IMPACT
+ * BRIEF: Se encarga de mostrar en pantalla cuando un disparo le pega a una barrera o a un alien
+ * x: (int) Coordenada x donde ocurre el impacto
+ * y: (int) Coordenada y donde ocurre el impacto
+ * impact: (Puntero a ALLEGRO_BITMAP) Recibe la foto para el impacto a mostrar en pantalla
+ * return: (void)
+ *  */
 static void display_impact(const int x, const int y, ALLEGRO_BITMAP * impact);
 
-//DEFINICIONES PARA ALLEGRO
-#define SCALER 25
+//Declaración de variable global en main.c (flag para threads)
+extern int flag_game_update;
+
 #define FONT_SIZE 35
 
-#define POS_X(x) ((x)* SCALER - SCALER/2)
-#define POS_Y(y) ((y) * SCALER)
-
-
-// RESERVAR LAS ÚLTIMAS 5 CELDAS DE LA PRIMER FILA PARA DATOS, EN SIGUIENTE ORDEN:
-// HUBO IMPACTO (1 = Sí) | COORD X IMPACTO | COORD Y IMPACTO | SCORE | LIVES
+// ------------------------------------------------------------------------------------------------------------ //
 
 int display_game (const int mapa[][COL]){
 
@@ -325,12 +362,12 @@ static void display_bullet(const int mapa[][COL]){
 
 }
 
-/* FUNCIÓN DISPLAY_GAME
+/* FUNCIÓN DISPLAY_IMPACT
  * BRIEF: Se encarga de mostrar en pantalla cuando un disparo le pega a una barrera o a un alien
  * x: (int) Coordenada x donde ocurre el impacto
  * y: (int) Coordenada y donde ocurre el impacto
  * impact: (Puntero a ALLEGRO_BITMAP) Recibe la foto para el impacto a mostrar en pantalla
- * return: (int) En caso de haber un error devuelve -1
+ * return: (void)
  *  */
 static void display_impact(const int x, const int y, ALLEGRO_BITMAP * impact){
 

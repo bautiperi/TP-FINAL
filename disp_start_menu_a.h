@@ -12,7 +12,7 @@
 
 /* FUNCIÓN DISPLAY_INIT
  * BRIEF: Se encarga de inicializar el display y las librerías que se utilizan
- * return: (int) En caso de haber un error devuelve -1
+ * return: (Puntero ALLEGRO_DISPLAY) En caso de haber un error devuelve NULL, caso contrario, puntero al display
  *  */
 ALLEGRO_DISPLAY * display_init (void);
 

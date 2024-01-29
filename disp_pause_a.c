@@ -1,5 +1,7 @@
+// --------------------------------------------------------------------------------------------- //
 //HEADER
 #include "disp_pause_a.h"
+#include "_defines_display.h"
 
 //LIBRERIAS
 #include <stdio.h>
@@ -9,25 +11,22 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
-//DEFINES
-#define SIZE 800
-#define TITLE_COLOR 255, 0, 127
-#define BUTTON_COLOR 250, 218, 221
-#define BUTTON_SEL_COLOR 233, 65, 150
-
-//PROTOTIPOS
+//PROTOTIPOS DE FUNCIONES PRIVADAS
+/*FUNCIÓN DISPLAY_P_MENU
+ * BRIEF: Se encarga de mostrar en pantalla el menú de pausa, con el botón seleccionado
+ * boton: (unsigned int) Es el botón a seleccionar
+ * return: (void)*/
 static void display_p_menu(unsigned int boton, ALLEGRO_FONT *font_title, ALLEGRO_FONT *font);
+// --------------------------------------------------------------------------------------------- //
 
 int display_pause_menu (void){
 	int sel = 0, ret = 1;
 
 	//TAMAÑO DE LAS FONTS
-	int size_title = 150;
-	int size_options = 75;
 
 	//CARGA LAS FONTS PARA EL MENU
-	ALLEGRO_FONT *font_title = al_load_ttf_font("resources/Barbie-font.ttf", size_title, 0);
-	ALLEGRO_FONT *font = al_load_ttf_font("resources/Barbie-font.ttf", size_options, 0);
+	ALLEGRO_FONT *font_title = al_load_ttf_font("resources/Barbie-font.ttf", TITLE_SIZE, 0);
+	ALLEGRO_FONT *font = al_load_ttf_font("resources/Barbie-font.ttf", OPTIONS_SIZE, 0);
 
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
@@ -75,28 +74,28 @@ static void display_p_menu (unsigned int boton, ALLEGRO_FONT *font_title, ALLEGR
 
 	al_clear_to_color(al_map_rgb(54,1,63));
 
-	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), SIZE /2, 125, ALLEGRO_ALIGN_CENTER, "Pause Menu");
+	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), DISPLAY_CENTRE, 125, ALLEGRO_ALIGN_CENTER, "Pause Menu");
 
 	switch(boton){
 	case 0:
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 320, ALLEGRO_ALIGN_CENTER, "Resume game");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "Back to main menu");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 480, ALLEGRO_ALIGN_CENTER, "Quit game");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 320, ALLEGRO_ALIGN_CENTER, "Resume game");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 400, ALLEGRO_ALIGN_CENTER, "Back to main menu");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 480, ALLEGRO_ALIGN_CENTER, "Quit game");
 		break;
 	case 1:
-		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 320, ALLEGRO_ALIGN_CENTER, "> > Resume game < <");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "Back to main menu");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 480, ALLEGRO_ALIGN_CENTER, "Quit game");
+		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), DISPLAY_CENTRE, 320, ALLEGRO_ALIGN_CENTER, "> > Resume game < <");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 400, ALLEGRO_ALIGN_CENTER, "Back to main menu");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 480, ALLEGRO_ALIGN_CENTER, "Quit game");
 		break;
 	case 2:
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 320, ALLEGRO_ALIGN_CENTER, "Resume game");
-		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "> > Back to main menu < <");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 480, ALLEGRO_ALIGN_CENTER, "Quit game");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 320, ALLEGRO_ALIGN_CENTER, "Resume game");
+		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), DISPLAY_CENTRE, 400, ALLEGRO_ALIGN_CENTER, "> > Back to main menu < <");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 480, ALLEGRO_ALIGN_CENTER, "Quit game");
 		break;
 	case 3:
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 320, ALLEGRO_ALIGN_CENTER, "Resume game");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), SIZE /2, 400, ALLEGRO_ALIGN_CENTER, "Back to main menu");
-		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), SIZE /2, 480, ALLEGRO_ALIGN_CENTER, "> > Quit game < <");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 320, ALLEGRO_ALIGN_CENTER, "Resume game");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 400, ALLEGRO_ALIGN_CENTER, "Back to main menu");
+		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), DISPLAY_CENTRE, 480, ALLEGRO_ALIGN_CENTER, "> > Quit game < <");
 		break;
 	}
 

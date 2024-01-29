@@ -24,6 +24,7 @@ void score_updater (int mapa[][COL], int idetifier);
  */
 int score_saver (int score);
 
+//Estructura donde se guardan los nombres y scores de jugadores
 typedef struct {
     char name[50];
     int score;

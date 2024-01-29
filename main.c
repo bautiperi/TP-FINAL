@@ -1,15 +1,21 @@
+// ----------------------------------------------------------------------------- //
+//FRONT
+#include "disp_start_menu_a.h"
+#include "disp_game_a.h"
+#include "disp_scoreboard_a.h"
+//BACK
+#include "back_map.h"
+#include "back_player.h"
+#include "back_enemy.h"
 //LIBRERIAS
 #include <stdio.h>
 #include <pthread.h>
 #include <allegro5/allegro.h>
 
-#include "back_enemy.h"
-#include "back_map.h"
-#include "disp_start_menu_a.h"
-#include "disp_game_a.h"
-#include "disp_scoreboard_a.h"
-//BACK
-#include "back_player.h"
+//Variable global que sirve como flag para detener la ejecución de los threads
+// 0 -> Falso, están en pausa | 1 -> Ejecutan | 2 -> Exit threads
+int flag_game_update = 0;
+// ----------------------------------------------------------------------------- //
 
 void * update_player_keyboard (void * arg);
 
@@ -54,6 +60,11 @@ int main(void){
 
 }
 
+/* FUNCIÓN UPDATE_PLAYER_KEYBOARD (hecha para threads)
+ * BRIEF: Es la función que se encarga de la interacción entre el usuario y dentro del juego
+ * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * return: (void *)
+ * */
 void * update_player_keyboard (void * arg){
 
 	int (*mapa)[COL] = (int (*)[COL])arg;
