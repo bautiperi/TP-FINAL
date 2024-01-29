@@ -29,6 +29,11 @@ void swap(int mapa[][COL], int x1, int y1, int x2, int y2);
  */
 int enemy_checker (int x, int y, const int mapa[][COL]);
 
+/* FUNCIÓN IMPACT_UPDATER
+ * BRIEF: Función encargada de declarar al front que ocurrió un disparo
+ * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * return: (void *)
+ */
 void * impact_updater (void * arg);
 
 #endif /* BACK_AUX_H_ */

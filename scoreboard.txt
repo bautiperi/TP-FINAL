@@ -1,6 +1,6 @@
-Renzo 100000
-Cami 10000
-Palo 48900
+Cami 64694
+Palo 64080
+Renzo 64071
 Bauti 64070
 ... 0
 ... 0

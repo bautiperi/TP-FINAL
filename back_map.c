@@ -26,6 +26,8 @@ static void barrier_gen (const int x, const int y, const int width, const int he
 //Se usa y para las filas y x para las columnas, así coincide con los displays
 void map_def(const int diff, int mapa [][COL]) {
 
+	//Guarda la dificultad en el primer elemento de la matriz
+	DIFICULTAD = diff;
 	int x, y;
 
 	//Loop que puebla de "espacio" la matriz

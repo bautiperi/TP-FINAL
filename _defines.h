@@ -32,6 +32,7 @@
 #define FIRE_EN 7
 
 // DEFINICIONES DE VALORES ESPECÍFICOS
+#define DIFICULTAD mapa[0][0]
 #define LIFES mapa[0][COL-1]
 #define SCORE mapa[0][COL-2]
 #define IMPACT mapa[0][COL-5]

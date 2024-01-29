@@ -75,6 +75,7 @@ static void display_impact(const int x, const int y, ALLEGRO_BITMAP * impact);
  * return: (void)
  *  */
 static void display_game_over (const int score);
+
 //Declaración de variable global en main.c (flag para threads)
 extern int flag_game_update;
 // ------------------------------------------------------------------------------------------------------------ //
@@ -94,7 +95,7 @@ int display_game (const int mapa[][COL]){
 	// BARRIERS IMAGE
 	ALLEGRO_BITMAP * barrier = al_load_bitmap("resources/barrier.png");
 	// LIVES IMAGE
-	ALLEGRO_BITMAP * heart = al_load_bitmap("resources/heart_yes.png");
+	ALLEGRO_BITMAP * heart = al_load_bitmap("resources/barbie_heart.png");
 	// IMPACT IMAGE
 	ALLEGRO_BITMAP * impact = al_load_bitmap("resources/impact.png");
 	// FONT
@@ -216,6 +217,7 @@ int display_game (const int mapa[][COL]){
 
 				int sel = display_pause_menu();
 
+				//Para cerrar el programa
 				if(sel == 3){
 					return sel;
 				}
@@ -233,8 +235,13 @@ int display_game (const int mapa[][COL]){
 					al_destroy_sample(background);
 					al_destroy_sample(ken_alien);
 
+					//ELIMINA LOS THREADS
+					flag_game_update = 2;
 					return 0;
 				}
+
+				//DDEJA CORRER LOS THREADS
+				flag_game_update = 1;
 
 			}
 		}
@@ -379,7 +386,7 @@ static void display_bullet(const int mapa[][COL]){
 static void display_impact(const int x, const int y, ALLEGRO_BITMAP * impact){
 
 	//Muestra en pantalla el impacto
-	al_draw_scaled_bitmap(impact, 0, 0, 360, 360, POS_X(x), POS_Y(y), SCALER, SCALER, 0);
+	al_draw_scaled_bitmap(impact, 0, 0, 810, 810, POS_X(x) -15, POS_Y(y) -15, 55, 55, 0);
 
 }
 

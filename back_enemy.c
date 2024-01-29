@@ -33,6 +33,9 @@ static void spawn_gen (int mapa[][COL], coord_t ini, coord_t desp, int type_of_e
 extern int flag_game_update;
 //-----------------------------------------------------------------------------------------------------//
 
+//Variable global que incrementa la dificultad dentro del juego
+float harder = 1;
+
 void ships_create (int diff, int mapa[][COL])
 {
 
@@ -83,10 +86,11 @@ void * alien_movement (void * arg)
 {
 	int (*mapa)[COL] = (int (*)[COL])arg;
 
+	int any_enemy = 0;
     int x, y;
     int dir = 1, flag = 0;
     // se mueve hacia la derecha
-    usleep(2000000);
+    usleep(2000000 / harder);
 
     while (1)
     {
@@ -123,12 +127,14 @@ void * alien_movement (void * arg)
                         mapa[y][x + 1] = SPACE;
                         swap(mapa, x, y, x + 1, y);
                         x++;
+                        any_enemy++;
                     }
                     // Cambia la posición del enemigo
                     else if (mapa[y][x + 1] == SPACE && (enemy_checker(x, y, mapa)))
                     {
                         swap(mapa, x, y, x + 1, y);
                         x++;
+                        any_enemy++;
                     }
                     //Si al momento de querer cambiar de lugar el enemigo y justo pasa un disparo, elimina al enemigo y llama a score_updater
                     else if (mapa[y][x + 1] == FIRE_PL && (enemy_checker(x, y, mapa)))
@@ -160,12 +166,14 @@ void * alien_movement (void * arg)
                         mapa[y][x - 1] = SPACE;
                         swap(mapa, x, y, x - 1, y);
                         x--;
+                        any_enemy++;
                     }
                     // Cambia la posición del enemigo
                     else if (mapa[y][x - 1] == SPACE && enemy_checker(x, y, mapa))
                     {
                         swap(mapa, x, y, x - 1, y);
                         x--;
+                        any_enemy++;
                     }
                     //Si al momento de querer cambiar de lugar el enemigo y justo pasa un disparo, elimina al enemigo y llama a score_updater
                     else if (mapa[y][x - 1] == FIRE_PL && (enemy_checker(x, y, mapa)))
@@ -178,7 +186,14 @@ void * alien_movement (void * arg)
                 }
             }
         }
-        usleep(1500000);
+
+    	//Si al recorrer todo el mapa no se encontraron enemigos, se crean más y se incrementa la dificultad
+    	if(any_enemy == 0){
+    		ships_create(DIFICULTAD, mapa);
+    		harder++;
+    	}
+
+        usleep(1500000 / harder);
     }
 }
 
@@ -214,11 +229,14 @@ static void alien_movement_v(int mapa[][COL])
             }
         }
     }
-    usleep(1000000);
+    usleep(1000000 / harder);
 }
 
 void * final_boss_creation(void *arg)
 {
+	time_t t;
+	srand((unsigned) time(&t));
+
 	//Pone el thread "en pausa"
 	while (flag_game_update == 0){
 
@@ -230,9 +248,8 @@ void * final_boss_creation(void *arg)
 
 	int (*mapa)[COL] = (int (*)[COL])arg;
 
-    usleep(15000000);
+	usleep((rand()%16 + 15) * 100000);
 
-    srand(time(NULL));
     int dir = rand() % 3 - 1;
     // si dir>=0 el enemigo aparece a la izquierda del mapa en direccion a la derecha
     if (dir >= 0)
@@ -301,7 +318,7 @@ static void final_boss_movement(int mapa[][COL], int dir)
                 }
             }
         }
-        usleep(450000);
+        usleep((int)(250000/(harder/2)));
     }
 }
 

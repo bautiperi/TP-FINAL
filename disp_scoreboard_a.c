@@ -80,15 +80,15 @@ static void display_board (player_t players[MAX_PLAYERS]){
 	font_title = al_load_ttf_font("resources/Barbie-font.ttf", size_title, 0);
 
 	//Escribe en el buffer "SCOREBOARD"
-	al_draw_text(font_title, al_map_rgb(233, 65, 150), 400, 65, ALLEGRO_ALIGN_CENTER, "Highscore");
+	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), 400, 65, ALLEGRO_ALIGN_CENTER, "Highscore");
 
 	//Carga la fuente para los nombres
 	ALLEGRO_FONT *font = NULL;
 	font = al_load_ttf_font("resources/Zepto-Regular.ttf", size_name, 0);
 
 	//Escribe el primer nombre y su puntaje en color rosa neon
-	al_draw_textf(font, al_map_rgb(255, 215, 0), 210, 185, ALLEGRO_ALIGN_LEFT, "%s", players[0].name);
-	al_draw_textf(font, al_map_rgb(255, 215, 0), 585, 185, ALLEGRO_ALIGN_RIGHT, "%d", players[0].score);
+	al_draw_textf(font, al_map_rgb(255, 0, 127), 210, 185, ALLEGRO_ALIGN_LEFT, "%s", players[0].name);
+	al_draw_textf(font, al_map_rgb(255, 0, 127), 585, 185, ALLEGRO_ALIGN_RIGHT, "%d", players[0].score);
 
 	//Loop que escribe el resto de los nombres y sus respectivos puntajes en blanco
 	int i;
