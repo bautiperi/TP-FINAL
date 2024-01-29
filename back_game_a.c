@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <pthread.h>
 
 // Variable global que sirve como flag para detener la ejecución de los threads
