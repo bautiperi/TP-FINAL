@@ -17,7 +17,8 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
-#include "back_game.h"
+
+#include "back_enemy.h"
 
 //DEFINICIÓN DE FUNCIONES PRIVADAS
 static void display_barr (const int mapa[][COL], ALLEGRO_BITMAP * barrier);

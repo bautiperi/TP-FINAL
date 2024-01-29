@@ -5,8 +5,8 @@
  *      Author: Grupo 5
  */
 
-#ifndef MAP_H_
-#define MAP_H_
+#ifndef BACK_MAP_H_
+#define BACK_MAP_H_
 
 #include <stdio.h>
 
@@ -19,4 +19,4 @@ return: (void)
 */
 void map_def(const int diff, int mapa [][COL]);
 
-#endif /* MAP_H_ */
+#endif /* BACK_MAP_H_ */

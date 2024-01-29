@@ -1,5 +1,5 @@
-#ifndef BACK_GAME_H_
-#define BACK_GAME_H_
+#ifndef BACK_ENEMY_H_
+#define BACK_ENEMY_H_
 
 #include "_defines.h"
 
@@ -19,4 +19,4 @@ void * final_boss_creation(void * arg);
 
 void * enemy_fire(void * arg);
 
-#endif /* BACK_GAME_H_ */
+#endif /* BACK_ENEMY_H_ */
