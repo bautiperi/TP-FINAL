@@ -93,5 +93,5 @@ void *joy_reading(void *arg)
         }
     } while (END_GAME != 1);
 
-    return NULL;
+    pthread_exit(NULL);
 }
