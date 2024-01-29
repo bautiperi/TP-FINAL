@@ -33,6 +33,7 @@ int main(void)
 	dcoord_t coord_menu = {0, 15};
 	FLICK_OPTION = 0; // flag para seleccion en el menu
 	// JUEGO
+	END_GAME = 0;
 	do
 	{
 
