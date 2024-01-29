@@ -360,10 +360,10 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
         }
 
         recorre_col = rand() % 4 + 1;
-        for (x = 0; x < 32; x += recorre_col) // Recorre el area donde se encuentran los aliens
+        for (x = 0; x < COL; x += recorre_col) // Recorre el area donde se encuentran los aliens
         {
             recorre_fil = rand() % 3 + 1;
-            for (y = 22; y > 0; y -= recorre_fil)
+            for (y = FIL; y > 0; y -= recorre_fil)
             {
                 if (enemy_checker(x, y, mapa)) // Verifica que haya aliens para que disparen
                 {
