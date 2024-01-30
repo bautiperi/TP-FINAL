@@ -67,6 +67,11 @@ void *obj_vis(void *arg)
                     {
                         aux.y++;
                         disp_write(aux, D_OFF);
+                        // apaga en la ultima fila
+                        if (y <= 1)
+                        {
+                            disp_write(aux, D_OFF);
+                        }
                     }
                     else
                     {
