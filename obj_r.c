@@ -6,7 +6,7 @@
 // guardan las coordenadas del led de abajo a la izquierda
 // static dcoord_t shield1 = {1, 12}, shield2 = {5, 12}, shield3 = {9, 12}, shield4 = {13, 12};
 
-/***********************************  GAMER   ***********************************/
+/***********************************  GAMER  ***********************************/
 
 void gamer_vis(dcoord_t ubi)
 {
@@ -39,7 +39,7 @@ void gamer_shot(dcoord_t coord)
     multp_flick(arr, 4);
 }
 
-/***********************************  ALIENS   ***********************************/
+/***********************************  ALIENS  ***********************************/
 
 void aliens_vis(dcoord_t coor_inicial)
 {

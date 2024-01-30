@@ -297,7 +297,7 @@ void *gamer_fire(void *arg)
         {
             swap(mapa, pos_x, y, pos_x, y - 1);
         }
-        else if (y - 1 <= 1)
+        else if (y == 1)
         {
             mapa[y][pos_x] = SPACE;
         }
