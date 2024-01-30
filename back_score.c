@@ -26,18 +26,19 @@ void score_updater (int mapa[][COL], int identifier)
 	srand((unsigned) time(&t));
 	static int enemy_counter;
 	//Dependiendo del enemigo al que se le pegó, se agregarán una determinada cantidad de puntos al score
+	//También, dependiendo del modo de juego, se multiplicará más el score total
 	if(identifier < 5){
-		SCORE += identifier *10;
+		SCORE += (identifier *10) * DIFICULTAD;
 		enemy_counter++;
 	}
 	else if (identifier == 5){
 		//Agrega en el score un nro aleatorio entre 50 y 100
-		SCORE += (rand()%6 + 5) *10;
+		SCORE += ((rand()%6 + 5) *10) * DIFICULTAD;
 	}
 
 }
 
-int score_saver (int score)
+int score_saver (const int score)
 {
 	FILE *scoreboard = fopen("scoreboard.txt", "a+");
 
@@ -90,7 +91,7 @@ int score_saver (int score)
 
 	fclose(scoreboard);
 
-	return 0;
+	return 1;
 }
 
 /* FUNCIÓN PLAYER_COMP

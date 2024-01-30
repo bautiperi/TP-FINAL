@@ -3,6 +3,7 @@
 #include "disp_pause_a.h"
 #include "disp_scoreboard_a.h"
 #include "_defines_display.h"
+#include "_defines.h"
 
 //LIBRERIAS
 #include <stdio.h>
@@ -11,7 +12,6 @@
 #include <time.h>
 
 //LIBRERIAS ALLEGRO
-#include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
@@ -49,7 +49,7 @@ static void display_player (const int mapa[][COL], ALLEGRO_BITMAP * player);
 /* FUNCIÓN DISPLAY_ALIENS
  * BRIEF: Se encarga de mostrar en pantalla los enemigos (aliens y boss)
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
- * return: (int) En caso de que el boss esté en pantalla, se devuelve 1 para que se escuche la canción
+ * return: (int) En caso de que el boss esté en pantalla, se devuelve 1 para que se escuche la canción de "I'm Just Ken"
  *  */
 static int display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLEGRO_BITMAP * alien_2, ALLEGRO_BITMAP * alien_3, ALLEGRO_BITMAP * boss);
 
@@ -69,29 +69,20 @@ static void display_bullet (const int mapa[][COL]);
  *  */
 static void display_impact(const int x, const int y, ALLEGRO_BITMAP * impact);
 
-/* FUNCIÓN DISPLAY_IMPACT
- * BRIEF: Se encarga de mostrar en pantalla cuando el jugador perdió, también muestra su score final
- * score: (int) Score final del jugador
- * return: (void)
- *  */
-static void display_game_over (const int score);
-
 //Declaración de variable global en main.c (flag para threads)
 extern int flag_game_update;
 // ------------------------------------------------------------------------------------------------------------ //
 
-int display_game (const int mapa[][COL]){
+int display_game (const int mapa[][COL], ALLEGRO_DISPLAY * display){
 
 	int ken_flag = 0, ken_flag_continue = 0;
 
 	// INICIALIZACIÓN DE ELEMENTOS PARA EL JUEGO:
-	// PLAYER IMAGE
-	ALLEGRO_BITMAP * player = al_load_bitmap("resources/player.png");
 	// ALIENS & BOSS IMAGE
-	ALLEGRO_BITMAP * alien_1 = al_load_bitmap("resources/aliens.png");
-	ALLEGRO_BITMAP * alien_2 = al_load_bitmap("resources/aliens_2.png");
-	ALLEGRO_BITMAP * alien_3 = al_load_bitmap("resources/aliens_2.png");
-	ALLEGRO_BITMAP * boss = al_load_bitmap("resources/aliens_2.png");
+	ALLEGRO_BITMAP * alien_1 = al_load_bitmap("resources/enemies/alien_1.png");
+	ALLEGRO_BITMAP * alien_2 = al_load_bitmap("resources/enemies/alien_2.png");
+	ALLEGRO_BITMAP * alien_3 = al_load_bitmap("resources/enemies/alien_3.png");
+	ALLEGRO_BITMAP * boss = al_load_bitmap("resources/enemies/ken.png");
 	// BARRIERS IMAGE
 	ALLEGRO_BITMAP * barrier = al_load_bitmap("resources/barrier.png");
 	// LIVES IMAGE
@@ -117,8 +108,16 @@ int display_game (const int mapa[][COL]){
 	al_set_sample_instance_gain(backgroundInstance, 0.4);
 
 	// -------------- LLAMA PARA PEDIR EL NOMBRE DEL JUGADOR --------------
-	//display_score_name(); Deshabilitado para probar el juego más facilmente
+	int j = disp_name_and_char();
 	// --------------------------------------------------------------------
+
+	//Carga la imagen del personaje seleccionado por el jugador
+	char file_player[100];
+	sprintf(file_player, "resources/characters/char_game/player_%d.png", j);
+	// PLAYER IMAGE
+	ALLEGRO_BITMAP * player = NULL;
+	player = al_load_bitmap(file_player);
+
 
 	// TIMER
 	ALLEGRO_TIMER *timer = NULL;
@@ -129,6 +128,9 @@ int display_game (const int mapa[][COL]){
 	// DETECTA CUANDO SE OPRIME COSAS EN EL TECLADO
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
+
+	// DETECTA CUANDO SE TRATA DE CERRAR EL DISPLAY
+	al_register_event_source(event_queue, al_get_display_event_source(display));
 
 	ALLEGRO_EVENT event, ev;
 
@@ -146,6 +148,7 @@ int display_game (const int mapa[][COL]){
 		if(ken_flag == 1 && ken_flag_continue == 0){
 			ken_flag_continue = 1;
 			al_play_sample_instance(kenInstance);
+			al_set_sample_instance_gain(backgroundInstance, 0.1);
 			al_set_sample_instance_gain(kenInstance, 0.5);
 
 		}
@@ -240,10 +243,13 @@ int display_game (const int mapa[][COL]){
 					return 0;
 				}
 
-				//DDEJA CORRER LOS THREADS
+				//DEJA CORRER LOS THREADS
 				flag_game_update = 1;
 
 			}
+		}
+		else if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+			return QUIT;
 		}
 
 	} while(1);
@@ -285,16 +291,16 @@ static void display_stats (int score, int lives, ALLEGRO_FONT *font, ALLEGRO_BIT
 	al_draw_textf(font, al_map_rgb(255, 255, 255), 25, 5, 0, "Score: %d", score);
 
 	//Escribe en pantalla lives
-	al_draw_text(font, al_map_rgb(255, 255, 255), 615, 5, 0, "Lives:");
+	al_draw_text(font, al_map_rgb(255, 255, 255), DISPLAY_SIZE - 235, 5, 0, "Lives:");
 
 	//Loop que pone en el buffer la cantidad de vidas que tiene el jugador
-	int i, x=680;
-	for(i = 1; i <= lives; i++, x += 35){
-		al_draw_scaled_bitmap(heart, 0, 0, 920, 920, x, 10, 30, 30, 0);
+	int i, x= DISPLAY_SIZE - 175;
+	for(i = 1; i <= lives; i++, x += 50){
+		al_draw_scaled_bitmap(heart, 0, 0, 920, 920, x, 5, 40, 40, 0);
 	}
 
 	//Muestra en pantalla "Press ESC to pause the game"
-	al_draw_text(font, al_map_rgb(255, 255, 255), 400, 750, ALLEGRO_ALIGN_CENTER, "Press ESC to pause the game");
+	al_draw_text(font, al_map_rgb(255, 255, 255), 400, DISPLAY_SIZE -50, ALLEGRO_ALIGN_CENTER, "Press ESC to pause the game");
 
 }
 
@@ -309,7 +315,7 @@ static void display_player (const int mapa[][COL], ALLEGRO_BITMAP * player){
 	int x;
 	for(x = 0; x < COL; x++){
 		if(mapa[28][x] == 1){
-			al_draw_scaled_bitmap(player, 0, 0, 128, 64, (x-1) * SCALER, 28 * SCALER , SCALER * 2, SCALER, 0);
+			al_draw_scaled_bitmap(player, 0, 0, 650, 650, (x-1)*SCALER, POS_Y(28) , SCALER * 2, SCALER * 2, 0);
 			return;
 		}
 	}
@@ -329,19 +335,19 @@ static int display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLE
 		for(x = 0; x < COL; x++){
 			if (mapa[y][x] == ALIEN_2){
 				//Si el enemigo es un alien, muestra la imagen de un alien
-				al_draw_scaled_bitmap(alien_1, 0, 0, 308, 308, POS_X(x), POS_Y(y) , 30, 30, 0);
+				al_draw_scaled_bitmap(alien_1, 0, 0, 650, 650, POS_X(x), POS_Y(y) , 45, 45, 0);
 			}
 			else if (mapa[y][x] == ALIEN_3){
 				//Si el enemigo es un alien, muestra la imagen de un alien
-				al_draw_scaled_bitmap(alien_2, 0, 0, 308, 308, POS_X(x), POS_Y(y) , 30, 30, 0);
+				al_draw_scaled_bitmap(alien_2, 0, 0, 650, 650, POS_X(x), POS_Y(y) , 45, 45, 0);
 			}
 			else if (mapa [y][x] == ALIEN_4){
 				//Si el enemigo es un alien, muestra la imagen de un alien
-				al_draw_scaled_bitmap(alien_3, 0, 0, 308, 308, POS_X(x), POS_Y(y) , 30, 30, 0);
+				al_draw_scaled_bitmap(alien_3, 0, 0, 650, 650, POS_X(x), POS_Y(y) , 45, 45, 0);
 			}
 			else if (mapa [y][x] == BOSS){
 				//Si el enemigo es un alien, muestra la imagen de un alien
-				al_draw_scaled_bitmap(boss, 0, 0, 308, 308, POS_X(x), POS_Y(y) , 30, 30, 0);
+				al_draw_scaled_bitmap(boss, 0, 0, 650, 650, POS_X(x), POS_Y(y) , 50, 50, 0);
 				ken_flag++;
 			}
 		}
@@ -388,28 +394,5 @@ static void display_impact(const int x, const int y, ALLEGRO_BITMAP * impact){
 	//Muestra en pantalla el impacto
 	al_draw_scaled_bitmap(impact, 0, 0, 810, 810, POS_X(x) -15, POS_Y(y) -15, 55, 55, 0);
 
-}
-
-/* FUNCIÓN DISPLAY_IMPACT
- * BRIEF: Se encarga de mostrar en pantalla cuando el jugador perdió, también muestra su score final
- * score: (int) Score final del jugador
- * return: (void)
- *  */
-static void display_game_over (const int score){
-	ALLEGRO_FONT *font_title = NULL;
-	font_title = al_load_ttf_font("resources/Barbie-font.ttf", TITLE_SIZE, 0);
-	ALLEGRO_FONT *font_score = NULL;
-	font_score = al_load_ttf_font("resources/Barbie-font.ttf", 55, 0);
-	ALLEGRO_FONT *font_description = NULL;
-	font_description = al_load_ttf_font("resources/Barbie-font.ttf", 35, 0);
-
-	al_clear_to_color(al_map_rgb(54,1,63));
-
-	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), DISPLAY_CENTRE, 135, ALLEGRO_ALIGN_CENTER, "Game Over! :(");
-	al_draw_textf(font_score, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 350, ALLEGRO_ALIGN_CENTER, "Your score was: %d", score);
-	al_draw_text(font_description, al_map_rgb(BUTTON_COLOR), 400, 750, ALLEGRO_ALIGN_CENTER, "Press any key to go back to the main menu");
-
-
-	al_flip_display();
 }
 

@@ -20,7 +20,7 @@ void score_updater (int mapa[][COL], int idetifier);
 /* FUNCIÓN SCORE_SAVER
  * BRIEF: Guarda el score del jugador en un archivo, ordenandolo de mayor a menor puntaje
  * score: (int) Es el score del juego actual
- * return: (int) Devuelve 0 si no hubo errores y se pudo guardar el score del jugador, -1 caso contrario
+ * return: (int) Devuelve 0 si no hubo errores y se pudo guardar el score del jugador, -1 caso contrario. Devuelve 1 si el jugador entró en el top
  */
 int score_saver (int score);
 

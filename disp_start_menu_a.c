@@ -3,6 +3,7 @@
 #include "disp_start_menu_a.h"
 #include "disp_scoreboard_a.h"
 #include "_defines_display.h"
+#include "_defines.h"
 
 //LIBRERIAS
 #include <stdio.h>
@@ -74,7 +75,7 @@ ALLEGRO_DISPLAY * display_init (void){
 	}
 
 	//Inicializa el display
-	display = al_create_display(800, 800);
+	display = al_create_display(DISPLAY_SIZE, DISPLAY_SIZE);
 	if (!display) {
 		fprintf(stderr, "No se pudo crear el display \n");
 		return NULL;
@@ -84,7 +85,7 @@ ALLEGRO_DISPLAY * display_init (void){
 }
 
 //sel = 1 -> Iniciar juego nuevo | sel = 2 -> Scoreboard | sel = 3 -> exit game
-int display_start_menu(void){
+int display_start_menu(int * dificultad, ALLEGRO_DISPLAY * display){
 	int sel = 0, ret = 1;
 
 	//Carga las fonts
@@ -97,7 +98,8 @@ int display_start_menu(void){
 
 	// COLA DE EVENTOS
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
-	al_register_event_source(event_queue, al_get_keyboard_event_source());
+	al_register_event_source(event_queue, al_get_keyboard_event_source()); //Teclado
+	al_register_event_source(event_queue, al_get_display_event_source(display)); //Display
 
 	// CARGA LA CANCIÓN "Dance the Night"
 	ALLEGRO_SAMPLE *sample = al_load_sample("resources/Dance the night - Dua Lipa.wav");
@@ -125,11 +127,11 @@ int display_start_menu(void){
 			}
 		}
 
-		if(sel > 3){
-			sel = 1;
+		if(sel > QUIT){
+			sel = NEW_GAME;
 		}
 		else if(sel <= 0){
-			sel = 3;
+			sel = QUIT;
 		}
 
 		display_s_menu(sel, font_title, font);
@@ -137,7 +139,7 @@ int display_start_menu(void){
 		if (ev.type == ALLEGRO_EVENT_KEY_DOWN){
 			if(ev.keyboard.keycode == ALLEGRO_KEY_ENTER || ev.keyboard.keycode == ALLEGRO_KEY_SPACE){
 				//Si se selecciona el scoreboard, se llama a la función encargada de ello
-				if(sel == 2){
+				if(sel == HIGHSCORE){
 					// Hace un fade-out de la música
 					float volume;
 					for (volume = 0.5; volume > 0.2; volume -= 0.01) {
@@ -157,6 +159,9 @@ int display_start_menu(void){
 					ret = 0;
 				}
 			}
+		}
+		else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+			return QUIT;
 		}
 
 	} while(ret);
@@ -189,29 +194,39 @@ static void display_s_menu (unsigned int boton, ALLEGRO_FONT * font_title, ALLEG
 	al_clear_to_color(al_map_rgb(54,1,63));
 
 	//TÍTULO
-	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), DISPLAY_CENTRE, 135, ALLEGRO_ALIGN_CENTER, "Space Barbie");
+	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 300, ALLEGRO_ALIGN_CENTER, "Space Barbie");
 
 	//BOTONES
 	switch(boton){
 	case 0:
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 320, ALLEGRO_ALIGN_CENTER, "New game");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 400, ALLEGRO_ALIGN_CENTER, "Highscore");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 480, ALLEGRO_ALIGN_CENTER, "Quit game");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 125, ALLEGRO_ALIGN_CENTER, "New game");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 45, ALLEGRO_ALIGN_CENTER, "Highscore");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 45, ALLEGRO_ALIGN_CENTER, "Difficulty");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 125, ALLEGRO_ALIGN_CENTER, "Quit game");
 		break;
-	case 1:
-		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), DISPLAY_CENTRE, 320, ALLEGRO_ALIGN_CENTER, "> >  New game  < <");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 400, ALLEGRO_ALIGN_CENTER, "Highscore");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 480, ALLEGRO_ALIGN_CENTER, "Quit game");
+	case NEW_GAME:
+		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 125, ALLEGRO_ALIGN_CENTER, "> >  New game  < <");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 45, ALLEGRO_ALIGN_CENTER, "Highscore");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 45, ALLEGRO_ALIGN_CENTER, "Difficulty");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 125, ALLEGRO_ALIGN_CENTER, "Quit game");
 		break;
-	case 2:
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 320, ALLEGRO_ALIGN_CENTER, "New game");
-		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), DISPLAY_CENTRE, 400, ALLEGRO_ALIGN_CENTER, "> >  Highscore  < <");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 480, ALLEGRO_ALIGN_CENTER, "Quit game");
+	case HIGHSCORE:
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 125, ALLEGRO_ALIGN_CENTER, "New game");
+		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 45, ALLEGRO_ALIGN_CENTER, "> >  Highscore  < <");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 45, ALLEGRO_ALIGN_CENTER, "Difficulty");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 125, ALLEGRO_ALIGN_CENTER, "Quit game");
 		break;
-	case 3:
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 320, ALLEGRO_ALIGN_CENTER, "New game");
-		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 400, ALLEGRO_ALIGN_CENTER, "Highscore");
-		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), DISPLAY_CENTRE, 480, ALLEGRO_ALIGN_CENTER, "> >  Quit game  < <");
+	case DIFFICULTY:
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 125, ALLEGRO_ALIGN_CENTER, "New game");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 45, ALLEGRO_ALIGN_CENTER, "Highscore");
+		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 45, ALLEGRO_ALIGN_CENTER, "> >  Difficulty  < <");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 125, ALLEGRO_ALIGN_CENTER, "Quit game");
+		break;
+	case QUIT:
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 125, ALLEGRO_ALIGN_CENTER, "New game");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 45, ALLEGRO_ALIGN_CENTER, "Highscore");
+		al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 45, ALLEGRO_ALIGN_CENTER, "Difficulty");
+		al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 125, ALLEGRO_ALIGN_CENTER, "> >  Quit game  < <");
 		break;
 	}
 

@@ -15,10 +15,17 @@
  *  */
 int display_scoreboard (void);
 
-/* FUNCIÓN DISPLAY_SCORE_NAME
- * BRIEF: Se encarga de mostrar una pantalla donde el jugador debe ingresar su nombre
+/* FUNCIÓN DISP_NAME_AND_CHAR
+ * BRIEF: Se encarga de mostrar una pantalla donde el jugador debe ingresar su nombre y luego de elegir su personake Barbie
  * return: (int) Devuelve 0 cuando el jugador ingresó el nombre
  *  */
-int display_score_name (void);
+int disp_name_and_char (void);
+
+/* FUNCIÓN DISPLAY_GAME_OVER
+ * BRIEF: Se encarga de mostrar en pantalla cuando el jugador perdió, también muestra su score final y si entró al scoreboard
+ * score: (int) Score final del jugador
+ * return: (void)
+ *  */
+void display_game_over (const int score);
 
 #endif /* DISP_SCOREBOARD_A_H_ */

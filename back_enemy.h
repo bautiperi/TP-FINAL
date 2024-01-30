@@ -32,4 +32,13 @@ void * final_boss_creation(void * arg);
  */
 void * enemy_fire(void * arg);
 
+/* FUNCIÓN ENEMY_LIFE
+ * BRIEF: Es llamada cuando un disparo del jugador "le pega" a un enemigo, la función decide si sigue o no con vida
+ * x: (int) Coordenada x donde está el enemigo
+ * y: (int) Coordenada y donde está el enemigo
+ * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * Return: (puntero void)
+ */
+void enemy_life (int x, int y, int mapa[][COL]);
+
 #endif /* BACK_ENEMY_H_ */

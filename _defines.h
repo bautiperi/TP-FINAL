@@ -10,20 +10,22 @@
 #define FIL 32
 
 // MAPA
-#define SPACE 0
-#define BARRIER -1
+#define SPACE	0
+#define BARRIER	-1
 
 // DIFICULTAD
-#define RASP 0
-#define EASY 1
+#define RASP	0
+#define NORMAL	1
+#define HARD	2
+#define EXTREME	3
 
 // JUGADOR
-#define POS_Y_PL 28
-#define SPAWN_POINT mapa[POS_Y_PL][COL/2 -1]
-#define JUGADOR 1
+#define POS_Y_PL	28
+#define SPAWN_POINT	mapa[POS_Y_PL][COL/2 -1]
+#define JUGADOR		1
 
 // VALOR DE ENEMIGOS
-#define BOSS 5
+#define BOSS	5
 #define ALIEN_4 4
 #define ALIEN_3 3
 #define ALIEN_2 2
@@ -32,15 +34,21 @@
 #define FIRE_PL 6
 #define FIRE_EN 7
 
-// DEFINICIONES DE VALORES ESPECÍFICOS
-#define DIFICULTAD mapa[0][0]
-#define LIVES mapa[0][COL-1]
-#define SCORE mapa[0][COL-2]
-#define IMPACT mapa[0][COL-5]
-#define IMPACT_X mapa[0][COL-4]
-#define IMPACT_Y mapa[0][COL-3]
+// OPCIONES
+#define NEW_GAME 1
+#define HIGHSCORE 2
+#define DIFFICULTY 3
+#define QUIT 4
 
-// DEFINICIÓN DE COORDENADAS
+// DEFINICIONES DE VALORES ESPECÍFICOS
+#define DIFICULTAD	mapa[0][0]
+#define LIVES		mapa[0][COL-1]
+#define SCORE		mapa[0][COL-2]
+#define IMPACT		mapa[0][COL-5]
+#define IMPACT_X 	mapa[0][COL-4]
+#define IMPACT_Y 	mapa[0][COL-3]
+
+// DEFINICIÓN DE COORDENADAS GENÉRICAS
 typedef struct {
 	unsigned int x;
 	unsigned int y;

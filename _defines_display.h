@@ -2,9 +2,9 @@
 #define DEFINES_DISPLAY_H_
 
 //DEFINES DISPLAY
-#define DISPLAY_SIZE 800
+#define DISPLAY_SIZE 960
 #define DISPLAY_CENTRE DISPLAY_SIZE /2
-#define SCALER 25
+#define SCALER 30
 #define POS_X(x) ((x)* SCALER - SCALER/2)
 #define POS_Y(y) ((y) * SCALER)
 

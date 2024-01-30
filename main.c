@@ -30,15 +30,16 @@ int main(void){
 	}
 
 	int sel = 0;
+	int dificultad = NORMAL;
 
-	while( sel != 3 ){
-		sel = display_start_menu();
+	while( sel != QUIT ){
+		sel = display_start_menu(&dificultad, display);
 
 		//Inicializar juego
-		if(sel == 1){
+		if(sel == NEW_GAME){
 			int mapa[FIL][COL];
 
-			map_def(EASY, mapa);
+			map_def(dificultad, mapa, 0);
 
 			//Flag en 0 para que los threads no se inicialicen y estén en pausa
 			flag_game_update = 0;
@@ -50,7 +51,7 @@ int main(void){
 			pthread_create(&up_player, NULL, update_player_keyboard, mapa);
 			pthread_create(&enemy_shot, NULL, enemy_fire, mapa);
 
-			sel = display_game(mapa);
+			sel = display_game(mapa, display);
 		}
 
 		flag_game_update = 2;
@@ -72,16 +73,26 @@ void * update_player_keyboard (void * arg){
 	// DETECTA CUANDO SE OPRIME COSAS EN EL TECLADO
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
-
 	ALLEGRO_EVENT event;
+
+	// CREA UNA COLA DE EVENTOS PARA LIMITAR LA CANTIDAD DE DISPAROS
+	ALLEGRO_EVENT_QUEUE *timer_queue = al_create_event_queue();
+	ALLEGRO_TIMER *shot_timer = al_create_timer(1.5);
+	al_register_event_source(timer_queue, al_get_timer_event_source(shot_timer));
+	ALLEGRO_EVENT timer;
+
+	al_start_timer(shot_timer);
+
 
 	while (1){
 
 		if(flag_game_update == 0){
 			al_get_next_event(event_queue, &event);
+			al_get_next_event(timer_queue, &timer);
 		}
 		else {
 			al_get_next_event(event_queue, &event);
+			al_get_next_event(timer_queue, &timer);
 
 			if(event.type == ALLEGRO_EVENT_KEY_DOWN || event.type == ALLEGRO_EVENT_KEY_CHAR){
 				if( event.keyboard.keycode == ALLEGRO_KEY_RIGHT || event.keyboard.keycode == ALLEGRO_KEY_D){
@@ -94,13 +105,20 @@ void * update_player_keyboard (void * arg){
 				}
 			}
 
-			if(event.type == ALLEGRO_EVENT_KEY_DOWN){
-				if (event.keyboard.keycode == ALLEGRO_KEY_X){
-					pthread_t gamer_shot;
-					pthread_create(&gamer_shot, NULL, gamer_fire, mapa);
+			if(timer.type == ALLEGRO_EVENT_TIMER && timer.timer.source == shot_timer){
+				if(event.type == ALLEGRO_EVENT_KEY_DOWN){
+					if (event.keyboard.keycode == ALLEGRO_KEY_X){
+						pthread_t gamer_shot;
+						pthread_create(&gamer_shot, NULL, gamer_fire, mapa);
+					}
 				}
 			}
 		}
 
 	}
 }
+
+/* NORMAL:	Juego tradicional | x1
+ * HARD:	Como el tradicional, pero los enemigos tienen múltiples vidas (aleatorio), y los shields tienen la mitad del tamaño | x2
+ * EXTREME:	No hay shield, enemigos con múltiples vidas y no hay vidas (jeje) | x3
+ * */

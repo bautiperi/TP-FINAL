@@ -1,5 +1,6 @@
 //-----------------------------------------------------------------------------------------------------//
 #include "back_enemy.h"
+#include "back_map.h"
 #include "back_player.h"
 #include "back_aux.h"
 #include "back_score.h"
@@ -9,6 +10,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <stdio.h>
 
 //PROTOTIPOS FUNCIONES PRIVADAS
 static void alien_movement_v(int mapa[][COL]);
@@ -40,7 +42,24 @@ void ships_create (int diff, int mapa[][COL])
 {
 
 	//Dependiendo de la dificultad, se crearan de diferentes formas los aliens
-	if (diff == EASY){
+	if (diff == RASP) {
+
+	}
+	//Extreme: Todo dos filas y el primero 3?
+	else if (diff == EXTREME ){
+		int i, enemy = 4;
+
+		for(i = 7; i < 16; i += 4){
+			//ini es la coordenada superior izq y desp es la coordenada inferior derecha
+			coord_t ini = {4, i}, desp = {27, i + 3};
+
+			//Se crean dos filas del alien seleccionado
+			spawn_gen(mapa, ini, desp, enemy--);
+		}
+
+	}
+	//Tradicional y hard: Crea una fila de alien_3, y dos filas por cada tipo de alien restante (alien_3 y alien_2)
+	else {
 		int i, enemy = 4;
 		{
 			coord_t ini = {4, 5}, desp = {27, 5};
@@ -56,7 +75,6 @@ void ships_create (int diff, int mapa[][COL])
 			//Se crean dos filas del alien seleccionado
 			spawn_gen(mapa, ini, desp, enemy--);
 		}
-
 	}
 
 }
@@ -107,6 +125,7 @@ void * alien_movement (void * arg)
         {
             alien_movement_v(mapa);
             flag = 0;
+            any_enemy++;
         }
         else if (dir == 1)
         {
@@ -139,14 +158,18 @@ void * alien_movement (void * arg)
                     //Si al momento de querer cambiar de lugar el enemigo y justo pasa un disparo, elimina al enemigo y llama a score_updater
                     else if (mapa[y][x + 1] == FIRE_PL && (enemy_checker(x, y, mapa)))
                     {
+                    	flag_game_update = 0; //Para evitar errores, momentaneamente detiene el resto de threads
                     	score_updater(mapa, mapa[y][x]);
-                    	mapa[y][x] = 0;
-                    	mapa[y][x + 1] = 0;
+                    	enemy_life(x, y, mapa); //Decide si el alien vive o no
+                    	mapa[y][x + 1] = 0; //Destruye la bala
+                    	swap(mapa, x, y, x + 1, y);
                     	x++;
+                    	flag_game_update = 1; //Vuelve a habilitar los threads
                     }
 
                 }
             }
+
         }
         else
         { // Se mueve hacia la izquierda
@@ -178,10 +201,13 @@ void * alien_movement (void * arg)
                     //Si al momento de querer cambiar de lugar el enemigo y justo pasa un disparo, elimina al enemigo y llama a score_updater
                     else if (mapa[y][x - 1] == FIRE_PL && (enemy_checker(x, y, mapa)))
                     {
+                    	flag_game_update = 0; //Para evitar errores, momentaneamente detiene el resto de threads
                     	score_updater(mapa, mapa[y][x]);
-                    	mapa[y][x] = 0;
+                    	enemy_life(x, y, mapa);
                         mapa[y][x - 1] = 0;
-                        x++;
+                        swap(mapa, x, y, x - 1, y);
+                        x--;
+                        flag_game_update = 1; //Vuelve a habilitar los threads
                     }
                 }
             }
@@ -189,8 +215,11 @@ void * alien_movement (void * arg)
 
     	//Si al recorrer todo el mapa no se encontraron enemigos, se crean más y se incrementa la dificultad
     	if(any_enemy == 0){
-    		ships_create(DIFICULTAD, mapa);
-    		harder++;
+    		map_def(DIFICULTAD, mapa, SCORE);
+    	    harder++;
+    	}
+    	else{
+    		any_enemy = 0;
     	}
 
         usleep(1500000 / harder);
@@ -248,7 +277,7 @@ void * final_boss_creation(void *arg)
 
 	int (*mapa)[COL] = (int (*)[COL])arg;
 
-	usleep((rand()%16 + 15) * 100000);
+	usleep((rand()%16 + 15) * 1000000);
 
     int dir = rand() % 3 - 1;
     // si dir>=0 el enemigo aparece a la izquierda del mapa en direccion a la derecha
@@ -410,4 +439,23 @@ void * enemy_fire(void * arg) // Genera los disparos enemigos
 	}
 
 	pthread_exit(NULL);
+}
+
+void enemy_life (int x, int y, int mapa[][COL]){
+	time_t t;
+	srand((unsigned) time(&t));
+
+	//Si la dificultad del juego es tradicional o para Raspberry, se elimina el enemigo
+	if(DIFICULTAD == NORMAL || DIFICULTAD == RASP){
+		mapa[y][x] = 0;
+	}
+	//Si la dificultad es HARD, hay un 50% de probabilidad de que muera o no
+	//Si la dificultad es EXTREME, hay un 60% de probabilidad de que no muera
+	//Si es un boss, lo elimina independientemente de la dificultad
+	else if (DIFICULTAD == EXTREME || DIFICULTAD == HARD){
+		int i = rand() % 10 + 1;
+		if(i <= (7 - DIFICULTAD) || mapa[y][x] == BOSS){
+			mapa[y][x] = 0;
+		}
+	}
 }

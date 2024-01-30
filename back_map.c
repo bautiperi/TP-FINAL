@@ -24,10 +24,9 @@ static void barrier_gen (const int x, const int y, const int width, const int he
 //------------------------------------------------------------------------------------------------------------------//
 
 //Se usa y para las filas y x para las columnas, así coincide con los displays
-void map_def(const int diff, int mapa [][COL]) {
+void map_def(const int diff, int mapa [][COL], int score) {
 
 	//Guarda la dificultad en el primer elemento de la matriz
-	DIFICULTAD = diff;
 	int x, y;
 
 	//Loop que puebla de "espacio" la matriz
@@ -38,16 +37,29 @@ void map_def(const int diff, int mapa [][COL]) {
 		}
 	}
 
-	//Llama a la función encargada de crear los obstáculos
-	barrier_diff(diff, mapa);
+	//Si el modo es el normal, se regeneran las barriers y las vidas
+	if(score == 0 || diff == NORMAL || diff == RASP){
+		//Llama a la función encargada de crear los obstáculos
+		barrier_diff(diff, mapa);
+		//Si el modo es extreme, solo le dá una vida
+		if(diff == EXTREME){
+			LIVES = 1;
+		}
+		else{
+			//Pone las 3 vidas del jugador
+			LIVES = 3;
+		}
+	}
 
 	//Llama a la función encargada de crear los enemigos
 	ships_create(diff, mapa);
 
+	//Guarda la dificultad seleccionada en el mapa
+	DIFICULTAD = diff;
+
 	//Ubica al jugador en el centro del mapa
 	SPAWN_POINT = JUGADOR;
 
-	LIVES = 3;
 }
 
 /* FUNCIÓN BARRIER_DIFF
@@ -67,7 +79,7 @@ static void barrier_diff (const int diff, int mapa[][COL]){
 			barrier_gen(i, 10, 2, 2, -2, mapa);
 		}
 	}
-	else if (diff == EASY){
+	else if (diff == NORMAL || diff == HARD){
 		int i;
 
 		//Loop donde se llama a la función barrier_gen para crear las barreras/escudos
@@ -76,7 +88,7 @@ static void barrier_diff (const int diff, int mapa[][COL]){
 		}
 	}
 
-	//Agregar casos para modo normal y modo difícil
+	//Extreme no genera barreras, por lo que no entra a ningún if
 }
 
 /* FUNCIÓN BARRIER_GEN
