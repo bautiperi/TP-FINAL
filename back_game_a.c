@@ -254,96 +254,10 @@ void gamer_movement(int mapa[][COL], int dir)
         {
             swap(mapa, x, y, x + dir, y);
             x++;
-            usleep(100000);
+            usleep(80000);
         }
     }
 }
-
-/*
-void *gamer_fire(void *arg)
-{
-    // Pone el thread "en pausa"
-    while (flag_game_update == 0)
-    {
-    }
-    // Termina la ejecución del thread
-    if (flag_game_update == 2)
-    {
-        return NULL;
-    }
-
-    int(*mapa)[COL] = (int(*)[COL])arg;
-
-    if (flag_gamer_shot == 0)
-    {
-        return NULL;
-    }
-    else
-    {
-        flag_gamer_shot--;
-    }
-
-    int x, y = FIL - 1, stop = 1;
-    int pos_x;
-
-    // Busca la posición del jugador al momento del disparo, cuando lo encuentra, enciende un flag para detener el loop y guardar la posición
-    for (x = 0; stop && x < COL; x++)
-    {
-        if (mapa[y][x] == 1)
-        {
-            mapa[y - 1][x] = FIRE_PL;
-            stop = 0;
-            pos_x = x;
-        }
-    }
-
-    int eureka = 1;
-
-    // Empieza a mover el disparo por el mapa, en caso de encontrar un obstáculo lo destruye y se elimina el disparo
-    for (y--; y > 0 && eureka; y--)
-    {
-        usleep(150000);
-
-        if (mapa[y - 1][pos_x] == SPACE)
-        {
-            swap(mapa, pos_x, y, pos_x, y - 1);
-        }
-        else if (y - 1 < 0)
-        {
-            mapa[y][pos_x] = SPACE;
-        }
-        else
-        {
-            eureka = 0;
-            // Si es una barrera, la destruye y borra al disparo del mapa
-
-            if (mapa[y - 1][pos_x] == BARRIER)
-            {
-                // Destruye la barrera
-                mapa[y - 1][pos_x] = SPACE;
-                // Elimina el disparo
-                mapa[y][pos_x] = SPACE;
-                fprintf(stderr, "Eliminé una barrera \n");
-            }
-            // Si es un enemigo, destruye el disparo y elimina al enemigo, tmb llama a la función score_updater para sumarle los puntos al jugador
-            else if (mapa[y - 1][pos_x] != SPACE)
-            {
-                // Evita que se puedan mover los enemigos al momento de ser detectados, para lograr evitar errores
-                flag_game_update = 0;
-
-                score_updater(mapa, mapa[y - 1][pos_x]);
-
-                mapa[y - 1][pos_x] = SPACE;
-
-                mapa[y][pos_x] = SPACE;
-
-                flag_game_update = 1;
-            }
-        }
-    }
-    pthread_exit(NULL);
-}
-*/
 
 void *gamer_fire(void *arg)
 {
