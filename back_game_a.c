@@ -244,9 +244,9 @@ static void final_boss_movement(int mapa[][COL], int dir)
     }
 }
 
-void gamer_movement(int mapa[][COL], int dir) // REVISAR: se mueve muy rapido? => avisar a cami ;)
+void gamer_movement(int mapa[][COL], int dir)
 {
-    int x, y = 15; // Pondría un define para que quede mejor :)
+    int x, y = FIL - 1, ; // Pondría un define para que quede mejor :)
 
     for (x = 0; x < COL; x++)
     {
@@ -254,6 +254,7 @@ void gamer_movement(int mapa[][COL], int dir) // REVISAR: se mueve muy rapido? =
         {
             swap(mapa, x, y, x + dir, y);
             x++;
+            usleep(100000);
         }
     }
 }
