@@ -1,5 +1,6 @@
 # SPACE INVADERS - TRABAJO PRÁCTICO FINAL
 *Curso: Programación I (25.02) - Profesores a cargo: Nicolás Magliola, Pablo Daniel Vacatello*
+
 *Integrantes del Grupo: Camila Castro (64694) - Paloma Monserrat Porco Paneiva (64080) - Renzo Amorbello (64071) - Bautista Manuel Peri (64070)*
 
 Hemos desarrollado una implementación del clásico juego SPACE INVADERS utilizando el lenguaje C. Este juego es ejecutable tanto en PC, con una interfaz gráfica, como en Raspberry Pi, con una interfaz de display matricial y joystick.
