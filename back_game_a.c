@@ -297,7 +297,7 @@ void *gamer_fire(void *arg)
         {
             swap(mapa, pos_x, y, pos_x, y - 1);
         }
-        else if (mapa[y - 1][pos_x] == BARRIER || mapa[y - 1][pos_x] != SPACE)
+        else if (mapa[y - 1][pos_x] == BARRIER || (mapa[y - 1][pos_x] != SPACE && y != 1))
         {
             eureka = 0;
             // Si es una barrera, la destruye y borra al disparo del mapa
