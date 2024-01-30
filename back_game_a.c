@@ -246,7 +246,7 @@ static void final_boss_movement(int mapa[][COL], int dir)
 
 void gamer_movement(int mapa[][COL], int dir)
 {
-    int x, y = FIL - 1, ; // Pondría un define para que quede mejor :)
+    int x, y = FIL - 1; // Pondría un define para que quede mejor :)
 
     for (x = 0; x < COL; x++)
     {
