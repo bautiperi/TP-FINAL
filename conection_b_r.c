@@ -66,18 +66,12 @@ void *obj_vis(void *arg)
                     if (mapa[y][x] == 6)
                     {
                         aux.y++;
-                        if (aux.y <= 15)
-                        {
-                            disp_write(aux, D_OFF);
-                        }
+                        disp_write(aux, D_OFF);
                     }
                     else
                     {
                         aux.y--;
-                        if (mapa[aux.y][x] != 2 && mapa[aux.y][x] != 3 && mapa[aux.y][x] != 4 && mapa[aux.y][x] != 5)
-                        {
-                            disp_write(aux, D_OFF);
-                        }
+                        disp_write(aux, D_OFF);
                     }
                 }
             }
