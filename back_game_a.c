@@ -289,7 +289,7 @@ void *gamer_fire(void *arg)
     int eureka = 1;
 
     // Empieza a mover el disparo por el mapa, en caso de encontrar un obstáculo lo destruye y se elimina el disparo
-    for (y--; y > 1 && eureka; y--)
+    for (y--; y >= 1 && eureka; y--)
     {
         usleep(150000);
 
