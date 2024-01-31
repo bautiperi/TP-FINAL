@@ -23,13 +23,13 @@ void gamer_movement(int mapa[][COL], int dir);
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
  * return: (void)
  */
-void * gamer_fire(void * arg);
+void *gamer_fire(void *arg);
 
 /* FUNCIÓN LIFE_UPDATER
  * BRIEF: Actualiza la cantidad de vidas que tiene el jugador
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
  * return: (int) Devuelve 0 si el jugador todavía tiene vidas, caso contrario devuelve 1
  */
-int life_updater (int mapa[][COL]);
+int life_updater(int mapa[][COL]);
 
 #endif /* BACK_PLAYER_H_ */

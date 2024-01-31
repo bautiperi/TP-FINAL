@@ -1,10 +1,3 @@
-/*
- * back_aux_a.h
- *
- *  Created on: Jan 22, 2024
- *      Author: bauti
- */
-
 #ifndef BACK_AUX_H_
 #define BACK_AUX_H_
 
@@ -27,13 +20,13 @@ void swap(int mapa[][COL], int x1, int y1, int x2, int y2);
  * y: (int) Coordenada y de la celda a analizar
  * return: (int) Valor de verdad de la proposición
  */
-int enemy_checker (int x, int y, const int mapa[][COL]);
+int enemy_checker(int x, int y, const int mapa[][COL]);
 
 /* FUNCIÓN IMPACT_UPDATER
  * BRIEF: Función encargada de declarar al front que ocurrió un disparo
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
  * return: (void *)
  */
-void * impact_updater (void * arg);
+void *impact_updater(void *arg);
 
 #endif /* BACK_AUX_H_ */
