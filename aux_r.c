@@ -4,8 +4,6 @@
 
 // LIBRERIAS
 #include <unistd.h>
-#include "disdrv.h"
-#include "joydrv.h"
 
 void led_flick(dcoord_t coor_)
 {
