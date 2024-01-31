@@ -2,18 +2,30 @@
 #include <pthread.h>
 #include <stdio.h>
 
+// CONEXION B-F
 #include "conection_b_r.h"
+
+// FRONT
+#include "menu_r.h"
 #include "aux_r.h"
-#include "map.h"
+
+// LIBS
 #include "joydrv.h"
 #include "disdrv.h"
-#include "back_aux_a.h"
-#include "back_game_a.h"
-#include "menu_r.h"
+
+// BACK
+#include "back_player.h"
+#include "back_map.h"
+#include "back_enemy.h"
+
+// DEFINES
+#include "_defines.h"
+#include "_defines_display_r.h"
+
+int flag_game_update = 0;
 
 int main(void)
 {
-	int sel = 0;
 	disp_init();
 	disp_clear();
 
@@ -25,7 +37,6 @@ int main(void)
 	pthread_create(&up_boss, NULL, final_boss_creation, mapa);
 	pthread_create(&up_aliens, NULL, alien_movement, mapa);
 	pthread_create(&up_aliens_fire, NULL, enemy_fire, mapa);
-	// pthread_create(&up_joy, NULL, joy_reading, mapa);
 
 	joy_init();
 	STATUS = 2;
@@ -34,7 +45,8 @@ int main(void)
 	dcoord_t coord_menu = {0, 15};
 	FLICK_OPTION = 0; // flag para seleccion en el menu
 	// JUEGO
-	END_GAME = 0;
+	CLOSE_GAME = 0;
+
 	do
 	{
 		while (STATUS == 0) // JUEGO
@@ -109,7 +121,7 @@ int main(void)
 			{
 				shutdown_disp(); // APAGA EL DISPLAY
 				flag_game_update = 0;
-				END_GAME = 1; // INDICA QUE SE TERMNINO EL JUEGO
+				CLOSE_GAME = 1; // INDICA QUE SE TERMNINO EL JUEGO
 				STATUS = 3;
 			}
 			else if (FLICK_OPTION == 0 && coord.sw == J_PRESS)
@@ -119,7 +131,7 @@ int main(void)
 				flag_game_update = 1;
 			}
 		}
-	} while (END_GAME != 1);
+	} while (CLOSE_GAME != 1);
 
 	game_over();
 	usleep(500000);

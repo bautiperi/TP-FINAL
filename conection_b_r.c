@@ -76,17 +76,22 @@ void *obj_vis(void *arg)
                 }
             }
         }
+        if (IMPACT)
+        {
+            pthread_t colision;
+            pthead_create(&colision, NULL, display_collision, mapa);
+        }
         disp_update();
         usleep(33333);
     }
     pthread_exit(NULL);
 }
 
-void display_collision(coord_t coord_1, int obj)
+void display_collision(void *arg)
 {
-    dcoord_t coord;
-    coord.x = coord_1.x;
-    coord.y = coord_1.y;
+    int(*mapa)[COL] = (int(*)[COL])arg;
+    int obj = mapa[IMPACT_Y][IMPACT_X];
+    dcoord_t coord = {IMPACT_X, IMPACT_Y};
     // vidas de los escudos (2 cada uno)
     static int barrier_1 = 2, barrier_2 = 2, barrier_3 = 2, barrier_4 = 2;
     switch (obj)

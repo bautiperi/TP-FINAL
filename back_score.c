@@ -1,35 +1,45 @@
-#include "back_score_a.h"
+//-----------------------------------------------------------------------------------------------------------------------------------------//
+#include "back_score.h"
 
+// LIBRERIAS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
-char name[50] = "";
-
+// PROTOTIPOS FUNCIONES PRIVADAS
+/* FUNCIÓN PLAYER_COMP
+ * BRIEF: Función que se encarga de comparar el score de dos jugadores para saber cual es más alto, para que se ordene de mayor a menor
+ * a: (puntero a void constante) Es el primer jugador (el de la izquierda)
+ * b: (puntero a void constante) Es el segundo jugador (el de la derecha)
+ * return: (int) Devuelve el valor de verdad para cambiar o no el orden de ambos jugadores
+ */
 static int player_comp(const void *a, const void *b);
+//-----------------------------------------------------------------------------------------------------------------------------------------//
+
+// String donde se almacena el nombre del jugador
+char name[50] = "";
 
 void score_updater(int mapa[][COL], int identifier)
 {
-
+	time_t t;
+	srand((unsigned)time(&t));
+	static int enemy_counter;
 	// Dependiendo del enemigo al que se le pegó, se agregarán una determinada cantidad de puntos al score
-	switch (identifier)
+	// También, dependiendo del modo de juego, se multiplicará más el score total
+	if (identifier < 5)
 	{
-	case 2:
-		SCORE += 10;
-		break;
-	case 3:
-		SCORE += 20;
-		break;
-	case 4:
-		SCORE += 30;
-		break;
-	case 5:
-		SCORE += 50;
-		break;
+		SCORE += (identifier * 10) * DIFICULTAD;
+		enemy_counter++;
+	}
+	else if (identifier == 5)
+	{
+		// Agrega en el score un nro aleatorio entre 50 y 100
+		SCORE += ((rand() % 6 + 5) * 10) * DIFICULTAD;
 	}
 }
 
-int score_saver(int score)
+int score_saver(const int score)
 {
 	FILE *scoreboard = fopen("scoreboard.txt", "a+");
 
@@ -88,24 +98,17 @@ int score_saver(int score)
 
 	fclose(scoreboard);
 
-	return 0;
+	return 1;
 }
 
+/* FUNCIÓN PLAYER_COMP
+ * BRIEF: Función que se encarga de comparar el score de dos jugadores para saber cual es más alto, para que se ordene de mayor a menor
+ * a: (puntero a void constante) Es el primer jugador (el de la izquierda)
+ * b: (puntero a void constante) Es el segundo jugador (el de la derecha)
+ * return: (int) Devuelve el valor de verdad para cambiar o no el orden de ambos jugadores
+ */
 static int player_comp(const void *a, const void *b)
 {
 
 	return ((*(player_t *)b).score - (*(player_t *)a).score);
-}
-
-int life_updater(int mapa[][COL])
-{
-	if (--LIVES == 0)
-	{
-		return 1;
-	}
-	else
-	{
-		SPAWN_POINT = JUGADOR;
-		return 0;
-	}
 }

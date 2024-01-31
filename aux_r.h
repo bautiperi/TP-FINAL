@@ -1,9 +1,7 @@
 #ifndef AUX_R_H
 #define AUX_R_H
 
-#include "defines.h"
-#include "disdrv.h"
-#include "joydrv.h"
+#include "_defines.h"
 
 /***********************************  FUNCIONES   ***********************************/
 

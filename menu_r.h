@@ -1,12 +1,9 @@
 #ifndef MENU_R_H
 #define MENU_R_H
 
-#include "defines.h"
-#include "disdrv.h"
-#include "joydrv.h"
-#include "aux_r.h"
+#include "_defines.h"
 
-/***********************************  VISUALIZACION   ***********************************/
+/***********************************  VISUALIZACION  ***********************************/
 /*FUNCION MENU_VIS
 brief: se encarga de la visualizacion del menu
 ubi: (joyinfo_t) ubicacion del joystick
@@ -14,7 +11,7 @@ return: void
 */
 void menu_vis(int mapa[][COL]);
 
-/***********************************  VISUALIZACION   ***********************************/
+/***********************************  VISUALIZACION  ***********************************/
 /*FUNCION MENU_PRINCIPAL_VIS
 brief: se encarga de la visualizacion del menu principal
 ubi: (joyinfo_t) ubicacion del joystick

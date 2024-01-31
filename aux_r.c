@@ -1,6 +1,11 @@
 // INCLUDES
 #include "aux_r.h"
+#include "_defines_display_r.h"
+
+// LIBRERIAS
 #include <unistd.h>
+#include "disdrv.h"
+#include "joydrv.h"
 
 void led_flick(dcoord_t coor_)
 {

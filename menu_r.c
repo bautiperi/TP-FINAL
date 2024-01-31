@@ -1,4 +1,10 @@
+// INCLUDES
 #include "menu_r.h"
+#include "aux_r.h"
+
+// LIBRERIAS
+#include "disdrv.h"
+#include "joydrv.h"
 #include <unistd.h>
 
 void menu_vis(int mapa[][COL])

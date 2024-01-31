@@ -2,10 +2,7 @@
 #ifndef OBJ_R_H
 #define OBJ_R_H
 
-#include "defines.h"
-#include "disdrv.h"
-#include "joydrv.h"
-#include "aux_r.h"
+#include "_defines.h"
 
 /***********************************  GAMER   ***********************************/
 

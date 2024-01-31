@@ -1,6 +1,11 @@
 
 // INCLUDES
 #include "obj_r.h"
+#include "aux_r.h"
+
+// LIBRERIAS
+#include "disdrv.h"
+#include "joydrv.h"
 #include <unistd.h>
 
 // guardan las coordenadas del led de abajo a la izquierda

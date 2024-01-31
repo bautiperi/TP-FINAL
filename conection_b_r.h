@@ -1,7 +1,8 @@
 #ifndef CONECTION_B_R_H
 #define CONECTION_B_R_H
 
-#include "defines.h"
+#include "_defines.h"
+#include "_defines_display_r.h"
 #include "obj_r.h"
 
 extern int flag_game_update;
