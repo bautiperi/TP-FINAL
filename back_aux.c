@@ -2,6 +2,7 @@
 
 #include <pthread.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 pthread_mutex_t mutex; // Declarar un mutex global
 
