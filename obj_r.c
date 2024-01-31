@@ -14,8 +14,9 @@
 void gamer_vis(dcoord_t ubi)
 {
     int i;
+    ubi.x++;
     // coordenadas de lo que se tiene que prender
-    dcoord_t arr[4] = {{ubi.x, ubi.y}, {ubi.x, ubi.y--}, {ubi.x--, ubi.y++}, {(ubi.x += 2), ubi.y}};
+    dcoord_t arr[4] = {{ubi.x, ubi.y}, {--ubi.x, --ubi.y}, {ubi.x, ++ubi.y}, {--ubi.x, ubi.y}};
     for (i = 0; i < 4; i++) // prende todas las coordenadas
     {
         disp_write(arr[i], D_ON);
@@ -96,8 +97,9 @@ void final_boss_vis(dcoord_t ubi, int mapa[][COL])
     else
     {
         int i;
+        ubi.x++;
         // coordenadas de lo que se tiene que prender
-        dcoord_t arr[4] = {{ubi.x, ubi.y}, {ubi.x, ubi.y++}, {ubi.x--, ubi.y--}, {ubi.x += 2, ubi.y}};
+        dcoord_t arr[4] = {{ubi.x, ubi.y}, {--ubi.x, ++ubi.y}, {ubi.x, --ubi.y}, {--ubi.x, ubi.y}};
         for (i = 0; i < 4; i++) // prende todas las coordenadas
         {
             disp_write(arr[i], D_ON);
