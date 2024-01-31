@@ -314,7 +314,7 @@ void *final_boss_creation(void *arg)
         // si dir = -1 el enemigo aparece a la derecha del mapa en direccion a la izquierda
         else
         {
-#ifdef RASPBERRRY
+#ifdef RASPBERRY
             mapa[0][6] = 1;
             mapa[1][COL - 1] = BOSS;
             final_boss_movement(mapa, dir, 1);
@@ -348,7 +348,7 @@ static void final_boss_movement(int mapa[][COL], int dir, int y)
             if (mapa[y][COL - 1] == BOSS)
             {
                 mapa[y][COL - 1] = SPACE; // hace que no haya mas enemigo
-#ifdef RASPBERRRY
+#ifdef RASPBERRY
                 mapa[0][6] = 0;
 #endif
             }
@@ -368,7 +368,7 @@ static void final_boss_movement(int mapa[][COL], int dir, int y)
             if (mapa[y][0] == BOSS)
             {
                 mapa[y][0] = SPACE;
-#ifdef RASPBERRRY
+#ifdef RASPBERRY
                 mapa[0][6] = 0;
 #endif
             }
