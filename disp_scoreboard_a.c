@@ -132,7 +132,7 @@ int disp_name_and_char (void) {
 	ALLEGRO_BITMAP * char_1 = al_load_bitmap("resources/characters/char_sel/char_1.png");
 	ALLEGRO_BITMAP * char_2 = al_load_bitmap("resources/characters/char_sel/char_2.png");
 	ALLEGRO_BITMAP * char_3 = al_load_bitmap("resources/characters/char_sel/char_3.png");
-	ALLEGRO_BITMAP * char_4 = al_load_bitmap("resources/characters/char_sel/char_2.png");
+	ALLEGRO_BITMAP * char_4 = al_load_bitmap("resources/characters/char_sel/char_4.png");
 	ALLEGRO_BITMAP * char_5 = al_load_bitmap("resources/characters/char_sel/char_5.png");
 
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
@@ -248,21 +248,21 @@ const void character_displayer_menu (int sel, ALLEGRO_BITMAP * char_1, ALLEGRO_B
 		al_draw_scaled_bitmap(char_1, 0, 0, 650, 650, 004, DISPLAY_CENTRE - 100, 200, 200, 0);
 		al_draw_scaled_bitmap(char_2, 0, 0, 650, 650, 208, DISPLAY_CENTRE - 84 , 168, 168, 0);
 		al_draw_scaled_bitmap(char_3, 0, 0, 650, 650, 396, DISPLAY_CENTRE - 84 , 168, 168, 0);
-		al_draw_scaled_bitmap(char_4, 0, 0, 650, 650, 584, DISPLAY_CENTRE - 84 , 168, 168, 0);
+		al_draw_scaled_bitmap(char_4, 0, 0, 650, 650, 582, DISPLAY_CENTRE - 90 , 172, 172, 0);
 		al_draw_scaled_bitmap(char_5, 0, 0, 650, 650, 772, DISPLAY_CENTRE - 84 , 168, 168, 0);
 		break;
 	case 2:
 		al_draw_scaled_bitmap(char_1, 0, 0, 650, 650, 020, DISPLAY_CENTRE - 84 , 168, 168, 0);
 		al_draw_scaled_bitmap(char_2, 0, 0, 650, 650, 192, DISPLAY_CENTRE - 100, 200, 200, 0);
 		al_draw_scaled_bitmap(char_3, 0, 0, 650, 650, 396, DISPLAY_CENTRE - 84 , 168, 168, 0);
-		al_draw_scaled_bitmap(char_4, 0, 0, 650, 650, 584, DISPLAY_CENTRE - 84 , 168, 168, 0);
+		al_draw_scaled_bitmap(char_4, 0, 0, 650, 650, 582, DISPLAY_CENTRE - 90 , 172, 172, 0);
 		al_draw_scaled_bitmap(char_5, 0, 0, 650, 650, 772, DISPLAY_CENTRE - 84 , 168, 168, 0);
 		break;
 	case 3:
 		al_draw_scaled_bitmap(char_1, 0, 0, 650, 650, 020, DISPLAY_CENTRE - 84 , 168, 168, 0);
 		al_draw_scaled_bitmap(char_2, 0, 0, 650, 650, 208, DISPLAY_CENTRE - 84 , 168, 168, 0);
 		al_draw_scaled_bitmap(char_3, 0, 0, 650, 650, 380, DISPLAY_CENTRE - 100, 200, 200, 0);
-		al_draw_scaled_bitmap(char_4, 0, 0, 650, 650, 584, DISPLAY_CENTRE - 84 , 168, 168, 0);
+		al_draw_scaled_bitmap(char_4, 0, 0, 650, 650, 582, DISPLAY_CENTRE - 90 , 172, 172, 0);
 		al_draw_scaled_bitmap(char_5, 0, 0, 650, 650, 772, DISPLAY_CENTRE - 84 , 168, 168, 0);
 		break;
 	case 4:
@@ -276,7 +276,7 @@ const void character_displayer_menu (int sel, ALLEGRO_BITMAP * char_1, ALLEGRO_B
 		al_draw_scaled_bitmap(char_1, 0, 0, 650, 650, 020, DISPLAY_CENTRE - 84 , 168, 168, 0);
 		al_draw_scaled_bitmap(char_2, 0, 0, 650, 650, 208, DISPLAY_CENTRE - 84 , 168, 168, 0);
 		al_draw_scaled_bitmap(char_3, 0, 0, 650, 650, 396, DISPLAY_CENTRE - 84 , 168, 168, 0);
-		al_draw_scaled_bitmap(char_4, 0, 0, 650, 650, 584, DISPLAY_CENTRE - 84 , 168, 168, 0);
+		al_draw_scaled_bitmap(char_4, 0, 0, 650, 650, 582, DISPLAY_CENTRE - 90 , 172, 172, 0);
 		al_draw_scaled_bitmap(char_5, 0, 0, 650, 650, 756, DISPLAY_CENTRE - 100, 200, 200, 0);
 
 	}
