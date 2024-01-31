@@ -27,6 +27,6 @@ diff: (int) indica la dificultad y si es para raspberry o allegro
 mapa: (int **) matriz a analizar
 return: void
 */
-void display_collision(coord_t coord, int obj);
+void *display_collision(void *arg);
 
 #endif /* CONECTION_B_R_H */

@@ -79,7 +79,7 @@ void *obj_vis(void *arg)
         if (IMPACT)
         {
             pthread_t colision;
-            pthead_create(&colision, NULL, display_collision, mapa);
+            pthread_create(&colision, NULL, display_collision, mapa);
         }
         disp_update();
         usleep(33333);
@@ -87,7 +87,7 @@ void *obj_vis(void *arg)
     pthread_exit(NULL);
 }
 
-void display_collision(void *arg)
+void *display_collision(void *arg)
 {
     int(*mapa)[COL] = (int(*)[COL])arg;
     int obj = mapa[IMPACT_Y][IMPACT_X];
