@@ -76,11 +76,11 @@ void *obj_vis(void *arg)
                 }
             }
         }
-        if (IMPACT)
+        /*if (IMPACT)
         {
             pthread_t colision;
             pthread_create(&colision, NULL, display_collision, mapa);
-        }
+        }*/
         disp_update();
         usleep(33333);
     }
