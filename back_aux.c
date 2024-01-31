@@ -1,5 +1,8 @@
 #include "back_aux.h"
 
+#include <pthread.h>
+#include <stdlib.h>
+
 pthread_mutex_t mutex; // Declarar un mutex global
 
 void swap(int mapa[][COL], int x1, int y1, int x2, int y2)
