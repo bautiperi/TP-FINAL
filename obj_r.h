@@ -3,6 +3,8 @@
 #define OBJ_R_H
 
 #include "_defines.h"
+#include "joydrv.h"
+#include "disdrv.h"
 
 /***********************************  GAMER   ***********************************/
 

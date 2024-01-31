@@ -1,6 +1,9 @@
+// LIBS
 #include <unistd.h>
 #include <pthread.h>
 #include <stdio.h>
+#include "joydrv.h"
+#include "disdrv.h"
 
 // CONEXION B-F
 #include "conection_b_r.h"
@@ -8,10 +11,6 @@
 // FRONT
 #include "menu_r.h"
 #include "aux_r.h"
-
-// LIBS
-#include "joydrv.h"
-#include "disdrv.h"
 
 // BACK
 #include "back_player.h"
