@@ -15,7 +15,7 @@ extern int flag_game_update;
 int flag_gamer_shot = 150;
 //------------------------------------------------------------------------------------//
 
-void gamer_movement(int mapa[][COL], int dir) // REVISAR: se mueve muy rapido? => avisar a cami ;)
+void gamer_movement(int mapa[][COL], int dir)
 {
     int x, y = POS_Y_PL;
 
