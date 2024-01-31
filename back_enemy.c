@@ -116,7 +116,7 @@ void *alien_movement(void *arg)
 {
     int(*mapa)[COL] = (int(*)[COL])arg;
 
-    int any_enemy = 0;
+    int any_enemy;
     int x, y;
     int dir = 1, flag = 0;
     // se mueve hacia la derecha
@@ -124,6 +124,8 @@ void *alien_movement(void *arg)
 
     while (1)
     {
+        any_enemy = 0; // Pone en 0 el contador
+
         // Pone el thread "en pausa"
         while (flag_game_update == 0)
         {
@@ -152,6 +154,7 @@ void *alien_movement(void *arg)
                     {
                         dir = -1; // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
+                        any_enemy++;
                     }
                     // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
                     else if (mapa[y][x + 1] == BARRIER && (enemy_checker(x, y, mapa)))
@@ -193,6 +196,7 @@ void *alien_movement(void *arg)
                     {
                         dir = 1;  // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
+                        any_enemy++;
                     }
                     // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
                     else if (mapa[y][x - 1] == BARRIER && enemy_checker(x, y, mapa))
@@ -225,7 +229,7 @@ void *alien_movement(void *arg)
         }
 
         // Si al recorrer todo el mapa no se encontraron enemigos, se crean más y se incrementa la dificultad
-        if (any_enemy == 1000000000000000)
+        if (any_enemy == 0)
         {
             map_def(DIFICULTAD, mapa, SCORE);
             harder++;
