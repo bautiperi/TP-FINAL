@@ -7,7 +7,7 @@ raspberry: $(OBJS)
 
 # Regla genérica para la compilación de archivos fuente a objetos
 %.o: %.c _defines.h
-	$(CC) -c $< -o $@ $(CFLAGS)
+	$(CC) -DRASPBERRY -c $< -o $@ $(CFLAGS)
 
 # Dependencias específicas para cada objeto
 main.o: back_map.h disdrv.h joydrv.h _defines_display_r.h conection_b_r.h aux_r.h menu_r.h back_player.h back_enemy.h
