@@ -4,6 +4,8 @@
 #include "_defines.h"
 #include "_defines_display_r.h"
 #include "obj_r.h"
+#include "joydrv.h"
+#include "disdrv.h"
 
 extern int flag_game_update;
 
