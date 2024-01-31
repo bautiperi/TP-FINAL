@@ -6,6 +6,7 @@
 #include "obj_r.h"
 #include "joydrv.h"
 #include "disdrv.h"
+#include "aux_r.h"
 
 extern int flag_game_update;
 
