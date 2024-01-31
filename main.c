@@ -29,7 +29,7 @@ int main(void)
 	disp_clear();
 
 	int mapa[FIL][COL];
-	map_def(RASP, mapa);
+	map_def(RASP, mapa, 0);
 
 	pthread_t up_aliens, up_boss, up_aliens_fire, up_vis;
 	pthread_create(&up_vis, NULL, obj_vis, mapa);
@@ -126,7 +126,7 @@ int main(void)
 			else if (FLICK_OPTION == 0 && coord.sw == J_PRESS)
 			{
 				STATUS = 0; // VUELVE AL JUEGO
-				map_def(RASP, mapa);
+				map_def(RASP, mapa, 0);
 				flag_game_update = 1;
 			}
 		}
