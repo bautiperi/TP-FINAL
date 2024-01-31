@@ -225,7 +225,7 @@ void *alien_movement(void *arg)
         }
 
         // Si al recorrer todo el mapa no se encontraron enemigos, se crean más y se incrementa la dificultad
-        if (any_enemy == 0)
+        if (any_enemy == 1000000000000000)
         {
             map_def(DIFICULTAD, mapa, SCORE);
             harder++;
