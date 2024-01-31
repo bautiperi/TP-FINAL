@@ -17,12 +17,17 @@
 #include <allegro5/allegro_acodec.h>
 
 //PROTOTIPOS FUNCIONES PRIVADAS
-/* FUNCIÓN DISPLAY_P_MENU
+/* FUNCIÓN DISPLAY_S_MENU
  * BRIEF: Es la función que muestra en pantalla el menú de inicio
  * boton: (u int) Recibe la selección del jugador para mostrar en pantalla
  * return: (void)
  * */
 static void display_s_menu (unsigned int boton, ALLEGRO_FONT * font_title, ALLEGRO_FONT * font);
+/* FUNCIÓN DISPLAY_P_MENU
+ * BRIEF: Función que muestra en pantalla las opciones de dificultad del juego
+ * return: (int) Devuelve el valor de dificultad seleccionado
+ * */
+static int display_difficulty (ALLEGRO_EVENT ev, ALLEGRO_EVENT_QUEUE *event_queue);
 // ------------------------------------------------------------------------------------------------- //
 
 ALLEGRO_DISPLAY * display_init (void){
@@ -96,6 +101,11 @@ int display_start_menu(int * dificultad, ALLEGRO_DISPLAY * display){
 	ALLEGRO_FONT *font = NULL;
 	font = al_load_ttf_font("resources/Barbie-font.ttf", OPTIONS_SIZE, 0);
 
+	if(!font_title || !font){
+		fprintf(stderr, "Error al cargar las fuentes del menú de inicio");
+		return QUIT;
+	}
+
 	// COLA DE EVENTOS
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_keyboard_event_source()); //Teclado
@@ -155,6 +165,13 @@ int display_start_menu(int * dificultad, ALLEGRO_DISPLAY * display){
 						al_rest(0.02);
 					}
 				}
+				else if(sel == DIFFICULTY){
+					*dificultad = display_difficulty(ev, event_queue);
+
+					if( *dificultad == -1){
+						return QUIT;
+					}
+				}
 				else if(sel != 0){
 					ret = 0;
 				}
@@ -184,7 +201,7 @@ int display_start_menu(int * dificultad, ALLEGRO_DISPLAY * display){
 	return sel;
 }
 
-/* FUNCIÓN DISPLAY_P_MENU
+/* FUNCIÓN DISPLAY_S_MENU
  * BRIEF: Es la función que muestra en pantalla el menú de inicio
  * boton: (u int) Recibe la selección del jugador para mostrar en pantalla
  * return: (void)
@@ -233,5 +250,96 @@ static void display_s_menu (unsigned int boton, ALLEGRO_FONT * font_title, ALLEG
 	al_flip_display();
 
 	al_rest(0.01);
+
+}
+
+/* FUNCIÓN DISPLAY_P_MENU
+ * BRIEF: Función que muestra en pantalla las opciones de dificultad del juego
+ * return: (int) Devuelve el valor de dificultad seleccionado
+ * */
+static int display_difficulty (ALLEGRO_EVENT ev, ALLEGRO_EVENT_QUEUE *event_queue) {
+
+	int sel = NORMAL;
+	int enter = 1;
+	//Carga las fonts
+	//Font para el título
+	ALLEGRO_FONT *font_title = NULL;
+	font_title = al_load_ttf_font("resources/Barbie-font.ttf", TITLE_SIZE, 0);
+	// Font para los botones
+	ALLEGRO_FONT *font = NULL;
+	font = al_load_ttf_font("resources/Barbie-font.ttf", OPTIONS_SIZE, 0);
+	// Font para las descripciones
+	ALLEGRO_FONT *font_des = NULL;
+	font_des = al_load_ttf_font("resources/Barbie-font.ttf", 45, 0);
+
+	if(!font_title || !font || !font_des){
+		fprintf(stderr, "Error al cargar las fuentes del menú de dificultad");
+		return -1;
+	}
+
+	do{
+		al_clear_to_color(al_map_rgb(54,1,63)); //Pone el fondo de color
+		al_draw_text(font_title, al_map_rgb(TITLE_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 300, ALLEGRO_ALIGN_CENTER, "Difficulty menu");
+
+		switch(sel){
+			case NORMAL:
+				al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 125, ALLEGRO_ALIGN_CENTER, "> >  Normal  < <");
+				al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 45, ALLEGRO_ALIGN_CENTER, "Hard");
+				al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 45, ALLEGRO_ALIGN_CENTER, "Extreme");
+				//Descripción
+				al_draw_text(font_des, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 170, ALLEGRO_ALIGN_CENTER, "Like the good old times! But. . . pink?! And yes, barriers break,");
+				al_draw_text(font_des, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 210, ALLEGRO_ALIGN_CENTER, "aliens die, and for some reason, you can die three times");
+				break;
+			case HARD:
+				al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 125, ALLEGRO_ALIGN_CENTER, "Normal");
+				al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 45, ALLEGRO_ALIGN_CENTER, "> >  Hard  < <");
+				al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 45, ALLEGRO_ALIGN_CENTER, "Extreme");
+				//Descripción
+				al_draw_text(font_des, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 170, ALLEGRO_ALIGN_CENTER, "Aliens got jealous of you reviving all the time, so they got random lives.");
+				al_draw_text(font_des, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 210, ALLEGRO_ALIGN_CENTER, "Be careful; lives and shields won´t be regenerated after each level (Enjoy?)");
+				break;
+			case EXTREME:
+				al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 125, ALLEGRO_ALIGN_CENTER, "Normal");
+				al_draw_text(font, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 45, ALLEGRO_ALIGN_CENTER, "Hard");
+				al_draw_text(font, al_map_rgb(BUTTON_SEL_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 45, ALLEGRO_ALIGN_CENTER, "> >  Extreme  < <");
+				//Descripción
+				al_draw_text(font_des, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 170, ALLEGRO_ALIGN_CENTER, "Aliens have multiple lives. No shields. No lives.");
+				al_draw_text(font_des, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE + 210, ALLEGRO_ALIGN_CENTER, "As god intended!");
+				break;
+		}
+
+		al_flip_display();
+
+		al_wait_for_event(event_queue, &ev);
+
+		if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
+			if(ev.keyboard.keycode == ALLEGRO_KEY_DOWN || ev.keyboard.keycode == ALLEGRO_KEY_S){
+				sel++;
+			}
+			else if(ev.keyboard.keycode == ALLEGRO_KEY_UP || ev.keyboard.keycode == ALLEGRO_KEY_W){
+				sel--;
+			}
+			else if(ev.keyboard.keycode == ALLEGRO_KEY_UP || ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE){
+
+				sel = 1; //Al no seleccionar nada, deja la dificultad por defecto
+				enter = 0;
+
+			}
+			else if((ev.keyboard.keycode == ALLEGRO_KEY_UP || ev.keyboard.keycode == ALLEGRO_KEY_ENTER) && sel){
+				enter = 0;
+			}
+		}
+
+		if(sel > 3){
+			sel = 1;
+		}
+		else if (sel <= 0){
+			sel = 3;
+		}
+
+
+	} while(enter);
+
+	return sel;
 
 }

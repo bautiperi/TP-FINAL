@@ -16,12 +16,6 @@
 #define POS_Y_PL 28
 #define SPAWN_POINT mapa[POS_Y_PL][COL / 2 - 1]
 
-// OPCIONES MENU
-#define NEW_GAME 1
-#define HIGHSCORE 2
-#define DIFFICULTY 3
-#define QUIT 4
-
 #else
 
 // TAMAÑO DE LA MATRIZ

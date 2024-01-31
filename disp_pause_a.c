@@ -56,6 +56,9 @@ int display_pause_menu (void){
 
 
 		if(ev.keyboard.keycode == ALLEGRO_KEY_ENTER){
+			if(sel == 3){
+				sel = QUIT;
+			}
 			ret = 0;
 		}
 
@@ -74,7 +77,7 @@ static void display_p_menu (unsigned int boton, ALLEGRO_FONT *font_title, ALLEGR
 
 	al_clear_to_color(al_map_rgb(54,1,63));
 
-	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), DISPLAY_CENTRE, 125, ALLEGRO_ALIGN_CENTER, "Pause Menu");
+	al_draw_text(font_title, al_map_rgb(TITLE_COLOR), DISPLAY_CENTRE, DISPLAY_CENTRE - 300, ALLEGRO_ALIGN_CENTER, "Pause Menu");
 
 	switch(boton){
 	case 0:

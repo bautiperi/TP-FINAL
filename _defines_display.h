@@ -18,5 +18,11 @@
 #define BUTTON_COLOR 250, 218, 221
 #define BUTTON_SEL_COLOR 233, 65, 150
 
+// OPCIONES MENU
+#define NEW_GAME 1
+#define MAIN_MENU 2
+#define HIGHSCORE 2
+#define DIFFICULTY 3
+#define QUIT 4
 
 #endif /* DEFINES_DISPLAY_H_ */

@@ -221,11 +221,11 @@ int display_game (const int mapa[][COL], ALLEGRO_DISPLAY * display){
 				int sel = display_pause_menu();
 
 				//Para cerrar el programa
-				if(sel == 3){
+				if(sel == QUIT){
 					return sel;
 				}
 				//Para volver al menú principal
-				else if (sel == 2) {
+				else if (sel == MAIN_MENU) {
 					// Hace un fade-out de la música
 					for (volume = 0.5; volume > 0.0; volume -= 0.01) {
 						al_set_sample_instance_gain(backgroundInstance, volume);
