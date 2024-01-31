@@ -16,7 +16,7 @@ void gamer_vis(dcoord_t ubi)
     int i;
     ubi.x++;
     // coordenadas de lo que se tiene que prender
-    dcoord_t arr[4] = {{ubi.x, ubi.y}, {--ubi.x, --ubi.y}, {ubi.x, ++ubi.y}, {--ubi.x, ubi.y}};
+    dcoord_t arr[4] = {ubi, {--ubi.x, --ubi.y}, {ubi.x, ++ubi.y}, {--ubi.x, ubi.y}};
     for (i = 0; i < 4; i++) // prende todas las coordenadas
     {
         disp_write(arr[i], D_ON);
@@ -26,7 +26,8 @@ void gamer_vis(dcoord_t ubi)
 void gamer_shot(dcoord_t coord)
 {
     int i;
-    dcoord_t arr[4] = {coord, {++coord.x, coord.y}, {coord.x, --coord.y}, {++coord.x, ++coord.y}};
+    coord.x++;
+    dcoord_t arr[4] = {coord, {--coord.x, --coord.y}, {coord.x, ++coord.y}, {--coord.x, coord.y}};
 
     multp_flick(arr, 4);
 }
