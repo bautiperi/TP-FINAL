@@ -1,4 +1,4 @@
-#include "back_aux_a.h"
+#include "back_aux.h"
 
 pthread_mutex_t mutex; // Declarar un mutex global
 
