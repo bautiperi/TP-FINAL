@@ -366,7 +366,7 @@ static void display_bullet(const int mapa[][COL]){
 	int x, y;
 
 	//Loop que encuentra los disparos y diferencia los de enemigos y jugador
-	for (y = 4; y < (FIL - 4); y++){
+	for (y = 4; y < (FIL - 2); y++){
 		for(x = 0; x < COL; x++){
 
 			if (mapa[y][x] == FIRE_PL){
