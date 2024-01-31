@@ -14,24 +14,12 @@
 void gamer_vis(dcoord_t ubi)
 {
     int i;
-    dcoord_t ubi_inicial = ubi;
-
-    for (i = ubi_inicial.x; i < ubi_inicial.x + 3; i++)
+    // coordenadas de lo que se tiene que prender
+    dcoord_t arr[4] = {{ubi.x, ubi.y}, {ubi.x, ubi.y--}, {ubi.x--, ubi.y++}, {ubi.x += 2, ubi.y}};
+    for (i = 0; i <= 4; i++) // prende todas las coordenadas
     {
-        ubi.x = i;
-        if (i == ubi_inicial.x + 1)
-        {
-            disp_write(ubi, D_ON);
-            ubi.y--;
-            disp_write(ubi, D_ON);
-            ubi.y++;
-        }
-        else
-        {
-            disp_write(ubi, D_ON);
-        }
+        disp_write(arr[i], D_ON);
     }
-    // disp_update();
 }
 
 void gamer_shot(dcoord_t coord)
@@ -107,21 +95,12 @@ void final_boss_vis(dcoord_t ubi, int mapa[][COL])
     }
     else
     {
-        for (i = ubi_inicial.x; i < ubi_inicial.x + 3; i++)
+        int i;
+        // coordenadas de lo que se tiene que prender
+        dcoord_t arr[4] = {{ubi.x, ubi.y}, {ubi.x, ubi.y++}, {ubi.x--, ubi.y--}, {ubi.x += 2, ubi.y}};
+        for (i = 0; i <= 4; i++) // prende todas las coordenadas
         {
-            ubi.x = i;
-
-            if (i == ubi_inicial.x + 1)
-            {
-                disp_write(ubi, D_ON);
-                ubi.y++;
-                disp_write(ubi, D_ON);
-                ubi.y--;
-            }
-            else
-            {
-                disp_write(ubi, D_ON);
-            }
+            disp_write(arr[i], D_ON);
         }
     }
 
@@ -145,23 +124,26 @@ void lives_vis(int cant)
     {
     case 0: // CASO 0 VIDAS: BORRA LA ULTIMA VIDA
         disp_write(first_life, D_OFF);
-
+        disp_update();
         break;
     case 1: // CASO 1 VIDAS: BORRA LA SEGUNDA VIDA
+        disp_write(first_life, D_ON);
         disp_write(second_life, D_OFF);
-        // disp_update();
+        disp_update();
         break;
     case 2:
+        disp_write(second_life, D_ON);
+        disp_write(first_life, D_ON);
         disp_write(third_life, D_OFF);
-        // disp_update();
+        disp_update();
         break;
     default:
         disp_write(third_life, D_ON);
         disp_write(second_life, D_ON);
         disp_write(first_life, D_ON);
+        disp_update();
         break;
     }
-    // disp_update();
 }
 
 /***********************************  SHIELDS  ***********************************/
