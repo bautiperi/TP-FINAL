@@ -298,7 +298,7 @@ void *final_boss_creation(void *arg)
         // si dir>=0 el enemigo aparece a la izquierda del mapa en direccion a la derecha
         if (dir >= 0)
         {
-#ifdef RASPBERRRY
+#ifdef RASPBERRY
             mapa[0][6] = 1;
             mapa[1][0] = BOSS;
             final_boss_movement(mapa, dir, 1);
