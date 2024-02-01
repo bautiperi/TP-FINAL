@@ -29,7 +29,7 @@ void *impact_updater(void *arg)
 
     IMPACT = 1; // Indica que hubo un impacto
 
-    usleep(450000);
+    usleep(400000);
 
     IMPACT = 0;
 

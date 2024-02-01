@@ -124,7 +124,6 @@ void *alien_movement(void *arg)
 
     while (1)
     {
-        any_enemy = 0; // Pone en 0 el contador
 
         // Pone el thread "en pausa"
         while (flag_game_update == 0)
@@ -135,6 +134,8 @@ void *alien_movement(void *arg)
         {
             pthread_exit(NULL);
         }
+
+        any_enemy = 0; // Pone en 0 el contador
 
         if (flag == 1)
         {
@@ -451,13 +452,14 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
                                     mapa[y + 1][xb] = SPACE;
                                     mapa[y + 1][xb + 1] = SPACE;
                                     mapa[y + 1][xb - 1] = SPACE;
-                                    life_updater(mapa);
 
                                     IMPACT_X = xb;
                                     IMPACT_Y = y + 1;
 
                                     pthread_t impact_up;
                                     pthread_create(&impact_up, NULL, impact_updater, mapa);
+
+                                    life_updater(mapa);
                                 }
                             }
                         }
@@ -492,5 +494,9 @@ void enemy_life(int x, int y, int mapa[][COL])
         {
             mapa[y][x] = 0;
         }
+    }
+
+    if(mapa[y][x] == FIRE_PL){
+    	mapa[y][x] = 0;
     }
 }

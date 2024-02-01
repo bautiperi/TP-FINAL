@@ -13,8 +13,6 @@
 #include <pthread.h>
 #include <allegro5/allegro.h>
 
-#include "disp_scoreboard_a.h"
-
 //Variable global que sirve como flag para detener la ejecución de los threads
 // 0 -> Falso, están en pausa | 1 -> Ejecutan | 2 -> Exit threads
 int flag_game_update = 0;
@@ -57,6 +55,7 @@ int main(void){
 			sel = display_game(mapa, display);
 		}
 
+		//Cierra los threads
 		flag_game_update = 2;
 	}
 
@@ -88,7 +87,8 @@ void * update_player_keyboard (void * arg){
 
 
 	while (1){
-
+		//Espera a que se habilite el funcionamiento de threads
+		//Vacía la cola de eventos para evitar que se acumulen
 		if(flag_game_update == 0){
 			al_get_next_event(event_queue, &event);
 			al_get_next_event(timer_queue, &timer);
@@ -97,6 +97,7 @@ void * update_player_keyboard (void * arg){
 			al_get_next_event(event_queue, &event);
 			al_get_next_event(timer_queue, &timer);
 
+			//S
 			if(event.type == ALLEGRO_EVENT_KEY_DOWN || event.type == ALLEGRO_EVENT_KEY_CHAR){
 				if( event.keyboard.keycode == ALLEGRO_KEY_RIGHT || event.keyboard.keycode == ALLEGRO_KEY_D){
 					gamer_movement(mapa, 1);
@@ -108,20 +109,13 @@ void * update_player_keyboard (void * arg){
 				}
 			}
 
-			if(timer.type == ALLEGRO_EVENT_TIMER && timer.timer.source == shot_timer){
-				if(event.type == ALLEGRO_EVENT_KEY_DOWN){
-					if (event.keyboard.keycode == ALLEGRO_KEY_X){
-						pthread_t gamer_shot;
-						pthread_create(&gamer_shot, NULL, gamer_fire, mapa);
-					}
+			if(event.type == ALLEGRO_EVENT_KEY_DOWN){
+				if (event.keyboard.keycode == ALLEGRO_KEY_X){
+					pthread_t gamer_shot;
+					pthread_create(&gamer_shot, NULL, gamer_fire, mapa);
 				}
 			}
 		}
 
 	}
 }
-
-/* NORMAL:	Juego tradicional | x1
- * HARD:	Como el tradicional, pero los enemigos tienen múltiples vidas (aleatorio), y los shields tienen la mitad del tamaño | x2
- * EXTREME:	No hay shield, enemigos con múltiples vidas y no hay vidas (jeje) | x3
- * */

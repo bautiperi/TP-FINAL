@@ -9,6 +9,7 @@
 #define COL 32
 #define FIL 32
 
+#define U_BORDER 1
 #define R_BORDER COL - 2
 #define L_BORDER 1
 
@@ -22,6 +23,7 @@
 #define COL 16
 #define FIL 16
 
+#define U_BORDER 1
 #define R_BORDER COL - 1
 #define L_BORDER 0
 
