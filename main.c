@@ -11,11 +11,13 @@
 // FRONT
 #include "menu_r.h"
 #include "aux_r.h"
+#include "score_r.h"
 
 // BACK
 #include "back_player.h"
 #include "back_map.h"
 #include "back_enemy.h"
+#include "back_score.h"
 
 // DEFINES
 #include "_defines.h"
@@ -76,6 +78,11 @@ int main(void)
 				STATUS = 1;
 				flag_game_update = 0;
 			}
+			if (LIVES == 0)
+			{
+				STATUS = 3;
+				flag_game_update = 0;
+			}
 			gamer_movement(mapa, npos); // genera el movimiento del player
 		}
 		while (STATUS == 1) // MENU
@@ -94,6 +101,7 @@ int main(void)
 
 			if (FLICK_OPTION == 1 && coord.sw == J_PRESS)
 			{
+				usleep(50000);
 				STATUS = 2; // CAMBIA A MENU PRINCIPAL
 			}
 			else if (FLICK_OPTION == 0 && coord.sw == J_PRESS)
@@ -129,6 +137,14 @@ int main(void)
 				map_def(RASP, mapa, 0);
 				flag_game_update = 1;
 			}
+		}
+		while (STATUS == 3) // VISUALIZACION DEL SCORE
+		{
+			game_over();
+			usleep(500000);
+			score_vis(SCORE);
+			usleep(4000000);
+			STATUS = 2;
 		}
 	} while (CLOSE_GAME != 1);
 

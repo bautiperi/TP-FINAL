@@ -6,7 +6,7 @@ void score_vis(int num)
 {
     int value;
     dcoord_t coor_ini = {0, 8};
-
+    shutdown_disp();
     if (num / 10000 > 0)
     {
         for (value = 10000; num >= 0; value /= 10, coor_ini.x += 3)
