@@ -2,6 +2,9 @@
 
 #include <stdio.h>
 
+static void num_vis(int num, dcoord_t coor);
+static void score_wrd_vis(void);
+
 void score_vis(int num)
 {
     int value;
@@ -175,8 +178,7 @@ static void num_vis(int num, dcoord_t coor)
             {coor.x, ++coor.y},
             {--coor.x, (coor.y - 2)},
             {--coor.x, coor.y},
-            {coor.x, --coor.y}
-        }
+            {coor.x, --coor.y}};
 
         for (i = 0; i < 10; i++)
         {

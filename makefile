@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -g -pthread
-OBJS=main.o obj_r.o aux_r.o menu_r.o conection_b_r.o back_map.o back_aux.o back_score.o disdrv.o joydrv.o back_enemy.o back_player.o
+OBJS=main.o obj_r.o aux_r.o menu_r.o conection_b_r.o back_map.o back_aux.o back_score.o disdrv.o joydrv.o back_enemy.o back_player.o score_r.o
 
 raspberry: $(OBJS)
 	$(CC) -DRASPBERRY $(OBJS) -o raspberry $(CFLAGS)
@@ -20,3 +20,4 @@ back_enemy.o: back_enemy.h back_map.h back_player.h back_aux.h back_score.h _def
 back_map.o: back_map.h _defines.h back_enemy.h
 back_player.o: back_player.h _defines.h back_aux.h back_enemy.h back_score.h
 back_score.o: back_score.h _defines.h
+score_r.o: score_r.c score_r.h disdrv.h _defines.h back_map.h
