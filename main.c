@@ -59,6 +59,7 @@ int main(void){
 		flag_game_update = 2;
 	}
 
+	al_destroy_display(display);
 	return 0;
 
 }
@@ -77,25 +78,20 @@ void * update_player_keyboard (void * arg){
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	ALLEGRO_EVENT event;
 
-	// CREA UNA COLA DE EVENTOS PARA LIMITAR LA CANTIDAD DE DISPAROS
-	ALLEGRO_EVENT_QUEUE *timer_queue = al_create_event_queue();
-	ALLEGRO_TIMER *shot_timer = al_create_timer(1.5);
-	al_register_event_source(timer_queue, al_get_timer_event_source(shot_timer));
-	ALLEGRO_EVENT timer;
-
-	al_start_timer(shot_timer);
-
 
 	while (1){
 		//Espera a que se habilite el funcionamiento de threads
 		//Vacía la cola de eventos para evitar que se acumulen
 		if(flag_game_update == 0){
 			al_get_next_event(event_queue, &event);
-			al_get_next_event(timer_queue, &timer);
+		}
+		//Cierra el thread
+		else if(flag_game_update == 2){
+			al_destroy_event_queue(event_queue);
+			pthread_exit(NULL);
 		}
 		else {
 			al_get_next_event(event_queue, &event);
-			al_get_next_event(timer_queue, &timer);
 
 			//S
 			if(event.type == ALLEGRO_EVENT_KEY_DOWN || event.type == ALLEGRO_EVENT_KEY_CHAR){

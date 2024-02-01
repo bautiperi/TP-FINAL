@@ -183,6 +183,8 @@ int display_game (const int mapa[][COL], ALLEGRO_DISPLAY * display){
 		}
 
 		if(LIVES == 0){
+			//Elimina los threads
+			flag_game_update = 2;
 			//Muestra en pantalla game over
 			display_game_over(SCORE);
 			//Espera a que el jugador decida volver al menú principal
@@ -222,6 +224,11 @@ int display_game (const int mapa[][COL], ALLEGRO_DISPLAY * display){
 
 				//Para cerrar el programa
 				if(sel == QUIT){
+					//Destruye todas las samples
+					al_stop_sample_instance(backgroundInstance);
+					al_destroy_sample_instance(kenInstance);
+					al_destroy_sample(background);
+					al_destroy_sample(ken_alien);
 					return sel;
 				}
 				//Para volver al menú principal
