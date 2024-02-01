@@ -67,11 +67,11 @@ void *gamer_fire(void *arg)
     int eureka = 1;
 
     // Empieza a mover el disparo por el mapa, en caso de encontrar un obstáculo lo destruye y se elimina el disparo
-    for (y--; y >= U_BORDER && eureka; y--)
+    for (y--; y >= T_BORDER && eureka; y--)
     {
         usleep(150000);
 
-        if ((mapa[y - 1][pos_x] == SPACE) && y > U_BORDER)
+        if ((mapa[y - 1][pos_x] == SPACE) && y > T_BORDER)
         {
             swap(mapa, pos_x, y, pos_x, y - 1);
         }
@@ -91,7 +91,7 @@ void *gamer_fire(void *arg)
             }
             // Si es un enemigo, destruye el disparo y llama a la función encargada de analizar si el enemigo se elimina o no
             // tmb llama a la función score_updater para sumarle los puntos al jugador
-            else if ((mapa[y - 1][pos_x] != SPACE) && (y > U_BORDER))
+            else if ((mapa[y - 1][pos_x] != SPACE) && (y > T_BORDER))
             {
                 // Evita que se puedan mover los enemigos al momento de ser detectados, para lograr evitar errores
                 flag_game_update = 0;
@@ -118,7 +118,7 @@ void *gamer_fire(void *arg)
                 pthread_exit(NULL);
             }
         }
-        else if (y == U_BORDER && mapa[y - 1][pos_x] == SPACE)
+        else if (y == T_BORDER && mapa[y - 1][pos_x] == SPACE)
         {
             mapa[y][pos_x] = SPACE;
             flag_gamer_shot++;
