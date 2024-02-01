@@ -114,7 +114,7 @@ int disp_name_and_char (void) {
 	int size_name = 40;
 
 	//Busco la variable de back_score_a para que se guarde el nombre del jugador
-	extern char name[50];
+	extern char player_name[50];
 
 	//Carga la fuente para el título
 	ALLEGRO_FONT *font_title = NULL;
@@ -153,7 +153,7 @@ int disp_name_and_char (void) {
 		al_draw_filled_rounded_rectangle(DISPLAY_CENTRE - 230, DISPLAY_CENTRE - 140, DISPLAY_CENTRE + 230, DISPLAY_CENTRE - 55, 10, 10, al_map_rgb(186,85,255));
 
 		//Escribe en el buffer el nombre:
-		al_draw_text(font_name, al_map_rgb(250, 218, 225), DISPLAY_CENTRE - 215, DISPLAY_CENTRE -120, ALLEGRO_ALIGN_LEFT, name);
+		al_draw_text(font_name, al_map_rgb(250, 218, 225), DISPLAY_CENTRE - 215, DISPLAY_CENTRE -120, ALLEGRO_ALIGN_LEFT, player_name);
 
 		al_flip_display();
 
@@ -170,7 +170,7 @@ int disp_name_and_char (void) {
 					//Pone al fonde de color
 					al_clear_to_color(al_map_rgb(54,1,63));
 
-					al_draw_textf(font_title, al_map_rgb(233, 65, 150), DISPLAY_CENTRE, 250, ALLEGRO_ALIGN_CENTER, "Well done %s, now choose your Barbie!", name);
+					al_draw_textf(font_title, al_map_rgb(233, 65, 150), DISPLAY_CENTRE, 250, ALLEGRO_ALIGN_CENTER, "Well done %s, now choose your Barbie!", player_name);
 					al_draw_text(font_subtitle, al_map_rgb(233, 65, 150), DISPLAY_CENTRE, DISPLAY_SIZE - 50, ALLEGRO_ALIGN_CENTER, "After you're done, press ENTER to choose your player");
 
 					character_displayer_menu(sel, char_1, char_2, char_3, char_4, char_5);
@@ -212,13 +212,13 @@ int disp_name_and_char (void) {
 			}
 			else if(ev.keyboard.keycode == ALLEGRO_KEY_BACKSPACE){
 				if(pos > 0){
-					name[--pos] = '\0';
+					player_name[--pos] = '\0';
 				}
 			}
 			else if(ev.keyboard.unichar >= 32 && ev.keyboard.unichar <= 126){
-				if(al_get_text_width(font_name, name) < 435){
-					name[pos++] = (char)ev.keyboard.unichar;
-					name[pos] = '\0';
+				if(al_get_text_width(font_name, player_name) < 435){
+					player_name[pos++] = (char)ev.keyboard.unichar;
+					player_name[pos] = '\0';
 				}
 			}
 		}
@@ -284,14 +284,13 @@ const void character_displayer_menu (int sel, ALLEGRO_BITMAP * char_1, ALLEGRO_B
 
 
 void display_game_over (const int score){
-	ALLEGRO_FONT *font_title = NULL;
-	font_title = al_load_ttf_font("resources/Barbie-font.ttf", TITLE_SIZE, 0);
-	ALLEGRO_FONT *font_score = NULL;
-	font_score = al_load_ttf_font("resources/Barbie-font.ttf", 55, 0);
-	ALLEGRO_FONT *font_description = NULL;
-	font_description = al_load_ttf_font("resources/Barbie-font.ttf", 35, 0);
+	ALLEGRO_FONT * font_title = al_load_ttf_font("resources/Barbie-font.ttf", TITLE_SIZE, 0);
+	ALLEGRO_FONT * font_score = al_load_ttf_font("resources/Barbie-font.ttf", 55, 0);
+	ALLEGRO_FONT * font_description = al_load_ttf_font("resources/Barbie-font.ttf", 35, 0);
+	ALLEGRO_FONT * font_made_score = al_load_ttf_font("resources/Barbie-font.ttf", 40, 0);
 
-	int i = score_saver(score);
+	int i = 0;
+	i = score_saver(score);
 
 	al_clear_to_color(al_map_rgb(54,1,63));
 
@@ -300,13 +299,13 @@ void display_game_over (const int score){
 	al_draw_text(font_description, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 750, ALLEGRO_ALIGN_CENTER, "Press any key to go back to the main menu");
 
 	if(i == 1){
-		al_draw_textf(font_description, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, DISPLAY_SIZE, ALLEGRO_ALIGN_CENTER, "Congrats! You made it to the scoreboard, check the scoreboard to see your position.");
+		al_draw_text(font_made_score, al_map_rgb(BUTTON_COLOR), DISPLAY_CENTRE, 425, ALLEGRO_ALIGN_CENTER, "Congrats! You made it to the scoreboard, check the scoreboard to see your position.");
 	}
 	else if( i == -1){
-		al_draw_textf(font_description, al_map_rgb(255,0,0), DISPLAY_CENTRE, DISPLAY_SIZE, ALLEGRO_ALIGN_CENTER, "An error happend while trying to save the scoreboard :(");
+		al_draw_text(font_description, al_map_rgb(0, 0, 0), DISPLAY_CENTRE, 425, ALLEGRO_ALIGN_CENTER, "There was an error while saving the scores. Please try again...");
 	}
 
-
 	al_flip_display();
+
 }
 

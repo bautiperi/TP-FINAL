@@ -13,6 +13,8 @@
 #include <pthread.h>
 #include <allegro5/allegro.h>
 
+#include "disp_scoreboard_a.h"
+
 //Variable global que sirve como flag para detener la ejecución de los threads
 // 0 -> Falso, están en pausa | 1 -> Ejecutan | 2 -> Exit threads
 int flag_game_update = 0;
