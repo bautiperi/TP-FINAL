@@ -75,63 +75,63 @@ static void num_vis(int num, dcoord_t coor)
     case 1:
         coor.x++;
         coor.y = 8;
-        dcoord_t arr[5] = {coor, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}};
+        dcoord_t arr1[5] = {coor, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}};
         for (i = 0; i < 5; i++)
         {
-            disp_write(arr[i], D_ON);
+            disp_write(arr1[i], D_ON);
         }
         break;
     case 2:
-        dcoord_t arr[11] = {coor, {++coor.x, coor.y}, {++coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {--coor.x, coor.y}, {--coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {++coor.x, coor.y}, {++coor.x, coor.y}};
+        dcoord_t arr2[11] = {coor, {++coor.x, coor.y}, {++coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {--coor.x, coor.y}, {--coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {++coor.x, coor.y}, {++coor.x, coor.y}};
         for (i = 0; i < 11; i++)
         {
-            disp_write(arr[i], D_ON);
+            disp_write(arr2[i], D_ON);
         }
         break;
     case 3:
-        dcoord_t arr[11] = {coor, {++coor.x, coor.y}, {++coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {--coor.x, coor.y}, {--coor.x, coor.y}};
+        dcoord_t arr3[11] = {coor, {++coor.x, coor.y}, {++coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {--coor.x, coor.y}, {--coor.x, coor.y}};
         coor.y += 2;
-        arr[7] = coor;
+        arr3[7] = coor;
         coor.x++;
-        arr[8] = coor;
+        arr3[8] = coor;
         coor.x++;
-        arr[9] = coor;
+        arr3[9] = coor;
         coor.y++;
-        arr[10] = coor;
+        arr3[10] = coor;
         for (i = 0; i < 11; i++)
         {
-            disp_write(arr[i], D_ON);
+            disp_write(arr3[i], D_ON);
         }
         break;
     case 4:
-        dcoord_t arr[9] = {coor, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {++coor.x, coor.y}, {++coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}};
+        dcoord_t arr4[9] = {coor, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {++coor.x, coor.y}, {++coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}};
         coor.y = 8;
-        arr[7] = coor;
+        arr4[7] = coor;
         coor.y--;
-        arr[8] = coor;
+        arr4[8] = coor;
         for (i = 0; i < 9; i++)
         {
-            disp_write(arr[i], D_ON);
+            disp_write(arr4[i], D_ON);
         }
         break;
     case 5:
         coor.x += 2;
-        dcoord_t arr[11] = {coor, {--coor.x, coor.y}, {--coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {++coor.x, coor.y}, {++coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {--coor.x, coor.y}, {--coor.x, coor.y}};
+        dcoord_t arr5[11] = {coor, {--coor.x, coor.y}, {--coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {++coor.x, coor.y}, {++coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {--coor.x, coor.y}, {--coor.x, coor.y}};
         for (i = 0; i < 11; i++)
         {
-            disp_write(arr[i], D_ON);
+            disp_write(arr5[i], D_ON);
         }
         break;
     case 6:
         coor.x += 2;
-        dcoord_t arr[12] = {coor, {--coor.x, coor.y}, {--coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {++coor.x, coor.y}, {++coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {--coor.x, coor.y}};
+        dcoord_t arr6[12] = {coor, {--coor.x, coor.y}, {--coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {++coor.x, coor.y}, {++coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {--coor.x, coor.y}};
         for (i = 0; i < 12; i++)
         {
-            disp_write(arr[i], D_ON);
+            disp_write(arr6[i], D_ON);
         }
         break;
     case 7:
-        dcoord_t arr[7] = {
+        dcoord_t arr7[7] = {
             coor,
             {++coor.x, coor.y},
             {++coor.x, coor.y},
@@ -142,11 +142,11 @@ static void num_vis(int num, dcoord_t coor)
 
         for (i = 0; i < 7; i++)
         {
-            disp_write(arr[i], D_ON);
+            disp_write(arr7[i], D_ON);
         }
         break;
     case 8:
-        dcoord_t arr[13] = {
+        dcoord_t arr8[13] = {
             coor,
             {++coor.x, coor.y},
             {++coor.x, coor.y},
@@ -164,11 +164,11 @@ static void num_vis(int num, dcoord_t coor)
 
         for (i = 0; i < 13; i++)
         {
-            disp_write(arr[i], D_ON);
+            disp_write(arr8[i], D_ON);
         }
         break;
     case 9:
-        dcoord_t arr[10] = {
+        dcoord_t arr9[10] = {
             coor,
             {++coor.x, coor.y},
             {++coor.x, coor.y},
@@ -182,11 +182,11 @@ static void num_vis(int num, dcoord_t coor)
 
         for (i = 0; i < 10; i++)
         {
-            disp_write(arr[i], D_ON);
+            disp_write(arr9[i], D_ON);
         }
         break;
     case 0:
-        dcoord_t arr[12] = {
+        dcoord_t arr0[12] = {
             coor,
             {++coor.x, coor.y},
             {++coor.x, coor.y},
@@ -202,7 +202,7 @@ static void num_vis(int num, dcoord_t coor)
 
         for (i = 0; i < 12; i++)
         {
-            disp_write(arr[i], D_ON);
+            disp_write(arr0[i], D_ON);
         }
         break;
     default:
