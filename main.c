@@ -41,7 +41,7 @@ int main(void)
 
 	joy_init();
 	STATUS = 2;
-	joyinfo_t coord = {0, 0, J_NOPRESS};
+	joyinfo_t coord; //= {0, 0, J_NOPRESS};
 	int npos = 0;
 	dcoord_t coord_menu = {0, 15};
 	FLICK_OPTION = 0; // flag para seleccion en el menu
@@ -101,7 +101,7 @@ int main(void)
 
 			if (FLICK_OPTION == 1 && coord.sw == J_PRESS)
 			{
-				usleep(50000);
+				usleep(100000);
 				STATUS = 2; // CAMBIA A MENU PRINCIPAL
 			}
 			else if (FLICK_OPTION == 0 && coord.sw == J_PRESS)
