@@ -368,7 +368,7 @@ static void final_boss_movement(int mapa[][COL], int dir, int y)
             }
 
 #ifdef RASPBERRY
-            usleep((int)(500000 / (harder / 2)));
+            usleep((int)(400000 / (harder / 2)));
 #else
             usleep((int)(150000 / (harder / 2)));
 #endif
