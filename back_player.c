@@ -7,6 +7,7 @@
 // LIBRERIAS
 #include <unistd.h>
 #include <pthread.h>
+#include <stdio.h>
 
 // Variable global de main.c (flag para threads)
 extern int flag_game_update;
@@ -39,6 +40,10 @@ void gamer_movement(int mapa[][COL], int dir)
 
 void *gamer_fire(void *arg)
 {
+    if (!flag_gamer_shot)
+    {
+        printf("NO MAS DISPAROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOS");
+    }
     if (flag_gamer_shot <= 0 && flag_game_update != 0)
     {
         return NULL;

@@ -232,7 +232,7 @@ static void num_vis(int num, dcoord_t coor)
 
 static void score_wrd_vis(void)
 {
-    shutdown_disp();
+    //shutdown_disp();
 
     int i;
 
