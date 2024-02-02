@@ -26,7 +26,7 @@ void gamer_movement(int mapa[][COL], int dir)
             mapa[y][x] = 0;
             life_updater(mapa);
         }
-        else if (mapa[y][x] == JUGADOR && (x + dir > 0) && (x + dir <= R_BORDER))
+        else if (mapa[y][x] == JUGADOR && (x + dir > 0) && (x + dir < R_BORDER))
         {
             swap(mapa, x, y, x + dir, y);
             x++;
