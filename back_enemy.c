@@ -341,7 +341,7 @@ static void final_boss_movement(int mapa[][COL], int dir, int y)
     if (dir >= 0)
     {
 
-        for (x = 0; x < COL; x++)
+        for (x = 0; x < COL - 1; x++)
         {
             // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
             // Elimina al enemigo
