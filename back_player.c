@@ -9,8 +9,7 @@
 #include <pthread.h>
 #include <stdio.h>
 
-// Variable global de main.c (flag para threads)
-extern int flag_game_update;
+
 
 // Variable global que establece la cantidad de disparos que puede efectuar
 int flag_gamer_shot = 1500;
@@ -66,6 +65,7 @@ void *gamer_fire(void *arg)
     }
 
     int eureka = 1;
+
 #ifndef RASPBERRY
     is_shooting = 0; // Reset the shooting flag
 #endif

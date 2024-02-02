@@ -32,4 +32,11 @@ void *gamer_fire(void *arg);
  */
 int life_updater(int mapa[][COL]);
 
+// VARIABLES EXTERNAS
+// Variable global de main.c (flag para threads)
+extern int flag_game_update;
+#ifndef RASPBERRY
+extern int is_shooting;
+#endif
+
 #endif /* BACK_PLAYER_H_ */
