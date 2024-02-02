@@ -39,7 +39,6 @@ void menu_vis(int mapa[][COL])
     // Segun el flag de FLICK_OPTION titila la opcion seleccionada
     if (FLICK_OPTION == 0)
     {
-        
     }
     if (FLICK_OPTION == 1)
     {
@@ -75,18 +74,11 @@ void menu_principal_vis(int mapa[][COL])
         disp_write(power_off_btn[i], D_ON);
     }
 
-    pthread_t flick;
     if (FLICK_OPTION == 0)
     {
-        multp_cant = 16;
-        pthread_create(flick, NULL, multp_flick, continue_btn);
-        // multp_flick(continue_btn);
     }
     if (FLICK_OPTION == 1)
     {
-        multp_cant = 16;
-        pthread_create(flick, NULL, multp_flick, power_off_btn);
-        // multp_flick(power_off_btn);
     }
     disp_update();
 }
