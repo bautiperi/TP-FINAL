@@ -11,6 +11,8 @@
 #include <pthread.h>
 #include <unistd.h>
 
+const int multp_cant;
+
 void menu_vis(int mapa[][COL])
 {
     shutdown_disp();
@@ -40,13 +42,13 @@ void menu_vis(int mapa[][COL])
     // Segun el flag de FLICK_OPTION titila la opcion seleccionada
     if (FLICK_OPTION == 0)
     {
-        MULTP_CANT = 9;
+        multp_cant = 9;
         pthread_create(flick, NULL, multp_flick, continue_btn);
         // multp_flick(continue_btn);
     }
     if (FLICK_OPTION == 1)
     {
-        MULTP_CANT = 9;
+        multp_cant = 9;
         pthread_create(flick, NULL, multp_flick, exit_btn);
         // multp_flick(exit_btn);
     }
@@ -84,13 +86,13 @@ void menu_principal_vis(int mapa[][COL])
     pthread_t flick;
     if (FLICK_OPTION == 0)
     {
-        MULTP_CANT = 16;
+        multp_cant = 16;
         pthread_create(flick, NULL, multp_flick, continue_btn);
         // multp_flick(continue_btn);
     }
     if (FLICK_OPTION == 1)
     {
-        MULTP_CANT = 16;
+        multp_cant = 16;
         pthread_create(flick, NULL, multp_flick, power_off_btn);
         // multp_flick(power_off_btn);
     }

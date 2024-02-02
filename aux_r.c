@@ -29,9 +29,9 @@ void led_flick(dcoord_t coor_)
 
 void *multp_flick(void *arg)
 {
-    int cant = MULTP_CANT;
+    int cant = multp_cant;
     int estado = STATUS;
-    dcoord_t coords[MULTP_CANT] = (dcoord_t[MULTP_CANT])arg;
+    dcoord_t coords[multp_cant] = (dcoord_t[MULTP_CANT])arg;
     int i, j;
     int tiempo_espera = DELAY / 100;
 
