@@ -53,7 +53,8 @@ int main(void)
 		while (STATUS == 0) // JUEGO
 		{
 			coord = joy_read();
-			// led_flick(coord_menu);
+			usleep(5000);
+			disp_write(coord_menu, D_ON); // coordenada que simula un "boton" de menu
 
 			if ((coord.sw) == (J_PRESS)) // dispara el player
 			{
@@ -76,11 +77,13 @@ int main(void)
 
 			if (coord.y >= THRESHOLD)
 			{ // si la coordenada en y no se movio hacia la seleccion del menu
+				disp_write(coord_menu, D_OFF);
 				STATUS = 1;
 				flag_game_update = 0;
 			}
 			if (LIVES == 0)
 			{
+				disp_write(coord_menu, D_OFF);
 				STATUS = 3;
 				flag_game_update = 0;
 			}

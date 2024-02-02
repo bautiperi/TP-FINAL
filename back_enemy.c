@@ -338,7 +338,7 @@ static void final_boss_movement(int mapa[][COL], int dir, int y)
 {
     int x;
 
-    //  se mueve hacia la derecha
+    // Se mueve hacia la derecha
     if (dir >= 0)
     {
 
