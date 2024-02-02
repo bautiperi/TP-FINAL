@@ -56,6 +56,11 @@ void map_def(const int diff, int mapa[][COL], int score)
 		}
 	}
 
+	if (score != 0)
+	{
+		SCORE = score;
+	}
+
 	// Llama a la función encargada de crear los enemigos
 	ships_create(diff, mapa);
 
