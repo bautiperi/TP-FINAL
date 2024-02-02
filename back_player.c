@@ -66,16 +66,20 @@ void *gamer_fire(void *arg)
     }
 
     int eureka = 1;
+#ifndef RASPBERRY
+    is_shooting = 0; // Reset the shooting flag
+#endif
 
     // Empieza a mover el disparo por el mapa, en caso de encontrar un obstáculo lo destruye y se elimina el disparo
-    for (y--; y >= T_BORDER && eureka; y--)
+    for (y--; y >= T_BORDER && eureka && mapa[y][pos_x] == FIRE_PL; y--)
     {
         usleep(150000);
-
+        // Avanza el disparo por el mapa
         if ((mapa[y - 1][pos_x] == SPACE) && y > T_BORDER)
         {
             swap(mapa, pos_x, y, pos_x, y - 1);
         }
+        // Encuentra algo!
         else if ((mapa[y - 1][pos_x] != SPACE) && (y > T_BORDER))
         {
             eureka = 0;
@@ -92,7 +96,7 @@ void *gamer_fire(void *arg)
             }
             // Si es un enemigo, destruye el disparo y llama a la función encargada de analizar si el enemigo se elimina o no
             // tmb llama a la función score_updater para sumarle los puntos al jugador
-            else if (mapa[y - 1][pos_x] != SPACE)
+            else if ((mapa[y - 1][pos_x] != SPACE))
             {
                 // Evita que se puedan mover los enemigos al momento de ser detectados, para lograr evitar errores
                 flag_game_update = 0;
@@ -109,9 +113,9 @@ void *gamer_fire(void *arg)
 
                 score_updater(mapa, mapa[y - 1][pos_x]);
 
-                mapa[y][pos_x] = SPACE;
-
                 enemy_life(pos_x, y - 1, mapa); // función que decide si se elimina o no el enemigo
+
+                mapa[y][pos_x] = SPACE;
 
                 flag_game_update = 1;
 
@@ -120,7 +124,7 @@ void *gamer_fire(void *arg)
                 pthread_exit(NULL);
             }
         }
-        else if (y == T_BORDER)
+        else if (y <= T_BORDER && mapa[y][pos_x] == FIRE_PL)
         {
             mapa[y][pos_x] = SPACE;
             flag_gamer_shot++;
@@ -128,6 +132,7 @@ void *gamer_fire(void *arg)
         }
     }
 
+    flag_gamer_shot++;
     pthread_exit(NULL);
 }
 

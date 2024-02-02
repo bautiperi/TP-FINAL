@@ -124,7 +124,6 @@ void *alien_movement(void *arg)
 
     while (1)
     {
-        any_enemy = 0; // Pone en 0 el contador
 
         // Pone el thread "en pausa"
         while (flag_game_update == 0)
@@ -135,6 +134,8 @@ void *alien_movement(void *arg)
         {
             pthread_exit(NULL);
         }
+
+        any_enemy = 0; // Pone en 0 el contador
 
         if (flag == 1)
         {
@@ -175,9 +176,9 @@ void *alien_movement(void *arg)
                     else if (mapa[y][x + 1] == FIRE_PL && (enemy_checker(x, y, mapa)))
                     {
                         flag_game_update = 0; // Para evitar errores, momentaneamente detiene el resto de threads
+                        mapa[y][x + 1] = 0;   // Destruye la bala
                         score_updater(mapa, mapa[y][x]);
                         enemy_life(x, y, mapa); // Decide si el alien vive o no
-                        mapa[y][x + 1] = 0;     // Destruye la bala
                         swap(mapa, x, y, x + 1, y);
                         x++;
                         flag_game_update = 1; // Vuelve a habilitar los threads
@@ -217,9 +218,9 @@ void *alien_movement(void *arg)
                     else if (mapa[y][x - 1] == FIRE_PL && (enemy_checker(x, y, mapa)))
                     {
                         flag_game_update = 0; // Para evitar errores, momentaneamente detiene el resto de threads
+                        mapa[y][x - 1] = 0;
                         score_updater(mapa, mapa[y][x]);
                         enemy_life(x, y, mapa);
-                        mapa[y][x - 1] = 0;
                         swap(mapa, x, y, x - 1, y);
                         x--;
                         flag_game_update = 1; // Vuelve a habilitar los threads
@@ -341,13 +342,13 @@ static void final_boss_movement(int mapa[][COL], int dir, int y)
     if (dir >= 0)
     {
 
-        for (x = 0; x < R_BORDER; x++)
+        for (x = 0; x < COL; x++)
         {
             // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
             // Elimina al enemigo
-            if (mapa[y][R_BORDER - 1] == BOSS)
+            if (mapa[y][COL - 1] == BOSS)
             {
-                mapa[y][R_BORDER - 1] = SPACE; // hace que no haya mas enemigo
+                mapa[y][COL - 1] = SPACE; // hace que no haya mas enemigo
 #ifdef RASPBERRY
                 mapa[0][6] = 0;
 #endif
@@ -361,8 +362,8 @@ static void final_boss_movement(int mapa[][COL], int dir, int y)
             {
                 flag_game_update = 0; // Para evitar errores, momentaneamente detiene el resto de threads
                 score_updater(mapa, mapa[y][x]);
-                mapa[y][x + 1] = 0; // Elimina el disparo
-                mapa[y][x] = 0; // Elimina el boss
+                mapa[y][x + 1] = 0;   // Elimina el disparo
+                mapa[y][x] = 0;       // Elimina el boss
                 flag_game_update = 1; // Vuelve a habilitar los threads
             }
             usleep((int)(250000 / (harder / 2)));
@@ -380,18 +381,11 @@ static void final_boss_movement(int mapa[][COL], int dir, int y)
                 mapa[0][6] = 0;
 #endif
             }
-            else if (mapa[y][x] == BOSS && mapa[y][x - 1] == SPACE)
+            else if (mapa[y][x] == BOSS)
             {
-                swap(mapa, x, y, x + 1, y);
+                swap(mapa, x, y, x - 1, y);
             }
-            else if (mapa[y][x] == BOSS && mapa[y][x - 1] == FIRE_PL)
-            {
-                flag_game_update = 0; // Para evitar errores, momentaneamente detiene el resto de threads
-                score_updater(mapa, mapa[y][x]);
-                mapa[y][x - 1] = 0; // Elimina el disparo
-                mapa[y][x] = 0; // Elimina el boss
-                flag_game_update = 1; // Vuelve a habilitar los threads
-            }
+            usleep((int)(250000 / (harder / 2)));
         }
     }
 }
@@ -425,7 +419,7 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
                 if (enemy_checker(x, y, mapa)) // Verifica que haya aliens para que disparen
                 {
                     shot = rand() % 100 + 1;
-                    if (shot < (15 * harder)) // Genera disparos en una cantidad determinada de las iteraciones
+                    if (shot < 15) // Genera disparos en una cantidad determinada de las iteraciones
                     {
                         mapa[y + 1][x] = FIRE_EN; // Crea la bala enemiga
                         xb = x;                   // Guarda la coordenada x del disparo
@@ -435,7 +429,67 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
                         {
                             usleep(80000);
 
-                            if (mapa[y + 1][xb] == SPACE) // Si la bala tiene el camino despejado avanza
+                            if (mapa[y + 1][xb - 1] == JUGADOR) // Si la bala impacta al jugador en el costado izquierdo
+                            {
+                                eureka = 0;
+
+                                mapa[y][xb] = SPACE;
+                                mapa[y + 1][xb - 1] = SPACE;
+
+                                IMPACT_X = xb - 1;
+                                IMPACT_Y = y + 1;
+
+                                pthread_t impact_up;
+                                pthread_create(&impact_up, NULL, impact_updater, mapa);
+
+                                life_updater(mapa);
+                            }
+                            else if (mapa[y + 1][xb + 1] == JUGADOR) // Si la bala impacta al jugador en el costado derecho
+                            {
+                                eureka = 0;
+
+                                mapa[y][xb] = SPACE;
+                                mapa[y + 1][xb + 1] = SPACE;
+
+                                IMPACT_X = xb + 1;
+                                IMPACT_Y = y + 1;
+
+                                pthread_t impact_up;
+                                pthread_create(&impact_up, NULL, impact_updater, mapa);
+
+                                life_updater(mapa);
+                            }
+                            else if (mapa[y][xb + 1] == JUGADOR) // Si el jugador impacta una bala por la derecha
+                            {
+                                eureka = 0;
+
+                                mapa[y][xb] = SPACE;
+                                mapa[y][xb + 1] = SPACE;
+
+                                IMPACT_X = xb + 1;
+                                IMPACT_Y = y;
+
+                                pthread_t impact_up;
+                                pthread_create(&impact_up, NULL, impact_updater, mapa);
+
+                                life_updater(mapa);
+                            }
+                            else if (mapa[y][xb - 1] == JUGADOR) // Si el jugador impacta una bala por la izquierda
+                            {
+                                eureka = 0;
+
+                                mapa[y][xb] = SPACE;
+                                mapa[y][xb - 1] = SPACE;
+
+                                IMPACT_X = xb - 1;
+                                IMPACT_Y = y;
+
+                                pthread_t impact_up;
+                                pthread_create(&impact_up, NULL, impact_updater, mapa);
+
+                                life_updater(mapa);
+                            }
+                            else if (mapa[y + 1][xb] == SPACE) // Si la bala tiene el camino despejado avanza
                             {
                                 swap(mapa, xb, y, xb, y + 1);
                             }
@@ -459,20 +513,18 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
                                     mapa[y + 1][xb] += 1;
                                     mapa[y][xb] = SPACE;
                                 }
-                                else if (mapa[y + 1][xb] == JUGADOR || mapa[y + 1][xb - 1] == JUGADOR || mapa[y + 1][xb + 1] == JUGADOR) // Si la bala impacta al jugador
+                                else if (mapa[y + 1][xb] == JUGADOR) // Si la bala impacta al jugador de frente
                                 {
                                     mapa[y][xb] = SPACE;
-
                                     mapa[y + 1][xb] = SPACE;
-                                    mapa[y + 1][xb + 1] = SPACE;
-                                    mapa[y + 1][xb - 1] = SPACE;
-                                    life_updater(mapa);
 
                                     IMPACT_X = xb;
                                     IMPACT_Y = y + 1;
 
                                     pthread_t impact_up;
                                     pthread_create(&impact_up, NULL, impact_updater, mapa);
+
+                                    life_updater(mapa);
                                 }
                             }
                         }
@@ -507,5 +559,10 @@ void enemy_life(int x, int y, int mapa[][COL])
         {
             mapa[y][x] = 0;
         }
+    }
+
+    if (mapa[y][x] == FIRE_PL)
+    {
+        mapa[y][x] = 0;
     }
 }
