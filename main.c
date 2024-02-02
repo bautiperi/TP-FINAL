@@ -43,7 +43,7 @@ int main(void)
 	STATUS = 2;
 	joyinfo_t coord; //= {0, 0, J_NOPRESS};
 	int npos = 0;
-	dcoord_t coord_menu = {0, 15};
+	dcoord_t coord_menu = {15, 0};
 	FLICK_OPTION = 0; // flag para seleccion en el menu
 	// JUEGO
 	CLOSE_GAME = 0;
