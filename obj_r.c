@@ -35,8 +35,8 @@ void gamer_shot(dcoord_t coord)
 
 void aliens_vis(dcoord_t coor_inicial)
 {
-    disp_write(coor_inicial, D_ON);
     printf("2 {%d, %d}\t", coor_inicial.x, coor_inicial.y);
+    disp_write(coor_inicial, D_ON);
 }
 
 void aliens_death(dcoord_t coord)
@@ -159,9 +159,8 @@ void lives_vis(int cant)
 
 void shields_vis(dcoord_t coor)
 {
-    disp_write(coor, D_ON);
-
     printf("11 {%d, %d}\t", coor.x, coor.y);
+    disp_write(coor, D_ON);
 }
 
 void shields_life(int life_of_shield, dcoord_t coor_of_shield)
