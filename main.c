@@ -12,6 +12,7 @@
 #include "menu_r.h"
 #include "aux_r.h"
 #include "score_r.h"
+#include "obj_r.c"
 
 // BACK
 #include "back_player.h"

@@ -10,7 +10,7 @@ raspberry: $(OBJS)
 	$(CC) -DRASPBERRY -c $< -o $@ $(CFLAGS)
 
 # dependencias especificas para cada objeto
-main.o: back_map.h disdrv.h joydrv.h _defines_display_r.h conection_b_r.h aux_r.h menu_r.h back_player.h back_enemy.h back_score.h score_r.h
+main.o: back_map.h disdrv.h joydrv.h _defines_display_r.h conection_b_r.h aux_r.h menu_r.h back_player.h back_enemy.h back_score.h score_r.h obj_r.h
 obj_r.o: obj_r.h aux_r.h disdrv.h joydrv.h _defines.h _defines_display_r.h
 menu_r.o: menu_r.h disdrv.h joydrv.h aux_r.h _defines.h
 aux_r.o: aux_r.h disdrv.h joydrv.h _defines.h _defines_display_r.h

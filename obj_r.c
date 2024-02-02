@@ -29,7 +29,7 @@ void gamer_vis(dcoord_t ubi)
 
 void aliens_vis(dcoord_t coor_inicial)
 {
-    if (arr[i].x <= 15 && arr[i].x >= 0 && arr[i].y <= 15 && arr[i].y >= 0)
+    if (coor_inicial.x <= 15 && coor_inicial.x >= 0 && coor_inicial.y <= 15 && coor_inicial.y >= 0)
     {
         disp_write(coor_inicial, D_ON); // prende el led
     }
