@@ -144,6 +144,7 @@ int main(void)
 			game_over();
 			usleep(500000);
 			score_vis(SCORE);
+			printf("%d", SCORE);
 			usleep(6000000);
 			STATUS = 2;
 		}

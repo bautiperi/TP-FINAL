@@ -21,7 +21,7 @@ void score_vis(int num)
 
         // Mostrar el dígito
         num_vis(digit, coor_ini);
-        coor_ini.x += 3;
+        coor_ini.x += 3; //Cada numero tiene 3 lugares para ser mostrado
 
     } while (tempNum > 0);
 
@@ -32,6 +32,7 @@ void score_vis(int num)
 static void num_vis(int num, dcoord_t coor)
 {
     // dcoord_t coor_inicial = coor;
+    //Dependiendo del numero, se guardan en el buffer los leds indicados
     int i;
     switch (num)
     {
