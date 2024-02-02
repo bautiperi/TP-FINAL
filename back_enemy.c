@@ -341,13 +341,13 @@ static void final_boss_movement(int mapa[][COL], int dir, int y)
     if (dir >= 0)
     {
 
-        for (x = 0; x < COL - 1; x++)
+        for (x = 0; x < R_BORDER; x++)
         {
             // Analiza si se llegó al extremo de la matriz, para evitar que los enemigos se "amontonen"
             // Elimina al enemigo
-            if (mapa[y][COL - 1] == BOSS)
+            if (mapa[y][R_BORDER - 1] == BOSS)
             {
-                mapa[y][COL - 1] = SPACE; // hace que no haya mas enemigo
+                mapa[y][R_BORDER - 1] = SPACE; // hace que no haya mas enemigo
 #ifdef RASPBERRY
                 mapa[0][6] = 0;
 #endif
