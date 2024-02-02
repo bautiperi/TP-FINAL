@@ -4,7 +4,6 @@
 
 // INCLUDES NECESARIOS PARA PROTOTIPOS
 #include "_defines.h"
-#include "joydrv.h"
 #include "disdrv.h"
 
 /***********************************  GAMER   ***********************************/

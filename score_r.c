@@ -24,7 +24,6 @@ static void score_wrd_vis(void);
 
 void score_vis(int score)
 {
-    int value;
     dcoord_t coor_ini = {13, 8}; // coordenada inicial
     shutdown_disp();
 
