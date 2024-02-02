@@ -13,7 +13,7 @@
 // FLAGS
 #define STATUS mapa[0][4]
 #define FLICK_OPTION mapa[0][5]
-
+#define DIRECCION mapa[0][6]
 #define CLOSE_GAME mapa[6][0]
 
 #endif /* _DEFINES_DISPLAY_R_H */

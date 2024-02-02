@@ -353,9 +353,17 @@ static void final_boss_movement(int mapa[][COL], int dir, int y)
 #endif
             }
             // Cambia la posición del enemigo
-            else if (mapa[y][x] == BOSS)
+            else if (mapa[y][x] == BOSS && mapa[y][x + 1] == SPACE)
             {
                 swap(mapa, x, y, x + 1, y);
+            }
+            else if (mapa[y][x] == BOSS && mapa[y][x + 1] == FIRE_PL)
+            {
+                flag_game_update = 0; // Para evitar errores, momentaneamente detiene el resto de threads
+                score_updater(mapa, mapa[y][x]);
+                mapa[y][x + 1] = 0; // Elimina el disparo
+                mapa[y][x] = 0; // Elimina el boss
+                flag_game_update = 1; // Vuelve a habilitar los threads
             }
             usleep((int)(250000 / (harder / 2)));
         }
@@ -372,11 +380,18 @@ static void final_boss_movement(int mapa[][COL], int dir, int y)
                 mapa[0][6] = 0;
 #endif
             }
-            else if (mapa[y][x] == BOSS)
+            else if (mapa[y][x] == BOSS && mapa[y][x - 1] == SPACE)
             {
-                swap(mapa, x, y, x - 1, y);
+                swap(mapa, x, y, x + 1, y);
             }
-            usleep((int)(250000 / (harder / 2)));
+            else if (mapa[y][x] == BOSS && mapa[y][x - 1] == FIRE_PL)
+            {
+                flag_game_update = 0; // Para evitar errores, momentaneamente detiene el resto de threads
+                score_updater(mapa, mapa[y][x]);
+                mapa[y][x - 1] = 0; // Elimina el disparo
+                mapa[y][x] = 0; // Elimina el boss
+                flag_game_update = 1; // Vuelve a habilitar los threads
+            }
         }
     }
 }

@@ -4,7 +4,6 @@
 
 // LIBRERIAS
 #include <unistd.h>
-#include <pthread.h>
 
 void led_flick(dcoord_t coor_)
 {
@@ -27,15 +26,12 @@ void led_flick(dcoord_t coor_)
     }
 }
 
-void *multp_flick(void *arg)
+void multp_flick(dcoord_t coords[], int cant)
 {
-    int cant = multp_cant;
-    int estado = STATUS;
-    dcoord_t coords[multp_cant] = (dcoord_t[MULTP_CANT])arg;
     int i, j;
     int tiempo_espera = DELAY / 100;
 
-    for (i = 0; i < MAX_ITERATIONS && estado == STATUS; i++)
+    for (i = 0; i < MAX_ITERATIONS; i++)
     {
 
         for (j = 0; j < cant; j++)
@@ -55,7 +51,6 @@ void *multp_flick(void *arg)
             disp_update();
         }
     }
-    pthread_exit(NULL);
 }
 
 void shutdown_disp(void)

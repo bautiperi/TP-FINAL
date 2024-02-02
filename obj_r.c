@@ -51,7 +51,7 @@ void final_boss_vis(dcoord_t ubi, int mapa[][COL])
 {
     int i;
     dcoord_t ubi_inicial = ubi;
-    int flag = mapa[0][6];
+    int flag = DIRECCION;
     if (mapa[1][14] == BOSS && flag > 0)
     {
         for (i = ubi_inicial.x; i < ubi_inicial.x + 2; i++)

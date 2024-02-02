@@ -8,10 +8,7 @@
 // LIBRERIAS
 #include "disdrv.h"
 #include "joydrv.h"
-#include <pthread.h>
 #include <unistd.h>
-
-const int multp_cant;
 
 void menu_vis(int mapa[][COL])
 {
@@ -38,19 +35,14 @@ void menu_vis(int mapa[][COL])
     {
         disp_write(exit_btn[i], D_ON);
     }
-    pthread_t flick;
+
     // Segun el flag de FLICK_OPTION titila la opcion seleccionada
     if (FLICK_OPTION == 0)
     {
-        multp_cant = 9;
-        pthread_create(flick, NULL, multp_flick, continue_btn);
-        // multp_flick(continue_btn);
+        
     }
     if (FLICK_OPTION == 1)
     {
-        multp_cant = 9;
-        pthread_create(flick, NULL, multp_flick, exit_btn);
-        // multp_flick(exit_btn);
     }
 
     disp_write({0, 0}, D_OFF);
