@@ -144,7 +144,7 @@ int main(void)
 			game_over();
 			usleep(500000);
 			score_vis(SCORE);
-			usleep(4000000);
+			usleep(6000000);
 			STATUS = 2;
 		}
 	} while (CLOSE_GAME != 1);

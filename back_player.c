@@ -120,7 +120,7 @@ void *gamer_fire(void *arg)
                 pthread_exit(NULL);
             }
         }
-        else if (y == T_BORDER && mapa[y - 1][pos_x] == SPACE)
+        else if (y == T_BORDER)
         {
             mapa[y][pos_x] = SPACE;
             flag_gamer_shot++;
