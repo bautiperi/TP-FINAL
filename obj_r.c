@@ -5,7 +5,7 @@
 
 // LIBRERIAS
 #include <unistd.h>
-
+#include <stdio.h>
 
 /***********************************  GAMER  ***********************************/
 
@@ -17,6 +17,7 @@ void gamer_vis(dcoord_t ubi)
     dcoord_t arr[4] = {ubi, {--ubi.x, --ubi.y}, {ubi.x, ++ubi.y}, {--ubi.x, ubi.y}};
     for (i = 0; i < 4; i++) // prende todas las coordenadas
     {
+        printf("1 {%d, %d}\t", arr[i].x, arr[i].y);
         disp_write(arr[i], D_ON);
     }
 }
@@ -35,6 +36,7 @@ void gamer_shot(dcoord_t coord)
 void aliens_vis(dcoord_t coor_inicial)
 {
     disp_write(coor_inicial, D_ON);
+    printf("2 {%d, %d}\t", coor_inicial.x, coor_inicial.y);
 }
 
 void aliens_death(dcoord_t coord)
@@ -55,6 +57,7 @@ void final_boss_vis(dcoord_t ubi, int mapa[][COL])
         for (i = ubi_inicial.x; i < ubi_inicial.x + 2; i++)
         {
             ubi.x = i;
+            printf("3 {%d, %d}\t", ubi.x, ubi.y);
 
             if (i == ubi_inicial.x + 1)
             {
@@ -71,6 +74,7 @@ void final_boss_vis(dcoord_t ubi, int mapa[][COL])
     }
     else if (mapa[1][15] == BOSS && flag > 0)
     {
+        printf("4 {%d, %d}\t", ubi.x, ubi.y);
         disp_write(ubi, D_ON);
     }
     else if (mapa[1][0] == BOSS && flag < 0)
@@ -78,19 +82,24 @@ void final_boss_vis(dcoord_t ubi, int mapa[][COL])
         usleep(500000);
         ubi_inicial.x = 0;
         ubi_inicial.y = 1;
+        printf("5 {%d, %d}\t", ubi_inicial.x, ubi_inicial.y);
         disp_write(ubi_inicial, D_ON);
         ubi_inicial.y++;
+        printf("6 {%d, %d}\t", ubi_inicial.x, ubi_inicial.y);
         disp_write(ubi_inicial, D_ON);
         ubi_inicial.y--;
         ubi_inicial.x++;
+        printf("7 {%d, %d}\t", ubi_inicial.x, ubi_inicial.y);
         disp_write(ubi_inicial, D_ON);
         usleep(500000);
         disp_write(ubi_inicial, D_OFF);
         ubi_inicial.y++;
         ubi_inicial.x--;
+        printf("8 {%d, %d}\t", ubi_inicial.x, ubi_inicial.y);
         disp_write(ubi_inicial, D_OFF);
         usleep(500000);
         ubi_inicial.y--;
+        printf("9 {%d, %d}\t", ubi_inicial.x, ubi_inicial.y);
         disp_write(ubi_inicial, D_OFF);
     }
     else
@@ -101,6 +110,7 @@ void final_boss_vis(dcoord_t ubi, int mapa[][COL])
         dcoord_t arr[4] = {{ubi.x, ubi.y}, {--ubi.x, ++ubi.y}, {ubi.x, --ubi.y}, {--ubi.x, ubi.y}};
         for (i = 0; i < 4; i++) // prende todas las coordenadas
         {
+            printf("10 {%d, %d}\t", arr[i].x, arr[i].y);
             disp_write(arr[i], D_ON);
         }
     }
@@ -150,6 +160,8 @@ void lives_vis(int cant)
 void shields_vis(dcoord_t coor)
 {
     disp_write(coor, D_ON);
+
+    printf("11 {%d, %d}\t", coor.x, coor.y);
 }
 
 void shields_life(int life_of_shield, dcoord_t coor_of_shield)
@@ -179,6 +191,7 @@ void game_over(void)
 
     for (i = 0; i < 20; i++)
     {
+        printf("12 {%d, %d}\t", coor[i].x, coor[i].y);
         disp_write(coor[i], D_ON);
     }
 
