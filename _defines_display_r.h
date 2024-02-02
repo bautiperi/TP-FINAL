@@ -12,7 +12,25 @@
 
 // FLAGS
 #define STATUS mapa[0][4]
-#define FLICK_OPTION mapa[0][6]
+#define FLICK_OPTION mapa[0][5]
+#define MULTP_CANT mapa[0][7]
 #define CLOSE_GAME mapa[6][0]
 
 #endif /* _DEFINES_DISPLAY_R_H */
+
+/*
+FLAGS DEL JUEGO
+mapa[0][4] es un flag que indica el momento de juego 
+mapa[0][4] = 0 -> en el juego
+mapa[0][4]  = 1 -> en el menu
+mapa[0][4]  = 2 -> menu principal
+
+mapa[0][5]  es un flag para la cantidad de elementos de una matriz para pasarle a la función multiple flick
+
+mapa[0][6]  es un flag para la visualización de la dirección
+1  -> derecha
+-1- > izquierda
+
+
+
+*/

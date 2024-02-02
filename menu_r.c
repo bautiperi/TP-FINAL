@@ -2,9 +2,13 @@
 #include "menu_r.h"
 #include "aux_r.h"
 
+// DEFINES
+#include "_defines_display_r.h"
+
 // LIBRERIAS
 #include "disdrv.h"
 #include "joydrv.h"
+#include <pthread.h>
 #include <unistd.h>
 
 void menu_vis(int mapa[][COL])
@@ -32,16 +36,22 @@ void menu_vis(int mapa[][COL])
     {
         disp_write(exit_btn[i], D_ON);
     }
-
-    /*// Segun el flag de FLICK_OPTION titila la opcion seleccionada
+    pthread_t flick;
+    // Segun el flag de FLICK_OPTION titila la opcion seleccionada
     if (FLICK_OPTION == 0)
     {
-        multp_flick(continue_btn, 9);
+        MULTP_CANT = 9;
+        pthread_create(flick, NULL, multp_flick, continue_btn);
+        // multp_flick(continue_btn);
     }
     if (FLICK_OPTION == 1)
     {
-        multp_flick(exit_btn, 10);
-    }*/
+        MULTP_CANT = 9;
+        pthread_create(flick, NULL, multp_flick, exit_btn);
+        // multp_flick(exit_btn);
+    }
+
+    disp_write({0, 0}, D_OFF);
     disp_update();
 }
 
@@ -71,13 +81,18 @@ void menu_principal_vis(int mapa[][COL])
         disp_write(power_off_btn[i], D_ON);
     }
 
-    /*if (FLICK_OPTION == 0)
+    pthread_t flick;
+    if (FLICK_OPTION == 0)
     {
-        multp_flick(continue_btn, 16);
+        MULTP_CANT = 16;
+        pthread_create(flick, NULL, multp_flick, continue_btn);
+        // multp_flick(continue_btn);
     }
     if (FLICK_OPTION == 1)
     {
-        multp_flick(power_off_btn, 16);
-    }*/
+        MULTP_CANT = 16;
+        pthread_create(flick, NULL, multp_flick, power_off_btn);
+        // multp_flick(power_off_btn);
+    }
     disp_update();
 }
