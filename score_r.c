@@ -65,7 +65,7 @@ static void num_vis(int num, dcoord_t coor)
         arr3[8] = coor;
         coor.x++;
         arr3[9] = coor;
-        coor.y++;
+        coor.y--;
         arr3[10] = coor;
         for (i = 0; i < 11; i++)
         {
@@ -78,7 +78,7 @@ static void num_vis(int num, dcoord_t coor)
         dcoord_t arr4[9] = {coor, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {++coor.x, coor.y}, {++coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}};
         coor.y = 8;
         arr4[7] = coor;
-        coor.y--;
+        coor.y++;
         arr4[8] = coor;
         for (i = 0; i < 9; i++)
         {
@@ -99,7 +99,7 @@ static void num_vis(int num, dcoord_t coor)
     case 6:
     {
         coor.x += 2;
-        dcoord_t arr6[12] = {coor, {--coor.x, coor.y}, {--coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {++coor.x, coor.y}, {++coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {--coor.x, coor.y}};
+        dcoord_t arr6[12] = {coor, {--coor.x, coor.y}, {--coor.x, coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {coor.x, ++coor.y}, {++coor.x, coor.y}, {++coor.x, coor.y}, {coor.x, --coor.y}, {coor.x, --coor.y}, {--coor.x, coor.y}};
         for (i = 0; i < 12; i++)
         {
             disp_write(arr6[i], D_ON);
@@ -149,7 +149,7 @@ static void num_vis(int num, dcoord_t coor)
     }
     case 9:
     {
-        dcoord_t arr9[10] = {
+        dcoord_t arr9[12] = {
             coor,
             {++coor.x, coor.y},
             {++coor.x, coor.y},
@@ -157,11 +157,13 @@ static void num_vis(int num, dcoord_t coor)
             {coor.x, ++coor.y},
             {coor.x, ++coor.y},
             {coor.x, ++coor.y},
-            {--coor.x, (coor.y - 2)},
             {--coor.x, coor.y},
-            {coor.x, --coor.y}};
+            {--coor.x, coor.y},
+            {coor.x, (coor.y - 2)},
+            {++coor.x, coor.y},
+            {--coor.x, --coor.y}};
 
-        for (i = 0; i < 10; i++)
+        for (i = 0; i < 12; i++)
         {
             disp_write(arr9[i], D_ON);
         }
