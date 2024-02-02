@@ -11,7 +11,7 @@
 // Variable global de main.c (flag para threads)
 extern int flag_game_update;
 
-// Variable global que establece la cantidad de disparos que puede efectuar
+// Variable global que establece la cantidad de disparos que aparecen en la matriz al mismo tiempo
 int flag_gamer_shot = 10;
 
 extern int is_shooting;

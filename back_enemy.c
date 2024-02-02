@@ -466,30 +466,15 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
 
                                 life_updater(mapa);
                             }
-                            else if (mapa[y][xb + 1] == JUGADOR) // Si el jugador impacta una bala por la derecha
+                            else if (mapa[y][xb] == JUGADOR) // Si el jugador impacta una bala por la derecha
                             {
                             	eureka = 0;
 
                             	mapa[y][xb] = SPACE;
                                 mapa[y][xb + 1] = SPACE;
 
-                            	IMPACT_X = xb + 1;
-                                IMPACT_Y = y;
-
-                                pthread_t impact_up;
-                                pthread_create(&impact_up, NULL, impact_updater, mapa);
-
-                                life_updater(mapa);
-                            }
-                            else if (mapa[y][xb - 1] == JUGADOR) // Si el jugador impacta una bala por la izquierda
-                            {
-                            	eureka = 0;
-
-                            	mapa[y][xb] = SPACE;
-                                mapa[y][xb - 1] = SPACE;
-
-                            	IMPACT_X = xb - 1;
-                                IMPACT_Y = y;
+                            	IMPACT_X = xb;
+                                IMPACT_Y = y +1;
 
                                 pthread_t impact_up;
                                 pthread_create(&impact_up, NULL, impact_updater, mapa);
