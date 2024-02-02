@@ -7,11 +7,11 @@
 #include "back_map.h"
 
 /*FUNCION SCORE_VIS
-brief: se encarga de mostrar el score luego de la pa
-ubi: (dcoord_t) coordenadas del LED de abajo a la izq
+brief: se encarga de mostrar el score luego de la partida
+num: (int) score
 return: void
 */
 
-void score_vis(int num);
+void score_vis(int score);
 
 #endif /* SCORE_R_H */
