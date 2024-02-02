@@ -3,12 +3,13 @@
 
 #include <stdint.h>
 
-#ifndef RASPBERRY
+#ifndef RASPBERRY /*ALLEGRO*/
 
 // TAMAÑO DE LA MATRIZ
 #define COL 32
 #define FIL 32
 
+#define T_BORDER 1
 #define R_BORDER COL - 2
 #define L_BORDER 1
 
@@ -16,18 +17,13 @@
 #define POS_Y_PL 28
 #define SPAWN_POINT mapa[POS_Y_PL][COL / 2 - 1]
 
-// OPCIONES MENU
-#define NEW_GAME 1
-#define HIGHSCORE 2
-#define DIFFICULTY 3
-#define QUIT 4
-
-#else
+#else /* RASP */
 
 // TAMAÑO DE LA MATRIZ
 #define COL 16
 #define FIL 16
 
+#define T_BORDER 1
 #define R_BORDER COL - 1
 #define L_BORDER 0
 
@@ -35,7 +31,7 @@
 #define POS_Y_PL FIL - 1
 #define SPAWN_POINT mapa[POS_Y_PL][COL / 2 - 1]
 
-#endif /* RASP */
+#endif
 
 // DIFICULTAD
 #define RASP 0

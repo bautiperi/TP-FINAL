@@ -39,7 +39,7 @@ void gamer_movement(int mapa[][COL], int dir)
 
 void *gamer_fire(void *arg)
 {
-    if (flag_gamer_shot == 0)
+    if (flag_gamer_shot <= 0 && flag_game_update != 0)
     {
         return NULL;
     }
@@ -67,11 +67,11 @@ void *gamer_fire(void *arg)
     int eureka = 1;
 
     // Empieza a mover el disparo por el mapa, en caso de encontrar un obstáculo lo destruye y se elimina el disparo
-    for (y--; y >= 1 && eureka; y--)
+    for (y--; y >= T_BORDER && eureka; y--)
     {
         usleep(150000);
 
-        if (mapa[y - 1][pos_x] == SPACE)
+        if ((mapa[y - 1][pos_x] == SPACE) && y > T_BORDER)
         {
             swap(mapa, pos_x, y, pos_x, y - 1);
         }
@@ -79,27 +79,31 @@ void *gamer_fire(void *arg)
         {
             eureka = 0;
             // Si es una barrera, la destruye y borra al disparo del mapa
-
             if (mapa[y - 1][pos_x] == BARRIER)
             {
                 // Destruye la barrera
                 mapa[y - 1][pos_x] = SPACE;
                 // Elimina el disparo
                 mapa[y][pos_x] = SPACE;
+
+                flag_gamer_shot++;
+                pthread_exit(NULL);
             }
             // Si es un enemigo, destruye el disparo y llama a la función encargada de analizar si el enemigo se elimina o no
             // tmb llama a la función score_updater para sumarle los puntos al jugador
-            else if (mapa[y - 1][pos_x] != SPACE)
+            else if ((mapa[y - 1][pos_x] != SPACE) && (y > T_BORDER))
             {
                 // Evita que se puedan mover los enemigos al momento de ser detectados, para lograr evitar errores
                 flag_game_update = 0;
 
-                IMPACT_X = pos_x;
-                IMPACT_Y = y - 1;
+                //Muestra los impactos en pantalla
+                if (mapa[y-1][pos_x] != 6){
+                	IMPACT_X = pos_x;
+                	IMPACT_Y = y - 1;
 
-                pthread_t impact_up;
-
-                pthread_create(&impact_up, NULL, impact_updater, mapa);
+                	pthread_t impact_up;
+                    pthread_create(&impact_up, NULL, impact_updater, mapa);
+                }
 
                 score_updater(mapa, mapa[y - 1][pos_x]);
 
@@ -109,11 +113,12 @@ void *gamer_fire(void *arg)
 
                 flag_game_update = 1;
 
+                //Habilita la creación de otra bala
                 flag_gamer_shot++;
                 pthread_exit(NULL);
             }
         }
-        else if (y == 1 && mapa[y - 1][pos_x] == SPACE)
+        else if (y == T_BORDER && mapa[y - 1][pos_x] == SPACE)
         {
             mapa[y][pos_x] = SPACE;
             flag_gamer_shot++;
@@ -124,6 +129,7 @@ void *gamer_fire(void *arg)
     flag_gamer_shot++;
     pthread_exit(NULL);
 }
+
 
 int life_updater(int mapa[][COL])
 {
