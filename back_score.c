@@ -29,13 +29,13 @@ void score_updater(int mapa[][COL], int identifier)
 	// También, dependiendo del modo de juego, se multiplicará más el score total
 	if (identifier < 5)
 	{
-		SCORE += (identifier * 10) * DIFICULTAD;
+		SCORE += (identifier * 10) * (DIFICULTAD +1);
 		enemy_counter++;
 	}
 	else if (identifier == 5)
 	{
 		// Agrega en el score un nro aleatorio entre 50 y 100
-		SCORE += ((rand() % 6 + 5) * 10) * DIFICULTAD;
+		SCORE += ((rand() % 6 + 5) * 10) * (DIFICULTAD +1);
 	}
 }
 
