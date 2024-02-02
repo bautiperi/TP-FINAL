@@ -33,6 +33,8 @@ static void spawn_gen(int mapa[][COL], coord_t ini, coord_t desp, int type_of_en
 
 // Variable global de main.c (flag para threads)
 extern int flag_game_update;
+
+int can_enemy_fire; //flag que sirve para evitar que los aliens disparen cuando se mueven verticalmente
 //-----------------------------------------------------------------------------------------------------//
 
 // Variable global que incrementa la dificultad dentro del juego
@@ -254,6 +256,8 @@ void *alien_movement(void *arg)
 static void alien_movement_v(int mapa[][COL])
 {
     int x, y;
+    can_enemy_fire=1; // Actualizamos el flag para indicar que el movimiento vertical está en proceso
+
     // se mueve hacia abajo
     for (x = 0; x < COL; x++)
     {
@@ -277,6 +281,7 @@ static void alien_movement_v(int mapa[][COL])
             }
         }
     }
+    can_enemy_fire=0; // Actualizamos el flag para indicar que el movimiento vertical terminó
     usleep(1000000 / harder);
 }
 
@@ -416,7 +421,7 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
         {
         }
         // Termina la ejecución del thread
-        if (flag_game_update == 2)
+        if (flag_game_update == 2 || can_enemy_fire == 1)
         {
             return NULL;
         }
