@@ -307,7 +307,7 @@ static void display_stats (int score, int lives, ALLEGRO_FONT *font, ALLEGRO_BIT
 	}
 
 	//Muestra en pantalla "Press ESC to pause the game"
-	al_draw_text(font, al_map_rgb(255, 255, 255), 400, DISPLAY_SIZE -50, ALLEGRO_ALIGN_CENTER, "Press ESC to pause the game");
+	al_draw_text(font, al_map_rgb(255, 255, 255), DISPLAY_CENTRE, DISPLAY_SIZE -50, ALLEGRO_ALIGN_CENTER, "Press ESC to pause the game");
 
 }
 
@@ -338,7 +338,7 @@ static int display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLE
 
 	//Loop que encuentra los aliens y los muestra en pantalla
 	int x, y, ken_flag = 0;
-	for (y = 1; y < (FIL - 4); y++){
+	for (y = 2; y < (FIL - 4); y++){
 		for(x = 0; x < COL; x++){
 			if (mapa[y][x] == ALIEN_2){
 				//Si el enemigo es un alien, muestra la imagen de un alien
@@ -373,7 +373,7 @@ static void display_bullet(const int mapa[][COL]){
 	int x, y;
 
 	//Loop que encuentra los disparos y diferencia los de enemigos y jugador
-	for (y = 0; y < (FIL - 2); y++){
+	for (y = 1; y < (FIL - 2); y++){
 		for(x = 0; x < COL; x++){
 
 			if (mapa[y][x] == FIRE_PL){

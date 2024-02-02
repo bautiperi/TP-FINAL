@@ -176,9 +176,9 @@ void *alien_movement(void *arg)
                     else if (mapa[y][x + 1] == FIRE_PL && (enemy_checker(x, y, mapa)))
                     {
                         flag_game_update = 0; // Para evitar errores, momentaneamente detiene el resto de threads
+                        mapa[y][x + 1] = 0;     // Destruye la bala
                         score_updater(mapa, mapa[y][x]);
                         enemy_life(x, y, mapa); // Decide si el alien vive o no
-                        mapa[y][x + 1] = 0;     // Destruye la bala
                         swap(mapa, x, y, x + 1, y);
                         x++;
                         flag_game_update = 1; // Vuelve a habilitar los threads
@@ -218,9 +218,9 @@ void *alien_movement(void *arg)
                     else if (mapa[y][x - 1] == FIRE_PL && (enemy_checker(x, y, mapa)))
                     {
                         flag_game_update = 0; // Para evitar errores, momentaneamente detiene el resto de threads
+                        mapa[y][x - 1] = 0;
                         score_updater(mapa, mapa[y][x]);
                         enemy_life(x, y, mapa);
-                        mapa[y][x - 1] = 0;
                         swap(mapa, x, y, x - 1, y);
                         x--;
                         flag_game_update = 1; // Vuelve a habilitar los threads
