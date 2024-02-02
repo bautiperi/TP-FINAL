@@ -5,10 +5,10 @@
 static void num_vis(int num, dcoord_t coor);
 static void score_wrd_vis(void);
 
-/*void score_vis(int score)
+void score_vis(int score)
 {
     int value;
-    dcoord_t coor_ini = {0, 8};
+    dcoord_t coor_ini = {13, 8};
     shutdown_disp();
 
     // Determinar el número de dígitos
@@ -21,72 +21,10 @@ static void score_wrd_vis(void);
 
         // Mostrar el dígito
         num_vis(digit, coor_ini);
-        coor_ini.x += 3; // Cada numero tiene 3 lugares para ser mostrado
+        coor_ini.x -= 3; // Cada numero tiene 3 lugares para ser mostrado
 
     } while (tempNum > 0);
 
-    score_wrd_vis();
-    disp_update();
-}
-*/
-
-void score_vis(int score)
-{
-    int value;
-    dcoord_t coor_ini = {0, 8};
-    shutdown_disp();
-    if (score / 1 > 0 && score / 1 <= 9)
-    {
-        num_vis(score, coor_ini);
-    }
-    else if (score / 10 > 0 && score / 10 <= 9)
-    {
-        for (value = 10; score >= 0; value /= 10, coor_ini.x += 3)
-        {
-            int aux = score;
-            score /= value;
-            num_vis(score, coor_ini);
-            score *= value;
-            aux -= score;
-            score = aux;
-        }
-    }
-    else if (score / 100 > 0 && score / 100 <= 9)
-    {
-        for (value = 100; score >= 0; value /= 10, coor_ini.x += 3)
-        {
-            int aux = score;
-            score /= value;
-            num_vis(score, coor_ini);
-            score *= value;
-            aux -= score;
-            score = aux;
-        }
-    }
-    else if (score / 1000 > 0 && score / 1000 <= 9)
-    {
-        for (value = 1000; score >= 0; value /= 10, coor_ini.x += 3)
-        {
-            int aux = score;
-            score /= value;
-            num_vis(score, coor_ini);
-            score *= value;
-            aux -= score;
-            score = aux;
-        }
-    }
-    else
-    {
-        for (value = 10000; score >= 0; value /= 10, coor_ini.x += 3)
-        {
-            int aux = score;
-            score /= value;
-            num_vis(score, coor_ini);
-            score *= value;
-            aux -= score;
-            score = aux;
-        }
-    }
     score_wrd_vis();
     disp_update();
 }
