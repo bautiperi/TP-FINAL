@@ -40,7 +40,7 @@ void *obj_vis(void *arg)
             {
                 coords.x = x;
                 coords.y = y;
-                if (mapa[y][x] == 1 && !gamer)
+                if (mapa[y][x] == 1 && !gamer && x != 15 && x != 0)
                 {
                     gamer_vis(coords);
                     gamer++;
