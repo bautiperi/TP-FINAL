@@ -9,7 +9,12 @@
 #include <pthread.h>
 #include <stdio.h>
 
-
+// VARIABLES EXTERNAS
+// Variable global de main.c (flag para threads)
+extern int flag_game_update;
+#ifndef RASPBERRY
+extern int is_shooting;
+#endif
 
 // Variable global que establece la cantidad de disparos que puede efectuar
 int flag_gamer_shot = 1500;
