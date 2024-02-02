@@ -366,7 +366,12 @@ static void final_boss_movement(int mapa[][COL], int dir, int y)
                 mapa[y][x] = 0;       // Elimina el boss
                 flag_game_update = 1; // Vuelve a habilitar los threads
             }
-            usleep((int)(250000 / (harder / 2)));
+
+#ifdef RASPBERRY
+            usleep((int)(500000 / (harder / 2)));
+#else
+            usleep((int)(150000 / (harder / 2)));
+#endif
         }
     }
     else
