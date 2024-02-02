@@ -59,6 +59,7 @@ int main(void)
 			{
 				pthread_t up_gamer_fire;
 				pthread_create(&up_gamer_fire, NULL, gamer_fire, mapa);
+				usleep(25000);
 			}
 			if (coord.x > THRESHOLD) // movimiento a la derecha
 			{
