@@ -76,7 +76,7 @@ void *gamer_fire(void *arg)
         {
             swap(mapa, pos_x, y, pos_x, y - 1);
         }
-        else if (mapa[y - 1][pos_x] != SPACE)
+        else if ((mapa[y - 1][pos_x] != SPACE) && (y > T_BORDER))
         {
             eureka = 0;
             // Si es una barrera, la destruye y borra al disparo del mapa
@@ -92,7 +92,7 @@ void *gamer_fire(void *arg)
             }
             // Si es un enemigo, destruye el disparo y llama a la función encargada de analizar si el enemigo se elimina o no
             // tmb llama a la función score_updater para sumarle los puntos al jugador
-            else if ((mapa[y - 1][pos_x] != SPACE) && (y > T_BORDER))
+            else if (mapa[y - 1][pos_x] != SPACE)
             {
                 // Evita que se puedan mover los enemigos al momento de ser detectados, para lograr evitar errores
                 flag_game_update = 0;
@@ -109,9 +109,9 @@ void *gamer_fire(void *arg)
 
                 score_updater(mapa, mapa[y - 1][pos_x]);
 
-                enemy_life(pos_x, y - 1, mapa); // función que decide si se elimina o no el enemigo
-
                 mapa[y][pos_x] = SPACE;
+
+                enemy_life(pos_x, y - 1, mapa); // función que decide si se elimina o no el enemigo
 
                 flag_game_update = 1;
 
