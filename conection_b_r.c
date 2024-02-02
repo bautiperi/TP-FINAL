@@ -54,7 +54,7 @@ void *obj_vis(void *arg)
                     final_boss_vis(coords, mapa);
                     boss++;
                 }
-                else if (mapa[y][x] == -1 && shields <= 16)
+                else if (mapa[y][x] == -1 && shields <= 16 && x < COL && x >= 0 && y < FIL && y > 0)
                 {
                     shields_vis(coords);
                     shields++;
