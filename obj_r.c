@@ -2,6 +2,7 @@
 // INCLUDES
 #include "obj_r.h"
 #include "aux_r.h"
+#include "_defines_display_r.h"
 
 // LIBRERIAS
 #include <unistd.h>

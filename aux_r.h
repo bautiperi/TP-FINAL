@@ -28,6 +28,4 @@ return: void
 */
 void shutdown_disp(void);
 
-extern multp_cant;
-
 #endif /* AUX_R_H */
