@@ -12,7 +12,7 @@
 extern int flag_game_update;
 
 // Variable global que establece la cantidad de disparos que puede efectuar
-int flag_gamer_shot = 150;
+int flag_gamer_shot = 1500;
 //------------------------------------------------------------------------------------//
 
 void gamer_movement(int mapa[][COL], int dir)
@@ -96,12 +96,13 @@ void *gamer_fire(void *arg)
                 // Evita que se puedan mover los enemigos al momento de ser detectados, para lograr evitar errores
                 flag_game_update = 0;
 
-                //Muestra los impactos en pantalla
-                if (mapa[y-1][pos_x] != 6){
-                	IMPACT_X = pos_x;
-                	IMPACT_Y = y - 1;
+                // Muestra los impactos en pantalla
+                if (mapa[y - 1][pos_x] != 6)
+                {
+                    IMPACT_X = pos_x;
+                    IMPACT_Y = y - 1;
 
-                	pthread_t impact_up;
+                    pthread_t impact_up;
                     pthread_create(&impact_up, NULL, impact_updater, mapa);
                 }
 
@@ -113,7 +114,7 @@ void *gamer_fire(void *arg)
 
                 flag_game_update = 1;
 
-                //Habilita la creación de otra bala
+                // Habilita la creación de otra bala
                 flag_gamer_shot++;
                 pthread_exit(NULL);
             }
@@ -126,10 +127,8 @@ void *gamer_fire(void *arg)
         }
     }
 
-    flag_gamer_shot++;
     pthread_exit(NULL);
 }
-
 
 int life_updater(int mapa[][COL])
 {
