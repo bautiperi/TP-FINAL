@@ -52,6 +52,8 @@ int score_saver(const int score)
 	// Crea una matriz de jugadores del scoreboard
 	player_t scores[10];
 
+	int is_in_top = 0;
+
 	//Lee todo el archivo
 	int j;
 	for(j = 0; j < 10; j++){
@@ -71,12 +73,13 @@ int score_saver(const int score)
 			}
 			else{
 				scores[j].score = score;
+				is_in_top = 1;
 			}
 		}
 
 		//Si el score es menor al del top 10, cierra el archivo y devuelve 0
 		//Caso contrario, reemplaza el nuevo score por el puesto nro 10
-		if (j == 9){
+		if (j == 9 && !is_in_top){
 			if(scores[j].score >= score){
 				fclose(scoreboard);
 				return 0;
