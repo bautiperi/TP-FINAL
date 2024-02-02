@@ -6,8 +6,8 @@
 #include "_defines.h"
 #include "back_map.h"
 
-/*FUNCION SCORE_V
-brief: se encarga de mostrar al jugador
+/*FUNCION SCORE_VIS
+brief: se encarga de mostrar el score luego de la pa
 ubi: (dcoord_t) coordenadas del LED de abajo a la izq
 return: void
 */
