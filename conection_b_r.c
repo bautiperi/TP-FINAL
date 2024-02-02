@@ -45,7 +45,7 @@ void *obj_vis(void *arg)
                     gamer_vis(coords);
                     gamer++;
                 }
-                else if (mapa[y][x] == 4 || mapa[y][x] == 3 || mapa[y][x] == 2)
+                else if ((mapa[y][x] == 4 || mapa[y][x] == 3 || mapa[y][x] == 2) && x < COL && x >= 0 && y < FIL && y > 0)
                 {
                     aliens_vis(coords);
                 }
