@@ -102,8 +102,7 @@ int main(void)
 
 			if (FLICK_OPTION == 1 && coord.sw == J_PRESS)
 			{
-				usleep(100000);
-				STATUS = 2; // CAMBIA A MENU PRINCIPAL
+				STATUS = 3; // CAMBIA A MENU PRINCIPAL
 			}
 			else if (FLICK_OPTION == 0 && coord.sw == J_PRESS)
 			{
