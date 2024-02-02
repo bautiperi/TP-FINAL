@@ -10,23 +10,58 @@ void score_vis(int num)
     int value;
     dcoord_t coor_ini = {0, 8};
     shutdown_disp();
-
-    // Determinar el número de dígitos
-    int digitCount = 1;
-    int tempNum = num;
-    while (tempNum / 10 > 0)
+    if (num / 10000 > 0)
     {
-        digitCount++;
-        tempNum /= 10;
+        for (value = 10000; num >= 0; value /= 10, coor_ini.x += 3)
+        {
+            int aux = num;
+            num /= value;
+            num_vis(num, coor_ini);
+            num *= value;
+            aux -= num;
+            num = aux;
+        }
     }
-
-    for (value = 1; digitCount > 0; value *= 10, coor_ini.x += 3, digitCount--)
+    else if (num / 1000 > 0)
     {
-        int digit = num / value;
-        num_vis(digit, coor_ini);
-        num %= value;
+        for (value = 1000; num >= 0; value /= 10, coor_ini.x += 3)
+        {
+            int aux = num;
+            num /= value;
+            num_vis(num, coor_ini);
+            num *= value;
+            aux -= num;
+            num = aux;
+        }
     }
-
+    else if (num / 100 > 0)
+    {
+        for (value = 100; num >= 0; value /= 10, coor_ini.x += 3)
+        {
+            int aux = num;
+            num /= value;
+            num_vis(num, coor_ini);
+            num *= value;
+            aux -= num;
+            num = aux;
+        }
+    }
+    else if (num / 10 > 0)
+    {
+        for (value = 10; num >= 0; value /= 10, coor_ini.x += 3)
+        {
+            int aux = num;
+            num /= value;
+            num_vis(num, coor_ini);
+            num *= value;
+            aux -= num;
+            num = aux;
+        }
+    }
+    else
+    {
+        num_vis(num, coor_ini);
+    }
     score_wrd_vis();
     disp_update();
 }
