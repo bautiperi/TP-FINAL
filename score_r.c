@@ -1,17 +1,34 @@
+// INCLUDES
 #include "score_r.h"
+#include "aux_r.h"
+#include "_defines.h"
+#include "back_map.h"
 
+// LIBRERIAS
+#include "disdrv.h"
 #include <stdio.h>
 
+/*FUNCION NUM_VIS
+brief: se encarga de mostrar un digito a la vez
+num: (int) digito
+coor: (dcoord_t) coordenada de arriba a la izquierda en donde empieza la visualizacion (cuadrado de 3x5)
+return: void
+*/
 static void num_vis(int num, dcoord_t coor);
+
+/*FUNCION SCORE_WRD_VIS
+brief: se encarga de mostrar la parabra "SCORE"
+return: void
+*/
 static void score_wrd_vis(void);
 
 void score_vis(int score)
 {
     int value;
-    dcoord_t coor_ini = {13, 8};
+    dcoord_t coor_ini = {13, 8}; // coordenada inicial
     shutdown_disp();
 
-    // Determinar el número de dígitos
+    // determina el número de dígitos
     int tempNum = score;
     int digit;
     do
@@ -19,14 +36,14 @@ void score_vis(int score)
         digit = tempNum % 10;
         tempNum /= 10;
 
-        // Mostrar el dígito
+        // muestra el dígito
         num_vis(digit, coor_ini);
-        coor_ini.x -= 3; // Cada numero tiene 3 lugares para ser mostrado
+        coor_ini.x -= 3; // cada numero tiene un espacio de 3x5
 
     } while (tempNum > 0);
 
-    score_wrd_vis();
-    disp_update();
+    score_wrd_vis(); // muestro "SCORE"
+    disp_update();   // actualizo el display
 }
 
 static void num_vis(int num, dcoord_t coor)
@@ -190,7 +207,7 @@ static void num_vis(int num, dcoord_t coor)
         }
         break;
     }
-    default:
+    default: // si llega al default es que el numero recibido no es un digito
         fprintf(stderr, "EL NUMERO A VISUALIZAR ES > 10.");
         break;
     }
@@ -198,8 +215,6 @@ static void num_vis(int num, dcoord_t coor)
 
 static void score_wrd_vis(void)
 {
-    // shutdown_disp();
-
     int i;
 
     // COORDENADAS

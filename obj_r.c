@@ -18,32 +18,21 @@ void gamer_vis(dcoord_t ubi)
     dcoord_t arr[4] = {ubi, {--ubi.x, --ubi.y}, {ubi.x, ++ubi.y}, {--ubi.x, ubi.y}};
     for (i = 0; i < 4; i++) // prende todas las coordenadas
     {
-        printf("1 {%d, %d}\t", arr[i].x, arr[i].y);
-        disp_write(arr[i], D_ON);
+        if (arr[i].x <= 15 && arr[i].x >= 0 && arr[i].y <= 15 && arr[i].y >= 0) // evita errores de display
+        {
+            disp_write(arr[i], D_ON);
+        }
     }
-}
-
-void gamer_shot(dcoord_t coord)
-{
-    int i;
-    coord.x++;
-    dcoord_t arr[4] = {coord, {--coord.x, --coord.y}, {coord.x, ++coord.y}, {--coord.x, coord.y}};
-
-    multp_flick(arr, 4);
 }
 
 /***********************************  ALIENS  ***********************************/
 
 void aliens_vis(dcoord_t coor_inicial)
 {
-    printf("2 {%d, %d}\t", coor_inicial.x, coor_inicial.y);
-    disp_write(coor_inicial, D_ON);
-}
-
-void aliens_death(dcoord_t coord)
-{
-    disp_write(coord, D_OFF);
-    // disp_update();
+    if (arr[i].x <= 15 && arr[i].x >= 0 && arr[i].y <= 15 && arr[i].y >= 0)
+    {
+        disp_write(coor_inicial, D_ON); // prende el led
+    }
 }
 
 /*******************************  THE FINAL BOSS  *********************************/
@@ -53,56 +42,83 @@ void final_boss_vis(dcoord_t ubi, int mapa[][COL])
     int i;
     dcoord_t ubi_inicial = ubi;
     int flag = DIRECCION;
+    // CASO CUANDO EL BOSS SALE DE PANTALLA LADO DERECHO
     if (mapa[1][14] == BOSS && flag > 0)
     {
         for (i = ubi_inicial.x; i < ubi_inicial.x + 2; i++)
         {
             ubi.x = i;
-            printf("3 {%d, %d}\t", ubi.x, ubi.y);
 
             if (i == ubi_inicial.x + 1)
             {
-                disp_write(ubi, D_ON);
+                if (ubi.x <= 15 && ubi.x >= 0 && ubi.y <= 15 && ubi.y >= 0)
+                {
+                    disp_write(ubi, D_ON);
+                }
                 ubi.y++;
-                disp_write(ubi, D_ON);
+                if (ubi.x <= 15 && ubi.x >= 0 && ubi.y <= 15 && ubi.y >= 0)
+                {
+                    disp_write(ubi, D_ON);
+                }
                 ubi.y--;
             }
             else
             {
-                disp_write(ubi, D_ON);
+                if (ubi.x <= 15 && ubi.x >= 0 && ubi.y <= 15 && ubi.y >= 0)
+                {
+                    disp_write(ubi, D_ON);
+                }
             }
         }
     }
+    // CASO CUANDO EL BOSS SALE DE PANTALLA LADO DERECHO
     else if (mapa[1][15] == BOSS && flag > 0)
     {
-        printf("4 {%d, %d}\t", ubi.x, ubi.y);
-        disp_write(ubi, D_ON);
+        if (ubi.x <= 15 && ubi.x >= 0 && ubi.y <= 15 && ubi.y >= 0)
+        {
+            disp_write(ubi, D_ON);
+        }
     }
+    // CASO CUANDO EL BOSS SALE DE PANTALLA LADO IZQUIERDO
     else if (mapa[1][0] == BOSS && flag < 0)
     {
         usleep(500000);
         ubi_inicial.x = 0;
         ubi_inicial.y = 1;
-        printf("5 {%d, %d}\t", ubi_inicial.x, ubi_inicial.y);
-        disp_write(ubi_inicial, D_ON);
+        if (ubi_inicial.x <= 15 && ubi_inicial.x >= 0 && ubi_inicial.y <= 15 && ubi_inicial.y >= 0)
+        {
+            disp_write(ubi_inicial, D_ON);
+        }
         ubi_inicial.y++;
-        printf("6 {%d, %d}\t", ubi_inicial.x, ubi_inicial.y);
-        disp_write(ubi_inicial, D_ON);
+        if (ubi_inicial.x <= 15 && ubi_inicial.x >= 0 && ubi_inicial.y <= 15 && ubi_inicial.y >= 0)
+        {
+            disp_write(ubi_inicial, D_ON);
+        }
         ubi_inicial.y--;
         ubi_inicial.x++;
-        printf("7 {%d, %d}\t", ubi_inicial.x, ubi_inicial.y);
-        disp_write(ubi_inicial, D_ON);
+        if (ubi_inicial.x <= 15 && ubi_inicial.x >= 0 && ubi_inicial.y <= 15 && ubi_inicial.y >= 0)
+        {
+            disp_write(ubi_inicial, D_ON);
+        }
         usleep(500000);
-        disp_write(ubi_inicial, D_OFF);
+        if (ubi_inicial.x <= 15 && ubi_inicial.x >= 0 && ubi_inicial.y <= 15 && ubi_inicial.y >= 0)
+        {
+            disp_write(ubi_inicial, D_OFF);
+        }
         ubi_inicial.y++;
         ubi_inicial.x--;
-        printf("8 {%d, %d}\t", ubi_inicial.x, ubi_inicial.y);
-        disp_write(ubi_inicial, D_OFF);
+        if (ubi_inicial.x <= 15 && ubi_inicial.x >= 0 && ubi_inicial.y <= 15 && ubi_inicial.y >= 0)
+        {
+            disp_write(ubi_inicial, D_OFF);
+        }
         usleep(500000);
         ubi_inicial.y--;
-        printf("9 {%d, %d}\t", ubi_inicial.x, ubi_inicial.y);
-        disp_write(ubi_inicial, D_OFF);
+        if (ubi_inicial.x <= 15 && ubi_inicial.x >= 0 && ubi_inicial.y <= 15 && ubi_inicial.y >= 0)
+        {
+            disp_write(ubi_inicial, D_OFF);
+        }
     }
+    // CASO CUANDO EL BOSS SE MUEVE EN PANTALLA
     else
     {
         int i;
@@ -111,17 +127,12 @@ void final_boss_vis(dcoord_t ubi, int mapa[][COL])
         dcoord_t arr[4] = {{ubi.x, ubi.y}, {--ubi.x, ++ubi.y}, {ubi.x, --ubi.y}, {--ubi.x, ubi.y}};
         for (i = 0; i < 4; i++) // prende todas las coordenadas
         {
-            printf("10 {%d, %d}\t", arr[i].x, arr[i].y);
-            disp_write(arr[i], D_ON);
+            if (arr[i].x <= 15 && arr[i].x >= 0 && arr[i].y <= 15 && arr[i].y >= 0)
+            {
+                disp_write(arr[i], D_ON);
+            }
         }
     }
-}
-
-void final_boss_shot(dcoord_t coord)
-{
-    int i;
-    dcoord_t arr[4] = {coord, {++coord.x, coord.y}, {coord.x, ++coord.y}, {++coord.x, --coord.y}};
-    multp_flick(arr, 4);
 }
 
 /***********************************  LIVES   ***********************************/
@@ -130,7 +141,7 @@ void lives_vis(int cant)
 {
     // coordenadas de la visualizacion de las vidas
     dcoord_t first_life = {1, 0}, second_life = {2, 0}, third_life = {3, 0};
-    switch (cant)
+    switch (cant) // segun la cantidad de vidas prende o apaga los leds correspondientes
     {
     case 0: // CASO 0 VIDAS: BORRA LA ULTIMA VIDA
         disp_write(first_life, D_OFF);
@@ -141,13 +152,13 @@ void lives_vis(int cant)
         disp_write(second_life, D_OFF);
         disp_update();
         break;
-    case 2:
+    case 2: // CASO 2 VIDAS: BORRA LA TERCERA VIDA
         disp_write(second_life, D_ON);
         disp_write(first_life, D_ON);
         disp_write(third_life, D_OFF);
         disp_update();
         break;
-    default:
+    default: // CASO 3 VIDAS: PRENDE TODAS LAS VIDAS
         disp_write(third_life, D_ON);
         disp_write(second_life, D_ON);
         disp_write(first_life, D_ON);
@@ -160,22 +171,9 @@ void lives_vis(int cant)
 
 void shields_vis(dcoord_t coor)
 {
-    printf("11 {%d, %d}\t", coor.x, coor.y);
-    disp_write(coor, D_ON);
-}
-
-void shields_life(int life_of_shield, dcoord_t coor_of_shield)
-{
-    // primera colision -> parpadea el led
-    // segunda colision -> se apaga (2 vidas por cada led)
-    if (life_of_shield == 1)
+    if (coor.x <= 15 && coor.x >= 0 && coor.y <= 15 && coor.y >= 0)
     {
-        led_flick(coor_of_shield);
-    }
-    else
-    {
-        disp_write(coor_of_shield, D_OFF);
-        disp_update();
+        disp_write(coor, D_ON); // prende el led correspondiente
     }
 }
 
@@ -187,12 +185,14 @@ void game_over(void)
     // coordenadas de la carita triste
     dcoord_t coor[20] = {{5, 4}, {5, 5}, {5, 6}, {6, 4}, {6, 5}, {6, 6}, {9, 4}, {9, 5}, {9, 6}, {10, 4}, {10, 5}, {10, 6}, {4, 12}, {5, 11}, {6, 10}, {7, 10}, {8, 10}, {9, 10}, {10, 11}, {11, 12}};
 
-    shutdown_disp();
+    shutdown_disp(); // borra toda la visualizacion
 
     for (i = 0; i < 20; i++)
     {
-        printf("12 {%d, %d}\t", coor[i].x, coor[i].y);
-        disp_write(coor[i], D_ON);
+        if (coor[i].x <= 15 && coor[i].x >= 0 && coor[i].y <= 15 && coor[i].y >= 0)
+        {
+            disp_write(coor[i], D_ON);
+        } // prende los leds del array
     }
 
     disp_update();

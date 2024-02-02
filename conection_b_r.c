@@ -1,9 +1,18 @@
+// INCLUDES
 #include "conection_b_r.h"
+#include "_defines.h"
+#include "_defines_display_r.h"
+#include "obj_r.h"
+#include "aux_r.h"
+
+// LIBRERIAS
 #include <unistd.h>
 #include <pthread.h>
+#include "joydrv.h"
+#include "disdrv.h"
 
 /*IDENTIFICACIÓN EN EL MAPA:
-- -1 (-2 en Rasp) = BARRERA
+- -1 = BARRERA
 - 0 = Espacio
 - 1  = Jugador
 - 2 a 4 = Enemigo
@@ -13,7 +22,7 @@
 void *obj_vis(void *arg)
 {
     int(*mapa)[COL] = (int(*)[COL])arg;
-    int gamer, shields, boss;
+    int gamer, shields, boss; // variables de confirmacion de visualizacion para que no hayan dos de lo mismo
     unsigned int x, y;
     dcoord_t coords, aux;
 
@@ -33,37 +42,42 @@ void *obj_vis(void *arg)
         gamer = 0;
         shields = 0;
         boss = 0;
-        lives_vis(LIVES);
+        lives_vis(LIVES); // visualizacion de vidas
         for (x = 0; x < COL; x++)
         {
-            for (y = 1; y < FIL; y++)
+            for (y = 1; y < FIL; y++) // no analiza y = 0 porque ahi se guardan algunos flags
             {
                 coords.x = x;
                 coords.y = y;
-                if (mapa[y][x] == 1 && !gamer && x != 15 && x != 0)
+                // PLAYER
+                if (mapa[y][x] == JUGADOR && !gamer && x != 15 && x != 0)
                 {
                     gamer_vis(coords);
                     gamer++;
                 }
-                else if ((mapa[y][x] == 4 || mapa[y][x] == 3 || mapa[y][x] == 2) && x < COL && x >= 0 && y < FIL && y > 0)
+                // ALIENS
+                else if ((mapa[y][x] == ALIEN_4 || mapa[y][x] == ALIEN_3 || mapa[y][x] == ALIEN_2) && x < COL && x >= 0 && y < FIL && y > 0)
                 {
                     aliens_vis(coords);
                 }
-                else if (mapa[y][x] == 5 && !boss)
+                // BOSS
+                else if (mapa[y][x] == BOSS && !boss)
                 {
                     final_boss_vis(coords, mapa);
                     boss++;
                 }
-                else if (mapa[y][x] == -1 && shields <= 16 && x < COL && x >= 0 && y < FIL && y > 0)
+                // BARRERAS
+                else if (mapa[y][x] == BARRIER && shields <= 16 && x < COL && x >= 0 && y < FIL && y > 0)
                 {
                     shields_vis(coords);
                     shields++;
                 }
-                else if (mapa[y][x] == 6 || mapa[y][x] == 7)
+                // DISPAROS
+                else if (mapa[y][x] == FIRE_PL || mapa[y][x] == FIRE_EN)
                 {
                     disp_write(coords, D_ON);
                     aux = coords;
-                    if (mapa[y][x] == 6)
+                    if (mapa[y][x] == FIRE_PL)
                     {
                         aux.y++;
                         disp_write(aux, D_OFF);
@@ -76,60 +90,8 @@ void *obj_vis(void *arg)
                 }
             }
         }
-        /*if (IMPACT)
-        {
-            pthread_t colision;
-            pthread_create(&colision, NULL, display_collision, mapa);
-        }*/
         disp_update();
         usleep(33333);
     }
     pthread_exit(NULL);
-}
-
-void *display_collision(void *arg)
-{
-    int(*mapa)[COL] = (int(*)[COL])arg;
-    int obj = mapa[IMPACT_Y][IMPACT_X];
-    dcoord_t coord = {IMPACT_X, IMPACT_Y};
-    // vidas de los escudos (2 cada uno)
-    static int barrier_1 = 2, barrier_2 = 2, barrier_3 = 2, barrier_4 = 2;
-    switch (obj)
-    {
-    case BARRIER:         // BARRERA: -1
-        if (coord.x == 1) // BARRERA 1
-        {
-            barrier_1--; // resta una vida
-            shields_life(barrier_1, coord);
-        }
-        else if (coord.x == 5) // BARRERA 2
-        {
-            barrier_2--;
-            shields_life(barrier_2, coord);
-        }
-        else if (coord.x == 9) // BARRERA 3
-        {
-            barrier_3--;
-            shields_life(barrier_3, coord);
-        }
-        else if (coord.x == 13) // BARRERA 4
-        {
-            barrier_4--;
-            shields_life(barrier_4, coord);
-        }
-        break;
-    case JUGADOR: // JUGADOR: 1
-        gamer_shot(coord);
-        break;
-    case ALIEN_2: // ALIEN
-    case ALIEN_3: // ALIEN
-    case ALIEN_4: // ALIEN
-        aliens_death(coord);
-        break;
-    case BOSS: // BOSS: 5
-        final_boss_shot(coord);
-        break;
-    default:
-        break;
-    }
 }

@@ -1,7 +1,10 @@
 #ifndef _DEFINES_H
 #define _DEFINES_H
 
+// INCLUDES
 #include <stdint.h>
+
+/******************************* CONSTANTES ESPECIFICAS *******************************/
 
 #ifndef RASPBERRY /*ALLEGRO*/
 
@@ -32,6 +35,8 @@
 #define SPAWN_POINT mapa[POS_Y_PL][COL / 2 - 1]
 
 #endif
+
+/******************************* CONSTANTES GENERALES *******************************/
 
 // DIFICULTAD
 #define RASP 0

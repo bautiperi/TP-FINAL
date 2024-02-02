@@ -5,11 +5,11 @@ OBJS=main.o obj_r.o aux_r.o menu_r.o conection_b_r.o back_map.o back_aux.o back_
 raspberry: $(OBJS)
 	$(CC) -DRASPBERRY $(OBJS) -o raspberry $(CFLAGS)
 
-# Regla genérica para la compilación de archivos fuente a objetos
+# regla generica para la compilación de archivos fuente a objetos
 %.o: %.c _defines.h
 	$(CC) -DRASPBERRY -c $< -o $@ $(CFLAGS)
 
-# Dependencias específicas para cada objeto
+# dependencias especificas para cada objeto
 main.o: back_map.h disdrv.h joydrv.h _defines_display_r.h conection_b_r.h aux_r.h menu_r.h back_player.h back_enemy.h back_score.h score_r.h
 obj_r.o: obj_r.h aux_r.h disdrv.h joydrv.h _defines.h _defines_display_r.h
 menu_r.o: menu_r.h disdrv.h joydrv.h aux_r.h _defines.h

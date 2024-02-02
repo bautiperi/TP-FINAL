@@ -5,8 +5,8 @@
 
 /***********************************  VISUALIZACION  ***********************************/
 /*FUNCION MENU_VIS
-brief: se encarga de la visualizacion del menu
-ubi: (joyinfo_t) ubicacion del joystick
+brief: se encarga de la visualizacion del menu de juego
+mapa: (matriz de int) ubicacion de los objetos
 return: void
 */
 void menu_vis(int mapa[][COL]);
@@ -14,7 +14,7 @@ void menu_vis(int mapa[][COL]);
 /***********************************  VISUALIZACION  ***********************************/
 /*FUNCION MENU_PRINCIPAL_VIS
 brief: se encarga de la visualizacion del menu principal
-ubi: (joyinfo_t) ubicacion del joystick
+mapa: (matriz de int) ubicacion de los objetos
 return: void
 */
 void menu_principal_vis(int mapa[][COL]);
