@@ -159,7 +159,7 @@ static void num_vis(int num, dcoord_t coor)
             {coor.x, ++coor.y},
             {--coor.x, coor.y},
             {--coor.x, coor.y},
-            {coor.x, (coor.y - 2)},
+            {coor.x, (coor.y -= 2)},
             {++coor.x, coor.y},
             {--coor.x, --coor.y}};
 
