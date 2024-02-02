@@ -16,6 +16,11 @@
 //Variable global que sirve como flag para detener la ejecución de los threads
 // 0 -> Falso, están en pausa | 1 -> Ejecutan | 2 -> Exit threads
 int flag_game_update = 0;
+
+// Declare global variables
+int is_shooting = 0;
+double last_shot_time = 0.0;
+double shot_cooldown = 1.0;  // Set the cooldown period in seconds
 // ----------------------------------------------------------------------------- //
 
 void * update_player_keyboard (void * arg);
@@ -68,50 +73,57 @@ int main(void){
  * BRIEF: Es la función que se encarga de la interacción entre el usuario y dentro del juego
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
  * return: (void *)
- * */
-void * update_player_keyboard (void * arg){
+ **/
 
-	int (*mapa)[COL] = (int (*)[COL])arg;
+// Function to update player's keyboard
+void *update_player_keyboard(void *arg) {
+    int (*mapa)[COL] = (int (*)[COL])arg;
 
-	// DETECTA CUANDO SE OPRIME COSAS EN EL TECLADO
-	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
-	al_register_event_source(event_queue, al_get_keyboard_event_source());
-	ALLEGRO_EVENT event;
+    // DETECTA CUANDO SE OPRIME COSAS EN EL TECLADO
+    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+    al_register_event_source(event_queue, al_get_keyboard_event_source());
+    ALLEGRO_EVENT event;
 
+    while (1) {
+        // Espera a que se habilite el funcionamiento de threads
+        // Vacía la cola de eventos para evitar que se acumulen
+        if (flag_game_update == 0) {
+            al_get_next_event(event_queue, &event);
+        }
+        // Cierra el thread
+        else if (flag_game_update == 2) {
+            al_destroy_event_queue(event_queue);
+            pthread_exit(NULL);
+        } else {
+            al_get_next_event(event_queue, &event);
 
-	while (1){
-		//Espera a que se habilite el funcionamiento de threads
-		//Vacía la cola de eventos para evitar que se acumulen
-		if(flag_game_update == 0){
-			al_get_next_event(event_queue, &event);
-		}
-		//Cierra el thread
-		else if(flag_game_update == 2){
-			al_destroy_event_queue(event_queue);
-			pthread_exit(NULL);
-		}
-		else {
-			al_get_next_event(event_queue, &event);
+            // Handle movement
+            if (event.type == ALLEGRO_EVENT_KEY_DOWN || event.type == ALLEGRO_EVENT_KEY_CHAR) {
+                if (event.keyboard.keycode == ALLEGRO_KEY_RIGHT || event.keyboard.keycode == ALLEGRO_KEY_D) {
+                    gamer_movement(mapa, 1);
+                    al_rest(0.045);
+                } else if (event.keyboard.keycode == ALLEGRO_KEY_LEFT || event.keyboard.keycode == ALLEGRO_KEY_A) {
+                    gamer_movement(mapa, -1);
+                    al_rest(0.045);
+                }
+            }
 
-			//S
-			if(event.type == ALLEGRO_EVENT_KEY_DOWN || event.type == ALLEGRO_EVENT_KEY_CHAR){
-				if( event.keyboard.keycode == ALLEGRO_KEY_RIGHT || event.keyboard.keycode == ALLEGRO_KEY_D){
-					gamer_movement(mapa, 1);
-					al_rest(0.045);
-				}
-				else if (event.keyboard.keycode == ALLEGRO_KEY_LEFT || event.keyboard.keycode == ALLEGRO_KEY_A){
-					gamer_movement(mapa, -1);
-					al_rest(0.045);
-				}
-			}
+            // Handle shooting with cooldown
+            if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+                if (event.keyboard.keycode == ALLEGRO_KEY_X) {
+                    double current_time = al_get_time();
 
-			if(event.type == ALLEGRO_EVENT_KEY_DOWN){
-				if (event.keyboard.keycode == ALLEGRO_KEY_X){
-					pthread_t gamer_shot;
-					pthread_create(&gamer_shot, NULL, gamer_fire, mapa);
-				}
-			}
-		}
-
-	}
+                    // Check if enough time has passed since the last shot
+                    if (current_time - last_shot_time >= shot_cooldown) {
+                        if (!is_shooting) {
+                            is_shooting = 1;
+                            pthread_t gamer_shot;
+                            pthread_create(&gamer_shot, NULL, gamer_fire, mapa);
+                            last_shot_time = current_time;  // Update the last shot time
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

@@ -13,6 +13,8 @@ extern int flag_game_update;
 
 // Variable global que establece la cantidad de disparos que puede efectuar
 int flag_gamer_shot = 10;
+
+extern int is_shooting;
 //------------------------------------------------------------------------------------//
 
 void gamer_movement(int mapa[][COL], int dir)
@@ -65,6 +67,8 @@ void *gamer_fire(void *arg)
     }
 
     int eureka = 1;
+
+    is_shooting = 0; // Reset the shooting flag
 
     // Empieza a mover el disparo por el mapa, en caso de encontrar un obstáculo lo destruye y se elimina el disparo
     for (y--; y >= T_BORDER && eureka && mapa[y][pos_x] == FIRE_PL; y--)
