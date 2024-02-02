@@ -5,7 +5,7 @@
 static void num_vis(int num, dcoord_t coor);
 static void score_wrd_vis(void);
 
-void score_vis(int score)
+/*void score_vis(int score)
 {
     int value;
     dcoord_t coor_ini = {0, 8};
@@ -24,6 +24,50 @@ void score_vis(int score)
         coor_ini.x += 3; // Cada numero tiene 3 lugares para ser mostrado
 
     } while (tempNum > 0);
+
+    score_wrd_vis();
+    disp_update();
+}
+*/
+void score_vis(int score)
+{
+    int value;
+    dcoord_t coor_ini = {0, 8};
+    shutdown_disp();
+
+    // Determinar el número de dígitos
+    int tempNum = score;
+    int digit;
+    int digitCount = 0;
+
+    do
+    {
+        digit = tempNum % 10;
+        tempNum /= 10;
+
+        // Incrementar el contador de dígitos
+        digitCount++;
+
+    } while (tempNum > 0);
+
+    // Restaurar tempNum para mostrar los dígitos
+    tempNum = score;
+
+    // Almacenar los dígitos en un arreglo
+    int digits[10];
+    for (int i = 0; i < digitCount; i++)
+    {
+        digits[i] = tempNum % 10;
+        tempNum /= 10;
+    }
+
+    // Mostrar los dígitos en orden original (de izquierda a derecha)
+    for (int i = digitCount - 1; i >= 0; i--)
+    {
+        // Mostrar el dígito
+        num_vis(digits[i], coor_ini);
+        coor_ini.x += 3; // Incrementar para mostrar en orden original
+    }
 
     score_wrd_vis();
     disp_update();
