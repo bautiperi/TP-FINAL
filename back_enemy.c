@@ -410,7 +410,7 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
                 if (enemy_checker(x, y, mapa)) // Verifica que haya aliens para que disparen
                 {
                     shot = rand() % 100 + 1;
-                    if (shot < (15 * harder) // Genera disparos en una cantidad determinada de las iteraciones
+                    if (shot < (15 * harder)) // Genera disparos en una cantidad determinada de las iteraciones
                     {
                         mapa[y + 1][x] = FIRE_EN; // Crea la bala enemiga
                         xb = x;                   // Guarda la coordenada x del disparo
