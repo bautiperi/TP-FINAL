@@ -337,6 +337,7 @@ void *final_boss_creation(void *arg)
  * BRIEF: Mueve horizontalmente a el final boss
  * mapa: (Matriz de ints) Es la matriz donde se desarrolla el juego
  * dir: (int) direccion del movimiento (izq = -1, der = 0 o 1)
+ * y: (int) altura de donde está el boss
  * return: (void)
  */
 static void final_boss_movement(int mapa[][COL], int dir, int y)
