@@ -17,10 +17,10 @@
 // 0 -> Falso, están en pausa | 1 -> Ejecutan | 2 -> Exit threads
 int flag_game_update = 0;
 
-// Declare global variables
-int is_shooting = 0;
+// Declaración de variables globales
+int is_shooting = 0; // Flag que sirve para verificar si se puede disparar
 double last_shot_time = 0.0;
-double shot_cooldown = 1.0;  // Set the cooldown period in seconds
+double shot_cooldown = 0.75;  // Definimos el tiempo entre cada disparo
 // ----------------------------------------------------------------------------- //
 
 void * update_player_keyboard (void * arg);
@@ -75,7 +75,6 @@ int main(void){
  * return: (void *)
  **/
 
-// Function to update player's keyboard
 void *update_player_keyboard(void *arg) {
     int (*mapa)[COL] = (int (*)[COL])arg;
 
@@ -97,7 +96,7 @@ void *update_player_keyboard(void *arg) {
         } else {
             al_get_next_event(event_queue, &event);
 
-            // Handle movement
+            // Gestiona el movimiento
             if (event.type == ALLEGRO_EVENT_KEY_DOWN || event.type == ALLEGRO_EVENT_KEY_CHAR) {
                 if (event.keyboard.keycode == ALLEGRO_KEY_RIGHT || event.keyboard.keycode == ALLEGRO_KEY_D) {
                     gamer_movement(mapa, 1);
@@ -108,18 +107,18 @@ void *update_player_keyboard(void *arg) {
                 }
             }
 
-            // Handle shooting with cooldown
+            // Gestiona los disparos con un delay
             if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
-                if (event.keyboard.keycode == ALLEGRO_KEY_X) {
+                if (event.keyboard.keycode == ALLEGRO_KEY_SPACE) {
                     double current_time = al_get_time();
 
-                    // Check if enough time has passed since the last shot
+                    // Verifica que haya pasado el tiempo suficiente desde el último disparo
                     if (current_time - last_shot_time >= shot_cooldown) {
                         if (!is_shooting) {
                             is_shooting = 1;
                             pthread_t gamer_shot;
                             pthread_create(&gamer_shot, NULL, gamer_fire, mapa);
-                            last_shot_time = current_time;  // Update the last shot time
+                            last_shot_time = current_time;  // Actualiza el tiempo desde el último disparo
                         }
                     }
                 }
