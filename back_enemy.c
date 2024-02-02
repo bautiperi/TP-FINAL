@@ -436,7 +436,11 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
                         {
                             usleep(80000);
 
-                            if (mapa[y + 1][xb - 1] == JUGADOR) // Si la bala impacta al jugador en el costado izquierdo
+                            if (y + 1 == FIL) // Si la bala llega al borde inferior del mapa desaparece
+                            {
+                                mapa[y][xb] = SPACE;
+                            }
+                            else if (mapa[y + 1][xb - 1] == JUGADOR) // Si la bala impacta al jugador en el costado izquierdo
                             {
                             	eureka = 0;
 
@@ -491,10 +495,6 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
                                 y += 2;
                                 mapa[y][xb] = FIRE_EN;
                                 y--;
-                            }
-                            else if (y + 1 == FIL) // Si la bala llega al borde inferior del mapa desaparece
-                            {
-                                mapa[y][xb] = SPACE;
                             }
                             else
                             {
