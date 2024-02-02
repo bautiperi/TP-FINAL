@@ -43,8 +43,8 @@ void menu_vis(int mapa[][COL])
     if (FLICK_OPTION == 1)
     {
     }
-
-    disp_write({0, 0}, D_OFF);
+    dcoord_t led = {0, 0};
+    disp_write(led, D_OFF);
     disp_update();
 }
 
