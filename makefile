@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -g -pthread
-CLIBS=-lallegro
+CLIBS=-lallegro -lallegro_acodec -lallegro_audio -lallegro_image -lallegro_primitives -lallegro_font -lallegro_font -lallegro_ttf
 
 RASP=main.o obj_r.o aux_r.o menu_r.o conection_b_r.o disdrv.o joydrv.o score_r.o
 COMMON=back_map.o back_aux.o back_score.o back_enemy.o back_player.o
