@@ -304,9 +304,9 @@ void *final_boss_creation(void *arg)
 
         usleep((rand() % 6 + 10) * 1000000);
 
-        int dir = rand() % 3 - 1;
+        int dir = ((rand() % 2 == 0) ? 1 : -1;) //Hace que el nro sea -1 o 1
         // si dir>=0 el enemigo aparece a la izquierda del mapa en direccion a la derecha
-        if (dir >= 0)
+        if (dir == 1)
         {
 #ifdef RASPBERRY
             mapa[0][6] = 1;
