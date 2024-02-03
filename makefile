@@ -15,7 +15,7 @@ TARGET ?= RASPBERRY
 ifeq ($(PLATFORM), RASPBERRY)
     CFLAGS += -DRASPBERRY
     TARGET = raspberry
-	MAIN +=back_map.h back_player.h back_enemy.h back_score.h disdrv.h joydrv.h _defines_display_r.h conection_b_r.h aux_r.h menu_r.h score_r.h obj_r.h
+	MAIN +=back_map.h back_player.h back_enemy.h back_score.h disdrv.h joydrv.h _defines_display_r.h conection_b_r.h aux_r.h menu_r.h score_r.h
 else ifeq ($(PLATFORM), ALLEGRO)
     TARGET = ALLEGRO
 	MAIN +=disp_start_menu_a.h disp_game_a.h disp_scoreboard_a.h _defines_display.h back_map.h back_player.h back_enemy.h
