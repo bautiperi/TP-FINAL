@@ -17,7 +17,7 @@ extern int is_shooting;
 #endif
 
 // Variable global que establece la cantidad de disparos que puede efectuar
-int flag_gamer_shot = 1500;
+int flag_gamer_shot = 1;
 //------------------------------------------------------------------------------------//
 
 void gamer_movement(int mapa[][COL], int dir)
