@@ -43,7 +43,7 @@ ifeq ($(TARGET), raspberry)
 main.o: $(MAIN)
 
 # Front-end RASPBERRY
-obj_r.o: obj_r.c obj_r.h aux_r.h disdrv.h joydrv.h _defines.h _defines_display_r.h
+obj_r.o: obj_r.c obj_r.h aux_r.h disdrv.h _defines.h _defines_display_r.h
 menu_r.o: menu_r.c menu_r.h disdrv.h aux_r.h _defines.h _defines_display_r.h
 aux_r.o: aux_r.c aux_r.h disdrv.h joydrv.h _defines.h _defines_display_r.h
 conection_b_r.o: conection_b_r.c conection_b_r.h obj_r.h _defines.h disdrv.h joydrv.h aux_r.h
