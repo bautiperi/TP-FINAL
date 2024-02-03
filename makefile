@@ -4,8 +4,7 @@ CLIBS=-lallegro
 
 RASP=main.o obj_r.o aux_r.o menu_r.o conection_b_r.o disdrv.o joydrv.o score_r.o
 COMMON=back_map.o back_aux.o back_score.o back_enemy.o back_player.o
-ALL=main.o disp_game.o disp_pause.o disp_scoreboard.o disp_start_menu.o
-ALLEGRO=disp_game.o disp_pause.o disp_scoreboard.o disp_start_menu.o
+ALLEGRO=disp_game_a.o disp_pause_a.o disp_scoreboard_a.o disp_start_menu_a.o
 
 # Plataforma por defecto
 PLATFORM ?= RASPBERRY
