@@ -54,7 +54,7 @@ int main(void)
 		while (STATUS == 0) // JUEGO
 		{
 			coord = joy_read();
-			usleep(50000);
+			usleep(200000);
 			disp_write(coord_menu, D_ON); // coordenada que simula un "boton" de menu
 
 			if ((coord.sw) == (J_PRESS)) // dispara el player
