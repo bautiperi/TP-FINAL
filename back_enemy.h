@@ -3,14 +3,6 @@
 
 #include "_defines.h"
 
-/*FUNCION SHIPS_CREATE
- * BRIEF: Se encarga de posicionar los enemigos en el mapa
- * diff: (const int) Indica el nivel de dificultad seleccionado por el jugador
- * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
- * Return: (void)
- */
-void ships_create(int diff, int mapa[][COL]);
-
 /* FUNCIÓN ALIEN_MOVEMENT (Diseñada para threads)
  * BRIEF: mueve horizontalmente a los aliens
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego

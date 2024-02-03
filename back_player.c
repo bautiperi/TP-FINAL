@@ -1,8 +1,8 @@
 //------------------------------------------------------------------------------------//
 #include "back_player.h"
 #include "back_aux.h"
-#include "back_enemy.h"
 #include "back_score.h"
+#include "back_enemy.h"
 
 // LIBRERIAS
 #include <unistd.h>
@@ -135,17 +135,3 @@ void *gamer_fire(void *arg)
     pthread_exit(NULL);
 }
 
-int life_updater(int mapa[][COL])
-{
-    LIVES--;
-    if (LIVES == 0)
-    {
-        return 1;
-    }
-    else
-    {
-    	usleep(500000);
-        SPAWN_POINT = JUGADOR;
-        return 0;
-    }
-}

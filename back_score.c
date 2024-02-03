@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <unistd.h>
 
 // PROTOTIPOS FUNCIONES PRIVADAS
 /* FUNCIÓN PLAYER_COMP
@@ -119,4 +120,19 @@ static int player_comp(const void *a, const void *b)
 {
 
 	return ((*(player_t *)b).score - (*(player_t *)a).score);
+}
+
+int life_updater(int mapa[][COL])
+{
+    LIVES--;
+    if (LIVES == 0)
+    {
+        return 1;
+    }
+    else
+    {
+    	usleep(500000);
+        SPAWN_POINT = JUGADOR;
+        return 0;
+    }
 }
