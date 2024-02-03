@@ -143,7 +143,6 @@ void *update_player_keyboard(void *arg) {
 #include "menu_r.h"
 #include "aux_r.h"
 #include "score_r.h"
-#include "obj_r.h"
 
 // BACK
 #include "back_player.h"
