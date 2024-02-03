@@ -92,6 +92,6 @@ void obj_vis(void *arg)
         }
         disp_update();
         //usleep(66666);
-    }
+    //}
     //pthread_exit(NULL);
 }
