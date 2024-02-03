@@ -19,14 +19,14 @@
 - 5 = Boss
 - 6(jugador) y 7(enemigos) = Disparos*/
 
-void *obj_vis(void *arg)
+void obj_vis(void *arg)
 {
     int(*mapa)[COL] = (int(*)[COL])arg;
     int gamer, shields, boss; // variables de confirmacion de visualizacion para que no hayan dos de lo mismo
     unsigned int x, y;
     dcoord_t coords, aux;
 
-    while (1)
+    /*while (1)
     {
         // Pone el thread "en pausa"
         while (flag_game_update == 0)
@@ -36,7 +36,7 @@ void *obj_vis(void *arg)
         if (flag_game_update == 2)
         {
             return NULL;
-        }
+        }*/
 
         shutdown_disp();
         gamer = 0;
@@ -91,7 +91,7 @@ void *obj_vis(void *arg)
             }
         }
         disp_update();
-        usleep(66666);
+        //usleep(66666);
     }
-    pthread_exit(NULL);
+    //pthread_exit(NULL);
 }
