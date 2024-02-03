@@ -9,6 +9,8 @@ ALLEGRO=disp_game.o disp_pause.o disp_scoreboard.o disp_start_menu.o
 
 # Plataforma por defecto
 PLATFORM ?= RASPBERRY
+# Target por defecto
+TARGET ?= RASPBERRY
 
 ifeq ($(PLATFORM), RASPBERRY)
     CFLAGS += -DRASPBERRY
