@@ -51,7 +51,7 @@ score_r.o: score_r.c score_r.h disdrv.h _defines.h aux_r.h
 
 # Dependencias especificas para cada objeto - Back-end
 back_aux.o: back_aux.c back_aux.h _defines.h
-back_enemy.o: back_enemy.c back_enemy.h back_map.h back_player.h back_aux.h back_score.h _defines.h
+back_enemy.o: back_enemy.c back_enemy.h back_map.h back_aux.h back_score.h _defines.h
 back_map.o: back_map.c back_map.h _defines.h back_enemy.h
 back_player.o: back_player.c back_player.h _defines.h back_aux.h back_enemy.h back_score.h
 back_score.o: back_score.c back_score.h _defines.h
