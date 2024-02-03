@@ -52,12 +52,4 @@ return: void
 */
 void shields_vis(dcoord_t coor);
 
-/***********************************  GAME OVER   ***********************************/
-
-/*FUNCION GAME_OVER
-brief: apaga los leds del display y genera una cara triste indicando la finalizacion del juego
-no recibe ni devuleve nada
-*/
-void game_over(void);
-
 #endif /* OBJ_R_H */
