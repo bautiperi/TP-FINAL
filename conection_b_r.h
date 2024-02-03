@@ -9,6 +9,6 @@ brief: se encarga de analizar la matriz y llamar a las funciones pertinentes
 arg: (void *) matriz a analizar
 return: void
 */
-void *obj_vis(void *arg);
+void obj_vis(void *arg);
 
 #endif /* CONECTION_B_R_H */
