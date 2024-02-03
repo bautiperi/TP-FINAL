@@ -4,7 +4,8 @@ CLIBS=-lallegro -lallegro_acodec -lallegro_audio -lallegro_image -lallegro_primi
 
 RASP=main.o obj_r.o aux_r.o menu_r.o conection_b_r.o disdrv.o joydrv.o score_r.o
 COMMON=back_map.o back_aux.o back_score.o back_enemy.o back_player.o
-ALLEGRO=disp_game_a.o disp_pause_a.o disp_scoreboard_a.o disp_start_menu_a.o
+ALLEGRO=main.o disp_game_a.o disp_pause_a.o disp_scoreboard_a.o disp_start_menu_a.o
+MAIN=main.c 
 
 # Plataforma por defecto
 PLATFORM ?= RASPBERRY
@@ -14,8 +15,10 @@ TARGET ?= RASPBERRY
 ifeq ($(PLATFORM), RASPBERRY)
     CFLAGS += -DRASPBERRY
     TARGET = raspberry
+	MAIN +=back_map.h disdrv.h joydrv.h _defines_display_r.h conection_b_r.h aux_r.h
 else ifeq ($(PLATFORM), ALLEGRO)
     TARGET = ALLEGRO
+	MAIN +=disp_start_menu_a.h disp_game_a.h disp_scoreboard_a.h _defines_display.h back_map.h back_player.h back_enemy.h
 else
     $(error Platform not supported: $(PLATFORM))
 endif
@@ -36,8 +39,10 @@ ifeq ($(TARGET), raspberry)
 %.o: %.c _defines.h
 	$(CC) -DRASPBERRY -c $< -o $@ $(CFLAGS)
 
-# Dependencias especificas para cada objeto - Front-end
-main.o: main.c back_map.h disdrv.h joydrv.h _defines_display_r.h conection_b_r.h aux_r.h
+# Target main.o
+main.o: $(MAIN)
+
+# Front-end RASPBERRY
 obj_r.o: obj_r.c obj_r.h aux_r.h disdrv.h joydrv.h _defines.h _defines_display_r.h
 menu_r.o: menu_r.c menu_r.h disdrv.h aux_r.h _defines.h _defines_display_r.h
 aux_r.o: aux_r.c aux_r.h disdrv.h joydrv.h _defines.h _defines_display_r.h
