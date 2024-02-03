@@ -352,7 +352,7 @@ static int display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLE
 				//Si el enemigo es un alien, muestra la imagen de un alien
 				al_draw_scaled_bitmap(alien_3, 0, 0, 650, 650, POS_X(x), POS_Y(y) , 45, 45, 0);
 			}
-			else if (mapa [y][x] == BOSS){
+			else if (mapa [y][x] == BOSS && y == 3){
 				//Si el enemigo es un alien, muestra la imagen de un alien
 				al_draw_scaled_bitmap(boss, 0, 0, 650, 650, POS_X(x), POS_Y(y) , 50, 50, 0);
 				ken_flag++;
