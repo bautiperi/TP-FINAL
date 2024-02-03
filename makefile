@@ -47,7 +47,7 @@ obj_r.o: obj_r.c obj_r.h aux_r.h disdrv.h joydrv.h _defines.h _defines_display_r
 menu_r.o: menu_r.c menu_r.h disdrv.h aux_r.h _defines.h _defines_display_r.h
 aux_r.o: aux_r.c aux_r.h disdrv.h joydrv.h _defines.h _defines_display_r.h
 conection_b_r.o: conection_b_r.c conection_b_r.h obj_r.h _defines.h disdrv.h joydrv.h aux_r.h
-score_r.o: score_r.c score_r.h disdrv.h _defines.h back_map.h
+score_r.o: score_r.c score_r.h disdrv.h _defines.h aux_r.h
 
 # Dependencias especificas para cada objeto - Back-end
 back_aux.o: back_aux.c back_aux.h _defines.h
