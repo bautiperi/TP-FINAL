@@ -1,0 +1,10 @@
+{
+	"folders": [],
+	"settings": {
+		"files.associations": {
+			"back_map.h": "c",
+			"back_player.h": "c",
+			"back_enemy.h": "c"
+		}
+	}
+}

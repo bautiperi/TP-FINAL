@@ -1,7 +1,6 @@
 //-----------------------------------------------------------------------------------------------------//
 #include "back_enemy.h"
 #include "back_map.h"
-#include "back_player.h"
 #include "back_aux.h"
 #include "back_score.h"
 
@@ -21,15 +20,6 @@ static void alien_movement_v(int mapa[][COL]);
  * return: (void)
  */
 static void final_boss_movement(int mapa[][COL], int dir, int y);
-/* FUNCIÓN SPAWN_GEN
- * BRIEF: Crea en el mapa los enemigos según la dificultad
- * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
- * ini: (coord_t) Esquina superior izquierda donde comienza a ubicarse los aliens
- * desp: (coord_t) Esquina inferior derecha, totaliza el desplazamiento de la ubicación de los aliens
- * type_of_enemy: (int) Es el tipo de enemigo a asignar en el espacio entre ini y desp
- * return: (void)
- */
-static void spawn_gen(int mapa[][COL], coord_t ini, coord_t desp, int type_of_enemy);
 
 // Variable global de main.c (flag para threads)
 extern int flag_game_update;
@@ -39,80 +29,6 @@ int can_enemy_fire; // flag que sirve para evitar que los aliens disparen cuando
 
 // Variable global que incrementa la dificultad dentro del juego
 float harder = 1;
-
-void ships_create(int diff, int mapa[][COL])
-{
-
-    // Dependiendo de la dificultad, se crearan de diferentes formas los aliens
-    if (diff == RASP)
-    {
-        int x, y, value;
-        for (x = 2; x < 14; x += 2)
-        {
-            for (y = 3, value = ALIEN_4; y <= 7; y += 2, value--)
-            {
-                mapa[y][x] = value;
-            }
-        }
-    }
-    // Extreme: Todo dos filas y el primero 3?
-    else if (diff == EXTREME)
-    {
-        int i, enemy = 4;
-
-        for (i = 7; i < 16; i += 4)
-        {
-            // ini es la coordenada superior izq y desp es la coordenada inferior derecha
-            coord_t ini = {4, i}, desp = {27, i + 3};
-
-            // Se crean dos filas del alien seleccionado
-            spawn_gen(mapa, ini, desp, enemy--);
-        }
-    }
-    // Tradicional y hard: Crea una fila de alien_3, y dos filas por cada tipo de alien restante (alien_3 y alien_2)
-    else
-    {
-        int i, enemy = 4;
-        {
-            coord_t ini = {4, 5}, desp = {27, 5};
-            // Se crea una fila del alien "4"
-            spawn_gen(mapa, ini, desp, enemy--);
-        }
-
-        // Primeras dos filas alien "4", fila 3 y 4 alien "3" y fila 5 y 6 alien "2"
-        for (i = 7; i < 13; i += 4)
-        {
-            // ini es la coordenada superior izq y desp es la coordenada inferior derecha
-            coord_t ini = {4, i}, desp = {27, i + 3};
-
-            // Se crean dos filas del alien seleccionado
-            spawn_gen(mapa, ini, desp, enemy--);
-        }
-    }
-}
-
-/* FUNCIÓN SPAWN_GEN
- * BRIEF: Crea en el mapa los enemigos según la dificultad
- * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
- * ini: (coord_t) Esquina superior izquierda donde comienza a ubicarse los aliens
- * desp: (coord_t) Esquina inferior derecha, totaliza el desplazamiento de la ubicación de los aliens
- * type_of_enemy: (int) Es el tipo de enemigo a asignar en el espacio entre ini y desp
- * return: (void)
- */
-static void spawn_gen(int mapa[][COL], coord_t ini, coord_t desp, int type_of_enemy)
-{
-
-    int y, x;
-    // Loop que pone los aliens separados por un espacio de una celda vertical y horizontal
-    for (y = ini.y; y <= desp.y; y += 2)
-    {
-
-        for (x = ini.x; x <= desp.x; x += 2)
-        {
-            mapa[y][x] = type_of_enemy;
-        }
-    }
-}
 
 void *alien_movement(void *arg)
 {
@@ -304,9 +220,9 @@ void *final_boss_creation(void *arg)
 
         usleep((rand() % 6 + 10) * 1000000);
 
-        int dir = rand() % 3 - 1;
+        int dir = rand() % 2 - 1;
         // si dir>=0 el enemigo aparece a la izquierda del mapa en direccion a la derecha
-        if (dir >= 0)
+        if (dir == 1)
         {
 #ifdef RASPBERRY
             mapa[0][6] = 1;
@@ -323,10 +239,10 @@ void *final_boss_creation(void *arg)
 #ifdef RASPBERRY
             mapa[0][6] = 1;
             mapa[1][COL - 1] = BOSS;
-            final_boss_movement(mapa, dir, 1);
+            final_boss_movement(mapa, -1, 1);
 #else
             mapa[3][COL - 1] = BOSS;
-            final_boss_movement(mapa, dir, 3);
+            final_boss_movement(mapa, -1, 3);
 #endif
         }
     }
@@ -345,7 +261,7 @@ static void final_boss_movement(int mapa[][COL], int dir, int y)
     int x;
 
     // Se mueve hacia la derecha
-    if (dir >= 0)
+    if (dir == 1)
     {
 
         for (x = 0; x < COL; x++)
@@ -435,7 +351,7 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
             recorre_fil = rand() % 3 + 1;
             for (y = FIL; y > 0; y -= recorre_fil)
             {
-                if (enemy_checker(x, y, mapa)) // Verifica que haya aliens para que disparen
+                if (enemy_checker(x, y, mapa) && !can_enemy_fire) // Verifica que haya aliens para que disparen
                 {
                     shot = rand() % 100 + 1;
                     if (shot < 15) // Genera disparos en una cantidad determinada de las iteraciones

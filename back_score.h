@@ -3,6 +3,13 @@
 
 #include "_defines.h"
 
+// Estructura donde se guardan los nombres y scores de jugadores
+typedef struct
+{
+    char name[50];
+    int score;
+} player_t;
+
 /* FUNCIÓN SCORE_UPDATER
  * BRIEF: Actualiza el score actual del jugador
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
@@ -17,11 +24,11 @@ void score_updater(int mapa[][COL], int idetifier);
  */
 int score_saver(int score);
 
-// Estructura donde se guardan los nombres y scores de jugadores
-typedef struct
-{
-    char name[50];
-    int score;
-} player_t;
+/* FUNCIÓN LIFE_UPDATER
+ * BRIEF: Actualiza la cantidad de vidas que tiene el jugador
+ * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * return: (int) Devuelve 0 si el jugador todavía tiene vidas, caso contrario devuelve 1
+ */
+int life_updater(int mapa[][COL]);
 
 #endif /* BACK_STORE_A_H_ */

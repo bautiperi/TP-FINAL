@@ -127,3 +127,17 @@ static int player_comp(const void *a, const void *b)
 
 	return ((*(player_t *)b).score - (*(player_t *)a).score);
 }
+
+int life_updater(int mapa[][COL])
+{
+    LIVES--;
+    if (LIVES == 0)
+    {
+        return 1;
+    }
+    else
+    {
+        SPAWN_POINT = JUGADOR;
+        return 0;
+    }
+}
