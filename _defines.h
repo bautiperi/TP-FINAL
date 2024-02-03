@@ -1,25 +1,55 @@
-#ifndef DEFINES_H
-#define DEFINES_H
+#ifndef _DEFINES_H
+#define _DEFINES_H
 
+// INCLUDES
 #include <stdint.h>
 
-#ifndef RASP
+/******************************* CONSTANTES ESPECIFICAS *******************************/
+
+#ifndef RASPBERRY /*ALLEGRO*/
 
 // TAMAÑO DE LA MATRIZ
 #define COL 32
 #define FIL 32
 
-// MAPA
-#define SPACE 0
-#define BARRIER -1
+#define T_BORDER 1
+#define R_BORDER COL - 2
+#define L_BORDER 1
+
+// JUGADOR
+#define POS_Y_PL 28
+#define SPAWN_POINT mapa[POS_Y_PL][COL / 2 - 1]
+
+#else /* RASP */
+
+// TAMAÑO DE LA MATRIZ
+#define COL 16
+#define FIL 16
+
+#define T_BORDER 1
+#define R_BORDER COL - 1
+#define L_BORDER 0
+
+// JUGADOR
+#define POS_Y_PL FIL - 1
+#define SPAWN_POINT mapa[POS_Y_PL][COL / 2 - 1]
+
+#endif
+
+/******************************* CONSTANTES GENERALES *******************************/
 
 // DIFICULTAD
 #define RASP 0
-#define EASY 1
+#define NORMAL 1
+#define HARD 2
+#define EXTREME 3
 
 // JUGADOR
-#define SPAWN_POINT mapa[28][COL/2 -1]
 #define JUGADOR 1
+
+// DISPAROS
+#define FIRE_PL 6
+#define FIRE_EN 7
 
 // VALOR DE ENEMIGOS
 #define BOSS 5
@@ -27,33 +57,17 @@
 #define ALIEN_3 3
 #define ALIEN_2 2
 
-// DISPAROS
-#define FIRE_PL 6
-#define FIRE_EN 7
+// MAPA
+#define SPACE 0
+#define BARRIER -1
 
 // DEFINICIONES DE VALORES ESPECÍFICOS
 #define DIFICULTAD mapa[0][0]
-#define LIFES mapa[0][COL-1]
-#define SCORE mapa[0][COL-2]
-#define IMPACT mapa[0][COL-5]
-#define IMPACT_X mapa[0][COL-4]
-#define IMPACT_Y mapa[0][COL-3]
-
-// DEFINICIÓN DE COORDENADAS
-typedef struct {
-	unsigned int x;
-	unsigned int y;
-} coord_t;
-
-#else
-
-// TAMAÑO DE LA MATRIZ
-#define COL 16
-#define FIL 16
-
-// DIFICULTAD
-#define RASP 0
-#define EASY 1
+#define LIVES mapa[0][COL - 1]
+#define SCORE mapa[0][COL - 2]
+#define IMPACT mapa[0][COL - 5]
+#define IMPACT_X mapa[0][COL - 4]
+#define IMPACT_Y mapa[0][COL - 3]
 
 // DEFINICIÓN DE COORDENADAS GENERICAS
 typedef struct
@@ -61,20 +75,5 @@ typedef struct
     uint8_t x;
     uint8_t y;
 } coord_t;
-
-// DEFINES TIEMPOS DE FLICKS
-#define DELAY 300000 // 0.3 segundos
-#define MAX_ITERATIONS 50
-
-// VALOR DE OBJETOS
-#define BOSS 5
-#define ALIEN_4 4
-#define ALIEN_3 3
-#define ALIEN_2 2
-#define JUGADOR 1
-#define SPACE 0
-#define BARRIER -1
-
-#endif /* RASP */
 
 #endif /* DEFINES_H */
