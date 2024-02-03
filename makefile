@@ -16,7 +16,7 @@ ifeq ($(PLATFORM), RASPBERRY)
     CFLAGS += -DRASPBERRY
     TARGET = raspberry
 else ifeq ($(PLATFORM), ALLEGRO)
-    TARGET = allegro
+    TARGET = ALLEGRO
 else
     $(error Platform not supported: $(PLATFORM))
 endif
@@ -52,7 +52,7 @@ back_map.o: back_map.c back_map.h _defines.h back_enemy.h
 back_player.o: back_player.c back_player.h _defines.h back_aux.h back_enemy.h back_score.h
 back_score.o: back_score.c back_score.h _defines.h
 
-else ifeq ($(TARGET), allegro)
+else ifeq ($(TARGET), ALLEGRO)
 # Regla generica para la compilación de archivos fuente a objetos
 %.o: %.c _defines.h
 	$(CC) -c $< -o $@ $(CFLAGS) $(CLIBS)
