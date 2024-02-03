@@ -58,10 +58,10 @@ else ifeq ($(TARGET), ALLEGRO)
 	$(CC) -c $< -o $@ $(CFLAGS) $(CLIBS)
 
 #front allegro
-disp_game.o: disp_game.c disp_game.h _defines.h _defines_display.h disp_scoreboard.h disp_pause.h disp_game.h
-disp_pause.o: disp_pause.c disp_pause.h _defines_display.h
-disp_scoreboard.o: disp_scoreboard.c disp_scoreboard.h back_score.h _defines_display.h
-disp_start_menu.o: disp_start_menu.c disp_start_menu.h disp_scoreboard.h _defines_display.h _defines.h
+disp_game_a.o: disp_game_a.c disp_game_a.h _defines.h _defines_display.h disp_scoreboard_a.h disp_pause_a.h disp_game_a.h
+disp_pause_a.o: disp_pause_a.c disp_pause_a.h _defines_display.h
+disp_scoreboard_a.o: disp_scoreboard_a.c disp_scoreboard_a.h back_score.h _defines_display.h
+disp_start_menu_a.o: disp_start_menu_a.c disp_start_menu_a.h disp_scoreboard_a.h _defines_display.h _defines.h
 # Dependencias especificas para cada objeto - Back-end
 back_aux.o: back_aux.c back_aux.h _defines.h
 back_enemy.o: back_enemy.c back_enemy.h back_map.h back_player.h back_aux.h back_score.h _defines.h
