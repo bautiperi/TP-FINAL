@@ -165,8 +165,7 @@ int main(void)
 	int mapa[FIL][COL];
 	map_def(RASP, mapa, 0);
 
-	pthread_t up_aliens, up_boss, up_aliens_fire, up_vis;
-	//pthread_create(&up_vis, NULL, obj_vis, mapa);
+	pthread_t up_aliens, up_boss, up_aliens_fire;
 	pthread_create(&up_boss, NULL, final_boss_creation, mapa);
 	pthread_create(&up_aliens, NULL, alien_movement, mapa);
 	pthread_create(&up_aliens_fire, NULL, enemy_fire, mapa);
