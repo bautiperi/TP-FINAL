@@ -7,8 +7,6 @@
 
 // LIBRERIAS
 #include <unistd.h>
-#include <pthread.h>
-#include "joydrv.h"
 #include "disdrv.h"
 
 /*IDENTIFICACIÓN EN EL MAPA:
@@ -26,17 +24,6 @@ void obj_vis(void *arg)
     unsigned int x, y;
     dcoord_t coords, aux;
 
-    /*while (1)
-    {
-        // Pone el thread "en pausa"
-        while (flag_game_update == 0)
-        {
-        }
-        // Termina la ejecución del thread
-        if (flag_game_update == 2)
-        {
-            return NULL;
-        }*/
 
         shutdown_disp();
         gamer = 0;
@@ -91,7 +78,4 @@ void obj_vis(void *arg)
             }
         }
         disp_update();
-        //usleep(66666);
-    //}
-    //pthread_exit(NULL);
 }
