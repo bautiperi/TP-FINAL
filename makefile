@@ -29,7 +29,7 @@ RASPBERRY: $(RASP) $(COMMON)
 	$(CC) -DRASPBERRY $(RASP) $(COMMON) -o raspberry $(CFLAGS)
 
 # TARGET ALLEGRO
-ALLEGRO: $(RASP) $(ALLEGRO) $(COMMON)
+ALLEGRO: $(ALLEGRO) $(COMMON)
 	$(CC) $(ALLEGRO) $(COMMON) -o allegro $(CFLAGS) $(CLIBS)
 
 ifeq ($(TARGET), raspberry)
