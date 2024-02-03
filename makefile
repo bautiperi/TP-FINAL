@@ -9,32 +9,28 @@ MAIN=main.c
 
 # Plataforma por defecto
 PLATFORM ?= RASPBERRY
-# Target por defecto
-TARGET ?= RASPBERRY
 
 ifeq ($(PLATFORM), RASPBERRY)
     CFLAGS += -DRASPBERRY
-    TARGET = raspberry
 	MAIN +=back_map.h back_player.h back_enemy.h back_score.h disdrv.h joydrv.h _defines_display_r.h conection_b_r.h aux_r.h menu_r.h score_r.h
 else ifeq ($(PLATFORM), ALLEGRO)
-    TARGET = ALLEGRO
 	MAIN +=disp_start_menu_a.h disp_game_a.h disp_scoreboard_a.h _defines_display.h back_map.h back_player.h back_enemy.h
 else
     $(error Platform not supported: $(PLATFORM))
 endif
 
-# TARGET
+# PLATFORM
 all: $(PLATFORM)
 
-# TARGET RASPBERRY
+# PLATFORM RASPBERRY
 RASPBERRY: $(RASP) $(COMMON)
 	$(CC) -DRASPBERRY $(RASP) $(COMMON) -o raspberry $(CFLAGS)
 
-# TARGET ALLEGRO
+# PLATFORM ALLEGRO
 ALLEGRO: $(ALLEGRO) $(COMMON)
 	$(CC) $(ALLEGRO) $(COMMON) -o allegro $(CFLAGS) $(CLIBS)
 
-ifeq ($(TARGET), raspberry)
+ifeq ($(PLATFORM), raspberry)
 # Regla generica para la compilación de archivos fuente a objetos
 %.o: %.c _defines.h
 	$(CC) -DRASPBERRY -c $< -o $@ $(CFLAGS)
@@ -56,7 +52,7 @@ back_map.o: back_map.c back_map.h _defines.h
 back_player.o: back_player.c back_player.h _defines.h back_aux.h back_enemy.h back_score.h
 back_score.o: back_score.c back_score.h _defines.h
 
-else ifeq ($(TARGET), ALLEGRO)
+else ifeq ($(PLATFORM), ALLEGRO)
 # Regla generica para la compilación de archivos fuente a objetos
 %.o: %.c _defines.h
 	$(CC) -c $< -o $@ $(CFLAGS) $(CLIBS)
