@@ -83,11 +83,16 @@ void *alien_movement(void *arg)
                         any_enemy++;
                     }
                     // Verifica si dos aliens se amontonan y los separa
-                    else if ((enemy_checker(x, y, mapa)) && (enemy_checker(x, y + 1, mapa)))
+                    else if (mapa[y][x + 1] == SPACE && (enemy_checker(x, y, mapa)) && (enemy_checker(x, y + 1, mapa)))
                     {
                     	swap(mapa, x, y + 1, x, y + 2); // Separa los aliens
                     	swap(mapa, x, y, x + 1, y); // Mueve el alien de arriba a la derecha
-                    	swap(mapa, x, y + 2, x + 1, y + 2); // Mueve el alien de abajo a la derecha
+                    }
+                    // Verifica si dos aliens se separan de más y los junta
+                    else if (mapa[y][x + 1] == SPACE && (enemy_checker(x, y, mapa)) && (enemy_checker(x, y + 3, mapa)) && !(enemy_checker(x, y + 2, mapa)))
+                    {
+                    	swap(mapa, x, y, x, y + 1); // Junta los aliens
+                    	swap(mapa, x, y, x + 1, y); // Mueve el alien de arriba a la derecha
                     }
                     // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
                     else if (mapa[y][x + 1] == BARRIER && (enemy_checker(x, y, mapa)))
@@ -132,11 +137,16 @@ void *alien_movement(void *arg)
                         any_enemy++;
                     }
                     // Verifica si dos aliens se amontonan y los separa
-                    else if ((enemy_checker(x, y, mapa)) && (enemy_checker(x, y + 1, mapa)))
+                    else if (mapa[y][x - 1] == SPACE && (enemy_checker(x, y, mapa)) && (enemy_checker(x, y + 1, mapa)))
                     {
                     	swap(mapa, x, y + 1, x, y + 2); // Separa los aliens
                     	swap(mapa, x, y, x - 1, y); // Mueve el alien de arriba a la izquierda
-                    	swap(mapa, x, y + 2, x - 1, y + 2); // Mueve el alien de abajo a la izquierda
+                    }
+                    // Verifica si dos aliens se separan de más y los junta
+                    else if (mapa[y][x - 1] == SPACE && (enemy_checker(x, y, mapa)) && (enemy_checker(x, y + 3, mapa)) && !(enemy_checker(x, y+2, mapa)))
+                    {
+                    	swap(mapa, x, y, x, y + 1); // Junta los aliens
+                    	swap(mapa, x, y, x - 1, y); // Mueve el alien de arriba a la izquierda
                     }
                     // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
                     else if (mapa[y][x - 1] == BARRIER && enemy_checker(x, y, mapa))
@@ -272,7 +282,6 @@ void *final_boss_creation(void *arg)
 static void final_boss_movement(int mapa[][COL], int dir, int y)
 {
     int x;
-
     //  se mueve hacia la derecha
     if (dir == 0)
     {
@@ -357,7 +366,7 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
             recorre_fil = rand() % 3 + 1;
             for (y = FIL; y > 0; y -= recorre_fil)
             {
-                if (enemy_checker(x, y, mapa)) // Verifica que haya aliens para que disparen
+                if ((enemy_checker(x, y, mapa)) && !(enemy_checker(x, y + 1, mapa))) // Verifica que haya aliens para que disparen
                 {
                     shot = rand() % 100 + 1;
                     if (shot < 15) // Genera disparos en una cantidad determinada de las iteraciones
