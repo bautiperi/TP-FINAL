@@ -32,7 +32,6 @@ static void final_boss_movement(int mapa[][COL], int dir, int y);
 // Variable global de main.c (flag para threads)
 extern int flag_game_update;
 
-int can_enemy_fire; //flag que sirve para evitar que los aliens disparen cuando se mueven verticalmente
 //-----------------------------------------------------------------------------------------------------//
 
 // Variable global que incrementa la dificultad dentro del juego
@@ -83,6 +82,13 @@ void *alien_movement(void *arg)
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
                         any_enemy++;
                     }
+                    // Verifica si dos aliens se amontonan y los separa
+                    else if ((enemy_checker(x, y, mapa)) && (enemy_checker(x, y + 1, mapa)))
+                    {
+                    	swap(mapa, x, y + 1, x, y + 2); // Separa los aliens
+                    	swap(mapa, x, y, x + 1, y); // Mueve el alien de arriba a la derecha
+                    	swap(mapa, x, y + 2, x + 1, y + 2); // Mueve el alien de abajo a la derecha
+                    }
                     // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
                     else if (mapa[y][x + 1] == BARRIER && (enemy_checker(x, y, mapa)))
                     {
@@ -124,6 +130,13 @@ void *alien_movement(void *arg)
                         dir = 1;  // Hace el cambio de dirección
                         flag = 1; // Hace que al terminar de cambiar el resto de las filas, se llame a la función para el cambio vertical
                         any_enemy++;
+                    }
+                    // Verifica si dos aliens se amontonan y los separa
+                    else if ((enemy_checker(x, y, mapa)) && (enemy_checker(x, y + 1, mapa)))
+                    {
+                    	swap(mapa, x, y + 1, x, y + 2); // Separa los aliens
+                    	swap(mapa, x, y, x - 1, y); // Mueve el alien de arriba a la izquierda
+                    	swap(mapa, x, y + 2, x - 1, y + 2); // Mueve el alien de abajo a la izquierda
                     }
                     // Si adelante había una barreba la "destruye" y continúa cambiando la posición del enemigo
                     else if (mapa[y][x - 1] == BARRIER && enemy_checker(x, y, mapa))
@@ -180,7 +193,6 @@ void *alien_movement(void *arg)
 static void alien_movement_v(int mapa[][COL])
 {
     int x, y;
-    can_enemy_fire=1; // Actualizamos el flag para indicar que el movimiento vertical está en proceso
 
     // se mueve hacia abajo
     for (x = 0; x < COL; x++)
@@ -205,7 +217,6 @@ static void alien_movement_v(int mapa[][COL])
             }
         }
     }
-    can_enemy_fire=0; // Actualizamos el flag para indicar que el movimiento vertical terminó
     usleep(1000000 / harder);
 }
 
@@ -214,24 +225,23 @@ void *final_boss_creation(void *arg)
     time_t t;
     srand((unsigned)time(&t));
     int(*mapa)[COL] = (int(*)[COL])arg;
-    while (1)
+    while (flag_game_update != 2)
     {
         // Pone el thread "en pausa"
         while (flag_game_update == 0)
         {
         }
         // Termina la ejecución del thread
-        if (flag_game_update == 2)
+        /*if (flag_game_update == 2)
         {
             pthread_exit(NULL);
-        }
+        }*/
 
         usleep((rand() % 6 + 10) * 1000000);
 
-        //int dir = ((rand() % 2 == 0) ? 1 : -1); //Hace que el nro sea -1 o 1
-        int dir = rand() % 4 - 2;
-        // si dir>=0 el enemigo aparece a la izquierda del mapa en direccion a la derecha
-        if (dir >= 0)
+        int dir = rand() % 2;
+        // si dir=0 el enemigo aparece a la izquierda del mapa en direccion a la derecha
+        if (dir == 0)
         {
 #ifdef RASPBERRY
             mapa[0][6] = 1;
@@ -242,8 +252,8 @@ void *final_boss_creation(void *arg)
             final_boss_movement(mapa, dir, 3);
 #endif
         }
-        // si dir < 0 el enemigo aparece a la derecha del mapa en direccion a la izquierda
-        else
+        // si dir = 1 el enemigo aparece a la derecha del mapa en direccion a la izquierda
+        else if (dir == 1)
         {
 #ifdef RASPBERRY
             mapa[0][6] = 1;
@@ -261,7 +271,7 @@ void *final_boss_creation(void *arg)
 /* FUNCIÓN FINAL_BOSS_MOVEMENT
  * BRIEF: Mueve horizontalmente a el final boss
  * mapa: (Matriz de ints) Es la matriz donde se desarrolla el juego
- * dir: (int) direccion del movimiento (izq = -1, der = 0 o 1)
+ * dir: (int) direccion del movimiento (izq = 1, der = 0)
  * return: (void)
  */
 static void final_boss_movement(int mapa[][COL], int dir, int y)
@@ -269,7 +279,7 @@ static void final_boss_movement(int mapa[][COL], int dir, int y)
     int x;
 
     //  se mueve hacia la derecha
-    if (dir >= 0)
+    if (dir == 0)
     {
 
         for (x = 0; x < R_BORDER; x++)
@@ -303,12 +313,12 @@ static void final_boss_movement(int mapa[][COL], int dir, int y)
 #endif
         }
     }
-    else
+    else if (dir == 1)
     { // Se mueve hacia la izquierda
 
         for (x = COL - 1; x >= 0; x--)
         {
-            if (mapa[y][0] == BOSS)
+            if (x == 0 && mapa[y][x] == BOSS) //(mapa[y][0] == BOSS)
             {
                 mapa[y][0] = SPACE;
 #ifdef RASPBERRY
@@ -339,17 +349,17 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
     time_t t;
     srand((unsigned)time(&t));
 
-    while (1)
+    while (flag_game_update != 2)
     {
         // Pone el thread "en pausa"
         while (flag_game_update == 0)
         {
         }
         // Termina la ejecución del thread
-        if (flag_game_update == 2 || can_enemy_fire == 1)
+        /*if (flag_game_update == 2)
         {
             return NULL;
-        }
+        }*/
 
         recorre_col = rand() % 4 + 1;
         for (x = 0; x < COL; x += recorre_col) // Recorre el area donde se encuentran los aliens
