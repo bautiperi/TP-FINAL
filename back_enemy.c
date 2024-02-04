@@ -225,17 +225,12 @@ void *final_boss_creation(void *arg)
     time_t t;
     srand((unsigned)time(&t));
     int(*mapa)[COL] = (int(*)[COL])arg;
-    while (flag_game_update != 2)
+    while (flag_game_update != 2) // Termina la ejecución del thread
     {
         // Pone el thread "en pausa"
         while (flag_game_update == 0)
         {
         }
-        // Termina la ejecución del thread
-        /*if (flag_game_update == 2)
-        {
-            pthread_exit(NULL);
-        }*/
 
         usleep((rand() % 6 + 10) * 1000000);
 
@@ -349,17 +344,12 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
     time_t t;
     srand((unsigned)time(&t));
 
-    while (flag_game_update != 2)
+    while (flag_game_update != 2) // Termina la ejecución del thread
     {
         // Pone el thread "en pausa"
         while (flag_game_update == 0)
         {
         }
-        // Termina la ejecución del thread
-        /*if (flag_game_update == 2)
-        {
-            return NULL;
-        }*/
 
         recorre_col = rand() % 4 + 1;
         for (x = 0; x < COL; x += recorre_col) // Recorre el area donde se encuentran los aliens
