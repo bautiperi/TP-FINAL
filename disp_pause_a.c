@@ -1,18 +1,19 @@
 // --------------------------------------------------------------------------------------------- //
-//HEADER
+// INCLUDES HEADER FILES
 #include "disp_pause_a.h"
 #include "_defines_display.h"
 
-//LIBRERIAS
+// LIBRERIAS
 #include <stdio.h>
 
-//LIBRERIAS ALLEGRO
+// LIBRERIAS ALLEGRO
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
-//PROTOTIPOS DE FUNCIONES PRIVADAS
-/*FUNCIÓN DISPLAY_P_MENU
+// PROTOTIPOS DE FUNCIONES PRIVADAS
+
+/* FUNCIÓN DISPLAY_P_MENU
  * BRIEF: Se encarga de mostrar en pantalla el menú de pausa, con el botón seleccionado
  * boton: (unsigned int) Es el botón a seleccionar
  * return: (void)*/
@@ -20,11 +21,11 @@ static void display_p_menu(unsigned int boton, ALLEGRO_FONT *font_title, ALLEGRO
 // --------------------------------------------------------------------------------------------- //
 
 int display_pause_menu (void){
+	// sel = selección actual del jugador
+	// ret = Cuando el jugador confirma la selección
 	int sel = 0, ret = 1;
 
-	//TAMAÑO DE LAS FONTS
-
-	//CARGA LAS FONTS PARA EL MENU
+	// CARGA LAS FONTS PARA EL MENU
 	ALLEGRO_FONT *font_title = al_load_ttf_font("resources/Barbie-font.ttf", TITLE_SIZE, 0);
 	ALLEGRO_FONT *font = al_load_ttf_font("resources/Barbie-font.ttf", OPTIONS_SIZE, 0);
 
@@ -32,6 +33,7 @@ int display_pause_menu (void){
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 
 
+	// Loop que muestra el menú de pausa y espera a la selección del jugador
 	do{
 		display_p_menu(sel, font_title, font);
 
@@ -69,10 +71,6 @@ int display_pause_menu (void){
 	return sel;
 }
 
-/*FUNCIÓN DISPLAY_P_MENU
- * BRIEF: Se encarga de mostrar en pantalla el menú de pausa, con el botón seleccionado
- * boton: (unsigned int) Es el botón a seleccionar
- * return: (void)*/
 static void display_p_menu (unsigned int boton, ALLEGRO_FONT *font_title, ALLEGRO_FONT *font) {
 
 	al_clear_to_color(al_map_rgb(54,1,63));

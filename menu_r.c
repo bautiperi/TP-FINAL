@@ -1,3 +1,4 @@
+//-----------------------------------------------------------------------------------------------------//
 // INCLUDES
 #include "menu_r.h"
 #include "aux_r.h"
@@ -41,8 +42,8 @@ void menu_vis(int mapa[][COL])
         disp_write(exit_btn[i], D_ON);
     }
 
-    // Segun el flag de FLICK_OPTION titila la opcion seleccionada
-    if (FLICK_OPTION == 0)
+    // Segun el flag de FLICK_OPTION se muestra un subrayado en la opcion marcada
+    if (SELECT_OPTION == 0)
     {
         for (i = 0; i < 5; i++)
         {
@@ -53,7 +54,7 @@ void menu_vis(int mapa[][COL])
             disp_write(linea_opt1[i], D_OFF);
         }
     }
-    if (FLICK_OPTION == 1)
+    if (SELECT_OPTION == 1)
     {
         for (i = 0; i < 5; i++)
         {
@@ -103,8 +104,8 @@ void menu_principal_vis(int mapa[][COL])
         disp_write(power_off_btn[i], D_ON);
     }
 
-    // Segun el flag de FLICK_OPTION titila la opcion seleccionada
-    if (FLICK_OPTION == 0)
+    // Segun el flag de SELECT_OPTION se muestra un subrayado en la opcion marcada
+    if (SELECT_OPTION == 0)
     {
         for (i = 0; i < 6; i++)
         {
@@ -115,7 +116,7 @@ void menu_principal_vis(int mapa[][COL])
             disp_write(linea_opt1[i], D_OFF);
         }
     }
-    if (FLICK_OPTION == 1)
+    if (SELECT_OPTION == 1)
     {
         for (i = 0; i < 6; i++)
         {

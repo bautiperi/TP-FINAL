@@ -12,7 +12,7 @@
 
 // FLAGS
 #define STATUS mapa[0][4]
-#define FLICK_OPTION mapa[0][5]
+#define SELECT_OPTION mapa[0][5]
 #define DIRECCION mapa[0][6]
 #define CLOSE_GAME mapa[6][0]
 
@@ -20,12 +20,14 @@
 
 /*
 FLAGS DEL JUEGO
-mapa[0][4] es un flag que indica el momento de juego
-mapa[0][4] = 0 -> en el juego
-mapa[0][4]  = 1 -> en el menu
-mapa[0][4]  = 2 -> menu principal
+STATUS mapa[0][4]
+STATUS es un flag que indica el momento de juego
+STATUS = 0 -> en el juego
+STATUS = 1 -> en el menu
+STATUS = 2 -> menu principal
+STATUS = 3 -> muestra el score
 
-mapa[0][6]  es un flag para la visualización de la dirección
-1  -> derecha
--1- > izquierda
+DIRECCION mapa[0][6]  es un flag para la visualización de la dirección
+DIRECCION = 1  -> derecha
+DIRECCION = -1- > izquierda
 */

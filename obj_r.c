@@ -1,4 +1,5 @@
-// INCLUDES
+//-----------------------------------------------------------------------------------------------------//
+// INCLUDE HEADER FILES
 #include "obj_r.h"
 #include "aux_r.h"
 #include "_defines_display_r.h"
@@ -30,7 +31,7 @@ void aliens_vis(dcoord_t coor_inicial)
 {
     if (coor_inicial.x <= 15 && coor_inicial.x >= 0 && coor_inicial.y <= 15 && coor_inicial.y >= 0)
     {
-        disp_write(coor_inicial, D_ON); // prende el led
+        disp_write(coor_inicial, D_ON); // prende el led de cada alien
     }
 }
 

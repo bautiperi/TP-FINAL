@@ -1,7 +1,10 @@
 #ifndef DISP_START_MENU_A_C_
 #define DISP_START_MENU_A_C_
 
+// LIBRERÍAS
 #include <allegro5/allegro.h>
+
+// PROTOTIPOS DE FUNCIONES
 
 /* FUNCIÓN DISPLAY_INIT
  * BRIEF: Se encarga de inicializar el display y las librerías que se utilizan

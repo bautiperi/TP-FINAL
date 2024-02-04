@@ -1,27 +1,38 @@
 // --------------------------------------------------------------------------------- //
-//HEADER
+// INCLUDES HEADER FILES
 #include "disp_scoreboard_a.h"
 #include "back_score.h"
 #include "_defines_display.h"
 
-//LIBRERIAS
+// LIBRERIAS
 #include <stdio.h>
 
-//LIBRERIAS ALLEGRO
+// LIBRERIAS ALLEGRO
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
-//DEFINES
+// DEFINES
 #define MAX_PLAYERS 10
 
 //PROTOTIPOS FUNCIONES PRIVADAS
+
 /* FUNCIÓN DISPLAY_BOARD
  * BRIEF: Se encarga de mostrar los jugadores que forman parte del scoreboard
  * return: (void)
  *  */
 static void display_board (player_t players[MAX_PLAYERS]);
+/* FUNCIÓN CHARACTER_DISPLAYER_MENU
+ * BRIEF: Se encarga de mostrar en pantalla los personajes para que el jugador seleccione uno de ellos
+ * sel: (int) Cual es la selección de personaje a resaltar
+ * char_1: (puntero ALLEGRO_BITMAP) La imagen del personaje 1
+ * char_2: (puntero ALLEGRO_BITMAP) La imagen del personaje 2
+ * char_3: (puntero ALLEGRO_BITMAP) La imagen del personaje 3
+ * char_4: (puntero ALLEGRO_BITMAP) La imagen del personaje 4
+ * char_5: (puntero ALLEGRO_BITMAP) La imagen del personaje 5
+ * return: (void)
+ *  */
 const void character_displayer_menu (int sel, ALLEGRO_BITMAP * char_1, ALLEGRO_BITMAP * char_2, ALLEGRO_BITMAP * char_3, ALLEGRO_BITMAP * char_4, ALLEGRO_BITMAP * char_5);
 // --------------------------------------------------------------------------------- //
 
@@ -231,16 +242,6 @@ int disp_name_and_char (void) {
 
 }
 
-/* FUNCIÓN CHARACTER_DISPLAYER_MENU
- * BRIEF: Se encarga de mostrar en pantalla los personajes para que el jugador seleccione uno de ellos
- * sel: (int) Cual es la selección de personaje a resaltar
- * char_1: (puntero ALLEGRO_BITMAP) La imagen del personaje 1
- * char_2: (puntero ALLEGRO_BITMAP) La imagen del personaje 2
- * char_3: (puntero ALLEGRO_BITMAP) La imagen del personaje 3
- * char_4: (puntero ALLEGRO_BITMAP) La imagen del personaje 4
- * char_5: (puntero ALLEGRO_BITMAP) La imagen del personaje 5
- * return: (void)
- *  */
 const void character_displayer_menu (int sel, ALLEGRO_BITMAP * char_1, ALLEGRO_BITMAP * char_2, ALLEGRO_BITMAP * char_3, ALLEGRO_BITMAP * char_4, ALLEGRO_BITMAP * char_5){
 
 	switch (sel){

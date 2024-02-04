@@ -2,6 +2,7 @@
 #include "back_map.h"
 
 // PROTOTIPOS DE FUNCIONES PRIVADAS
+
 /* FUNCIÓN BARRIER_DIFF
  * BRIEF: Se encarga de determinar la cantidad y tamaño de las barreras a poner
  * diff: (const int) Es la dificultad que seleccionó el jugador
@@ -9,6 +10,7 @@
  * return: (void)
  *  */
 static void barrier_diff(const int diff, int mapa[][COL]);
+
 /* FUNCIÓN BARRIER_GEN
  * BRIEF: Se encarga de generar barreras del tamaño deseado en una determinada posición.
  * x: (int) Posición x de inicio (debe ser la sup. izq.)
@@ -19,6 +21,7 @@ static void barrier_diff(const int diff, int mapa[][COL]);
  * return: (void)
  *  */
 static void barrier_gen(const int x, const int y, const int width, const int heigth, int mapa[][COL]);
+
 /*FUNCION SHIPS_CREATE
  * BRIEF: Se encarga de posicionar los enemigos en el mapa
  * diff: (const int) Indica el nivel de dificultad seleccionado por el jugador
@@ -26,6 +29,7 @@ static void barrier_gen(const int x, const int y, const int width, const int hei
  * Return: (void)
  */
 static void ships_create(int diff, int mapa[][COL]);
+
 /* FUNCIÓN SPAWN_GEN
  * BRIEF: Crea en el mapa los enemigos según la dificultad
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
@@ -35,7 +39,6 @@ static void ships_create(int diff, int mapa[][COL]);
  * return: (void)
  */
 static void spawn_gen(int mapa[][COL], coord_t ini, coord_t desp, int type_of_enemy);
-//------------------------------------------------------------------------------------------------------------------//
 
 // Se usa y para las filas y x para las columnas, así coincide con los displays
 void map_def(const int diff, int mapa[][COL], int score)
@@ -86,12 +89,6 @@ void map_def(const int diff, int mapa[][COL], int score)
 	SPAWN_POINT = JUGADOR;
 }
 
-/* FUNCIÓN BARRIER_DIFF
- * BRIEF: Se encarga de determinar la cantidad y tamaño de las barreras a poner
- * diff: (const int) Es la dificultad que seleccionó el jugador
- * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
- * return: (void)
- *  */
 static void barrier_diff(const int diff, int mapa[][COL])
 {
 	int i;
@@ -117,15 +114,6 @@ static void barrier_diff(const int diff, int mapa[][COL])
 	// EXTREME no genera barreras
 }
 
-/* FUNCIÓN BARRIER_GEN
- * BRIEF: Se encarga de generar barreras del tamaño deseado en una determinada posición.
- * x: (int) Posición x de inicio (debe ser la sup. izq.)
- * y: (int) Posición y de inicio (debe ser la sup. izq)
- * width: (int) Ancho deseado
- * heigth: (int) Alto deseado
- * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
- * return: (void)
- *  */
 static void barrier_gen(const int x, const int y, const int width, const int heigth, int mapa[][COL])
 {
 
@@ -193,14 +181,6 @@ static void ships_create(int diff, int mapa[][COL])
     }
 }
 
-/* FUNCIÓN SPAWN_GEN
- * BRIEF: Crea en el mapa los enemigos según la dificultad
- * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
- * ini: (coord_t) Esquina superior izquierda donde comienza a ubicarse los aliens
- * desp: (coord_t) Esquina inferior derecha, totaliza el desplazamiento de la ubicación de los aliens
- * type_of_enemy: (int) Es el tipo de enemigo a asignar en el espacio entre ini y desp
- * return: (void)
- */
 static void spawn_gen(int mapa[][COL], coord_t ini, coord_t desp, int type_of_enemy)
 {
 

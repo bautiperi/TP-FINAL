@@ -1,3 +1,4 @@
+//-----------------------------------------------------------------------------------------------------//
 // INCLUDES
 #include "conection_b_r.h"
 #include "_defines.h"
@@ -24,7 +25,6 @@ void obj_vis(void *arg)
     unsigned int x, y;
     dcoord_t coords, aux;
 
-
         shutdown_disp();
         gamer = 0;
         shields = 0;
@@ -42,7 +42,7 @@ void obj_vis(void *arg)
                     gamer_vis(coords);
                     gamer++;
                 }
-                // ALIENS
+                // ALIENS 
                 else if ((mapa[y][x] == ALIEN_4 || mapa[y][x] == ALIEN_3 || mapa[y][x] == ALIEN_2) && x < COL && x >= 0 && y < FIL && y > 0)
                 {
                     aliens_vis(coords);
@@ -77,5 +77,5 @@ void obj_vis(void *arg)
                 }
             }
         }
-        disp_update();
+    disp_update();
 }

@@ -69,7 +69,7 @@ void *gamer_fire(void *arg)
         }
     }
 
-    int eureka = 1;
+    int eureka = 1; //flag que indica si encuentra un objeto (alien, boss, disparo enemigo o shield)
 
 #ifndef RASPBERRY
     is_shooting = 0; // Reset the shooting flag
@@ -106,15 +106,18 @@ void *gamer_fire(void *arg)
                 // Evita que se puedan mover los enemigos al momento de ser detectados, para lograr evitar errores
                 flag_game_update = 0;
 
-                // Muestra los impactos en pantalla
+                // Muestra los impactos en pantalla en allegro
+#ifndef RASPBERRY
                 if (mapa[y - 1][pos_x] != 6)
                 {
                     IMPACT_X = pos_x;
                     IMPACT_Y = y - 1;
 
+                    //crea un thread con un contador para la visualizacion de impactos
                     pthread_t impact_up;
                     pthread_create(&impact_up, NULL, impact_updater, mapa);
                 }
+#endif
 
                 score_updater(mapa, mapa[y - 1][pos_x]);
 

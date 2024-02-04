@@ -9,6 +9,7 @@
 #include <unistd.h>
 
 // PROTOTIPOS FUNCIONES PRIVADAS
+
 /* FUNCIÓN PLAYER_COMP
  * BRIEF: Función que se encarga de comparar el score de dos jugadores para saber cual es más alto, para que se ordene de mayor a menor
  * a: (puntero a void constante) Es el primer jugador (el de la izquierda)
@@ -117,12 +118,6 @@ int score_saver(const int score)
 	return 1;
 }
 
-/* FUNCIÓN PLAYER_COMP
- * BRIEF: Función que se encarga de comparar el score de dos jugadores para saber cual es más alto, para que se ordene de mayor a menor
- * a: (puntero a void constante) Es el primer jugador (el de la izquierda)
- * b: (puntero a void constante) Es el segundo jugador (el de la derecha)
- * return: (int) Devuelve el valor de verdad para cambiar o no el orden de ambos jugadores
- */
 static int player_comp(const void *a, const void *b)
 {
 

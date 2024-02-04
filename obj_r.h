@@ -1,10 +1,11 @@
-
 #ifndef OBJ_R_H
 #define OBJ_R_H
 
-// INCLUDES NECESARIOS PARA PROTOTIPOS
+// INCLUDES HEADER FILES
 #include "_defines.h"
 #include "disdrv.h"
+
+//PROTOTIPOS DE FUNCIONES
 
 /***********************************  GAMER   ***********************************/
 

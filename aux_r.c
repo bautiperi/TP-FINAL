@@ -1,4 +1,5 @@
-// INCLUDES
+//-----------------------------------------------------------------------------------------------------//
+// INCLUDE HEADER FILES
 #include "aux_r.h"
 #include "_defines_display_r.h"
 #include "_defines.h"
@@ -11,7 +12,7 @@ void shutdown_disp(void)
     int i, j;
     dcoord_t coor;
 
-    // BOORO TODO
+    // borra todo del display
     for (i = 0; i < 16; i++)
     {
         coor.x = i;

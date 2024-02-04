@@ -1,4 +1,5 @@
-// INCLUDES
+//-----------------------------------------------------------------------------------------------------//
+// INCLUDE HEADER FILES
 #include "score_r.h"
 #include "aux_r.h"
 #include "_defines.h"
@@ -6,6 +7,8 @@
 // LIBRERIAS
 #include "disdrv.h"
 #include <stdio.h>
+
+// PROTOTIPOS DE FUNCIONES
 
 /*FUNCION NUM_VIS
 brief: se encarga de mostrar un digito a la vez
@@ -23,7 +26,7 @@ static void score_wrd_vis(void);
 
 void score_vis(int score)
 {
-    dcoord_t coor_ini = {13, 8}; // coordenada inicial
+    dcoord_t coor_ini = {13, 8}; // coordenada inicial (superior izquierda del ultimo digito)
     shutdown_disp();
 
     // determina el número de dígitos
@@ -36,6 +39,7 @@ void score_vis(int score)
 
         // muestra el dígito
         num_vis(digit, coor_ini);
+        // se guarda cada digito en el buffer del display
         coor_ini.x -= 3; // cada numero tiene un espacio de 3x5
 
     } while (tempNum > 0);
@@ -46,7 +50,6 @@ void score_vis(int score)
 
 static void num_vis(int num, dcoord_t coor)
 {
-    // dcoord_t coor_inicial = coor;
     // Dependiendo del numero, se guardan en el buffer los leds indicados
     int i;
     switch (num)

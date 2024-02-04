@@ -1,6 +1,8 @@
 #ifndef DISP_SCOREBOARD_A_H_
 #define DISP_SCOREBOARD_A_H_
 
+// PROTOTIPOS DE FUNCIONES
+
 /* FUNCIÓN DISPLAY_SCOREBOARD
  * BRIEF: Se encarga de mostrar los jugadores que forman parte del scoreboard y se encarga de que funcione
  * la interacción con el usuario dentro del scoreboard

@@ -1,5 +1,7 @@
+//-----------------------------------------------------------------------------------------------------//
 #include "back_aux.h"
 
+// INCLUDE HEADER FILES
 #include <pthread.h>
 #include <stdlib.h>
 #include <unistd.h>

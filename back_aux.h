@@ -1,7 +1,10 @@
 #ifndef BACK_AUX_H_
 #define BACK_AUX_H_
 
+// INCLUDE HEADER FILES
 #include "_defines.h"
+
+// PROTOTIPOS DE FUNCIONES
 
 /* FUNCIÓN SWAP
  * BRIEF: Cambia el contenido de dos celdas de la matriz

@@ -1,14 +1,19 @@
 #ifndef RASPBERRY
 // ----------------------------------------------------------------------------- //
+
+// INCLUDE HEADER FILES
+
 //FRONT
 #include "disp_start_menu_a.h"
 #include "disp_game_a.h"
 #include "disp_scoreboard_a.h"
 #include "_defines_display.h"
+
 //BACK
 #include "back_map.h"
 #include "back_player.h"
 #include "back_enemy.h"
+
 //LIBRERIAS
 #include <stdio.h>
 #include <pthread.h>
@@ -24,6 +29,13 @@ double last_shot_time = 0.0;
 double shot_cooldown = 0.75;  // Definimos el tiempo entre cada disparo
 // ----------------------------------------------------------------------------- //
 
+// PROTOTIPO DE FUNCIONES
+
+/* FUNCIÓN UPDATE_PLAYER_KEYBOARD (hecha para threads)
+ * BRIEF: Es la función que se encarga de la interacción entre el usuario y dentro del juego
+ * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * return: (void *)
+ */
 void * update_player_keyboard (void * arg);
 
 int main(void){
@@ -69,12 +81,6 @@ int main(void){
 	return 0;
 
 }
-
-/* FUNCIÓN UPDATE_PLAYER_KEYBOARD (hecha para threads)
- * BRIEF: Es la función que se encarga de la interacción entre el usuario y dentro del juego
- * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
- * return: (void *)
- **/
 
 void *update_player_keyboard(void *arg) {
     int (*mapa)[COL] = (int (*)[COL])arg;
@@ -129,14 +135,15 @@ void *update_player_keyboard(void *arg) {
 }
 
 #else
-// LIBS
+
+// LIBRERIAS
 #include <unistd.h>
 #include <pthread.h>
 #include <stdio.h>
 #include "joydrv.h"
 #include "disdrv.h"
 
-// CONEXION B-F
+// CONEXION BACK-FRONT
 #include "conection_b_r.h"
 
 // FRONT
@@ -150,7 +157,7 @@ void *update_player_keyboard(void *arg) {
 #include "back_enemy.h"
 #include "back_score.h"
 
-// DEFINES
+// INCLUDE HEADER FILES
 #include "_defines.h"
 #include "_defines_display_r.h"
 
@@ -158,12 +165,13 @@ int flag_game_update = 0;
 
 int main(void)
 {
-	disp_init();
+	disp_init(); // se inicializa el display
 	disp_clear();
 
 	int mapa[FIL][COL];
 	map_def(RASP, mapa, 0);
 
+	// creacion de threads
 	pthread_t up_aliens, up_boss, up_aliens_fire;
 	pthread_create(&up_boss, NULL, final_boss_creation, mapa);
 	pthread_create(&up_aliens, NULL, alien_movement, mapa);
@@ -171,12 +179,11 @@ int main(void)
 
 	joy_init();
 	STATUS = 2;
-	joyinfo_t coord; //= {0, 0, J_NOPRESS};
+	joyinfo_t coord;
 	int npos = 0;
 	dcoord_t coord_menu = {15, 0};
-	FLICK_OPTION = 0; // flag para seleccion en el menu
-	// JUEGO
-	CLOSE_GAME = 0;
+	SELECT_OPTION = 0; // flag para seleccion en el menu
+	CLOSE_GAME = 0; // flag para terminar la ejecucion
 
 	do
 	{
@@ -226,12 +233,12 @@ int main(void)
 			menu_vis(mapa);
 			if (coord.x > THRESHOLD && coord.sw == J_NOPRESS)
 			{
-				FLICK_OPTION = 1; // TITILA EL PLAY
+				SELECT_OPTION = 1; // SALIR
 			}
 
 			if (coord.x < -THRESHOLD && coord.sw == J_NOPRESS)
 			{
-				FLICK_OPTION = 0; // TITLA EL SALIR
+				SELECT_OPTION = 0; // PLAY
 			}
 
 			if (FLICK_OPTION == 1 && coord.sw == J_PRESS)
@@ -250,19 +257,19 @@ int main(void)
 			menu_principal_vis(mapa);
 			if (coord.x > THRESHOLD && coord.sw == J_NOPRESS)
 			{
-				FLICK_OPTION = 1; // TITILA EL APAGAR
+				SELECT_OPTION = 1; // APAGAR
 			}
 
 			if (coord.x < -THRESHOLD && coord.sw == J_NOPRESS)
 			{
-				FLICK_OPTION = 0; // TITLA EL PLAY
+				SELECT_OPTION = 0; // PLAY
 			}
 
 			if (FLICK_OPTION == 1 && coord.sw == J_PRESS)
 			{
 				shutdown_disp(); // APAGA EL DISPLAY
 				flag_game_update = 0;
-				CLOSE_GAME = 1; // INDICA QUE SE TERMNINO EL JUEGO
+				CLOSE_GAME = 1; // INDICA QUE SE TERMINO EL JUEGO
 				STATUS = 4;
 			}
 			else if (FLICK_OPTION == 0 && coord.sw == J_PRESS)

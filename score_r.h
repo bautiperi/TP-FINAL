@@ -1,6 +1,8 @@
 #ifndef SCORE_R_H
 #define SCORE_R_H
 
+// PROTOTIPOS DE FUNCIONES
+
 /*FUNCION SCORE_VIS
 brief: se encarga de mostrar el score luego de la partida
 score: (int) score

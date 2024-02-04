@@ -1,14 +1,10 @@
-/*
- * back_player.h
- *
- *  Created on: Jan 28, 2024
- *      Author: bauti
- */
-
 #ifndef BACK_PLAYER_H_
 #define BACK_PLAYER_H_
 
+// INCLUDE HEADER FILES
 #include "_defines.h"
+
+// PROTOTIPOS DE FUNCIONES
 
 /* FUNCIÓN GAMER_MOVEMENT
  * BRIEF: mueve el gamer en la matriz
@@ -20,7 +16,7 @@ void gamer_movement(int mapa[][COL], int dir);
 
 /* FUNCIÓN GAMER_FIRE
  * BRIEF: Es llamada al momento del que el jugador dispara, se encarga de "llevar" el disparo por el mapa y detectar si hubo una colisión
- * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * arg: (*void) puntero a la matriz donde se desarrolla el juego
  * return: (void)
  */
 void *gamer_fire(void *arg);

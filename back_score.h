@@ -1,6 +1,7 @@
 #ifndef BACK_SCORE_H_
 #define BACK_SCORE_H_
 
+// INCLUDE HEADER FILES
 #include "_defines.h"
 
 // Estructura donde se guardan los nombres y scores de jugadores
@@ -10,9 +11,12 @@ typedef struct
     int score;
 } player_t;
 
+// PROTOTIPO DE FUNCIONES
+
 /* FUNCIÓN SCORE_UPDATER
  * BRIEF: Actualiza el score actual del jugador
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
+ * identifier: (int) tipo de enemigo al que se le disparó
  * return: (void)
  */
 void score_updater(int mapa[][COL], int idetifier);

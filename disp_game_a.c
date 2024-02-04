@@ -1,16 +1,17 @@
 // ------------------------------------------------------------------------------------------------------------ //
+// HEADER FILES
 #include "disp_game_a.h"
 #include "disp_pause_a.h"
 #include "disp_scoreboard_a.h"
 #include "_defines_display.h"
 
-//LIBRERIAS
+// LIBRERIAS
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <time.h>
 
-//LIBRERIAS ALLEGRO
+// LIBRERIAS ALLEGRO
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
@@ -19,6 +20,7 @@
 #include <allegro5/allegro_acodec.h>
 
 //PROTOTIPOS DE FUNCIONES PRIVADAS
+
 /* FUNCIÓN DISPLAY_BARR
  * BRIEF: Se encarga de mostrar en pantalla las barreras/escudos
  * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
@@ -73,7 +75,7 @@ extern int flag_game_update;
 // ------------------------------------------------------------------------------------------------------------ //
 
 int display_game (const int mapa[][COL], ALLEGRO_DISPLAY * display){
-
+	// Dos flags para lograr que se escuche la música cuando sale el boss
 	int ken_flag = 0, ken_flag_continue = 0;
 
 	// INICIALIZACIÓN DE ELEMENTOS PARA EL JUEGO:
@@ -139,6 +141,7 @@ int display_game (const int mapa[][COL], ALLEGRO_DISPLAY * display){
 	//Habilita los threads del juego, interacciones del usuario, movimiento de enemigos, etc
 	flag_game_update = 1;
 
+	// Loop que se encarga de llamar a las funciones de visualización 60 veces por segundo
 	do{
 
 		al_get_next_event(event_queue, &event);
@@ -181,6 +184,7 @@ int display_game (const int mapa[][COL], ALLEGRO_DISPLAY * display){
 
 		}
 
+		// En caso de quedarse sin vidas el jugador se termina el juego
 		if(LIVES == 0){
 			//Elimina los threads
 			flag_game_update = 2;
@@ -262,12 +266,6 @@ int display_game (const int mapa[][COL], ALLEGRO_DISPLAY * display){
 
 }
 
-/* FUNCIÓN DISPLAY_BARR
- * BRIEF: Se encarga de mostrar en pantalla las barreras/escudos
- * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
- * barrier: (Puntero tipo ALLEGRO_BITMAP) Es la imagen utilizada para mostrar en pantalla las barreras
- * return: (void)
- *  */
 static void display_barr (const int mapa[][COL], ALLEGRO_BITMAP *barrier) {
 
     int x, y;
@@ -283,14 +281,6 @@ static void display_barr (const int mapa[][COL], ALLEGRO_BITMAP *barrier) {
 
 }
 
-/* FUNCIÓN DISPLAY_STATS
- * BRIEF: Se encarga de mostrar en pantalla el score, vidas actuales y una leyenda que indica como entrar al menu de pausa
- * score: (int) Recibe el score actual del jugador
- * lives: (int) Recibe la cantidad de vidas que tiene el jugador
- * font: (puntero tipo ALEGRO_FONT) Recibe el tipo de fuente a utilizar
- * heart: (puntero tipo ALLEGRO_BITMAP) Recibe la imágen para mostrar la cantidad de vidas que tiene el jugador
- * return: (void)
- *  */
 static void display_stats (int score, int lives, ALLEGRO_FONT *font, ALLEGRO_BITMAP *heart) {
 
 	//Escribe en pantalla el score que tiene el jugador
@@ -310,12 +300,6 @@ static void display_stats (int score, int lives, ALLEGRO_FONT *font, ALLEGRO_BIT
 
 }
 
-/* FUNCIÓN DISPLAY_PLAYER
- * BRIEF: Se encarga de mostrar en pantalla al jugador
- * mapa: (matriz de ints) Matriz donde se desarrolla el juego
- * player: (puntero tipo ALLEGRO_BITMAP) Imagen que se muestra en pantalla para representar al jugador)
- * return: (void)
- *  */
 static void display_player (const int mapa[][COL], ALLEGRO_BITMAP * player){
 
 	int x;
@@ -328,11 +312,6 @@ static void display_player (const int mapa[][COL], ALLEGRO_BITMAP * player){
 
 }
 
-/* FUNCIÓN DISPLAY_ALIENS
- * BRIEF: Se encarga de mostrar en pantalla los enemigos (aliens y boss)
- * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
- * return: (int) En caso de que el boss esté en pantalla, se devuelve 1 para que se escuche la canción
- *  */
 static int display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLEGRO_BITMAP * alien_2, ALLEGRO_BITMAP * alien_3, ALLEGRO_BITMAP * boss){
 
 	//Loop que encuentra los aliens y los muestra en pantalla
@@ -363,11 +342,6 @@ static int display_aliens (const int mapa[][COL], ALLEGRO_BITMAP * alien_1, ALLE
 
 }
 
-/* FUNCIÓN DISPLAY_BULLET
- * BRIEF: Se encarga de mostrar en pantalla las balas de enemigos y jugador (celestes jugador, naranja enemigo)
- * mapa: (matriz de ints) Es la matriz donde se desarrolla el juego
- * return: (void)
- *  */
 static void display_bullet(const int mapa[][COL]){
 	int x, y;
 
@@ -388,13 +362,6 @@ static void display_bullet(const int mapa[][COL]){
 
 }
 
-/* FUNCIÓN DISPLAY_IMPACT
- * BRIEF: Se encarga de mostrar en pantalla cuando un disparo le pega a una barrera o a un alien
- * x: (int) Coordenada x donde ocurre el impacto
- * y: (int) Coordenada y donde ocurre el impacto
- * impact: (Puntero a ALLEGRO_BITMAP) Recibe la foto para el impacto a mostrar en pantalla
- * return: (void)
- *  */
 static void display_impact(const int x, const int y, ALLEGRO_BITMAP * impact){
 
 	//Muestra en pantalla el impacto

@@ -1,14 +1,14 @@
 // ------------------------------------------------------------------------------------------------- //
-//HEADER
+// INCLUDES HEADER FILES
 #include "disp_start_menu_a.h"
 #include "disp_scoreboard_a.h"
 #include "_defines_display.h"
 #include "_defines.h"
 
-//LIBRERIAS
+// LIBRERIAS
 #include <stdio.h>
 
-//LIBRERIAS ALLEGRO
+// LIBRERIAS ALLEGRO
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
@@ -16,21 +16,26 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 
-//PROTOTIPOS FUNCIONES PRIVADAS
+// PROTOTIPOS FUNCIONES PRIVADAS
+
 /* FUNCIÓN DISPLAY_S_MENU
  * BRIEF: Es la función que muestra en pantalla el menú de inicio
  * boton: (u int) Recibe la selección del jugador para mostrar en pantalla
  * return: (void)
  * */
 static void display_s_menu (unsigned int boton, ALLEGRO_FONT * font_title, ALLEGRO_FONT * font);
-/* FUNCIÓN DISPLAY_P_MENU
+
+/* FUNCIÓN DISPLAY_DIFFICULTY
  * BRIEF: Función que muestra en pantalla las opciones de dificultad del juego
+ * ev: (ALLEGRO_EVENT) Para pasarle el "event queue"
+ * event_queue: Le pasa el "event queue"
  * return: (int) Devuelve el valor de dificultad seleccionado
  * */
 static int display_difficulty (ALLEGRO_EVENT ev, ALLEGRO_EVENT_QUEUE *event_queue);
 // ------------------------------------------------------------------------------------------------- //
 
 ALLEGRO_DISPLAY * display_init (void){
+	
 	ALLEGRO_DISPLAY * display = NULL;
 
 	//Inicializa Allegro
@@ -43,7 +48,6 @@ ALLEGRO_DISPLAY * display_init (void){
 	if(!al_install_keyboard()){
 		fprintf(stderr, "No se pudo instalar el driver para el teclado \n");
 	}
-
 
 	//Inicializa el manejo de imágenes
 	if (!al_init_image_addon()) {
@@ -125,7 +129,7 @@ int display_start_menu(int * dificultad, ALLEGRO_DISPLAY * display){
 	al_play_sample_instance(sampleInstance);
 	al_set_sample_instance_gain(sampleInstance, 0.5);
 
-	//LOOP
+	// Loop que muestra el menú de inicio
 	do{
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
@@ -148,6 +152,7 @@ int display_start_menu(int * dificultad, ALLEGRO_DISPLAY * display){
 
 		display_s_menu(sel, font_title, font);
 
+		// Identifica si el usuario quiere cambiar su selección o si quiere cerrar el juego
 		if (ev.type == ALLEGRO_EVENT_KEY_DOWN){
 			if(ev.keyboard.keycode == ALLEGRO_KEY_ENTER || ev.keyboard.keycode == ALLEGRO_KEY_SPACE){
 				//Si se selecciona el scoreboard, se llama a la función encargada de ello
@@ -200,14 +205,10 @@ int display_start_menu(int * dificultad, ALLEGRO_DISPLAY * display){
 	al_destroy_sample_instance(sampleInstance);
 	al_destroy_sample(sample);
 
+	// Devuelve la selección del jugador
 	return sel;
 }
 
-/* FUNCIÓN DISPLAY_S_MENU
- * BRIEF: Es la función que muestra en pantalla el menú de inicio
- * boton: (u int) Recibe la selección del jugador para mostrar en pantalla
- * return: (void)
- * */
 static void display_s_menu (unsigned int boton, ALLEGRO_FONT * font_title, ALLEGRO_FONT * font){
 
 	al_clear_to_color(al_map_rgb(54,1,63));
@@ -255,10 +256,7 @@ static void display_s_menu (unsigned int boton, ALLEGRO_FONT * font_title, ALLEG
 
 }
 
-/* FUNCIÓN DISPLAY_P_MENU
- * BRIEF: Función que muestra en pantalla las opciones de dificultad del juego
- * return: (int) Devuelve el valor de dificultad seleccionado
- * */
+
 static int display_difficulty (ALLEGRO_EVENT ev, ALLEGRO_EVENT_QUEUE *event_queue) {
 
 	int sel = NORMAL;
