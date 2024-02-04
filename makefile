@@ -24,11 +24,11 @@ all: $(PLATFORM)
 
 # PLATFORM RASPBERRY
 RASPBERRY: $(RASP) $(COMMON)
-	$(CC) -DRASPBERRY $(RASP) $(COMMON) -o raspberry $(CFLAGS)
+	$(CC) -DRASPBERRY $(RASP) $(COMMON) -o "Space Barbie - Raspberry" $(CFLAGS)
 
 # PLATFORM ALLEGRO
 ALLEGRO: $(ALLEGRO) $(COMMON)
-	$(CC) $(ALLEGRO) $(COMMON) -o allegro $(CFLAGS) $(CLIBS)
+	$(CC) $(ALLEGRO) $(COMMON) -o "Space Barbie - Allegro" $(CFLAGS) $(CLIBS)
 
 ifeq ($(PLATFORM), raspberry)
 # Regla generica para la compilación de archivos fuente a objetos
