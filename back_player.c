@@ -2,6 +2,7 @@
 #include "back_player.h"
 #include "back_aux.h"
 #include "back_score.h"
+#include "back_enemy.h"
 
 // LIBRERIAS
 #include <unistd.h>
