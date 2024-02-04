@@ -203,11 +203,19 @@ static void alien_movement_v(int mapa[][COL])
 
 void *final_boss_creation(void *arg)
 {
+#ifndef RASPBERRY
+    static int flag_is_thread_created = 1;
+#endif
     time_t t;
     srand((unsigned)time(&t));
     int(*mapa)[COL] = (int(*)[COL])arg;
+#ifndef RASPBERRY
+    while (flag_game_update != 2 && flag_is_thread_created) // Termina la ejecución del thread
+    {
+#else
     while (flag_game_update != 2) // Termina la ejecución del thread
     {
+#endif
         // Pone el thread "en pausa"
         while (flag_game_update == 0)
         {
@@ -242,6 +250,12 @@ void *final_boss_creation(void *arg)
 #endif
         }
     }
+    
+    #ifndef RASPBERRY
+        if(!flag_is_thread_created){
+    	flag_is_thread_created++;
+    }
+    #endif
     pthread_exit(NULL);
 }
 
@@ -329,7 +343,7 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
     time_t t;
     srand((unsigned)time(&t));
 
-    while (flag_game_update != 2)
+    while (flag_game_update != 2) // Termina la ejecución del thread
     {
         // Pone el thread "en pausa"
         while (flag_game_update == 0)
@@ -342,7 +356,7 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
             recorre_fil = rand() % 3 + 1;
             for (y = FIL; y > 0; y -= recorre_fil)
             {
-                if (enemy_checker(x, y, mapa) && !can_enemy_fire) // Verifica que haya aliens para que disparen
+                if ((enemy_checker(x, y, mapa)) && !(enemy_checker(x, y + 1, mapa))) // Verifica que haya aliens para que disparen
                 {
                     shot = rand() % 100 + 1;
                     if (shot < 15) // Genera disparos en una cantidad determinada de las iteraciones
@@ -361,9 +375,9 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
                             }
                             else if (mapa[y + 1][xb - 1] == JUGADOR) // Si la bala impacta al jugador en el costado izquierdo
                             {
-                                eureka = 0;
+                            	eureka = 0;
 
-                                mapa[y][xb] = SPACE;
+                            	mapa[y][xb] = SPACE;
                                 mapa[y + 1][xb - 1] = SPACE;
 
                                 IMPACT_X = xb - 1;
@@ -376,12 +390,12 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
                             }
                             else if (mapa[y + 1][xb + 1] == JUGADOR) // Si la bala impacta al jugador en el costado derecho
                             {
-                                eureka = 0;
+                            	eureka = 0;
 
-                                mapa[y][xb] = SPACE;
+                            	mapa[y][xb] = SPACE;
                                 mapa[y + 1][xb + 1] = SPACE;
 
-                                IMPACT_X = xb + 1;
+                            	IMPACT_X = xb + 1;
                                 IMPACT_Y = y + 1;
 
                                 pthread_t impact_up;
@@ -391,13 +405,13 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
                             }
                             else if (mapa[y][xb] == JUGADOR) // Si el jugador impacta una bala por la derecha
                             {
-                                eureka = 0;
+                            	eureka = 0;
 
-                                mapa[y][xb] = SPACE;
+                            	mapa[y][xb] = SPACE;
                                 mapa[y][xb + 1] = SPACE;
 
-                                IMPACT_X = xb;
-                                IMPACT_Y = y + 1;
+                            	IMPACT_X = xb;
+                                IMPACT_Y = y +1;
 
                                 pthread_t impact_up;
                                 pthread_create(&impact_up, NULL, impact_updater, mapa);
@@ -424,7 +438,7 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
                                     mapa[y + 1][xb] += 1;
                                     mapa[y][xb] = SPACE;
                                 }
-                                else if (mapa[y + 1][xb] == JUGADOR) // Si la bala impacta al jugador de frente
+                                else if (mapa[y + 1][xb] == JUGADOR )  // Si la bala impacta al jugador de frente
                                 {
                                     mapa[y][xb] = SPACE;
                                     mapa[y + 1][xb] = SPACE;
