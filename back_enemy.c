@@ -206,23 +206,19 @@ void *final_boss_creation(void *arg)
     time_t t;
     srand((unsigned)time(&t));
     int(*mapa)[COL] = (int(*)[COL])arg;
-    while (1)
+    while (flag_game_update != 2) // Termina la ejecución del thread
     {
         // Pone el thread "en pausa"
         while (flag_game_update == 0)
         {
         }
-        // Termina la ejecución del thread
-        if (flag_game_update == 2)
-        {
-            pthread_exit(NULL);
-        }
 
         usleep((rand() % 6 + 10) * 1000000);
 
-        int dir = rand() % 2 - 1;
+        //int dir = ((rand() % 2 == 0) ? 1 : -1); //Hace que el nro sea -1 o 1
+        int dir = rand() % 4 - 2;
         // si dir>=0 el enemigo aparece a la izquierda del mapa en direccion a la derecha
-        if (dir == 1)
+        if (dir >= 0)
         {
 #ifdef RASPBERRY
             mapa[0][6] = 1;
@@ -261,7 +257,7 @@ static void final_boss_movement(int mapa[][COL], int dir, int y)
     int x;
 
     // Se mueve hacia la derecha
-    if (dir == 1)
+    if (dir >= 0)
     {
 
         for (x = 0; x < COL; x++)
@@ -333,16 +329,11 @@ void *enemy_fire(void *arg) // Genera los disparos enemigos
     time_t t;
     srand((unsigned)time(&t));
 
-    while (1)
+    while (flag_game_update != 2)
     {
         // Pone el thread "en pausa"
         while (flag_game_update == 0)
         {
-        }
-        // Termina la ejecución del thread
-        if (flag_game_update == 2 || can_enemy_fire == 1)
-        {
-            return NULL;
         }
 
         recorre_col = rand() % 4 + 1;
