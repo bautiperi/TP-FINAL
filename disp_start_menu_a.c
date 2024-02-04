@@ -86,7 +86,7 @@ ALLEGRO_DISPLAY * display_init (void){
 		return NULL;
 	}
 
-	al_set_window_title(display, "Space Invaders - TP FINAL - Grupo 5");
+	al_set_window_title(display, "Space Barbie - TP FINAL - Grupo 5");
 
 	return display;
 }
