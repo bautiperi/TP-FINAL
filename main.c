@@ -241,11 +241,11 @@ int main(void)
 				SELECT_OPTION = 0; // PLAY
 			}
 
-			if (FLICK_OPTION == 1 && coord.sw == J_PRESS)
+			if (SELECT_OPTION == 1 && coord.sw == J_PRESS)
 			{
 				STATUS = 3; // CAMBIA A MENU PRINCIPAL
 			}
-			else if (FLICK_OPTION == 0 && coord.sw == J_PRESS)
+			else if (SELECT_OPTION == 0 && coord.sw == J_PRESS)
 			{
 				STATUS = 0; // VUELVE AL JUEGO
 				flag_game_update = 1;
@@ -265,14 +265,14 @@ int main(void)
 				SELECT_OPTION = 0; // PLAY
 			}
 
-			if (FLICK_OPTION == 1 && coord.sw == J_PRESS)
+			if (SELECT_OPTION == 1 && coord.sw == J_PRESS)
 			{
 				shutdown_disp(); // APAGA EL DISPLAY
 				flag_game_update = 0;
 				CLOSE_GAME = 1; // INDICA QUE SE TERMINO EL JUEGO
 				STATUS = 4;
 			}
-			else if (FLICK_OPTION == 0 && coord.sw == J_PRESS)
+			else if (SELECT_OPTION == 0 && coord.sw == J_PRESS)
 			{
 				STATUS = 0; // VUELVE AL JUEGO
 				map_def(RASP, mapa, 0);
